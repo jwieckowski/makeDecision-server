@@ -1,4 +1,4 @@
-from flask import Flask, redirect, request, g, jsonify
+from flask import Flask, redirect, request, g, jsonify, Response, make_response, abort
 from flask_expects_json import expects_json
 from flask_cors import CORS
 import numpy as np
@@ -129,7 +129,13 @@ def calculation_results():
     results['matrices'] = [m.tolist() for m in calculationMatrixes]
     
     # MCDA evaluation
-    results['method'] = Calculations.calculate_preferences(calculationMatrixes, extensions, calculationTypes, method, params)
+    try:
+        results['method'] = Calculations.calculate_preferences(calculationMatrixes, extensions, calculationTypes, method, params)
+    except Exception as e:
+        calculation_error = {
+            "error": e.args[0]
+        }
+        return jsonify(calculation_error), 400
 
     # MCDA preferences correlation
     if len(methodCorrelations) > 0:
