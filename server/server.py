@@ -158,4 +158,5 @@ def catch_all(u_path):
     return redirect('/')
 
 if __name__ == '__main__':
+    print('Application running')
     app.run()
