@@ -89,7 +89,13 @@ def calculation_results():
             calculationTypes.append(types[idx])
         # input
         else:
-            calculationMatrixes.append(np.array(m, dtype=float))
+            # fuzzy
+            if isinstance(m[0][0], str):
+                fuzzy_matrix = [[[float(c.replace(',', '')) for c in col.split()] for col in row]for row in m]
+                calculationMatrixes.append(np.array(fuzzy_matrix, dtype=float))
+            # crisp
+            else:
+                calculationMatrixes.append(np.array(m, dtype=float))
             calculationTypes.append(types[idx])
 
     # verification of input data
@@ -135,6 +141,7 @@ def calculation_results():
         calculation_error = {
             "error": e.args[0]
         }
+        print(calculation_error)
         return jsonify(calculation_error), 400
 
     # MCDA preferences correlation
@@ -158,5 +165,4 @@ def catch_all(u_path):
     return redirect('/')
 
 if __name__ == '__main__':
-    print('Application running')
     app.run()

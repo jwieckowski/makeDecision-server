@@ -180,7 +180,13 @@ class Preferences():
                     
                 else:
                     weights_method = 'input'
-                    weights = np.array(method['weights'])
+                    # fuzzy
+                    if isinstance(method['weights'][0], str):
+                        fuzzy_weights = [[float(c.replace(',', '')) for c in w.split()] for w in method['weights']]
+                        weights = np.array(fuzzy_weights, dtype=float)
+                    # crisp
+                    else:
+                        weights = np.array(method['weights'])
                     check = Validator.validate_user_weights(weights)
                     if check != None:
                         calculate = False
