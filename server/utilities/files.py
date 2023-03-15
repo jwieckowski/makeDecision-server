@@ -44,9 +44,30 @@ class Files():
             return True, matrix, types
         # XLSX file
         elif '[' in data:
-            items = eval(data.split()[0])
+            # crisp
+            if extension == 'crisp':
+                try:
+                    items = eval(data.split()[0])
+                except:
+                    return False, {"error": "Crisp matrix in XLSX format is not defined correctly"}, None
+            # fuzzy
+            elif extension == 'fuzzy':
+                file_matrix = json.loads(data)
+                items = []
+                for row in file_matrix[:-2]:
+                    temp_items = []
+                    for r in row:
+                        try:
+                            temp_items.append(list(eval(r.replace(' ', ', '))))
+                        except:
+                            return False, {"error": "Fuzzy matrix in XLSX format is not defined correctly"}, None
+                    items.append(temp_items)
+                items.append([])
+                items.append(file_matrix[-1])
+
             matrix = np.array(items[0:-2])
             types = np.array(items[-1])
+
 
             matrix_error = Validator.validate_matrix(matrix, extension)
             if matrix_error is not None:
@@ -64,8 +85,30 @@ class Files():
         # CSV file
         else:
             items = data.split('\r\n')
-            matrix = np.array([[int(word.strip()) for word in items[i].split(',') if word != ''] for i in range(len(items)-2)])
-            types = np.array([int(word.strip()) for word in items[len(items)-1].split(',') if word != ''])
+            # crisp
+            if extension == 'crisp':
+                try:
+                    matrix = np.array([[int(word.strip()) for word in items[i].split(',') if word != ''] for i in range(len(items)-2)])
+                except:
+                    return False, {"error": "Crisp matrix in CSV format is not defined correctly"}, None
+            elif extension == 'fuzzy': 
+                matrix = []
+                for i in range(len(items)-2):
+                    row = []
+                    try:
+                        for r in items[i].split(', '):
+                            row.append(list(eval(r.replace(' ', ', '))))
+                    except: 
+                        return False, {"error": "Fuzzy matrix in CSV format is not defined correctly"}, None
+                    matrix.append(row)
+                    
+                matrix = np.array(matrix)
+                
+            try:
+                types = np.array([int(word.strip()) for word in items[len(items)-1].split(',') if word != ''])
+            except:
+                return False, {"error": "Criteria types in CSV format are not defined correctly"}, None
+
 
             matrix_error = Validator.validate_matrix(matrix, extension)
             if matrix_error is not None:
