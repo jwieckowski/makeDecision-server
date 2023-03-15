@@ -50,8 +50,11 @@ def about_description():
 def about_files():
     images = [
         project_home+'public/files/json_data.png',
+        project_home+'public/files/fuzzy_json_data.png',
         project_home+'public/files/xlsx_data.png',
-        project_home+'public/files/csv_data.png'
+        project_home+'public/files/fuzzy_xlsx_data.png',
+        project_home+'public/files/csv_data.png',
+        project_home+'public/files/fuzzy_csv_data.png'
     ]
     encoded_images = []
     for image_path in images:

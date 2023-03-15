@@ -182,7 +182,11 @@ class Preferences():
                     weights_method = 'input'
                     # fuzzy
                     if isinstance(method['weights'][0], str):
-                        fuzzy_weights = [[float(c.replace(',', '')) for c in w.split()] for w in method['weights']]
+                        try:
+                            fuzzy_weights = [[float(c.replace(',', '')) for c in w.split()] for w in method['weights']]
+                        except:
+                            error = {"error": "Fuzzy weights from users' input are not defined correctly"}
+                            calculate = False
                         weights = np.array(fuzzy_weights, dtype=float)
                     # crisp
                     else:
