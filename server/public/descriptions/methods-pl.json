@@ -1,0 +1,637 @@
+[
+  {
+    "id": 0,
+    "key": "Wagi kryterialne",
+    "data": [
+      {
+        "id": 0,
+        "name": "Angle",
+        "description": []
+      },
+      {
+        "id": 1,
+        "name": "CILOS",
+        "description": []
+      },
+      {
+        "id": 2,
+        "name": "CRITIC",
+        "description": []
+      },
+      {
+        "id": 3,
+        "name": "Entropy",
+        "description": []
+      },
+      {
+        "id": 4,
+        "name": "Equal",
+        "description": []
+      },
+      {
+        "id": 5,
+        "name": "Gini",
+        "description": []
+      },
+      {
+        "id": 6,
+        "name": "IDOCRIW",
+        "description": []
+      },
+      {
+        "id": 7,
+        "name": "MEREC",
+        "description": []
+      },
+      {
+        "id": 8,
+        "name": "Standard deviation",
+        "description": []
+      },
+      {
+        "id": 9,
+        "name": "Variance",
+        "description": []
+      }
+    ]
+  },
+  {
+    "id": 0,
+    "key": "MCDA",
+    "data": [
+      {
+        "id": 0,
+        "name": "ARAS",
+        "description": [
+          {
+            "id": 0,
+            "text": "Zgodnie z założeniami metody Additive Ratio ASsessment (ARAS) wartość funkcji użyteczności, określającej złożoną względną efektywność wykonalnej alternatywy, jest wprost proporcjonalna do względnego wpływu wartości i wag głównych kryteriów rozpatrywanych w projekcie. Metoda ARAS jest wykorzystywana do oceny alternatyw decyzyjnych według następujących kroków."
+          },
+          {
+            "id": 1,
+            "text": "**Krok 1.** Definicja macierzy decyzyjnej o wymiarze $$n \\times m$$, gdzie $n$ to liczba alternatyw, a $m$ to liczba kryteriów"
+          },
+          {
+            "id": 2,
+            "text": "**Krok 2.** Obliczenie znormalizowanej macierzy decyzyjnej."
+          },
+          {
+            "id": 3,
+            "text": "**Krok 3.** Budowa macierzy decyzyjnej $$v_{ij}$ poddanej procesowi ważenia i normalizacji."
+          },
+          {
+            "id": 4,
+            "text": "$$ v_{ij} = w_{j}r_{ij} $$"
+          },
+          {
+            "id": 5,
+            "text": "**Krok 4.** Wyznaczanie wartości funkcji optymalności."
+          },
+          {
+            "id": 6,
+            "text": "$$ S_i = \\sum_{j=1}^{n} v_{ij} $$"
+          },
+          {
+            "id": 7,
+            "text": "**Krok 5.** Obliczenie stopnia użyteczności $$K_i$$."
+          },
+          {
+            "id": 8,
+            "text": "$$ K_i = \\frac{S_i}{S_0} $$."
+          },
+          {
+            "id": 9,
+            "text": "gdzie $$S_i$$ i $$S_0$$ są wartościami kryterium optymalności."
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "COCOSO",
+        "description": [
+          {
+            "id": 0,
+            "text": "Proponowane podejście opiera się na zintegrowanym prostym modelu wag addytywnych i wykładniczo ważonego produktu. Może ono stanowić kompendium rozwiązań kompromisowych. Aby rozwiązać problem decyzyjny Combined Compromise Solution (CoCoSo), po określeniu alternatyw i związanych z nimi kryteriów, zatwierdza się następujące kroki."
+          },
+          {
+            "id": 1,
+            "text": "**Krok 1.** Definition of a decision matrix of dimension $$n \\times m$$, where $$n$$ is the number of alternatives, and $$m$$ is the number of criteria."
+          },
+          {
+            "id": 2,
+            "text": "**Krok 2.** Obliczenie znormalizowanej macierzy decyzyjnej."
+          },
+          {
+            "id": 3,
+            "text": "**Krok 3.** Obliczenie sumy ważonej sekwencji porównawczej i łącznej wagi mocy sekwencji porównawczych dla każdej z alternatyw."
+          },
+          {
+            "id": 4,
+            "text": "Wartości $$S_i$$ zostały wyznaczone na podstawie metody generowania Grey relation."
+          },
+          {
+            "id": 5,
+            "text": "$$ S_i = \\sum_{j=1}^{n} (w_j r_{ij}) $$"
+          },
+          {
+            "id": 6,
+            "text": "Dla $$P_i$$ wartości te są uzyskiwane zgodnie z multiplikatywnym ustawieniem WASPAS."
+          },
+          {
+            "id": 7,
+            "text": "$$ P_i = \\sum_{j=1}^{n} (r_{ij})^{w_j} $$"
+          },
+          {
+            "id": 8,
+            "text": "**Krok 4.** Obliczanie względnych wag alternatyw z wykorzystaniem strategii agregacji. Do wyznaczenia strategii można wykorzystać poniższe wzory."
+          },
+          {
+            "id": 9,
+            "text": "Pierwsza strategia wyraża średnią z sum wyników WSM i WPM."
+          },
+          {
+            "id": 10,
+            "text": "$$ k_{i a}=\\frac{P_{i}+S_{i}}{\\sum_{i=1}^{m}\\left(P_{i}+S_{i}\\right)} $$"
+          },
+          {
+            "id": 11,
+            "text": "Druga strategia wyraża sumę wyników WSM i WPM w stosunku do najlepszych."
+          },
+          {
+            "id": 12,
+            "text": "$$ k_{i b}=\\frac{S_{i}}{\\min _{i} S_{i}}+\\frac{P_{i}}{\\min _{i} P_{i}} $$"
+          },
+          {
+            "id": 13,
+            "text": "Trzecia strategia wyraża kompromisową strategię WSM i WPM poprzez zastosowanie wartości $$lambda$$."
+          },
+          {
+            "id": 14,
+            "text": "$$ k_{i c}=\\frac{\\lambda\\left(S_{i}\\right)+(1-\\lambda)\\left(P_{i}\\right)}{\\left(\\lambda \\max _{i} S_{i}+(1-\\lambda) \\max _{i} P_{i}\\right)} ; \\quad 0 \\leqslant \\lambda \\leqslant 1 $$"
+          },
+          {
+            "id": 15,
+            "text": "**Krok 5.** Ustalenie ostatecznego rankingu alternatyw na podstawie zdefiniowanych wartości $$k_i$$. Im wyższa wartość $$k_i$$, tym wyższy ranking."
+          },
+          {
+            "id": 16,
+            "text": "$$ k_{i}=\\left(k_{i a} k_{i b} k_{i c}\\right)^{\\frac{1}{3}}+\\frac{1}{3}\\left(k_{i a}+k_{i b}+k_{i c}\\right) $$"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "CODAS",
+        "description": []
+      },
+      {
+        "id": 3,
+        "name": "COMET",
+        "description": [
+          {
+            "id": 0,
+            "text": "Metoda Characteristic Objects Method (COMET) wyróżnia się spośród innych metod MCDA tym, że jest całkowicie wolna od zjawiska odwrócenia rankingu. Pozwala na stworzenie modelu wielokryterialnej analizy decyzji, który będzie służył jednoznacznym wynikom niezależnie od liczby alternatyw zastosowanych w systemie. Poniżej opisano główne kroki metody."
+          },
+          {
+            "id": 1,
+            "text": "**Krok 1.** Określenie przestrzeni problemu - ekspert określa wymiarowość problemu poprzez wybór liczby $$r$ kryteriów, $$C_1, C_2, ..., C_r$$. Następnie wybiera się zbiór liczb rozmytych dla każdego kryterium $$C_i$$."
+          },
+          {
+            "id": 2,
+            "text": "$$ C_r = \\{\\tilde{C}_{r1}, \\tilde{C}_{r2}, ..., \\tilde{C}_{rc_r}\\} $$"
+          },
+          {
+            "id": 3,
+            "text": "gdzie $$C_1,C_2,...,C_r$$ są numerami liczb rozmytych dla wszystkich kryteriów."
+          },
+          {
+            "id": 4,
+            "text": "**Krok 2.** Generowanie Obiektów Charakterystycznych - Obiekty Charakterystyczne (Characteristic Objects - $$CO$) są uzyskiwane poprzez zastosowanie iloczynu kartezjańskiego rdzeni liczb rozmytych dla każdego kryterium."
+          },
+          {
+            "id": 5,
+            "text": "$$ CO = C(C_1) \\times C(C_2) \\times ... \\times C(C_r) $$"
+          },
+          {
+            "id": 6,
+            "text": "**Krok 3.** Uszereguj Obiekty Charakterystyczne - ekspert wyznacza Macierz Oceny Eksperckiej (Matrix of Expert Judgment - $$MEJ$$). Jest ona wynikiem porównania parami obiektów CO przez eksperta problemu. Macierz $$MEJ$$ zawiera wyniki porównywania Obiektów Charakterystycznych przez eksperta, gdzie $$alfa_{ij}$$ jest wynikiem porównywania $$CO_i$ i $$CO_j$$ przez eksperta. Funkcja $$f_{exp}$$ oznacza funkcję mentalną eksperta. Zależy ona wyłącznie od wiedzy eksperta."
+          },
+          {
+            "id": 7,
+            "text": "$$ 0.0, f_{exp}(CO_i) < f_{exp}(CO_j) $$"
+          },
+          {
+            "id": 8,
+            "text": "$$ 0.5, f_{exp}(CO_i) = f_{exp}(CO_j) $$"
+          },
+          {
+            "id": 9,
+            "text": "$$ 1.0, f_{exp}(CO_i) > f_{exp}(CO_j) $$"
+          },
+          {
+            "id": 10,
+            "text": "Następnie otrzymuje się pionowy wektor zsumowanych ocen ($$SJ$$)."
+          },
+          {
+            "id": 10,
+            "text": "$$ SJ_i=\\sum^{t}_{j=1}\\alpha_{ij} $$"
+          },
+          {
+            "id": 11,
+            "text": "Wartości preferencji są aproksymowane dla każdego $$CO$$. W efekcie otrzymuje się pionowy wektor $$P$$, w którym $$i-$$ty wiersz zawiera przybliżoną wartość preferencji dla $$CO_i$$."
+          },
+          {
+            "id": 12,
+            "text": "**Krok 4.** Baza reguł - każdy Obiekt Charakterystyczny i wartość preferencji jest przekształcana na regułę rozmytą."
+          },
+          {
+            "id": 13,
+            "text": "IF $$C(\\tilde{C}_{1i})$$ AND $$C(\\tilde{C}_{2i})$$ AND ... THEN $$P_i$$"
+          },
+          {
+            "id": 14,
+            "text": "**Krok 5.** Wnioskowanie i ranking końcowy - każda alternatywa jest przedstawiona jako zbiór liczb ostrych (e.g., $$A_i=\\{a_{1i}, a_{2i}, ..., a_{ri}\\}$$). Zbiór ten odpowiada kryteriom $$C_1, C_2, ..., C_r$$. Do obliczenia preferencji $$i-tej$ alternatywy wykorzystywana jest metoda wnioskowania rozmytego Mamdaniego. Baza reguł gwarantuje, że uzyskane wyniki są jednoznaczne. Dzięki bijekcji COMET jest całkowicie wolny od odwrócenia rankingu."
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "COPRAS",
+        "description": []
+      },
+      {
+        "id": 5,
+        "name": "EDAS",
+        "description": []
+      },
+      {
+        "id": 6,
+        "name": "MABAC",
+        "description": []
+      },
+      {
+        "id": 7,
+        "name": "MAIRCA",
+        "description": []
+      },
+      {
+        "id": 8,
+        "name": "MARCOS",
+        "description": []
+      },
+      {
+        "id": 9,
+        "name": "MOORA",
+        "description": []
+      },
+      {
+        "id": 10,
+        "name": "OCRA",
+        "description": []
+      },
+      {
+        "id": 11,
+        "name": "PROMETHEE",
+        "description": []
+      },
+      {
+        "id": 12,
+        "name": "SPOTIS",
+        "description": [
+          {
+            "id": 0,
+            "text": "Metoda Stable Preference Ordering Towards Ideal Solution (SPOTIS) została wprowadzona w 2020 roku. Jest to jedna z technik, która okazuje się być odporna na zjawisko odwrócenia rang. Należy krótko przypomnieć główne założenia metody."
+          },
+          {
+            "id": 1,
+            "text": "**Krok 1.** Określenie granic problemu - granice min i max klasycznego problemu MCDM muszą być zdefiniowane, aby przekształcić problem MCDM z nieokreślonego w dobrze określony."
+          },
+          {
+            "id": 2,
+            "text": "$$\\left[S_{n}^{\\min }, S_{n}^{\\max }\\right]=\\left[x_{1}, x_{2}\\right]$$"
+          },
+          {
+            "id": 3,
+            "text": "gdzie, $$n$$ - numer kryterium, $$x_1$$ - dolna granica, $$x_2$$ - górna granica."
+          },
+          {
+            "id": 4,
+            "text": "**Krok 2.** Określenie idealnego punktu rozwiązania - należy zdefiniować wektor zawierający maksimum lub minimum z granic dla danego kryterium w zależności od typu kryterium. Dla typu profit należy przyjąć wartość max, dla typu cost wartość min."
+          },
+          {
+            "id": 5,
+            "text": "$$S^{\\star}=\\left(S_{1}^{\\star}, S_{2}^{\\star}, S_{3}^{\\star}\\right)$$"
+          },
+          {
+            "id": 6,
+            "text": "**Krok 3.** Obliczenie znormalizowanej macierzy odległości - dla każdego wariantu $$A_{i}$$ (i= 1, $$\\ldots$$ , M), obliczyć jego znormalizowaną odległość w stosunku do idealnego rozwiązania dla każdego kryterium $$C_{j}$$ (j= 1, $$\\ldots$$ , N )."
+          },
+          {
+            "id": 7,
+            "text": "$$d_{i j}=\\frac{\\left|A_{i j}-S_{j}^{*}\\right|}{\\left|S_{j}^{\\max }-S_{j}^{\\min }\\right|}$$"
+          },
+          {
+            "id": 8,
+            "text": "**Krok 4.** Obliczyć znormalizowaną uśrednioną odległość - dla każdego kryterium $$C_{j}$$ (j= 1,$$\\ldots$$ , N ) uwzględnić jego wagę i obliczyć ostateczne preferencje wykonując następujące równanie."
+          },
+          {
+            "id": 9,
+            "text": "$$\\bar{p}_{j}=\\sum_{j=1}^{N} w_{j} d_{i j}$$"
+          },
+          {
+            "id": 10,
+            "text": "**Krok 5.** Uszeregowanie kryteriów według preferencji - wartości powinny być uszeregowane w kolejności rosnącej."
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "name": "TOPSIS",
+        "description": [
+          {
+            "id": 0,
+            "text": "Metoda Technique for Order Preference by Similarity to an Ideal Solution (TOPSIS) została opracowana w 1981 roku przez Chena i Hwanga. Technika ta określa odległość każdego wariantu decyzyjnego od pozytywnego rozwiązania idealnego (Positive Ideal Solution - PIS) i negatywnego rozwiązania idealnego (Negative Ideal Solution- NIS). Na ich podstawie obliczane są preferencje wariantów. Podczas wykonywania kroku normalizacji można wyróżnić dwa rodzaje kryteriów. Typ zysku oznacza, że preferowane są większe wartości. Natomiast typ kosztowy przypisany jest czynnikom, dla których korzystniejsze są niższe wartości. Aby przedstawić formalny zapis metody, należy wprowadzić główne kroki."
+          },
+          {
+            "id": 1,
+            "text": "**Krok 1.** Wyznaczanie macierzy decyzji ($$X$$) w problemie wielokryterialnym"
+          },
+          {
+            "id": 2,
+            "text": "**Krok 2.** Normalizacja zdefiniowanej macierzy decyzyjnej $$X$$."
+          },
+          {
+            "id": 3,
+            "text": "Dla typu zysk: $$ r_{i j}=\\frac{x_{i j}-\\min _{j}\\left(x_{i j}\\right)}{\\max _{j}\\left(x_{i j}\\right)-\\min _{j}\\left(x_{i j}\\right)} $$"
+          },
+          {
+            "id": 4,
+            "text": "Dla typu koszt: $$ r_{i j}=\\frac{\\max x_{j}\\left(x_{i j}\\right)-x_{i j}}{\\max x_{j}\\left(x_{i j}\\right)-\\min _{j}\\left(x_{i j}\\right)} $$"
+          },
+          {
+            "id": 5,
+            "text": "**Krok 3.** Obliczanie ważonej znormalizowanej macierzy decyzji."
+          },
+          {
+            "id": 6,
+            "text": "$$ v_{i j}=w_{i} \\cdot r_{i j}, \\quad i=1, \\ldots, m \\quad j=1, \\ldots, n $$"
+          },
+          {
+            "id": 7,
+            "text": "gdzie wektor wag $$w$$ spełnia warunek $$\\sum_{j=1}^{n} w_j = 1$$, a liczba wag jest równa liczbie kryteriów w macierzy decyzyjnej."
+          },
+          {
+            "id": 8,
+            "text": "**Krok 4.** Identyfikacja pozytywnych i negatywnych rozwiązań idealnych dla zdefiniowanego problemu decyzyjnego."
+          },
+          {
+            "id": 9,
+            "text": "$$ A_{i}^{*} = \\left\\{v_{1}^{*}, \\ldots, v_{n}^{*}\\right\\} =\\left\\{\\left(\\max _{j} v_{i j} \\quad | \\quad i \\in I^{P}\\right),\\right. \\left.\\left(\\min _{j} v_{i j} \\quad | \\quad i \\in I^{C}\\right)\\right\\} $$"
+          },
+          {
+            "id": 10,
+            "text": "$$ A_{i}^{-} =\\left\\{v_{1}^{-}, \\ldots, v_{n}^{-}\\right\\} =\\left\\{\\left(\\min _{j} v_{i j} \\quad | \\quad i \\in I^{P}\\right),\\right. \\left.\\left(\\max _{j} v_{i j} \\quad | \\quad i \\in I^{C}\\right)\\right\\} $$"
+          },
+          {
+            "id": 11,
+            "text": "gdzie $$I^{P}$$ oznacza kryteria typu zysku, a $$I^{C}$$ - typu kosztów.."
+          },
+          {
+            "id": 12,
+            "text": "**Krok 5.** Obliczanie odległości dodatniej i ujemnej z wykorzystaniem $$n$$-wymiarowej odległości euklidesowej."
+          },
+          {
+            "id": 13,
+            "text": "$$ D_{i}^{*}=\\sqrt{\\sum_{i=1}^{n}\\left(v_{i j}-v_{i}^{*}\\right)^{2}}, \\quad i=1, \\ldots, m $$"
+          },
+          {
+            "id": 14,
+            "text": "$$ D_{i}^{-}=\\sqrt{\\sum_{i=1}^{n}\\left(v_{i j}-v_{i}^{-}\\right)^{2}}, \\quad i=1, \\ldots, m $$"
+          },
+          {
+            "id": 15,
+            "text": "**Krok 6.** Obliczanie względnej bliskości do rozwiązania idealnego."
+          },
+          {
+            "id": 16,
+            "text": "$$ C_{i}^{*}=\\frac{D_{i}^{-}}{\\left(D_{i}^{*}+D_{i}^{-}\\right)}, \\quad i=1, \\ldots, m $$"
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "name": "VIKOR",
+        "description": [
+          {
+            "id": 0,
+            "text": "VIseKriterijumska Optimizacija I Kompromisno Resenje (VIKOR) jest metodą opracowaną przez Opricovica w 1998 roku. Opiera się ona na określeniu wektora wag dla zbioru kryteriów rozpatrywanych w problemie. Podejście to pozwala na uzyskanie bliskości do rozwiązania idealnego ($$IS$$). Na podstawie tej odległości wyznaczany jest ranking końcowy, oceniający jakość wariantów decyzyjnych. Uzyskany wynik może w dużej mierze zależeć od wag dla kryteriów zdefiniowanych w fazie początkowej."
+          },
+          {
+            "id": 1,
+            "text": "**Krok 1.** Wyznaczanie macierzy decyzji ($$X$$) w problemie wielokryterialnym."
+          },
+          {
+            "id": 2,
+            "text": "**Krok 2.** Obliczanie stopnia zbliżenia do rozwiązania idealnego ($$IS$$)."
+          },
+          {
+            "id": 3,
+            "text": "$$f_{i}^{*} = max_j f_{ij}, f_{i}^{-} = min_j f_{ij}$$ jeśli $$i-te$$ kryterium jest typu zysk"
+          },
+          {
+            "id": 4,
+            "text": "$$f_{i}^{*} = min_j f_{ij}, f_{i}^{-} = max_j f_{ij}$$ jeśli $$i-te$$ kryterium jest typu koszt"
+          },
+          {
+            "id": 5,
+            "text": "**Krok 3.** Obliczanie ważonej macierzy decyzji."
+          },
+          {
+            "id": 6,
+            "text": "$$w_{j} \\cdot \\frac{f_{j}^{*} - f_{ij}}{f_{j}^{*} - f_{i}^{-}}$$"
+          },
+          {
+            "id": 7,
+            "text": "**Krok 4.** Obliczanie rankingów S, R i kompromisowego Q."
+          },
+          {
+            "id": 8,
+            "text": "$$S_{i} = \\sum_{j=1}^{N} w_{j} \\cdot \\frac{f_{j}^{*} - f_{ij}}{f_{j}^{*} - f_{i}^{-}} $$"
+          },
+          {
+            "id": 9,
+            "text": "$$R_{i} =max_{j} \\left[ w_{j} \\cdot \\frac{f_{j}^{*} - f_{ij}}{f_{j}^{*} - f_{i}^{-}} \\right] $$"
+          },
+          {
+            "id": 10,
+            "text": "$$Q_{i} = v \\cdot \\frac{S_{i} - S^{*}}{S^{-} - S^{*}} + (1-v) \\cdot \\frac{R_{i} - R^{*}}{R^{-} - R^{*}} $$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "key": "Normalizacje",
+    "data": [
+      {
+        "id": 0,
+        "name": "Enhanced accuracy",
+        "description": []
+      },
+      {
+        "id": 1,
+        "name": "Logarithmic",
+        "description": []
+      },
+      {
+        "id": 2,
+        "name": "Linear",
+        "description": []
+      },
+      {
+        "id": 3,
+        "name": "Max",
+        "description": []
+      },
+      {
+        "id": 4,
+        "name": "Min-max",
+        "description": []
+      },
+      {
+        "id": 5,
+        "name": "Nonlinear",
+        "description": []
+      },
+      {
+        "id": 6,
+        "name": "SAW",
+        "description": []
+      },
+      {
+        "id": 7,
+        "name": "Sum",
+        "description": []
+      },
+      {
+        "id": 8,
+        "name": "Vector",
+        "description": []
+      },
+      {
+        "id": 9,
+        "name": "Zavadskas-Turskis",
+        "description": []
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "key": "Metryki odległości",
+    "data": [
+      {
+        "id": 0,
+        "name": "Euclidean",
+        "description": []
+      },
+      {
+        "id": 1,
+        "name": "Hamming",
+        "description": []
+      },
+      {
+        "id": 2,
+        "name": "L-R",
+        "description": []
+      },
+      {
+        "id": 3,
+        "name": "Mahdavi",
+        "description": []
+      },
+      {
+        "id": 4,
+        "name": "Tran-Duckstein",
+        "description": []
+      },
+      {
+        "id": 5,
+        "name": "Vertex",
+        "description": []
+      },
+      {
+        "id": 6,
+        "name": "Weighted Euclidean",
+        "description": []
+      },
+      {
+        "id": 7,
+        "name": "Weighted Hamming",
+        "description": []
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "key": "Defuzyfikacje",
+    "data": [
+      {
+        "id": 0,
+        "name": "Graded mean average",
+        "description": []
+      },
+      {
+        "id": 1,
+        "name": "Mean",
+        "description": []
+      },
+      {
+        "id": 2,
+        "name": "Mean area",
+        "description": []
+      },
+      {
+        "id": 3,
+        "name": "Weighted mean",
+        "description": []
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "key": "Korelacje",
+    "data": [
+      {
+        "id": 0,
+        "name": "Goodman-Kruskall",
+        "description": []
+      },
+      {
+        "id": 1,
+        "name": "Kendall-Tau",
+        "description": []
+      },
+      {
+        "id": 2,
+        "name": "Pearson",
+        "description": []
+      },
+      {
+        "id": 3,
+        "name": "Spearman",
+        "description": []
+      },
+      {
+        "id": 4,
+        "name": "Weighted Spearman",
+        "description": []
+      },
+      {
+        "id": 5,
+        "name": "WS rank similarity",
+        "description": []
+      }
+    ]
+  }
+]

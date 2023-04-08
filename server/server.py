@@ -14,6 +14,13 @@ app.config.from_object(__name__)
 # project_home = '/home/jwieckowski/mysite/'
 project_home = ''
 
+def get_locale(request):
+    locale = request.headers.get('locale')
+    valid = ['en', 'pl']
+    if locale in valid:
+        return locale
+    return 'en'
+
 # enable CORS
 CORS(app, resources={r'/*': {'origins': '*'}})
 
@@ -24,25 +31,29 @@ def home():
 # dictionaries
 @app.route('/api/v1/dictionary/all-methods', methods=['GET'])
 def dictionary_all_methods():
-    with open(project_home+'public/dictionary/all-methods.json') as file:
+    locale = get_locale(request)
+    with open(project_home+f'public/dictionary/all-methods-{locale}.json',  encoding='utf-8') as file:
         data = file.read()
     return data
 
 @app.route('/api/v1/descriptions/home', methods=['GET'])
 def descriptions_home():
-    with open(project_home+'public/descriptions/home.json', encoding='utf-8') as file:
+    locale = get_locale(request)
+    with open(project_home+f'public/descriptions/home-{locale}.json', encoding='utf-8') as file:
         data = file.read()
     return data
 
 @app.route('/api/v1/descriptions/methods', methods=['GET'])
 def descriptions_methods():
-    with open(project_home+'public/descriptions/methods.json', encoding='utf-8') as file:
+    locale = get_locale(request)
+    with open(project_home+f'public/descriptions/methods-{locale}.json', encoding='utf-8') as file:
         data = file.read()
     return data
 
 @app.route('/api/v1/descriptions/about', methods=['GET'])
 def about_description():
-    with open(project_home+'public/descriptions/about.json', encoding='utf-8') as file:
+    locale = get_locale(request)
+    with open(project_home+f'public/descriptions/about-{locale}.json', encoding='utf-8') as file:
         data = file.read()
     return data
 
