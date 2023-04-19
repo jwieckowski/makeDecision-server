@@ -74,44 +74,44 @@ class Preferences():
     def calculate_preferences(self, methods, params=None):
         
         # FOR ADDITIONAL PARAMETERS FOR FUZZY MCDA METHODS
-        def _check_fuzzy_parameters(mcda_method, idx, check_normalization=False, check_distance=False, check_defuzzify=False, check_distance_1=False, check_distance_2=False):
+        def _check_fuzzy_parameters(mcda_method, matrix_idx, idx, check_normalization=False, check_distance=False, check_defuzzify=False, check_distance_1=False, check_distance_2=False):
             
             kwargs = {}
 
-            if params is not None and len(params) >= idx+1 and len(list(params[idx].keys())) != 0:
-                if mcda_method == params[idx]['method'] and params[idx]['extension'] == 'fuzzy' and len(list(params[idx]['additional'].keys())) != 0:
+            if params is not None and len(params[matrix_idx]) >= idx+1 and len(list(params[matrix_idx][idx].keys())) != 0:
+                if mcda_method == params[matrix_idx][idx]['method'].upper() and params[matrix_idx][idx]['extension'].lower() == 'fuzzy' and len(list(params[matrix_idx][idx]['additional'].keys())) != 0:
                     
-                    if check_normalization == True and 'normalization' in list(params[idx]['additional'].keys()):
+                    if check_normalization == True and 'normalization' in list(params[matrix_idx][idx]['additional'].keys()):
                         try:
-                            normalization = getattr(pyfdm.methods.fuzzy_sets.tfn.normalizations, params[idx]['additional']['normalization'])
+                            normalization = getattr(pyfdm.methods.fuzzy_sets.tfn.normalizations, params[matrix_idx][idx]['additional']['normalization'])
                             kwargs = {'normalization': normalization} | kwargs
                         except:
                             return 'Error while retrieving normalization method'
                     
-                    if check_distance == True and 'distance' in list(params[idx]['additional'].keys()):
+                    if check_distance == True and 'distance' in list(params[matrix_idx][idx]['additional'].keys()):
                         try:
-                            distance = getattr(pyfdm.methods.fuzzy_sets.tfn.distances, params[idx]['additional']['distance'])
+                            distance = getattr(pyfdm.methods.fuzzy_sets.tfn.distances, params[matrix_idx][idx]['additional']['distance'])
                             kwargs = {'distance': distance} | kwargs
                         except:
                             return 'Error while retrieving distance method'
 
-                    if check_defuzzify == True and 'defuzzify' in list(params[idx]['additional'].keys()):
+                    if check_defuzzify == True and 'defuzzify' in list(params[matrix_idx][idx]['additional'].keys()):
                         try:
-                            defuzzify = getattr(pyfdm.methods.fuzzy_sets.tfn.defuzzifications, params[idx]['additional']['defuzzify'])
+                            defuzzify = getattr(pyfdm.methods.fuzzy_sets.tfn.defuzzifications, params[matrix_idx][idx]['additional']['defuzzify'])
                             kwargs = {'defuzzify': defuzzify} | kwargs
                         except:
                             return 'Error while retrieving defuzzify method'
 
-                    if check_distance_1 == True and 'distance_1' in list(params[idx]['additional'].keys()):
+                    if check_distance_1 == True and 'distance_1' in list(params[matrix_idx][idx]['additional'].keys()):
                         try:
-                            distance_1 = getattr(pyfdm.methods.fuzzy_sets.tfn.distances, params[idx]['additional']['distance_1'])
+                            distance_1 = getattr(pyfdm.methods.fuzzy_sets.tfn.distances, params[matrix_idx][idx]['additional']['distance_1'])
                             kwargs = {'distance_1': distance_1} | kwargs
                         except:
                             return 'Error while retrieving distance_1 method'
 
-                    if check_distance_2 == True and 'distance_2' in list(params[idx]['additional'].keys()): 
+                    if check_distance_2 == True and 'distance_2' in list(params[matrix_idx][idx]['additional'].keys()): 
                         try:
-                            distance_2 = getattr(pyfdm.methods.fuzzy_sets.tfn.distances, params[idx]['additional']['distance_2'])
+                            distance_2 = getattr(pyfdm.methods.fuzzy_sets.tfn.distances, params[matrix_idx][idx]['additional']['distance_2'])
                             kwargs = {'distance_2': distance_2} | kwargs
                         except:
                             return 'Error while retrieving distance_2 method'
@@ -121,23 +121,22 @@ class Preferences():
             return kwargs
 
         # FOR ADDITIONAL PARAMETERS FOR CRISP MCDA METHODS
-        def _check_crisp_parameters(mcda_method, idx, check_normalization_function=False, check_preference_function=False):
+        def _check_crisp_parameters(mcda_method, matrix_idx, idx, check_normalization_function=False, check_preference_function=False):
             
             kwargs = {}
-            
-            if params is not None and len(params) >= idx+1 and len(list(params[idx].keys())) != 0:
-                if mcda_method == params[idx]['method'] and params[idx]['extension'] == 'crisp' and len(list(params[idx]['additional'].keys())) != 0:
+            if params is not None and len(params[matrix_idx]) >= idx+1 and len(list(params[matrix_idx][idx].keys())) != 0:
+                if mcda_method == params[matrix_idx][idx]['method'].upper() and params[matrix_idx][idx]['extension'] == 'crisp' and len(list(params[matrix_idx][idx]['additional'].keys())) != 0:
                 
-                    if check_normalization_function == True and 'normalization_function' in list(params[idx]['additional'].keys()):
+                    if check_normalization_function == True and 'normalization_function' in list(params[matrix_idx][idx]['additional'].keys()):
                         try:
-                            normalization = getattr(pymcdm.normalizations, params[idx]['additional']['normalization_function'])
+                            normalization = getattr(pymcdm.normalizations, params[matrix_idx][idx]['additional']['normalization_function'])
                             kwargs = {'normalization_function': normalization} | kwargs
                         except:
                             return 'Error while retrieving normalization method'
 
-                    if check_preference_function == True and 'preference_function' in list(params[idx]['additional'].keys()):
+                    if check_preference_function == True and 'preference_function' in list(params[matrix_idx][idx]['additional'].keys()):
                         
-                        pref_fun = params[idx]['additional']['preference_function'] 
+                        pref_fun = params[matrix_idx][idx]['additional']['preference_function'] 
                         if pref_fun in ['usual', 'ushape', 'vshape', 'level', 'vshape_2']:
                             kwargs = {'preference_function': pref_fun} | kwargs
                         else:
@@ -167,9 +166,15 @@ class Preferences():
                     weights_method = method['weights'].upper()
 
                     # WEIGHTS CALCULATION
+                    print(extension)
+                    print(types)
+                    print(weights_method)
                     weights_object = Weights(extension, types)
                     weights_data = weights_object.calculate_weights(matrix, weights_method)
                     weights = np.array(weights_data['weights'])
+
+                    print(weights_data)
+                    print(weights)
 
                     if weights_data['error'] != False:
                         weights = np.array([])
@@ -199,30 +204,36 @@ class Preferences():
                         error = False
                         calculate = True
 
+                print(calculate)
+
                 # FUZZY CALCULATIONS
                 if extension == 'fuzzy':
+                    print(mcda_method)
                     # fuzzy -> call (matrix, weights, types)
                     # ARAS, COPRAS, EDAS, MOORA -> normalization
                     if mcda_method in ['ARAS', 'COPRAS', 'EDAS', 'MOORA']:
-                        kwargs = _check_fuzzy_parameters(mcda_method, idx_method, check_normalization=True)
+                        kwargs = _check_fuzzy_parameters(mcda_method, idx, idx_method, check_normalization=True)
+
+                        print('kwargs in fuzzy')
+                        print(kwargs)
 
                     # fuzzy CODAS: normalization, distance_1, distance_2
                     elif mcda_method == 'CODAS':
-                        kwargs = _check_fuzzy_parameters(mcda_method, idx_method, check_normalization=True, check_distance_1=True, check_distance_2=True)
+                        kwargs = _check_fuzzy_parameters(mcda_method, idx, idx_method, check_normalization=True, check_distance_1=True, check_distance_2=True)
 
                     # fuzzy MAIRCA: normalization, distance
                     # fuzzy TOPSIS: normalization, distance
                     elif mcda_method in ['MAIRCA', 'TOPSIS']:
-                        kwargs = _check_fuzzy_parameters(mcda_method, idx_method, check_normalization=True, check_distance=True)
+                        kwargs = _check_fuzzy_parameters(mcda_method, idx, idx_method, check_normalization=True, check_distance=True)
 
                     # fuzzy MABAC: normalization, defuzzify
                     elif mcda_method == 'MABAC':
-                        kwargs = _check_fuzzy_parameters(mcda_method, idx_method, check_normalization=True, check_defuzzify=True)
+                        kwargs = _check_fuzzy_parameters(mcda_method, idx, idx_method, check_normalization=True, check_defuzzify=True)
                     
                     # fuzzy OCRA: defuzzify
                     # fuzzy VIKOR: defuzzify
                     elif mcda_method in ['OCRA', 'VIKOR']:
-                        kwargs = _check_fuzzy_parameters(mcda_method, idx_method, check_defuzzify=True)
+                        kwargs = _check_fuzzy_parameters(mcda_method, idx, idx_method, check_defuzzify=True)
 
                     else:
                         calculate = False
@@ -240,10 +251,16 @@ class Preferences():
                         if type(kwargs) == str:
                             error = kwargs
                             kwargs = {}
-
+                        
+                        print('przed body')
                         body = self.mcda_methods[mcda_method][extension](**kwargs)
+                        print('po body')
+                        print(weights)
+                        print(types)
                         preference = body(matrix, weights, types)
 
+                        print('preference')
+                        print(preference)
                         if mcda_method == 'VIKOR':
                             preference = [
                                 preference[0].tolist(),
@@ -269,7 +286,9 @@ class Preferences():
 
                         kwargs = {}
                         if mcda_method in ['ARAS', 'COCOSO', 'CODAS', 'MABAC', 'MAIRCA', 'MARCOS', 'OCRA', 'TOPSIS', 'VIKOR']:
-                            kwargs = _check_crisp_parameters(mcda_method, idx_method, check_normalization_function=True)
+                            kwargs = _check_crisp_parameters(mcda_method, idx, idx_method, check_normalization_function=True)
+                            print('kwargs')
+                            print(kwargs)
 
                         if type(kwargs) == str:
                             error = kwargs
@@ -299,7 +318,7 @@ class Preferences():
 
                     # PROMETHEE -> matrix, weights, types, p, q, preference_function ('usual', 'ushape', 'vshape', 'level', 'vshape_2')
                     elif mcda_method == 'PROMETHEE':
-                        kwargs = _check_crisp_parameters(mcda_method, idx_method, check_preference_function=True)
+                        kwargs = _check_crisp_parameters(mcda_method, idx, idx_method, check_preference_function=True)
 
                         if type(kwargs) == str:
                             error = kwargs

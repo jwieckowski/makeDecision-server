@@ -128,6 +128,8 @@ def calculation_results():
         params = np.array(data['params'])
     except:
         params = None
+    
+    print(params)
 
     for m, t in zip(calculationMatrixes, calculationTypes):
         dimension_error = Validator.validate_dimensions(m, t)
@@ -155,6 +157,7 @@ def calculation_results():
         calculation_error = {
             "error": e.args[0]
         }
+        print('Exception mcda')
         print(calculation_error)
         return jsonify(calculation_error), 400
 
@@ -169,6 +172,8 @@ def calculation_results():
     # MCDA ranking correlation
     if len(rankingCorrelations) > 0:
         results['rankingCorrelations'] = Calculations.calculate_ranking_correlations(rankingCorrelations, results['methodRankings'])
+
+    print(results)
 
     return jsonify(results)
 
