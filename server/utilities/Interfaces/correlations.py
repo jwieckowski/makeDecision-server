@@ -14,117 +14,121 @@ class Correlation():
 
     def calculate_correlation(self, matrix, methods):
 
-        error = None
-        results = []
-        for method in methods:
-            if method not in self.correlation_methods.keys():
-                error = 'Correlation coefficient method not found'
-                correlation = []
-            else:
-                correlation =  np.array([[self.correlation_methods[method](a, b) for b in matrix] for a in matrix])
-            
-            results.append({
-                'method': method,
-                'correlation': correlation.tolist(),
-                'error': error
-            })
+        try:
+            results = []
+            for method in methods:
+                if method not in self.correlation_methods.keys():
+                    raise ValueError('Correlation coefficient method not found')
+                else:
+                    try:
+                        correlation =  np.array([[self.correlation_methods[method](a, b) for b in matrix] for a in matrix])
+                    except Exception as err:
+                        raise ValueError(f'Unexpected error in correlation calculation: {err}')
 
-        return results
+                results.append({
+                    'method': method,
+                    'correlation': correlation.tolist()
+                })
+
+            return results
+        except Exception as err:
+            raise ValueError(f'Unexpected error in correlation calculation: {err}')
+
 
     def calculate_preferences_correlation(self, methods, results):
         
-        correlations = []
-        for idx, methods_set in enumerate(methods):
+        try:
+            correlations = []
+            for idx, methods_set in enumerate(methods):
 
-            correlations_item = []
-            for method in methods_set:
-                error = False
+                correlations_item = []
+                for method in methods_set:
 
-                # retrieve correlation method
-                correlation_method = method['correlation'].upper()
+                    # retrieve correlation method
+                    correlation_method = method['correlation'].upper()
 
-                # verification if correlation method is handled
-                if correlation_method not in self.correlation_methods.keys():
-                    error = 'Correlation coefficient method not found'
-                    correlations_item.append([])
+                    # verification if correlation method is handled
+                    if correlation_method not in self.correlation_methods.keys():
+                        raise ValueError('Correlation coefficient method not found')
 
-                else:
-                    # retrieve data for correlation
-                    correlation_data = method['data']
-                    correlation_matrix = []
-            
-                    for data in correlation_data:
-                        for result in results[idx]:
-                            # match methods
-                            # what if methods are the same (?) - TODO CHECK
-                            if data['method'].upper() == result['method'] and data['weights'].upper() == result['weights']:       
-                                correlation_matrix.append(result['preference'])
+                    else:
+                        # retrieve data for correlation
+                        correlation_data = method['data']
+                        correlation_matrix = []
+                
+                        for data in correlation_data:
+                            for result in results[idx]:
+                                # match methods
+                                # what if methods are the same (?) - TODO CHECK
+                                if data['method'].upper() == result['method'] and data['weights'].upper() == result['weights']:       
+                                    correlation_matrix.append(result['preference'])
 
-                    # cast list to numpy array for correct calculations 
-                    correlation_matrix = np.array(correlation_matrix)
-                    
-                    # calculation of preferences correlation 
-                    res = [[self.correlation_methods[correlation_method](a, b) for b in correlation_matrix] for a in correlation_matrix]
-                    correlations_item.append({
-                        'correlation': correlation_method,
-                        'results': res,
-                        'methods': method['data'],
-                        'error': error
-                    })
+                        # cast list to numpy array for correct calculations 
+                        correlation_matrix = np.array(correlation_matrix)
+                        
+                        # calculation of preferences correlation 
+                        res = [[self.correlation_methods[correlation_method](a, b) for b in correlation_matrix] for a in correlation_matrix]
+                        correlations_item.append({
+                            'correlation': correlation_method,
+                            'results': res,
+                            'methods': method['data'],
+                        })
 
-            correlations.append(correlations_item)
+                correlations.append(correlations_item)
 
-        return correlations
-        
+            return correlations
+        except Exception as err:
+            raise ValueError(f'Unexpected error in preferences correlation calculation: {err}')
+
 
     def calculate_ranking_correlation(self, methods, results):
         
-        correlations = []
-        for idx, methods_set in enumerate(methods):
+        try:
+            correlations = []
+            for idx, methods_set in enumerate(methods):
 
-            correlations_item = []
-            for method in methods_set:
-                error = False
+                correlations_item = []
+                for method in methods_set:
 
-                # retrieve correlation method
-                correlation_method = method['correlation'].upper()
+                    # retrieve correlation method
+                    correlation_method = method['correlation'].upper()
 
-                # verification if correlation method is handled
-                if correlation_method not in self.correlation_methods.keys():
-                    error = 'Correlation coefficient method not found'
-                    correlations_item.append([])
+                    # verification if correlation method is handled
+                    if correlation_method not in self.correlation_methods.keys():
+                        raise ValueError('Correlation coefficient method not found')
 
-                else:
-                    # retrieve data for correlation
-                    correlation_data = method['data']
-                    correlation_matrix = []
-            
-                    for data in correlation_data:
-                        for ranking_result in results[idx]:
-                            for result in ranking_result:
-                                # retrieve method for correlation calculation
-                                result_methods = result['methods'] 
-                                
-                                # match methods
-                                # what if methods are the same (?) - TODO CHECK
-                                if data['method'].upper() == result_methods['method'].upper() and data['weights'].upper() == result_methods['weights'].upper() and data['order'].upper() == result_methods['order'].upper():       
-                                    correlation_matrix.append(result['ranking'])
-                    
-                    # cast list to numpy array for correct calculations 
-                    correlation_matrix = np.array(correlation_matrix)
-                    
-                    # calculation of ranking correlation 
-                    res = [[self.correlation_methods[correlation_method](a, b) for b in correlation_matrix] for a in correlation_matrix]
-                    correlations_item.append({
-                        'correlation': correlation_method,
-                        'results': res,
-                        'methods': method['data'],
-                        'error': error
-                    })
+                    else:
+                        # retrieve data for correlation
+                        correlation_data = method['data']
+                        correlation_matrix = []
+                
+                        for data in correlation_data:
+                            for ranking_result in results[idx]:
+                                for result in ranking_result:
+                                    # retrieve method for correlation calculation
+                                    result_methods = result['methods'] 
+                                    
+                                    # match methods
+                                    # what if methods are the same (?) - TODO CHECK
+                                    if data['method'].upper() == result_methods['method'].upper() and data['weights'].upper() == result_methods['weights'].upper() and data['order'].upper() == result_methods['order'].upper():       
+                                        correlation_matrix.append(result['ranking'])
+                        
+                        # cast list to numpy array for correct calculations 
+                        correlation_matrix = np.array(correlation_matrix)
+                        
+                        # calculation of ranking correlation 
+                        res = [[self.correlation_methods[correlation_method](a, b) for b in correlation_matrix] for a in correlation_matrix]
+                        correlations_item.append({
+                            'correlation': correlation_method,
+                            'results': res,
+                            'methods': method['data'],
+                        })
 
-            correlations.append(correlations_item)
+                correlations.append(correlations_item)
 
-        return correlations
+            return correlations
+        except Exception as err:
+            raise ValueError(f'Unexpected error in ranking correlation calculation: {err}')
 
 if __name__ == '__main__':
     matrix = np.array([

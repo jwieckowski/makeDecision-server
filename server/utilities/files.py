@@ -1,14 +1,11 @@
 import numpy as np
 import json
-
 import pandas as pd
-from .validator import Validator
-
 import io
 from base64 import encodebytes
 from PIL import Image
 
-# should read files from json, csv, xlsx formats
+from .validator import Validator
 class Files():
     def __init__(self):
         pass
@@ -22,245 +19,245 @@ class Files():
         return encoded_img
 
     @staticmethod
-    def convert_file_to_matrix(data, extension):
-        # JSON file
-        if 'matrix' in data:
-            file = json.loads(data)
-            matrix = np.array(file['matrix'])
-            types = np.array(file['criteriaTypes'])
+    def __validate_input_data(matrix, extension, criteria_types):
+        """
+        """
 
-            matrix_error = Validator.validate_matrix(matrix, extension)
-            if matrix_error is not None:
-                return False, matrix_error, None
+        try:
+            Validator.validate_matrix(matrix, extension)
+        except Exception as err:
+            raise ValueError(err)
 
-            types_error = Validator.validate_types(types)
-            if types_error is not None:
-                return False, types_error, None
+        try:
+            Validator.validate_types(criteria_types)
+        except Exception as err:
+            raise ValueError(err)
 
-            dimension_error = Validator.validate_dimensions(matrix, types)
-            if dimension_error is not None:
-                return False, dimension_error, None
-            
-            return True, matrix, types
-        # XLSX file
-        elif '[' in data:
-            # crisp
-            if extension == 'crisp':
-                try:
-                    items = eval(data.split()[0])
-                except:
-                    return False, {"error": "Crisp matrix in XLSX format is not defined correctly"}, None
-            # fuzzy
-            elif extension == 'fuzzy':
-                file_matrix = json.loads(data)
-                items = []
-                for row in file_matrix[:-2]:
-                    temp_items = []
-                    for r in row:
-                        try:
-                            temp_items.append(list(eval(r.replace(' ', ', '))))
-                        except:
-                            return False, {"error": "Fuzzy matrix in XLSX format is not defined correctly"}, None
-                    items.append(temp_items)
-                items.append([])
-                items.append(file_matrix[-1])
+        try:
+            Validator.validate_dimensions(matrix, criteria_types)
+        except Exception as err:
+            raise ValueError(err)
 
-            matrix = np.array(items[0:-2])
-            types = np.array(items[-1])
-
-
-            matrix_error = Validator.validate_matrix(matrix, extension)
-            if matrix_error is not None:
-                return False, matrix_error, None
-
-            types_error = Validator.validate_types(types)
-            if types_error is not None:
-                return False, types_error, None
-
-            dimension_error = Validator.validate_dimensions(matrix, types)
-            if dimension_error is not None:
-                return False, dimension_error, None
-            
-            return True, matrix, types
-        # CSV file
-        else:
-            items = data.split('\r\n')
-            # crisp
-            if extension == 'crisp':
-                try:
-                    matrix = np.array([[int(word.strip()) for word in items[i].split(',') if word != ''] for i in range(len(items)-2)])
-                except:
-                    return False, {"error": "Crisp matrix in CSV format is not defined correctly"}, None
-            elif extension == 'fuzzy': 
-                matrix = []
-                for i in range(len(items)-2):
-                    row = []
-                    try:
-                        for r in items[i].split(', '):
-                            row.append(list(eval(r.replace(' ', ', '))))
-                    except: 
-                        return False, {"error": "Fuzzy matrix in CSV format is not defined correctly"}, None
-                    matrix.append(row)
-                    
-                matrix = np.array(matrix)
-                
-            try:
-                types = np.array([int(word.strip()) for word in items[len(items)-1].split(',') if word != ''])
-            except:
-                return False, {"error": "Criteria types in CSV format are not defined correctly"}, None
-
-
-            matrix_error = Validator.validate_matrix(matrix, extension)
-            if matrix_error is not None:
-                return False, matrix_error, None
-
-            types_error = Validator.validate_types(types)
-            if types_error is not None:
-                return False, types_error, None
-
-            dimension_error = Validator.validate_dimensions(matrix, types)
-            if dimension_error is not None:
-                return False, dimension_error, None
-            
-            return True, matrix, types
-
-    # TODO change to read strictly from files but for different endpoint than for the GUI app
     @staticmethod
-    def read_matrix_from_file(file, extension):
+    def read_matrix_from_file(file, type, extension):
         """
         """
+
 
         # TODO add checking if all rows have the same length
-        def read_from_csv(file):
-            df = pd.read_csv(file)
-            
-            try:
-                extension = df.iloc[-1].to_numpy()[0].lower()
-            except:
-                print('Last row in the .csv file should contain the extension name')
-                return
-            
-            try:
-                matrix = df.iloc[0:-2].to_numpy().astype(float)            
-                if any([any(np.isnan(m)) for m in matrix]):
-                    print('Matrix contains elements that are not a number')
-                    return
-            except:
-                print('Matrix contains elements that are not a number')
-                return 
-
-            try:
-                criteria_types = df.iloc[-2:-1].to_numpy().astype(float)[0]
-                if any(np.isnan(criteria_types)):
-                    print('Criteria types contains elements that are not a number')
-                    return
-            except:
-                print('Criteria types contains elements that are not a number')
-                return 
-
-            matrix_error = Validator.validate_matrix(matrix, extension)
-            if matrix_error is not None:
-                print(matrix_error)
-                return matrix_error
-
-            types_error = Validator.validate_types(criteria_types),
-            if types_error is not None:
-                print(types_error)
-                return types_error
-
-            dimension_error = Validator.validate_dimensions(matrix, criteria_types)
-            if dimension_error is not None:
-                print(dimension_error)
-                return dimension_error
-
-        def read_from_xlsx(file):
-            df = pd.read_excel(file)
+        def read_from_csv_crisp(file):
+            df = pd.read_csv(file, header=None)
+            columns = [f'{i}' for i in df.columns]
+            df.columns = columns
             df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+            df = df.dropna(axis=1, how='all')
+
+            matrix, criteria_types = None, None
+            try:
+                matrix = df.iloc[0:-1].to_numpy().astype(float)            
+                if any([any(np.isnan(m)) for m in matrix]):
+                    raise ValueError('Matrix contains elements that are not a number')
+                    
+            except:
+                raise ValueError('Matrix contains elements that are not a number')
+                
 
             try:
-                extension = df.iloc[-1].to_numpy()[0].lower()
+                criteria_types = df.iloc[-1].to_numpy().astype(int)
+                if any(np.isnan(criteria_types)):
+                    raise ValueError('Criteria types contains elements that are not a number')
             except:
-                print('Last row in the .csv file should contain the extension name')
-                return
+                raise ValueError('Criteria types contains elements that are not a number')
+                
+
+            try:
+                Files.__validate_input_data(matrix, extension, criteria_types)
+                return matrix, criteria_types
+            except Exception as err:
+                raise ValueError(err)
+        
+        def read_from_csv_fuzzy(file):
+            df = pd.read_csv(file, header=None)
+            columns = [f'{i}' for i in df.columns]
+            df.columns = columns
+            df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+            df = df.dropna(axis=1, how='all')
+
+            matrix, criteria_types = None, None
+            try:
+                data = df.iloc[0:-1].to_numpy()
+                matrix = []
+                for row in range(data.shape[0]):
+                    temp = []
+                    for col in range(data.shape[1]):
+                        items = data[row, col].split(' ')
+                        items = [float(item) for item in items if item != ''] 
+                        temp.append(items)
+                    matrix.append(temp)             
+                matrix = np.array(matrix, dtype='object')
+
+                if any([any([len(mm) != 3 for mm in m]) for m in matrix]):
+                    raise ValueError('Matrix contains elements that are not a number')
+            except:
+                raise ValueError('Matrix contains elements that are not a number')
+
+            try:
+                criteria_types = df.iloc[-1].to_numpy().astype(int)
+                if any(np.isnan(criteria_types)):
+                    raise ValueError('Criteria types contains elements that are not a number')
+            except:
+                raise ValueError('Criteria types contains elements that are not a number')
+                
+            try:
+                Files.__validate_input_data(matrix, extension, criteria_types)
+                return matrix, criteria_types
+            except Exception as err:
+                raise ValueError(err)
+
+        def read_from_xlsx_crisp(file):
+            df = pd.read_excel(file, header=None)
+            columns = [f'{i}' for i in df.columns]
+            df.columns = columns
+            df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+            df = df.dropna(axis=1, how='all')
             
+            matrix, criteria_types = None, None
             try:
                 matrix = df.iloc[0:-2].to_numpy().astype(float)            
                 if any([any(np.isnan(m)) for m in matrix]):
-                    print('Matrix contains elements that are not a number')
-                    return
+                    raise ValueError('Matrix contains elements that are not a number')
             except:
-                print('Matrix contains elements that are not a number')
-                return 
+                raise ValueError('Matrix contains elements that are not a number')
 
             try:
-                criteria_types = df.iloc[-2:-1].to_numpy().astype(float)[0]
+                criteria_types = df.iloc[-1].to_numpy().astype(float)
                 if any(np.isnan(criteria_types)):
-                    print('Criteria types contains elements that are not a number')
-                    return
+                    raise ValueError('Criteria types contains elements that are not a number')
             except:
-                print('Criteria types contains elements that are not a number')
-                return 
+                raise ValueError('Criteria types contains elements that are not a number')
 
-            matrix_error = Validator.validate_matrix(matrix, extension)
-            if matrix_error is not None:
-                print(matrix_error)
-                return matrix_error
+            try:
+                Files.__validate_input_data(matrix, extension, criteria_types)
+                return matrix, criteria_types
+            except Exception as err:
+                raise ValueError(err)
+        
+        def read_from_xlsx_fuzzy(file):
+            df = pd.read_excel(file, header=None)
+            columns = [f'{i}' for i in df.columns]
+            df.columns = columns
+            df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+            df = df.dropna(axis=1, how='all')
+            
+            matrix, criteria_types = None, None
+            try:
+                data = df.iloc[0:-2].to_numpy()
+                matrix = []
+                for row in range(data.shape[0]):
+                    temp = []
+                    for col in range(data.shape[1]):
+                        items = data[row, col].split(' ')
+                        items = [float(item) for item in items if item != ''] 
+                        temp.append(items)
+                    matrix.append(temp)             
+                matrix = np.array(matrix, dtype='object')
 
-            types_error = Validator.validate_types(criteria_types)
-            if types_error is not None:
-                print(types_error)
-                return types_error
+                if any([any([len(mm) != 3 for mm in m]) for m in matrix]):
+                    raise ValueError('Matrix contains elements that are not a number')
+            except:
+                raise ValueError('Matrix contains elements that are not a number')
 
-            dimension_error = Validator.validate_dimensions(matrix, criteria_types)
-            if dimension_error is not None:
-                print(dimension_error)
-                return dimension_error
+            try:
+                criteria_types = df.iloc[-1].to_numpy().astype(float)
+                if any(np.isnan(criteria_types)):
+                    raise ValueError('Criteria types contains elements that are not a number')
+            except:
+                raise ValueError('Criteria types contains elements that are not a number')
 
-        def read_from_json(file):
-            with open(file) as f:
-                data = json.load(f)
+            try:
+                Files.__validate_input_data(matrix, extension, criteria_types)
+                return matrix, criteria_types
+            except Exception as err:
+                raise ValueError(err)
+
+        def read_from_json_crisp(file):
+            file.seek(0)
+            data = json.load(file)
             
             if not all(item in list(data.keys()) for item in ['matrix', 'criteriaTypes']):
-                print('Not all required keys were in file')
-                return 
+                raise ValueError('Not all required keys were in file')
 
             matrix = data['matrix']
             try:
                 matrix = np.array(matrix)
             except:
-                print('Error in matrix during converting data')
-                return
+                raise ValueError('Error in matrix during converting data')
             
             criteria_types = data['criteriaTypes']
             try:
                 criteria_types = np.array(criteria_types)
             except:
-                print('Error in criteria types during converting data')
-                return
+                raise ValueError('Error in criteria types during converting data')
 
-            matrix_error = Validator.validate_matrix(matrix, data['extension'])
-            if matrix_error is not None:
-                print(matrix_error)
-                return matrix_error
-
-            types_error = Validator.validate_types(criteria_types)
-            if types_error is not None:
-                print(types_error)
-                return types_error
-
-            dimension_error = Validator.validate_dimensions(matrix, criteria_types)
-            if dimension_error is not None:
-                print(dimension_error)
-                return dimension_error
-
-
-
-        if extension == 'csv':
-            read_from_csv(file)
+            try:
+                Files.__validate_input_data(matrix, extension, criteria_types)
+                return matrix, criteria_types
+            except Exception as err:
+                raise ValueError(err)
         
-        elif extension == 'xlsx':
-            read_from_xlsx(file)
+        def read_from_json_fuzzy(file):
+            file.seek(0)
+            data = json.load(file)
+            
+            if not all(item in list(data.keys()) for item in ['matrix', 'criteriaTypes']):
+                raise ValueError('Not all required keys were in file')
 
-        elif extension == 'json':
-            read_from_json(file)
-        
+            matrix = data['matrix']
+            try:
+                matrix = np.array(matrix)
+            except:
+                raise ValueError('Error in matrix during converting data')
+            
+            criteria_types = data['criteriaTypes']
+            try:
+                criteria_types = np.array(criteria_types)
+            except:
+                raise ValueError('Error in criteria types during converting data')
+
+            try:
+                Files.__validate_input_data(matrix, extension, criteria_types)
+                return matrix, criteria_types
+            except Exception as err:
+                raise ValueError(err)
+
+        if extension == 'crisp':
+            if type == 'csv':
+                matrix, criteria_types = read_from_csv_crisp(file)
+                return matrix, criteria_types
+            
+            elif type == 'xlsx':
+                matrix, criteria_types = read_from_xlsx_crisp(file)
+                return matrix, criteria_types
+
+            elif type == 'json':
+                matrix, criteria_types = read_from_json_crisp(file)
+                return matrix, criteria_types
+            
+            raise ValueError('Wrong file type')
+
+        elif extension == 'fuzzy':
+            if type == 'csv':
+                matrix, criteria_types = read_from_csv_fuzzy(file)
+                return matrix, criteria_types
+            
+            elif type == 'xlsx':
+                matrix, criteria_types = read_from_xlsx_fuzzy(file)
+                return matrix, criteria_types
+
+            elif type == 'json':
+                matrix, criteria_types = read_from_json_fuzzy(file)
+                return matrix, criteria_types
+            raise ValueError('Wrong file type')
+        else:
+            raise ValueError('Wrong data type extension')
+            

@@ -49,20 +49,20 @@ class Weights():
 
     def calculate_weights(self, matrix, method):
 
-        error = False
-        weights = np.array([])
-        if self.extension not in self.weights_methods[method].keys():
-            error = f'Extension {self.extension} not found for method {method}'
-        else:
-            if method in ['MEREC', 'CILOS', 'IDOCRIW']:
-                weights = self.weights_methods[method][self.extension](matrix, self.types)
+        try:
+            weights = np.array([])
+            if self.extension not in self.weights_methods[method].keys():
+                raise ValueError(f'Extension {self.extension} not found for method {method}')
             else:
-                weights = self.weights_methods[method][self.extension](matrix)
+                if method in ['MEREC', 'CILOS', 'IDOCRIW']:
+                    weights = self.weights_methods[method][self.extension](matrix, self.types)
+                else:
+                    weights = self.weights_methods[method][self.extension](matrix)
 
-        return {
-            'weights': weights.tolist(),
-            'error': error
-        }
+            return weights.tolist(),
+        except Exception as err:
+            raise ValueError(f'Error in calculating criteria weights: {err}')
+        
 
 if __name__ == '__main__':
     matrix = np.array([

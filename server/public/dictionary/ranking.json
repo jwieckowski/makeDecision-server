@@ -1,17 +1,21 @@
 [
-    {
+  {
+    "id": 1,
+    "key": "Ranking",
+    "label": "Ranking",
+    "type": "primary",
+    "inputConnections": ["method"],
+    "outputConnections": ["visualization"],
+    "data": [
+      {
         "id": 1,
         "type": "Ranking",
+        "label": "Rank",
         "name": "Rank",
-        "extensions": [
-            "crisp",
-            "fuzzy"
-        ],
-        "requiredData": [
-            "matrix"
-        ],
-        "hints": [
-            "Kiedy użyć tą wersję (podać metody)"
-        ]
-    }
+        "extensions": ["crisp", "fuzzy"],
+        "requiredData": ["matrix"],
+        "hints": ["Kiedy użyć tą wersję (podać metody)"]
+      }
+    ]
+  }
 ]

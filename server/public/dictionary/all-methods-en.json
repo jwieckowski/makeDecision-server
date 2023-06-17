@@ -12,7 +12,7 @@
         "type": "matrix",
         "label": "File",
         "name": "File",
-        "extensions": ["crisp", "fuzzy", "ifs"],
+        "extensions": ["crisp", "fuzzy"],
         "formats": ["json", "xlsx", "csv"],
         "requiredData": ["file"],
         "hints": ["Wskazówka w jakim formacie i jak zapisane dane"]
@@ -22,7 +22,7 @@
         "type": "matrix",
         "label": "Input",
         "name": "Input",
-        "extensions": ["crisp", "fuzzy", "ifs"],
+        "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
         "hints": ["Wskazówka o tym czego powinny dotyczyć dane"]
       },
@@ -31,7 +31,7 @@
         "type": "matrix",
         "label": "Random",
         "name": "Random",
-        "extensions": ["crisp", "fuzzy", "ifs"],
+        "extensions": ["crisp", "fuzzy"],
         "requiredData": ["alternatives", "criteria", "ranges"],
         "hints": ["Wskazówka o tym na co wpływ będzie miała podana liczba"]
       }
@@ -78,7 +78,7 @@
         "type": "Weights",
         "label": "Entropy",
         "name": "Entropy",
-        "extensions": ["crisp", "fuzzy", "ifs"],
+        "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
         "hints": []
       },
@@ -114,7 +114,7 @@
         "type": "Weights",
         "label": "Input",
         "name": "Input",
-        "extensions": ["crisp", "fuzzy", "ifs"],
+        "extensions": ["crisp", "fuzzy"],
         "requiredData": ["weights"],
         "hints": ["Wartości wprowadzone przez użytkownika z klawiatury"]
       },
