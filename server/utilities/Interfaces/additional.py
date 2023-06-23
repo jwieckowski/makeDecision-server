@@ -2,11 +2,35 @@ import numpy as np
 import pyfdm
 
 class Additional():
-    def __init__(self):
-        pass
 
     @staticmethod
     def generate_random_matrix(alternatives, criteria, extension):
+        """
+            Generates random matrix with given extension and given shape
+
+            Parameters
+            ----------
+                alternatives : int
+                    Number of alternatives in decision matrix
+
+                criteria : int
+                    Number of criteria in decision matrix
+                
+                extension : string (crisp or fuzzy)
+                    Name of the extension 
+
+                
+            Raises
+            -------
+                ValueError Exception
+                    If the error in the random matrix generation occurs, the exception is thrown
+            
+            Returns
+            -------
+                ndarray
+                    Randomly generated decision matrix with given shape and given extension
+        """
+
         try:
             if extension == 'crisp':
                 return np.random.random((alternatives, criteria))

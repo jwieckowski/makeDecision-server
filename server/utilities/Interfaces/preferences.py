@@ -8,6 +8,21 @@ from .weights import Weights
 from ..validator import Validator
 class Preferences():
     def __init__(self, matrixes, extensions, types):
+        """
+            Initializes the object with matrixes, extensions and criteria types from parametres
+
+            Parameters
+            ----------
+                matrixes: ndarray
+                    Vector of decision matrixes formatted as numpy arrays
+                    
+                extensions : ndarray
+                    Vector of data extensions (crisp or fuzzy) represented as string
+                
+                types : ndarray
+                    Vector of criteria types formatted as numpy arrays.
+
+        """
         self.matrixes = matrixes
         self.extensions = extensions
         self.types = types
@@ -72,9 +87,69 @@ class Preferences():
 
 
     def calculate_preferences(self, methods, params=None):
+        """
+            Calculates correlation of preferences values of data in matrix with given methods
+
+            Parameters
+            ----------
+                methods : ndarray
+                    Vector of dictionaries with MCDA method and weights method that are used in multi-criteria assessment
+
+                params : ndarray, default=None
+                    Vector of dictionaries with additional parameters that are used in the multi-criteria assessment, like methods normalization, defuzzification or distances
+                
+            Raises
+            -------
+                ValueError Exception
+                    If the error in the multi-criteria assessment occurs, the exception is thrown
+            
+            Returns
+            -------
+                ndarray
+                    Vector of dictionaries including the results from multi-criteria assessment 
+        """
         
         # FOR ADDITIONAL PARAMETERS FOR FUZZY MCDA METHODS
         def _check_fuzzy_parameters(mcda_method, matrix_idx, idx, check_normalization=False, check_distance=False, check_defuzzify=False, check_distance_1=False, check_distance_2=False):
+            """
+                Retrieves additional parameters for given fuzzy MCDA method
+
+                Parameters
+                ----------
+                    mcda_method : string
+                        Name of MCDA method 
+
+                    matrix_idx : int
+                        Id of currently processed matrix
+                    
+                    idx : int
+                        Id of currently processed method
+                    
+                    check_normalization : bool, default=False
+                        Flag determining if normalization parameter should be retrieve
+
+                    check_distance : bool, default=False
+                        Flag determining if distance parameter should be retrieve
+                    
+                    check_defuzzify : bool, default=False
+                        Flag determining if defuzzify parameter should be retrieve
+                    
+                    check_distance_1 : bool, default=False
+                        Flag determining if distance_1 parameter should be retrieve
+                    
+                    check_distance_2 : bool, default=False
+                        Flag determining if distance_2 parameter should be retrieve
+                    
+                Raises
+                -------
+                    ValueError Exception
+                        If error in occurs in retrieving the additional data of MCDA parameter, the exception is thrown
+                
+                Returns
+                -------
+                    dictionary
+                        Dictionary with additional parameters for given fuzzy MCDA method
+            """
             
             try:
                 kwargs = {}
@@ -123,6 +198,37 @@ class Preferences():
 
         # FOR ADDITIONAL PARAMETERS FOR CRISP MCDA METHODS
         def _check_crisp_parameters(mcda_method, matrix_idx, idx, check_normalization_function=False, check_preference_function=False):
+            """
+                Retrieves additional parameters for given crisp MCDA method
+
+                Parameters
+                ----------
+                    mcda_method : string
+                        Name of MCDA method 
+
+                    matrix_idx : int
+                        Id of currently processed matrix
+                    
+                    idx : int
+                        Id of currently processed method
+                    
+                    check_normalization_function : bool, default=False
+                        Flag determining if normalization parameter should be retrieve
+
+                    check_preference_function : bool, default=False
+                        Flag determining if preference function parameter should be retrieve
+                    
+                Raises
+                -------
+                    ValueError Exception
+                        If error in occurs in retrieving the additional data of MCDA parameter, the exception is thrown
+                
+                Returns
+                -------
+                    dictionary
+                        Dictionary with additional parameters for given crisp MCDA method
+            """
+
             try:
                 kwargs = {}
                 if params is not None and len(params[matrix_idx]) >= idx+1 and len(list(params[matrix_idx][idx].keys())) != 0:
@@ -149,6 +255,20 @@ class Preferences():
 
         # RETRIEVE METHOD NAME FROM FUNCTION NAME
         def _get_methods_name(dict):
+            """
+                Gets name of MCDA methods
+
+                Parameters
+                ----------
+                    dict: dictionary
+                        Dictionary with MCDA methods
+                
+                Returns
+                -------
+                    dictionary
+                        Dictionary with MCDA methods names
+
+            """
             try:
                 names_dict = {}
                 for key, val in dict.items():

@@ -1,26 +1,30 @@
 import numpy as np
 import json
 import pandas as pd
-import io
-from base64 import encodebytes
-from PIL import Image
+
 
 from .validator import Validator
 class Files():
-    def __init__(self):
-        pass
-
-    @staticmethod
-    def get_response_image(image_path):
-        pil_img = Image.open(image_path, mode='r') # reads the PIL image
-        byte_arr = io.BytesIO()
-        pil_img.save(byte_arr, format='PNG') # convert the PIL image to byte array
-        encoded_img = encodebytes(byte_arr.getvalue()).decode('ascii') # encode as base64
-        return encoded_img
-
     @staticmethod
     def __validate_input_data(matrix, extension, criteria_types):
         """
+            Validate the decision matrix and criteria types regarding the given data extension 
+
+            Parameters
+            ----------
+                matrix : ndarray
+                    Decision matrix formatted as numpy array, 2 dimensional for crisp data and 3 dimensional for fuzzy data 
+
+                extension : string
+                    Extension of data in decision matrix (crisp or fuzzy)
+                
+                criteria_types : ndarray
+                    Criteria types formatted as numpy array, number of criteria types should be the same as the number of columns in decision matrix
+
+            Raises
+            -------
+                ValueError Exception
+                    If data is formatted badly or the data shapes is different, the exception is thrown
         """
 
         try:
@@ -41,11 +45,48 @@ class Files():
     @staticmethod
     def read_matrix_from_file(file, type, extension):
         """
+            Process data from file and convert it to numpy array.
+            Based on the type of file, the matrix is converted with different processing approach.
+
+            Parameters
+            ----------
+                file : file (CSV, JSON, or XLSX)
+                    Uploaded file, containing the decision matrix and criteria types
+
+                type : string
+                    File extension (csv, json, or xlsx)
+                
+                extension : string
+                    Extension of data in decision matrix (crisp or fuzzy)
+
+            Returns
+            -------
+                ndarray, ndarray
+                    Decision matrix and vector of criteria types formatted as numpy array
         """
 
 
         # TODO add checking if all rows have the same length
         def read_from_csv_crisp(file):
+            """
+                Process crisp data from CSV file and convert it to numpy array 
+
+                Parameters
+                ----------
+                    file : CSV file
+                        Uploaded CSV file, containing the decision matrix and criteria types 
+
+                Raises
+                ------
+                    ValueError Exception
+                        If data is formatted badly or the data shapes is different, the exception is thrown    
+                
+                Returns
+                -------
+                    ndarray, ndarray
+                        Decision matrix and vector of criteria types formatted as numpy array
+            """
+
             df = pd.read_csv(file, header=None)
             columns = [f'{i}' for i in df.columns]
             df.columns = columns
@@ -77,6 +118,26 @@ class Files():
                 raise ValueError(err)
         
         def read_from_csv_fuzzy(file):
+            """
+                Process fuzzy data from CSV file and convert it to numpy array 
+
+                Parameters
+                ----------
+                    file : CSV file
+                        Uploaded CSV file, containing the decision matrix and criteria types 
+
+                Raises
+                ------
+                    ValueError Exception
+                        If data is formatted badly or the data shapes is different, the exception is thrown
+                
+                Returns
+                -------
+                    ndarray, ndarray
+                        Decision matrix and vector of criteria types formatted as numpy array
+
+            """
+
             df = pd.read_csv(file, header=None)
             columns = [f'{i}' for i in df.columns]
             df.columns = columns
@@ -115,6 +176,25 @@ class Files():
                 raise ValueError(err)
 
         def read_from_xlsx_crisp(file):
+            """
+                Process crisp data from XLSX file and convert it to numpy array 
+
+                Parameters
+                ----------
+                    file : XLSX file
+                        Uploaded XLSX file, containing the decision matrix and criteria types 
+
+                Raises
+                ------
+                    ValueError Exception
+                        If data is formatted badly or the data shapes is different, the exception is thrown    
+                
+                Returns
+                -------
+                    ndarray, ndarray
+                        Decision matrix and vector of criteria types formatted as numpy array
+            """
+
             df = pd.read_excel(file, header=None)
             columns = [f'{i}' for i in df.columns]
             df.columns = columns
@@ -143,6 +223,25 @@ class Files():
                 raise ValueError(err)
         
         def read_from_xlsx_fuzzy(file):
+            """
+                Process fuzzy data from XLSX file and convert it to numpy array 
+
+                Parameters
+                ----------
+                    file : XLSX file
+                        Uploaded XLSX file, containing the decision matrix and criteria types 
+
+                Raises
+                ------
+                    ValueError Exception
+                        If data is formatted badly or the data shapes is different, the exception is thrown    
+                
+                Returns
+                -------
+                    ndarray, ndarray
+                        Decision matrix and vector of criteria types formatted as numpy array
+            """
+
             df = pd.read_excel(file, header=None)
             columns = [f'{i}' for i in df.columns]
             df.columns = columns
@@ -181,6 +280,25 @@ class Files():
                 raise ValueError(err)
 
         def read_from_json_crisp(file):
+            """
+                Process crisp data from JSON file and convert it to numpy array 
+
+                Parameters
+                ----------
+                    file : JSON file
+                        Uploaded JSON file, containing the decision matrix and criteria types 
+
+                Raises
+                ------
+                    ValueError Exception
+                        If data is formatted badly or the data shapes is different, the exception is thrown    
+                                    
+                Returns
+                -------
+                    ndarray, ndarray
+                        Decision matrix and vector of criteria types formatted as numpy array
+            """
+
             file.seek(0)
             data = json.load(file)
             
@@ -206,6 +324,25 @@ class Files():
                 raise ValueError(err)
         
         def read_from_json_fuzzy(file):
+            """
+                Process fuzzy data from JSON file and convert it to numpy array 
+
+                Parameters
+                ----------
+                    file : JSON file
+                        Uploaded JSON file, containing the decision matrix and criteria types 
+
+                Raises
+                ------
+                    ValueError Exception
+                        If data is formatted badly or the data shapes is different, the exception is thrown    
+                
+                Returns
+                -------
+                    ndarray, ndarray
+                        Decision matrix and vector of criteria types formatted as numpy array
+            """
+
             file.seek(0)
             data = json.load(file)
             

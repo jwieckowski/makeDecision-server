@@ -13,6 +13,28 @@ class Correlation():
         }
 
     def calculate_correlation(self, matrix, methods):
+        """
+            Calculates correlation values of data in matrix with given methods
+
+            Parameters
+            ----------
+                matrix : ndarray
+                    Decision matrix formatted as numpy array. Rows represent alternatives and columns represent criteria. The matrix should be 2 dimensional for crisp data, and 3 dimensional for fuzzy data.
+
+                methods : ndarray
+                    Vector of string representing the name of correlation coefficients
+                
+            Raises
+            -------
+                ValueError Exception
+                    If the error in the calculation of correlation values occurs, the exception is thrown
+            
+            Returns
+            -------
+                ndarray
+                    Matrix of correlation values calculated with given methods
+        """
+
 
         try:
             results = []
@@ -36,6 +58,27 @@ class Correlation():
 
 
     def calculate_preferences_correlation(self, methods, results):
+        """
+            Calculates correlation of preferences values of data in matrix with given methods
+
+            Parameters
+            ----------
+                methods : ndarray
+                    Vector of dictionaries with correlation methods definitions 
+
+                results : ndarray
+                    Vector of dictionaries with calculated data regarding the MCDA method, weights method, preference values
+                
+            Raises
+            -------
+                ValueError Exception
+                    If the error in the calculation of correlation of preference values occurs, the exception is thrown
+            
+            Returns
+            -------
+                ndarray
+                    Matrix of correlation of preference values calculated with given methods
+        """
         
         try:
             correlations = []
@@ -82,6 +125,27 @@ class Correlation():
 
 
     def calculate_ranking_correlation(self, methods, results):
+        """
+            Calculates correlation of ranking values of data in matrix with given methods
+
+            Parameters
+            ----------
+                methods : ndarray
+                    Vector of dictionaries with correlation methods definitions 
+
+                results : ndarray
+                    Vector of dictionaries with calculated data regarding the MCDA method, weights method, ranking values
+                
+            Raises
+            -------
+                ValueError Exception
+                    If the error in the calculation of correlation of ranking values occurs, the exception is thrown
+            
+            Returns
+            -------
+                ndarray
+                    Matrix of correlation of ranking values calculated with given methods
+        """
         
         try:
             correlations = []

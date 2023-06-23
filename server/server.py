@@ -43,10 +43,6 @@ def validate_locale(locale):
 ns = api.namespace('api/v1', description='API v1 endpoints')
 
 # MODELS
-images_model = api.model('Images', {
-    'result': fields.List(fields.String)
-})
-
 dictionary_additional_data_item_model = api.model("AdditionalDataItem", {
     "id": fields.Integer,
     "method": fields.String,
@@ -85,12 +81,6 @@ dictionary_model = api.model('Dictionary', {
 description_item = api.model('Description', {
     'id': fields.Integer,
     'text': fields.String
-})
-
-about_description_item = api.model('AboutDescription', {
-    'format': fields.String,
-    'imgIndex': fields.Integer,
-    'description': fields.List(fields.Nested(description_item))
 })
 
 method_data_item = api.model('MethodData', {
@@ -160,17 +150,6 @@ class AllMethodsDictionary(Resource):
             data = json.load(file)
         return data
 
-@ns.route('/descriptions/home')
-class HomeDescription(Resource):
-    @ns.expect(locale_parser)
-    @ns.marshal_list_with(description_item)
-    def get(self):
-        args = locale_parser.parse_args()
-        locale = validate_locale(args['locale'])
-        with open(project_home+f'public/descriptions/home-{locale}.json', encoding='utf-8') as file:
-            data = json.load(file)
-        return data
-
 @ns.route('/descriptions/methods')
 class MethodsDescription(Resource):
     @ns.expect(locale_parser)
@@ -182,33 +161,6 @@ class MethodsDescription(Resource):
             data = json.load(file)
         return data
 
-@ns.route('/descriptions/about')
-class AboutDescription(Resource):
-    @ns.expect(locale_parser)
-    @ns.marshal_list_with(about_description_item)
-    def get(self):
-        args = locale_parser.parse_args()
-        locale = validate_locale(args['locale'])
-        with open(project_home+f'public/descriptions/about-{locale}.json', encoding='utf-8') as file:
-            data = json.load(file)
-        return data
-
-@ns.route('/files/about')
-class AboutDescription(Resource):
-    @ns.marshal_with(images_model)
-    def get(self):
-        images = [
-            project_home+'public/files/json_data.png',
-            project_home+'public/files/fuzzy_json_data.png',
-            project_home+'public/files/xlsx_data.png',
-            project_home+'public/files/fuzzy_xlsx_data.png',
-            project_home+'public/files/csv_data.png',
-            project_home+'public/files/fuzzy_csv_data.png'
-        ]
-        encoded_images = []
-        for image_path in images:
-            encoded_images.append(Files.get_response_image(image_path))
-        return {'result': encoded_images}
 
 @ns.route('/matrix')
 class MatrixConverter(Resource):

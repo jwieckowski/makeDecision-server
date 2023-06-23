@@ -2,11 +2,33 @@ import numpy as np
 from pyfdm.helpers import rank
 
 class Ranking():
-    def __init__(self):
-        pass
 
     # calculation of ranking based on preferences and order
     def _rank_preferences(self, preferences, order):
+        """
+            Calculates criteria weights based on the decision matrix and given weights method
+
+            Parameters
+            ----------
+                preferences : ndarray
+                    Vector of preference values
+
+                order : string (ascending or descending)
+                    Order determining the direction of ranking sorting
+                    
+
+            Raises
+            ------
+                ValueError Exception
+                    If order name was not found in or calculation process did not finish successfully, the exception is thrown
+
+            Returns
+            -------
+                ndarray
+                    Vector of ranking calculated with the given order
+
+        """
+
         try:
             if order == 'ascending':
                 return rank(preferences, False).tolist()
@@ -16,7 +38,29 @@ class Ranking():
             raise ValueError(f'Unexpected error in ranking calculation: {err}')
 
     def calculate_ranking(self, methods, results):
-        
+        """
+            Calculates ranking order from the results data determined in the methods parameters
+
+            Parameters
+            ----------
+                methods : dictionary
+                    Structure containing parameters for calculation of MCDA method, criteria weights vector, and ranking order
+                    
+                results : dictionary
+                    Structure containing results from MCDA method, criteria weights vector, and preference values
+
+            Raises
+            ------
+                ValueError Exception
+                    If order name was not found in or calculation process did not finish successfully, the exception is thrown
+
+            Returns
+            -------
+                ndarray
+                    Vector of rankings calculated with the given orders
+
+        """
+
         try:
             rankings = []
 

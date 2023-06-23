@@ -4,6 +4,19 @@ import pyfdm.weights as fuzzy_weights
 
 class Weights():
     def __init__(self, extension, types):
+        """
+            Initialize weights object with extension and types values
+
+            Parameters
+            ----------
+                extension : string (crisp or fuzzy)
+                    Extension of decision matrix.
+
+                types : ndarray
+                    Vector of criteria types formatted as numpy array. Number of types should correspond to number of weights.
+
+        """
+
         self.extension=extension
         self.types=types
 
@@ -44,10 +57,29 @@ class Weights():
             }
         }
 
-    def validate_input_weights(self, matrix):
-        pass
-
     def calculate_weights(self, matrix, method):
+        """
+            Calculates criteria weights based on the decision matrix and given weights method
+
+            Parameters
+            ----------
+                matrix : ndarray
+                    Decision matrix formatted as numpy array. Rows represent alternatives and columns represent criteria. The matrix should be 2 dimensional for crisp data, and 3 dimensional for fuzzy data.
+
+                method : string 
+                    Name of the weighting method.
+
+            Raises
+            ------
+                ValueError Exception
+                    If method name was not found in the dictionary or calculation process did not finish successfully, the exception is thrown
+
+            Returns
+            -------
+                ndarray
+                    Vector of criteria weights calculated with the given weighting method
+
+        """
 
         try:
             weights = np.array([])
