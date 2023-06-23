@@ -69,7 +69,7 @@ dictionary_data_model = api.model('DictionaryData', {
     "order": fields.String,
     "requiredData": fields.List(fields.String),
     "additional": fields.List(fields.Nested(dictionary_additional_data_model, skip_none=True)),
-    "hints": fields.List(fields.String)
+    "hints": fields.String
 })
 
 dictionary_model = api.model('Dictionary', {

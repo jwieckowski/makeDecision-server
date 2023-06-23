@@ -282,6 +282,8 @@ class Preferences():
                         # PROMETHEE -> matrix, weights, types, p, q, preference_function ('usual', 'ushape', 'vshape', 'level', 'vshape_2')
                         elif mcda_method == 'PROMETHEE':
                             kwargs = _check_crisp_parameters(mcda_method, idx, idx_method, check_preference_function=True)
+                            if 'preference_function' not in kwargs.keys():
+                                raise ValueError('No preference function found')
 
                             try:
                                 body = self.mcda_methods[mcda_method][extension](**kwargs)

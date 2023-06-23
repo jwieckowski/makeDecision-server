@@ -15,7 +15,7 @@
         "extensions": ["crisp", "fuzzy"],
         "formats": ["json", "xlsx", "csv"],
         "requiredData": ["file"],
-        "hints": ["Wskazówka w jakim formacie i jak zapisane dane"]
+        "hints": "Wskazówka w jakim formacie i jak zapisane dane"
       },
       {
         "id": 2,
@@ -24,7 +24,7 @@
         "name": "Input",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": ["Wskazówka o tym czego powinny dotyczyć dane"]
+        "hints": "Wskazówka o tym czego powinny dotyczyć dane"
       },
       {
         "id": 3,
@@ -33,7 +33,7 @@
         "name": "Random",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["alternatives", "criteria", "ranges"],
-        "hints": ["Wskazówka o tym na co wpływ będzie miała podana liczba"]
+        "hints": "Wskazówka o tym na co wpływ będzie miała podana liczba"
       }
     ]
   },
@@ -52,7 +52,7 @@
         "name": "Angle",
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 2,
@@ -61,7 +61,7 @@
         "name": "CILOS",
         "extensions": ["crisp"],
         "requiredData": ["matrix", "types"],
-        "hints": ["Wymaga typów kryteriów"]
+        "hints": "Wymaga typów kryteriów"
       },
       {
         "id": 3,
@@ -70,8 +70,7 @@
         "name": "CRITIC",
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
-
-        "hints": []
+        "hints": ""
       },
       {
         "id": 4,
@@ -80,7 +79,7 @@
         "name": "Entropy",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 5,
@@ -89,7 +88,7 @@
         "name": "Equal",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 6,
@@ -98,7 +97,7 @@
         "name": "Gini",
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 7,
@@ -107,7 +106,7 @@
         "name": "IDOCRIW",
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
-        "hints": ["Wymaga typów kryteriów"]
+        "hints": "Wymaga typów kryteriów"
       },
       {
         "id": 8,
@@ -116,7 +115,7 @@
         "name": "Input",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["weights"],
-        "hints": ["Wartości wprowadzone przez użytkownika z klawiatury"]
+        "hints": "Wartości wprowadzone przez użytkownika z klawiatury"
       },
       {
         "id": 9,
@@ -125,7 +124,7 @@
         "name": "MEREC",
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
-        "hints": ["Wymaga typów kryteriów"]
+        "hints": "Wymaga typów kryteriów"
       },
       {
         "id": 10,
@@ -134,7 +133,7 @@
         "name": "Standard deviation",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 11,
@@ -143,7 +142,7 @@
         "name": "Variance",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": []
+        "hints": ""
       }
     ]
   },
@@ -186,7 +185,7 @@
             ]
           }
         ],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 2,
@@ -209,7 +208,7 @@
             ]
           }
         ],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 3,
@@ -252,7 +251,7 @@
             ]
           }
         ],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 4,
@@ -264,7 +263,7 @@
         "order": "descending",
         "requiredData": ["matrix", "weights", "criteriaTypes"],
         "additional": [],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 5,
@@ -287,7 +286,7 @@
             ]
           }
         ],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 6,
@@ -310,7 +309,7 @@
             ]
           }
         ],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 7,
@@ -348,7 +347,7 @@
             ]
           }
         ],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 8,
@@ -386,7 +385,7 @@
             ]
           }
         ],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 9,
@@ -409,7 +408,7 @@
             ]
           }
         ],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 10,
@@ -432,7 +431,7 @@
             ]
           }
         ],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 11,
@@ -465,7 +464,7 @@
             ]
           }
         ],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 12,
@@ -488,7 +487,7 @@
             ]
           }
         ],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 13,
@@ -500,7 +499,7 @@
         "order": "descending",
         "requiredData": ["matrix", "weights", "criteriaTypes"],
         "additional": [],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 14,
@@ -538,7 +537,7 @@
             ]
           }
         ],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 15,
@@ -571,7 +570,7 @@
             ]
           }
         ],
-        "hints": []
+        "hints": ""
       }
     ]
   },
@@ -591,7 +590,7 @@
         "functionName": "enhanced_accuracy_normalization",
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 2,
@@ -601,7 +600,7 @@
         "functionName": "logarithmic_normalization",
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 3,
@@ -611,7 +610,7 @@
         "functionName": "linear_normalization",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 4,
@@ -621,7 +620,7 @@
         "functionName": "max_normalization",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 5,
@@ -631,7 +630,7 @@
         "functionName": "minmax_normalization",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 6,
@@ -641,7 +640,7 @@
         "functionName": "nonlinear_normalization",
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 7,
@@ -651,7 +650,7 @@
         "functionName": "saw_normalization",
         "extensions": ["fuzzy"],
         "requiredData": ["matrix"],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 8,
@@ -661,7 +660,7 @@
         "functionName": "sum_normalization",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 9,
@@ -671,7 +670,7 @@
         "functionName": "vector_normalization",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 10,
@@ -681,7 +680,7 @@
         "functionName": "zavadskas_turskis_normalization",
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
-        "hints": []
+        "hints": ""
       }
     ]
   },
@@ -701,7 +700,7 @@
         "functionName": "euclidean_distance",
         "extensions": ["fuzzy"],
         "requiredData": [],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 2,
@@ -711,7 +710,7 @@
         "functionName": "hamming_distance",
         "extensions": ["fuzzy"],
         "requiredData": [],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 3,
@@ -721,7 +720,7 @@
         "functionName": "lr_distance",
         "extensions": ["fuzzy"],
         "requiredData": [],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 4,
@@ -731,7 +730,7 @@
         "functionName": "mahdavi_distance",
         "extensions": ["fuzzy"],
         "requiredData": [],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 5,
@@ -741,7 +740,7 @@
         "functionName": "tran_duckstein_distance",
         "extensions": ["fuzzy"],
         "requiredData": [],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 6,
@@ -751,7 +750,7 @@
         "functionName": "vertex_distance",
         "extensions": ["fuzzy"],
         "requiredData": [],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 7,
@@ -761,7 +760,7 @@
         "functionName": "weighted_euclidean_distance",
         "extensions": ["fuzzy"],
         "requiredData": [],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 8,
@@ -771,7 +770,7 @@
         "functionName": "weighted_hamming_distance",
         "extensions": ["fuzzy"],
         "requiredData": [],
-        "hints": []
+        "hints": ""
       }
     ]
   },
@@ -791,7 +790,7 @@
         "functionName": "graded_mean_average_defuzzification",
         "extensions": ["fuzzy"],
         "requiredData": [],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 2,
@@ -801,7 +800,7 @@
         "functionName": "mean_defuzzification",
         "extensions": ["fuzzy"],
         "requiredData": [],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 3,
@@ -811,7 +810,7 @@
         "functionName": "mean_area_defuzzification",
         "extensions": ["fuzzy"],
         "requiredData": [],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 4,
@@ -821,7 +820,7 @@
         "functionName": "weighted_mean_defuzzification",
         "extensions": ["fuzzy"],
         "requiredData": [],
-        "hints": []
+        "hints": ""
       }
     ]
   },
@@ -841,7 +840,7 @@
         "functionName": "usual",
         "extensions": ["crisp"],
         "requiredData": [],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 2,
@@ -851,7 +850,7 @@
         "functionName": "ushape",
         "extensions": ["crisp"],
         "requiredData": [],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 3,
@@ -861,7 +860,7 @@
         "functionName": "vshape",
         "extensions": ["crisp"],
         "requiredData": [],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 4,
@@ -871,7 +870,7 @@
         "functionName": "level",
         "extensions": ["crisp"],
         "requiredData": [],
-        "hints": []
+        "hints": ""
       },
       {
         "id": 4,
@@ -881,7 +880,7 @@
         "functionName": "vshape_2",
         "extensions": ["crisp"],
         "requiredData": [],
-        "hints": []
+        "hints": ""
       }
     ]
   },
@@ -900,7 +899,7 @@
         "name": "Rank",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": ["Kiedy użyć tą wersję (podać metody)"]
+        "hints": "Oblicza ranking na podstawie ocen wyznaczonych z metod"
       }
     ]
   },
@@ -919,7 +918,7 @@
         "name": "Goodman-Kruskall",
         "extensions": ["crisp"],
         "requiredData": ["preferences"],
-        "hints": []
+        "hints": "Do korelacji wyników metod MCDA"
       },
       {
         "id": 2,
@@ -928,7 +927,7 @@
         "name": "Kendall-Tau",
         "extensions": ["crisp"],
         "requiredData": ["preferences"],
-        "hints": []
+        "hints": "Do korelacji wyników metod MCDA"
       },
       {
         "id": 3,
@@ -937,7 +936,7 @@
         "name": "Pearson",
         "extensions": ["crisp"],
         "requiredData": ["preferences"],
-        "hints": []
+        "hints": "Do korelacji wyników metod MCDA"
       },
       {
         "id": 4,
@@ -946,7 +945,7 @@
         "name": "Spearman",
         "extensions": ["crisp"],
         "requiredData": ["preferences"],
-        "hints": []
+        "hints": "Do korelacji wyników metod MCDA"
       },
       {
         "id": 5,
@@ -955,7 +954,7 @@
         "name": "Weighted Spearman",
         "extensions": ["crisp"],
         "requiredData": ["ranking"],
-        "hints": []
+        "hints": "Do korelacji rankingów metod MCDA"
       },
       {
         "id": 6,
@@ -964,7 +963,7 @@
         "name": "WS rank similarity",
         "extensions": ["crisp"],
         "requiredData": ["ranking"],
-        "hints": []
+        "hints": "Do korelacji rankingów metod MCDA"
       }
     ]
   },
@@ -983,7 +982,7 @@
         "name": "A",
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
-        "hints": ["Co wyświetli"]
+        "hints": "Co wyświetli"
       },
       {
         "id": 2,
@@ -992,7 +991,7 @@
         "name": "B",
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
-        "hints": ["Co wyświetli"]
+        "hints": "Co wyświetli"
       },
       {
         "id": 3,
@@ -1001,7 +1000,7 @@
         "name": "C",
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
-        "hints": ["Co wyświetli"]
+        "hints": "Co wyświetli"
       }
     ]
   }
