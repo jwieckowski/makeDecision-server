@@ -13,6 +13,9 @@ from utilities.interface import Calculations
 from utilities.validator import Validator 
 from utilities.files import Files
 
+# ERROR CODES
+from utilities.errors import get_error_message
+
 # configure root logger
 logging.basicConfig(level=logging.INFO)
 
@@ -40,58 +43,59 @@ def validate_locale(locale):
     return 'en'
 
 # instead of @api.route => @ns.route
-ns = api.namespace('api/v1', description='API v1 endpoints')
+ns = api.namespace('api/v1', description='REST API v1 endpoints for Multi-Criteria Decision Analysis evaluations and graphical tool for modelling decision models structures')
 
 # MODELS
 dictionary_additional_data_item_model = api.model("AdditionalDataItem", {
-    "id": fields.Integer,
-    "method": fields.String,
-    "parameter": fields.String
+    "id": fields.Integer(description='Element id'),
+    "method": fields.String(description="Name of technique used in Multi-Criteria Decision Analysis method for additional measures"),
+    "parameter": fields.String(description='Name of parameter used in evaluations package in Python')
 })
 
 dictionary_additional_data_model = api.model("AdditionalData", {
-    "extension": fields.String,
+    "extension": fields.String(description="Data type representation"),
     "data": fields.List(fields.Nested(dictionary_additional_data_item_model, skip_none=True))
 })
 
 dictionary_data_model = api.model('DictionaryData', {
-    "id": fields.Integer(description='1'),
-    "type": fields.String,
-    "label": fields.String,
-    "name": fields.String,
-    "abbreviation": fields.String,
-    "extensions": fields.List(fields.String),
-    "formats": fields.List(fields.String),
-    "order": fields.String,
-    "requiredData": fields.List(fields.String),
+    "id": fields.Integer(description='Element id'),
+    "type": fields.String(description='Type of method'),
+    "label": fields.String(description='Label representing the variant of method used for visualization purposes'),
+    "name": fields.String(description='Name of method variant'),
+    "abbreviation": fields.String(description='Full name of the method'),
+    "extensions": fields.List(fields.String(description="Data type representation")),
+    "formats": fields.List(fields.String(description="Accepted data formats")),
+    "order": fields.String(description="Order for ranking calculation"),
+    "functionName": fields.String(description="Name of parameter used in evaluations package in Pythonn"),
+    "requiredData": fields.List(fields.String(description='Required data needed for block usage')),
     "additional": fields.List(fields.Nested(dictionary_additional_data_model, skip_none=True)),
-    "hints": fields.String
+    "hints": fields.String(description="Hints for user about how to use given method")
 })
 
 dictionary_model = api.model('Dictionary', {
-    'id': fields.Integer,
-    "key": fields.String,
-    "label": fields.String,
-    "type": fields.String,
-    "inputConnections": fields.List(fields.String),
-    "outputConnections": fields.List(fields.String),
+    'id': fields.Integer(description='Element id'),
+    "key": fields.String(description="Name of the method categories"),
+    "label": fields.String(description="Label representing the variant of method categories used for visualization purposes"),
+    "type": fields.String(description="Type of method category"),
+    "inputConnections": fields.List(fields.String(description="List of methods type that can be used as the input data for the element")),
+    "outputConnections": fields.List(fields.String(description="List of methods type that can be used as the output data for the element")),
     "data": fields.List(fields.Nested(dictionary_data_model, skip_none=True))
 })
 
 description_item = api.model('Description', {
-    'id': fields.Integer,
-    'text': fields.String
+    'id': fields.Integer(description='Element id'),
+    'text': fields.String(description="Description content")
 })
 
 method_data_item = api.model('MethodData', {
-    "id": fields.Integer,
-    "name": fields.String,
+    "id": fields.Integer(description='Element id'),
+    "name": fields.String(description="Name of the method"),
     "description": fields.List(fields.Nested(description_item))
 })
 
 methods_description_item = api.model('MethodsDescription', {
-    "id": fields.Integer,
-    "key": fields.String,
+    "id": fields.Integer(description='Element id'),
+    "key": fields.String(description="Name of the method categories"),
     "data": fields.List(fields.Nested(method_data_item))
 })
 
@@ -120,10 +124,12 @@ locale_parser = reqparse.RequestParser()
 locale_parser.add_argument('locale', location='headers', required=True)
 
 matrix_parser = reqparse.RequestParser()
+matrix_parser.add_argument('locale', location='headers', required=True)
 matrix_parser.add_argument('matrix', type=FileStorage, location='files', required=True)
 matrix_parser.add_argument('extension', type=str, location='form', required=True)
 
 calculation_parser = reqparse.RequestParser()
+calculation_parser.add_argument('locale', location='headers', required=True)
 calculation_parser.add_argument('matrix',  required=True, type=list, action='append')
 calculation_parser.add_argument('extensions',  required=True, type=str, action='append')
 calculation_parser.add_argument('types',  required=True, type=list, action='append')
@@ -148,6 +154,9 @@ class AllMethodsDictionary(Resource):
         locale = validate_locale(args['locale'])
         with open(project_home+f'public/dictionary/all-methods-{locale}.json',  encoding='utf-8') as file:
             data = json.load(file)
+        # filtering keys
+        filters = ['Visualization', 'Preference function']
+        data = [d for d in data if d['key'] not in filters]
         return data
 
 @ns.route('/descriptions/methods')
@@ -168,6 +177,7 @@ class MatrixConverter(Resource):
     # @ns.marshal_with(matrix_data_item)
     def post(self):
         args = matrix_parser.parse_args()
+        locale = validate_locale(args['locale'])
 
         matrix = args['matrix']
         extension = args['extension']
@@ -175,7 +185,7 @@ class MatrixConverter(Resource):
 
         items = filename.split('.')
         try:
-            m, ct = Files.read_matrix_from_file(matrix, items[-1], extension)
+            m, ct = Files.read_matrix_from_file(locale, matrix, items[-1], extension)
 
             return {
                 "matrix": m.tolist(),
@@ -192,6 +202,7 @@ class CalculationResults(Resource):
     # @ns.marshal_with(images_model)
     def post(self):
         args = calculation_parser.parse_args()
+        locale = validate_locale(args['locale'])
         matrixes = np.array([args['matrix']][0], dtype='object')
         extensions = np.array([args['extensions']][0])
         types = np.array([args['types']][0])
@@ -217,7 +228,7 @@ class CalculationResults(Resource):
             try:
                 # random
                 if np.array(m).ndim == 1 and len(m) == 2:
-                    calculationMatrixes.append(Calculations.generate_random_matrix(m[0], m[1], ext))
+                    calculationMatrixes.append(Calculations.generate_random_matrix(locale, m[0], m[1], ext))
                     calculationTypes.append(types[idx])
                 # input
                 else:
@@ -233,14 +244,14 @@ class CalculationResults(Resource):
 
             except Exception as err:
                 ns.logger.info(str(err))
-                e = BadRequest('Something went wrong while retrieving decision matrix')
+                e = BadRequest(f'{get_error_message(locale, "extract-data-error")}')
                 raise e
 
 
         # verification of input data
         for m, ext in zip(calculationMatrixes, extensions):
             try:
-                Validator.validate_matrix(m, ext)
+                Validator.validate_matrix(locale, m, ext)
             except Exception as err:
                 ns.logger.info(str(err))
                 e = BadRequest(str(err))
@@ -248,7 +259,7 @@ class CalculationResults(Resource):
 
         for m, t in zip(calculationMatrixes, calculationTypes):
             try:
-                Validator.validate_types(t)
+                Validator.validate_types(locale, t)
             except Exception as err:
                 ns.logger.info(str(err))
                 e = BadRequest(str(err))
@@ -262,7 +273,7 @@ class CalculationResults(Resource):
         
         for m, t in zip(calculationMatrixes, calculationTypes):
             try:
-                Validator.validate_dimensions(m, t)
+                Validator.validate_dimensions(locale, m, t)
             except Exception as err:
                 ns.logger.info(str(err))
                 e = BadRequest(str(err))
@@ -274,10 +285,13 @@ class CalculationResults(Resource):
             'method': [],
             'methodCorrelations': [],
             'methodRankings': [],
-            'rankingCorrelations': []
+            'rankingCorrelations': [],
         }
+
         if len(method) == 0:
-            raise ValueError('No MCDA method was given')
+            ns.logger.info(f'{get_error_message(locale, "no-assessment-method-error")} : {err}')
+            e = BadRequest(str(err))
+            raise e
 
         try:
             # return matrices
@@ -285,34 +299,44 @@ class CalculationResults(Resource):
 
             # MCDA evaluation
             try:
-                results['method'] = Calculations.calculate_preferences(calculationMatrixes, extensions, calculationTypes, method, params)
+                results['method'] = Calculations.calculate_preferences(locale, calculationMatrixes, extensions, calculationTypes, method, params)
             except Exception as err:
-                raise ValueError(err)
+                ns.logger.info(str(err))
+                e = BadRequest(str(err))
+                raise e
                 
             # MCDA preferences correlation
             if methodCorrelations is not None and len(methodCorrelations) > 0:
                 try:
-                    results['methodCorrelations'] = Calculations.calculate_preference_correlations(methodCorrelations, results['method'])
+                    results['methodCorrelations'] = Calculations.calculate_preference_correlations(locale, methodCorrelations, results['method'])
                 except Exception as err:
-                    raise ValueError(err)
+                    ns.logger.info(str(err))
+                    e = BadRequest(str(err))
+                    raise e
 
             # MCDA ranking calculation
             if methodRankings is not None and len(methodRankings) > 0:
                 try:
-                    results['methodRankings'] = Calculations.calculate_ranking(methodRankings, results['method'])
+                    results['methodRankings'] = Calculations.calculate_ranking(locale, methodRankings, results['method'])
                 except Exception as err:
-                    raise ValueError(err)
+                    ns.logger.info(str(err))
+                    e = BadRequest(str(err))
+                    raise e
                 
             # MCDA ranking correlation
             if rankingCorrelations is not None and  len(rankingCorrelations) > 0:
                 try:
-                    results['rankingCorrelations'] = Calculations.calculate_ranking_correlations(rankingCorrelations, results['methodRankings'])
+                    results['rankingCorrelations'] = Calculations.calculate_ranking_correlations(locale, rankingCorrelations, results['methodRankings'])
                 except Exception as err:
-                    raise ValueError(err)
+                    ns.logger.info(str(err))
+                    e = BadRequest(str(err))
+                    raise e
                 
             return results
         except Exception as err:
-            raise ValueError(f'Evaluation error: {err}')
+            ns.logger.info(f'{get_error_message(locale, "assessment-error")}  {err}')
+            e = BadRequest(str(err))
+            raise e
 
 if __name__ == '__main__':
     app.run(debug=True)

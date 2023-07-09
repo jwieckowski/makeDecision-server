@@ -1,0 +1,54 @@
+{
+  "extract-data-error": "Błąd podczas pobierania macierzy decyzyjnej",
+  "no-assessment-method-error": "Nie podano metody wielokryterialnej",
+  "assessment-error": "Błąd oceny: ",
+
+  "criteria-types-number-error": "Liczba kryteriów powinna być równa liczbie typów kryteriów:",
+  "criteria-dimension-error": "Liczba kryteriów powinna być równa liczbie wag i typów kryteriów: ",
+  "criteria-orders-error": "Liczba macierzy decyzyjnych i rankingów powinna być taka sama: ",
+  "crisp-matrix-format-error": "Macierz ostra ma nieprawidłowy format",
+  "crisp-matrix-not-numeric-error": "Macierz ostra ma elementy nienumeryczne",
+  "fuzzy-matrix-format-error": "Macierz rozmyta ma nieprawidłowy format. Elementy powinny być podane jako Trójkątne Liczby Rozmyte",
+  "data-extension-error": "rozszerzenie nie jest obsługiwane",
+  "weights-sum-error": "Wartości wag powinny sumować się do 1",
+  "fuzzy-weights-error": "Wartości wag rozmytych powinny być podane jako Trójkątne Liczby Rozmyte",
+  "criteria-types-values-error": "Wartości typów kryteriów powinny być podane jako -1 dla kosztu lub 1 dla zysku",
+  "criteria-types-not-unique-error": "Typy kryteriów nie powinny być takie same",
+
+  "criteria-types-not-numeric-error": "Wartości typów kryteriów nie zawierają elementów liczbowych",
+  "not-all-keys-json-error": "Nie wszystkie wymagane klucze (matrix, criteriaTypes) zostały wykryte w pliku .json",
+  "matrix-array-convert-error": "Konwersja macierzy spowodowała błąd",
+  "criteria-array-convert-error": "Konwersja typów kryteriów spowodowała błąd",
+  "file-type-error": "Przesłany typ pliku jest nieprawidłowy",
+
+  "random-matrix-extension-error": "Losowa macierz nie może zostać utworzona dla rozszerzenia",
+  "random-matrix-unexpected-error": "Nieoczekiwany błąd podczas generowania macierzy losowej",
+
+  "weights-method-not-found-error": "rozszerzenie: nie znaleziono metody",
+  "weights-unexpected-error": "Błąd w obliczaniu wag kryteriów:",
+
+  "ranking-unexpected-error": "Nieoczekiwany błąd w obliczeniach rankingu",
+  "ranking-order-error": ": taki sposób rankingu nie został znaleziony",
+  "ranking-preference-error": "Obliczanie rankingu na podstawie preferencji spowodowało błąd",
+
+  "correlation-method-error": "metoda nie znaleziona",
+  "correlation-unexpected-error": "Nieoczekiwany błąd przy obliczaniu korelacji:",
+
+  "fuzzy-normalization-method-error": ": metoda normalizacji na danych rozmytych nie znaleziona",
+  "fuzzy-distance-method-error": ": metryka odległości na danych rozmytych nie znaleziona",
+  "fuzzy-defuzzification-method-error": ": metoda defuzyfikacji nie znaleziona",
+  "fuzzy-parameters-unexpected-error": "Nieoczekiwany błąd podczas pobierania metryk metod rozmytych",
+  "crisp-normalization-method-error": ": metoda normalizacji na danych ostrych nie znaleziona",
+  "crisp-preference-function-error": ": funkcja preferencji nie została znaleziona",
+  "crisp-parameters-unexpected-error": "Nieoczekiwany błąd podczas pobierania metryk metod ostrych",
+  "method-name-error": "Nie można pobrać nazw metod MCDA:",
+  "fuzzy-weights-user-error": "Wartości wag rozmytych z danych od użytkownika nie są poprawnie zdefiniowane",
+  "fuzzy-method-not-found": ": nie znaleziono metody typu rozmytego",
+  "fuzzy-assessment-error": "Ocena na danych rozmytych spowodowała błąd",
+  "crisp-assessment-error": "Ocena na danych ostrych spowodowała błąd",
+  "no-preference-function-error": "Funkcja preferencji nie została podana",
+  "crisp-method-not-found": ": nie znaleziono metody typu ostrego",
+
+  "locale-error": ": lokalizacja nie jest obsługiwana",
+  "key-error": "Klucz komunikatu o błędzie nie został obsłużony"
+}

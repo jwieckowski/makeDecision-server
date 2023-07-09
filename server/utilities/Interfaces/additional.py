@@ -1,15 +1,20 @@
 import numpy as np
 import pyfdm
 
+from ..errors import get_error_message
+
 class Additional():
 
     @staticmethod
-    def generate_random_matrix(alternatives, criteria, extension):
+    def generate_random_matrix(locale, alternatives, criteria, extension):
         """
             Generates random matrix with given extension and given shape
 
             Parameters
             ----------
+                locale : string
+                    User application language
+
                 alternatives : int
                     Number of alternatives in decision matrix
 
@@ -37,6 +42,6 @@ class Additional():
             elif extension == 'fuzzy':
                 return pyfdm.helpers.generate_fuzzy_matrix(alternatives, criteria)
             else:
-                raise ValueError(f'Cannot generate random matrix for {extension} extension')
-        except Exception as err:
-            raise ValueError(f'Unexpected error in random matrix generation: {err}')
+                raise ValueError(f'{get_error_message(locale, "random-matrix-extension-error")} {extension}')
+        except Exception:
+            raise ValueError(f'{get_error_message(locale, "random-matrix-unexpected-error")}')

@@ -2,6 +2,7 @@ import numpy as np
 import pymcdm.weights as crisp_weights
 import pyfdm.weights as fuzzy_weights
 
+from ..errors import get_error_message
 class Weights():
     def __init__(self, extension, types):
         """
@@ -57,12 +58,15 @@ class Weights():
             }
         }
 
-    def calculate_weights(self, matrix, method):
+    def calculate_weights(self, locale, matrix, method):
         """
             Calculates criteria weights based on the decision matrix and given weights method
 
             Parameters
             ----------
+                locale : string
+                    User application language
+
                 matrix : ndarray
                     Decision matrix formatted as numpy array. Rows represent alternatives and columns represent criteria. The matrix should be 2 dimensional for crisp data, and 3 dimensional for fuzzy data.
 
@@ -84,7 +88,7 @@ class Weights():
         try:
             weights = np.array([])
             if self.extension not in self.weights_methods[method].keys():
-                raise ValueError(f'Extension {self.extension} not found for method {method}')
+                raise ValueError(f'{method} {get_error_message(locale, "")} {extension}')
             else:
                 if method in ['MEREC', 'CILOS', 'IDOCRIW']:
                     weights = self.weights_methods[method][self.extension](matrix, self.types)
@@ -93,7 +97,7 @@ class Weights():
 
             return weights.tolist(),
         except Exception as err:
-            raise ValueError(f'Error in calculating criteria weights: {err}')
+            raise ValueError(f'{get_error_message(locale, "weights-unexpected-error")}')
         
 
 if __name__ == '__main__':

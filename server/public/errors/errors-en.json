@@ -1,0 +1,54 @@
+{
+  "extract-data-error": "Something went wrong while retrieving decision matrix",
+  "no-assessment-method-error": "Multi-Criteria Assessment method was not given",
+  "assessment-error": "Assessment error: ",
+
+  "criteria-types-number-error": "Number of criteria should equals number of criteria types: ",
+  "criteria-dimension-error": "Number of criteria should equals number of weights and criteria types: ",
+  "criteria-orders-error": "Number of arrays and orders should be the same: ",
+  "crisp-matrix-format-error": "Crisp matrix has wrong format",
+  "crisp-matrix-not-numeric-error": "Crisp matrix has not numeric elements",
+  "fuzzy-matrix-format-error": "Fuzzy matrix has wrong format. Elements should be given as Triangular Fuzzy Numbers",
+  "data-extension-error": "extension is not handled",
+  "weights-sum-error": "Weights values should sum up to 1",
+  "fuzzy-weights-error": "Fuzzy weights values should be given as Triangular Fuzzy Numbers",
+  "criteria-types-values-error": "Criteria types values should be given as -1 for cost or 1 for profit",
+  "criteria-types-not-unique-error": "Criteria types should not be the same",
+
+  "criteria-types-not-numeric-error": "Criteria types values has not numeric elements",
+  "not-all-keys-json-error": "Not all required keys (matrix, criteriaTypes) were found in .json file",
+  "matrix-array-convert-error": "Converting matrix caused error",
+  "criteria-array-convert-error": "Converting criteria types caused error",
+  "file-type-error": "Uploaded file type is not allowed",
+
+  "random-matrix-extension-error": "Random matrix can't be created for extension",
+  "random-matrix-unexpected-error": "Unexpected error in random matrix generation",
+
+  "weights-method-not-found-error": "method was not found for extension",
+  "weights-unexpected-error": "Error in calculating criteria weights",
+
+  "ranking-unexpected-error": "Unexpected error in ranking calculation",
+  "ranking-order-error": "order of ranking was not found",
+  "ranking-preference-error": "Calculating ranking from preferences caused error",
+
+  "correlation-method-error": " method not found",
+  "correlation-unexpected-error": "Unexpected error in correlation calculation",
+
+  "fuzzy-normalization-method-error": "fuzzy normalization method not found",
+  "fuzzy-distance-method-error": "fuzzy distance method not found",
+  "fuzzy-defuzzification-method-error": "defuzzification method not found",
+  "fuzzy-parameters-unexpected-error": "Unexpected error in retrieving fuzzy method metrics",
+  "crisp-normalization-method-error": "crisp normalization method not found",
+  "crisp-preference-function-error": "preference function not found",
+  "crisp-parameters-unexpected-error": "Unexpected error in retrieving crisp method metrics",
+  "method-name-error": "MCDA method names can't be retrieved:",
+  "fuzzy-weights-user-error": "Fuzzy weights values from users' input are not defined correctly",
+  "fuzzy-method-not-found": "fuzzy method not found",
+  "fuzzy-assessment-error": "Fuzzy assessment caused error",
+  "crisp-assessment-error": "Crisp assessment caused error",
+  "no-preference-function-error": "Preference function was not given",
+  "crisp-method-not-found": "crisp method not found",
+
+  "locale-error": "locale is not handled",
+  "key-error": "Error message key was not handled"
+}

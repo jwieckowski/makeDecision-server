@@ -1,14 +1,19 @@
 import numpy as np
 
+from .errors import get_error_message
+
 class Validator():
 
     @staticmethod
-    def validate_dimensions(matrix, types, weights=None):
+    def validate_dimensions(locale, matrix, types, weights=None):
         """
             Validates if shapes of matrix, types and weights (if given) match
 
             Parameters
             ----------
+                locale : string,
+                    User application language
+
                 matrix : ndarray
                     Decision matrix formatted as numpy array. Rows represent alternatives and columns represent criteria. The matrix should be 2 dimensional for crisp data, and 3 dimensional for fuzzy data.
 
@@ -31,18 +36,21 @@ class Validator():
         # check dimensions match
         if weights == None:
             if len(np.unique([matrix.shape[1], types.shape[0]])) != 1:
-                raise ValueError(f'Number of criteria should equals number of types, not {matrix.shape[1]}, {types.shape[0]}')
+                raise ValueError(f'{get_error_message(locale, "criteria-types-number-error")} {matrix.shape[1]}, {types.shape[0]}')
         else:
             if len(np.unique([matrix.shape[1], weights.shape[0], types.shape[0]])) != 1:
-                raise ValueError(f'Number of criteria should equals number of weights and types, not {matrix.shape[1]}, {weights.shape[0]}, {types.shape[0]}')
+                raise ValueError(f'{get_error_message(locale, "criteria-dimension-error")} {matrix.shape[1]}, {weights.shape[0]}, {types.shape[0]}')
     
     @staticmethod
-    def validate_orders_dimensions(matrix, orders):
+    def validate_orders_dimensions(locale, matrix, orders):
         """
             Validates if number of matrices and number of ranking orders match
 
             Parameters
             ----------
+                locale : string,
+                    User application language
+
                 matrix : ndarray
                     Decision matrix formatted as numpy array. Rows represent alternatives and columns represent criteria. The matrix should be 2 dimensional for crisp data, and 3 dimensional for fuzzy data.
 
@@ -58,15 +66,18 @@ class Validator():
 
         # check dimensions match
         if len(np.unique([matrix.shape[0], orders.shape[0]])) != 1:
-            raise ValueError(f'Number of arrays and orders should be the same, not {matrix.shape[0]}, {orders.shape[0]}')
-
+            raise ValueError(f'{get_error_message(locale, "criteria-dimension-error")} {matrix.shape[0]}, {orders.shape[0]}')
+    
     @staticmethod
-    def validate_matrix(matrix, extension):
+    def validate_matrix(locale, matrix, extension):
         """
             Validates the matrix format regarding the given extension
 
             Parameters
             ----------
+                locale : string,
+                    User application language
+
                 matrix : ndarray
                     Decision matrix formatted as numpy array. Rows represent alternatives and columns represent criteria. The matrix should be 2 dimensional for crisp data, and 3 dimensional for fuzzy data.
 
@@ -82,27 +93,30 @@ class Validator():
         if extension == 'crisp':
             # dimension
             if matrix.ndim != 2:
-                raise ValueError('Crisp matrix bad formatted')
+                raise ValueError(f'{get_error_message(locale, "crisp-matrix-format-error")}')
             # numeric values
             if matrix.dtype not in [np.int32, np.int64, np.float32, np.float64]:
-                raise ValueError('Not all elements in matrix are numeric')
+                raise ValueError(f'{get_error_message(locale, "crisp-matrix-not-numeric-error")}')
             # numeric values
         elif extension == 'fuzzy':
             # dimension
             if matrix.ndim != 3 or matrix.shape[2] != 3:
-                raise ValueError('Fuzzy matrix bad formatted')
+                raise ValueError(f'{get_error_message(locale, "fuzzy-matrix-format-error")}')
         else:
-            raise ValueError(f'Extension "{extension}" not handled')
+            raise ValueError(f'{extension} {get_error_message(locale, "data-extension-error")}')
 
 
             
     @staticmethod
-    def validate_user_weights(weights):
+    def validate_user_weights(locale, weights):
         """
             Validates if the weights vector given by user is correctly defined
 
             Parameters
             ----------
+                locale : string,
+                    User application language
+
                 weights : ndarray
                     Vector of criteria weights defined by user.
                     For crisp data, weights should sum up to 1.
@@ -116,19 +130,22 @@ class Validator():
         
         # crisp weights
         if weights.ndim == 1 and np.round(np.sum(weights), 4) != 1:
-            raise ValueError('Weights should sum up to 1')
+            raise ValueError(f'{get_error_message(locale, "weights-sum-error")}')
 
         # fuzzy weights
         if weights.ndim != 2 or weights.shape[1] != 3:
-            raise ValueError('Fuzzy weights should be given as Triangular Fuzzy Numbers')
+            raise ValueError(f'{get_error_message(locale, "fuzzy-weights-error")}')
 
     @staticmethod
-    def validate_types(types, unique_values=False):
+    def validate_types(locale, types, unique_values=False):
         """
             Validates the vector of criteria types
 
             Parameters
             ----------
+                locale : string,
+                    User application language
+
                 types : ndarray
                     Vector of criteria types representing if column is directed to minimizing values (Cost as -1), or to maximizing values (Profit as 1)
 
@@ -143,9 +160,9 @@ class Validator():
 
         # check if types in [-1, 1]
         if any([t not in [-1, 1] for t in types]):
-            raise ValueError('Criteria types should be given as -1 for cost or 1 for profit')
+            raise ValueError(f'{get_error_message(locale, "criteria-types-values-error")}')
             
         # check if different types in array
         if unique_values:
             if len(np.unique(types)) == 1:
-                raise ValueError('Criteria types should not be the same')
+                raise ValueError(f'{get_error_message(locale, "criteria-types-not-unique-error")}')

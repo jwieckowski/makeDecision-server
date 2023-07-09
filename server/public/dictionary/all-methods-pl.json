@@ -10,30 +10,30 @@
       {
         "id": 1,
         "type": "matrix",
-        "label": "Plik",
+        "label": "File",
         "name": "File",
         "extensions": ["crisp", "fuzzy"],
         "formats": ["json", "xlsx", "csv"],
         "requiredData": ["file"],
-        "hints": "Wskazówka w jakim formacie i jak zapisane dane"
+        "hints": "Macierz decyzyjna i typy kryteriów wczytywane z pliku"
       },
       {
         "id": 2,
         "type": "matrix",
-        "label": "Wejście",
+        "label": "Input",
         "name": "Input",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": "Wskazówka o tym czego powinny dotyczyć dane"
+        "hints": "Macierz decyzyjna i typy kryteriów podawane przez użytkownika"
       },
       {
         "id": 3,
         "type": "matrix",
-        "label": "Losowa",
+        "label": "Random",
         "name": "Random",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["alternatives", "criteria", "ranges"],
-        "hints": "Wskazówka o tym na co wpływ będzie miała podana liczba"
+        "hints": "Macierz decyzyjna generowana losowo, typy kryteriów podawane przez użytkownika"
       }
     ]
   },
@@ -52,7 +52,7 @@
         "name": "Angle",
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
-        "hints": ""
+        "hints": "Wagi kryteriów wyliczane na podstawie macierzy decyzyjnej"
       },
       {
         "id": 2,
@@ -61,7 +61,7 @@
         "name": "CILOS",
         "extensions": ["crisp"],
         "requiredData": ["matrix", "types"],
-        "hints": "Wymaga typów kryteriów"
+        "hints": "Wagi kryteriów wyliczane na podstawie macierzy decyzyjnej. Wykorzystuje typów kryteriów"
       },
       {
         "id": 3,
@@ -71,25 +71,25 @@
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
 
-        "hints": ""
+        "hints": "Wagi kryteriów wyliczane na podstawie macierzy decyzyjnej"
       },
       {
         "id": 4,
         "type": "Weights",
-        "label": "Entropia",
+        "label": "Entropy",
         "name": "Entropy",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": ""
+        "hints": "Wagi kryteriów wyliczane na podstawie macierzy decyzyjnej"
       },
       {
         "id": 5,
         "type": "Weights",
-        "label": "Równe",
+        "label": "Equal",
         "name": "Equal",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": ""
+        "hints": "Wagi kryteriów wyliczane na podstawie macierzy decyzyjnej"
       },
       {
         "id": 6,
@@ -98,7 +98,7 @@
         "name": "Gini",
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
-        "hints": ""
+        "hints": "Wagi kryteriów wyliczane na podstawie macierzy decyzyjnej"
       },
       {
         "id": 7,
@@ -107,16 +107,16 @@
         "name": "IDOCRIW",
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
-        "hints": "Wymaga typów kryteriów"
+        "hints": "Wagi kryteriów wyliczane na podstawie macierzy decyzyjnej. Wykorzystuje typów kryteriów"
       },
       {
         "id": 8,
         "type": "Weights",
-        "label": "Wejście",
+        "label": "Input",
         "name": "Input",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["weights"],
-        "hints": "Wartości wprowadzone przez użytkownika z klawiatury"
+        "hints": "Wagi kryteriów wprowadzone przez użytkownika"
       },
       {
         "id": 9,
@@ -125,25 +125,25 @@
         "name": "MEREC",
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
-        "hints": "Wymaga typów kryteriów"
+        "hints": "Wagi kryteriów wyliczane na podstawie macierzy decyzyjnej. Wykorzystuje typów kryteriów"
       },
       {
         "id": 10,
         "type": "Weights",
-        "label": "Odchylenie standardowe",
+        "label": "Standard deviation",
         "name": "Standard deviation",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": ""
+        "hints": "Wagi kryteriów wyliczane na podstawie macierzy decyzyjnej"
       },
       {
         "id": 11,
         "type": "Weights",
-        "label": "Wariancja",
+        "label": "Variance",
         "name": "Variance",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": ""
+        "hints": "Wagi kryteriów wyliczane na podstawie macierzy decyzyjnej"
       }
     ]
   },
@@ -186,7 +186,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Additive Ratio Assessment"
       },
       {
         "id": 2,
@@ -209,7 +209,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Combined Compromise Solution"
       },
       {
         "id": 3,
@@ -252,7 +252,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Combinative Distance-based Assessment"
       },
       {
         "id": 4,
@@ -264,7 +264,7 @@
         "order": "descending",
         "requiredData": ["matrix", "weights", "criteriaTypes"],
         "additional": [],
-        "hints": ""
+        "hints": "Characteristic Objects Method"
       },
       {
         "id": 5,
@@ -287,7 +287,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Complex Proportional Assessment. Wymaga niejednakowych typów kryteriów"
       },
       {
         "id": 6,
@@ -310,7 +310,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Evaluation based on Distance from Average Solution"
       },
       {
         "id": 7,
@@ -348,7 +348,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Multi-Attributive Border Approximation area Comparison"
       },
       {
         "id": 8,
@@ -386,7 +386,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Multi-Attributive Ideal-Real Comparative Analysis"
       },
       {
         "id": 9,
@@ -409,7 +409,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Measurement Alternatives and Ranking according to COmpromise Solution"
       },
       {
         "id": 10,
@@ -432,7 +432,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Multi-Objective Optimization Method by Ratio Analysis"
       },
       {
         "id": 11,
@@ -465,7 +465,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Operational Competitiveness Ratings"
       },
       {
         "id": 12,
@@ -488,7 +488,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Preference Ranking Organization METHod for Enrichment of Evaluations"
       },
       {
         "id": 13,
@@ -500,7 +500,7 @@
         "order": "descending",
         "requiredData": ["matrix", "weights", "criteriaTypes"],
         "additional": [],
-        "hints": ""
+        "hints": "Stable Preference Ordering Towards Ideal Solution"
       },
       {
         "id": 14,
@@ -538,7 +538,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Technique for the Order of Prioritisation by Similarity to Ideal Solution"
       },
       {
         "id": 15,
@@ -571,7 +571,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "VIseKriterijumska Optimizacija I Kompromisno Resenje. Zwraca wyniki dla podejścia 'Q'"
       }
     ]
   },
@@ -586,7 +586,7 @@
       {
         "id": 1,
         "type": "Normalization",
-        "label": "Zwiększona precyzja",
+        "label": "Enhanced accuracy",
         "name": "Enhanced accuracy",
         "functionName": "enhanced_accuracy_normalization",
         "extensions": ["crisp"],
@@ -596,7 +596,7 @@
       {
         "id": 2,
         "type": "Normalization",
-        "label": "Logarytmiczna",
+        "label": "Logarithmic",
         "name": "Logarithmic",
         "functionName": "logarithmic_normalization",
         "extensions": ["crisp"],
@@ -606,7 +606,7 @@
       {
         "id": 3,
         "type": "Normalization",
-        "label": "Liniowa",
+        "label": "Linear",
         "name": "Linear",
         "functionName": "linear_normalization",
         "extensions": ["crisp", "fuzzy"],
@@ -616,7 +616,7 @@
       {
         "id": 4,
         "type": "Normalization",
-        "label": "Maksymalizująca",
+        "label": "Max",
         "name": "Max",
         "functionName": "max_normalization",
         "extensions": ["crisp", "fuzzy"],
@@ -626,7 +626,7 @@
       {
         "id": 5,
         "type": "Normalization",
-        "label": "Minimum-maksimum",
+        "label": "Min-max",
         "name": "Min-max",
         "functionName": "minmax_normalization",
         "extensions": ["crisp", "fuzzy"],
@@ -636,7 +636,7 @@
       {
         "id": 6,
         "type": "Normalization",
-        "label": "Nieliniowa",
+        "label": "Nonlinear",
         "name": "Nonlinear",
         "functionName": "nonlinear_normalization",
         "extensions": ["crisp"],
@@ -656,7 +656,7 @@
       {
         "id": 8,
         "type": "Normalization",
-        "label": "Sumy",
+        "label": "Sum",
         "name": "Sum",
         "functionName": "sum_normalization",
         "extensions": ["crisp", "fuzzy"],
@@ -666,7 +666,7 @@
       {
         "id": 9,
         "type": "Normalization",
-        "label": "Wektorowa",
+        "label": "Vector",
         "name": "Vector",
         "functionName": "vector_normalization",
         "extensions": ["crisp", "fuzzy"],
@@ -696,7 +696,7 @@
       {
         "id": 1,
         "type": "Distance",
-        "label": "Euklidesowy",
+        "label": "Euclidean",
         "name": "Euclidean",
         "functionName": "euclidean_distance",
         "extensions": ["fuzzy"],
@@ -706,7 +706,7 @@
       {
         "id": 2,
         "type": "Distance",
-        "label": "Hamminga",
+        "label": "Hamming",
         "name": "Hamming",
         "functionName": "hamming_distance",
         "extensions": ["fuzzy"],
@@ -726,7 +726,7 @@
       {
         "id": 4,
         "type": "Distance",
-        "label": "Mahdavi'ego",
+        "label": "Mahdavi",
         "name": "Mahdavi",
         "functionName": "mahdavi_distance",
         "extensions": ["fuzzy"],
@@ -736,7 +736,7 @@
       {
         "id": 5,
         "type": "Distance",
-        "label": "Tran'a-Duckstein'a",
+        "label": "Tran'a-Duckstein",
         "name": "Tran-Duckstein",
         "functionName": "tran_duckstein_distance",
         "extensions": ["fuzzy"],
@@ -746,7 +746,7 @@
       {
         "id": 6,
         "type": "Distance",
-        "label": "Wierzchołkowy",
+        "label": "Vertex",
         "name": "Vertex",
         "functionName": "vertex_distance",
         "extensions": ["fuzzy"],
@@ -756,7 +756,7 @@
       {
         "id": 7,
         "type": "Distance",
-        "label": "Ważony Euklidesowy",
+        "label": "Weighted Euclidean",
         "name": "Weighted Euclidean",
         "functionName": "weighted_euclidean_distance",
         "extensions": ["fuzzy"],
@@ -766,7 +766,7 @@
       {
         "id": 8,
         "type": "Distance",
-        "label": "Ważony Hamminga",
+        "label": "Weighted Hamming",
         "name": "Weighted Hamming",
         "functionName": "weighted_hamming_distance",
         "extensions": ["fuzzy"],
@@ -786,7 +786,7 @@
       {
         "id": 1,
         "type": "Defuzzification",
-        "label": "Średnia stopniowana",
+        "label": "Graded mean average",
         "name": "Graded mean average",
         "functionName": "graded_mean_average_defuzzification",
         "extensions": ["fuzzy"],
@@ -796,7 +796,7 @@
       {
         "id": 2,
         "type": "Defuzzification",
-        "label": "Średnia",
+        "label": "Mean",
         "name": "Mean",
         "functionName": "mean_defuzzification",
         "extensions": ["fuzzy"],
@@ -806,7 +806,7 @@
       {
         "id": 3,
         "type": "Defuzzification",
-        "label": "Średni obszar",
+        "label": "Mean area",
         "name": "Mean area",
         "functionName": "mean_area_defuzzification",
         "extensions": ["fuzzy"],
@@ -816,7 +816,7 @@
       {
         "id": 4,
         "type": "Defuzzification",
-        "label": "Średnia ważona",
+        "label": "Weighted mean",
         "name": "Weighted mean",
         "functionName": "weighted_mean_defuzzification",
         "extensions": ["fuzzy"],
@@ -836,7 +836,7 @@
       {
         "id": 1,
         "type": "Preference function",
-        "label": "Zwykła",
+        "label": "Usual",
         "name": "Usual",
         "functionName": "usual",
         "extensions": ["crisp"],
@@ -846,7 +846,7 @@
       {
         "id": 2,
         "type": "Preference function",
-        "label": "U-kształtna",
+        "label": "U-shape",
         "name": "Ushape",
         "functionName": "ushape",
         "extensions": ["crisp"],
@@ -856,7 +856,7 @@
       {
         "id": 3,
         "type": "Preference function",
-        "label": "V-kształtna",
+        "label": "V-shape",
         "name": "Vshape",
         "functionName": "vshape",
         "extensions": ["crisp"],
@@ -866,7 +866,7 @@
       {
         "id": 4,
         "type": "Preference function",
-        "label": "Równa",
+        "label": "Level",
         "name": "Level",
         "functionName": "level",
         "extensions": ["crisp"],
@@ -876,7 +876,7 @@
       {
         "id": 4,
         "type": "Preference function",
-        "label": "V-kształtna 2",
+        "label": "V-shape",
         "name": "Vshape 2",
         "functionName": "vshape_2",
         "extensions": ["crisp"],
@@ -900,7 +900,7 @@
         "name": "Rank",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": "Oblicza ranking na podstawie ocen wyznaczonych z metod"
+        "hints": "Oblicza ranking na podstawie ocen wyznaczonych z metod zgodnie z założeniem metody"
       }
     ]
   },
@@ -915,56 +915,56 @@
       {
         "id": 1,
         "type": "Correlation",
-        "label": "Goodman'a-Kruskall'a",
+        "label": "Goodman'a-Kruskall",
         "name": "Goodman-Kruskall",
         "extensions": ["crisp"],
         "requiredData": ["preferences"],
-        "hints": "Do korelacji wyników metod MCDA"
+        "hints": "Korelacja wyników metod MCDA"
       },
       {
         "id": 2,
         "type": "Correlation",
-        "label": "Kendall'a-Tau",
+        "label": "Kendall-Tau",
         "name": "Kendall-Tau",
         "extensions": ["crisp"],
         "requiredData": ["preferences"],
-        "hints": "Do korelacji wyników metod MCDA"
+        "hints": "Korelacja wyników metod MCDA"
       },
       {
         "id": 3,
         "type": "Correlation",
-        "label": "Pearson'a",
+        "label": "Pearson",
         "name": "Pearson",
         "extensions": ["crisp"],
         "requiredData": ["preferences"],
-        "hints": "Do korelacji wyników metod MCDA"
+        "hints": "Korelacja wyników metod MCDA"
       },
       {
         "id": 4,
         "type": "Correlation",
-        "label": "Spearman'a",
+        "label": "Spearman",
         "name": "Spearman",
         "extensions": ["crisp"],
         "requiredData": ["preferences"],
-        "hints": "Do korelacji wyników metod MCDA"
+        "hints": "Korelacja wyników metod MCDA"
       },
       {
         "id": 5,
         "type": "Correlation",
-        "label": "Ważonego Spearman'a",
+        "label": "Weighted Spearman",
         "name": "Weighted Spearman",
         "extensions": ["crisp"],
         "requiredData": ["ranking"],
-        "hints": "Do korelacji rankingów metod MCDA"
+        "hints": "Korelacja rankingów metod MCDA"
       },
       {
         "id": 6,
         "type": "Correlation",
-        "label": "Podobieństwa rankingów WS",
+        "label": "WS similarity",
         "name": "WS rank similarity",
         "extensions": ["crisp"],
         "requiredData": ["ranking"],
-        "hints": "Do korelacji rankingów metod MCDA"
+        "hints": "Korelacja rankingów metod MCDA"
       }
     ]
   },

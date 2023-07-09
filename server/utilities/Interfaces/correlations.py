@@ -1,6 +1,8 @@
 import numpy as np
 import pymcdm.correlations as corr
 
+from ..errors import get_error_message
+
 class Correlation():
     def __init__(self):
         self.correlation_methods = {
@@ -12,12 +14,15 @@ class Correlation():
             'WS RANK SIMILARITY': corr.rank_similarity_coef
         }
 
-    def calculate_correlation(self, matrix, methods):
+    def calculate_correlation(self, locale, matrix, methods):
         """
             Calculates correlation values of data in matrix with given methods
 
             Parameters
             ----------
+                locale : string
+                    User application language
+
                 matrix : ndarray
                     Decision matrix formatted as numpy array. Rows represent alternatives and columns represent criteria. The matrix should be 2 dimensional for crisp data, and 3 dimensional for fuzzy data.
 
@@ -40,12 +45,12 @@ class Correlation():
             results = []
             for method in methods:
                 if method not in self.correlation_methods.keys():
-                    raise ValueError('Correlation coefficient method not found')
+                    raise ValueError(f'{method} {get_error_message(locale, "correlation-method-error")}')
                 else:
                     try:
                         correlation =  np.array([[self.correlation_methods[method](a, b) for b in matrix] for a in matrix])
-                    except Exception as err:
-                        raise ValueError(f'Unexpected error in correlation calculation: {err}')
+                    except Exception:
+                        raise ValueError(f'{get_error_message(locale, "correlation-unexpected-error")}')
 
                 results.append({
                     'method': method,
@@ -53,16 +58,20 @@ class Correlation():
                 })
 
             return results
-        except Exception as err:
-            raise ValueError(f'Unexpected error in correlation calculation: {err}')
+        except Exception:
+            raise ValueError(f'{get_error_message(locale, "correlation-unexpected-error")}')
 
 
-    def calculate_preferences_correlation(self, methods, results):
+    def calculate_preferences_correlation(self, locale, methods, results):
         """
             Calculates correlation of preferences values of data in matrix with given methods
 
             Parameters
             ----------
+                locale : string
+                    User application language
+                    
+
                 methods : ndarray
                     Vector of dictionaries with correlation methods definitions 
 
@@ -92,7 +101,7 @@ class Correlation():
 
                     # verification if correlation method is handled
                     if correlation_method not in self.correlation_methods.keys():
-                        raise ValueError('Correlation coefficient method not found')
+                        raise ValueError(f'{method} {get_error_message(locale, "correlation-method-error")}')
 
                     else:
                         # retrieve data for correlation
@@ -120,16 +129,19 @@ class Correlation():
                 correlations.append(correlations_item)
 
             return correlations
-        except Exception as err:
-            raise ValueError(f'Unexpected error in preferences correlation calculation: {err}')
+        except Exception:
+            raise ValueError(f'{get_error_message(locale, "correlation-unexpected-error")}')
 
 
-    def calculate_ranking_correlation(self, methods, results):
+    def calculate_ranking_correlation(self, locale, methods, results):
         """
             Calculates correlation of ranking values of data in matrix with given methods
 
             Parameters
             ----------
+                locale : string
+                    User application language
+                
                 methods : ndarray
                     Vector of dictionaries with correlation methods definitions 
 
@@ -159,7 +171,7 @@ class Correlation():
 
                     # verification if correlation method is handled
                     if correlation_method not in self.correlation_methods.keys():
-                        raise ValueError('Correlation coefficient method not found')
+                        raise ValueError(f'{method} {get_error_message(locale, "correlation-method-error")}')
 
                     else:
                         # retrieve data for correlation
@@ -191,8 +203,9 @@ class Correlation():
                 correlations.append(correlations_item)
 
             return correlations
-        except Exception as err:
-            raise ValueError(f'Unexpected error in ranking correlation calculation: {err}')
+        except Exception:
+            raise ValueError(f'{get_error_message(locale, "correlation-unexpected-error")}')
+
 
 if __name__ == '__main__':
     matrix = np.array([

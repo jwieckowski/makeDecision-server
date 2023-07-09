@@ -6,12 +6,15 @@ from .Interfaces.additional import Additional
 class Calculations():
 
     @staticmethod
-    def generate_random_matrix(alternatives, criteria, extension):
+    def generate_random_matrix(locale, alternatives, criteria, extension):
         """
             Generates random matrix with given extension and given shape
 
             Parameters
             ----------
+                locale : string
+                    User application language
+
                 alternatives : int
                     Number of alternatives in decision matrix
 
@@ -34,17 +37,20 @@ class Calculations():
         """
 
         try:
-            return Additional.generate_random_matrix(alternatives, criteria, extension)
+            return Additional.generate_random_matrix(locale, alternatives, criteria, extension)
         except Exception as err:
             raise ValueError(err)
 
     @staticmethod
-    def calculate_preference_correlations(methods, results):
+    def calculate_preference_correlations(locale, methods, results):
         """
             Calculates correlation of preferences values of data in matrix with given methods
 
             Parameters
             ----------
+                locale : string
+                    User application language
+                    
                 methods : ndarray
                     Vector of dictionaries with correlation methods definitions 
 
@@ -64,19 +70,22 @@ class Calculations():
         
         try:
             correlation_obj = Correlation()
-            return correlation_obj.calculate_preferences_correlation(methods, results)
+            return correlation_obj.calculate_preferences_correlation(locale, methods, results)
 
         except Exception as err:
             raise ValueError(err)
         
 
     @staticmethod
-    def calculate_ranking_correlations(methods, results):
+    def calculate_ranking_correlations(locale, methods, results):
         """
             Calculates correlation of ranking values of data in matrix with given methods
 
             Parameters
             ----------
+                locale : string
+                    User application language
+                    
                 methods : ndarray
                     Vector of dictionaries with correlation methods definitions 
 
@@ -97,18 +106,21 @@ class Calculations():
 
         try:
             correlation_obj = Correlation()
-            return correlation_obj.calculate_ranking_correlation(methods, results)
+            return correlation_obj.calculate_ranking_correlation(locale, methods, results)
 
         except Exception as err:
             raise ValueError(err)
 
     @staticmethod
-    def calculate_preferences(matrixes, extensions, types, methods, params=None):
+    def calculate_preferences(locale, matrixes, extensions, types, methods, params=None):
         """
             Calculates correlation of preferences values of data in matrix with given methods
 
             Parameters
             ----------
+                locale : string
+                    User application language
+                    
                 matrixes : ndarray
                     Vector of decision matrixes formatted as numpy array. In each matrix, rows represent alternatives and columns represent criteria. The matrix should be 2 dimensional for crisp data, and 3 dimensional for fuzzy data.
 
@@ -138,18 +150,21 @@ class Calculations():
 
         try:
             preferences_object = Preferences(matrixes, extensions, types)
-            return preferences_object.calculate_preferences(methods, params)
+            return preferences_object.calculate_preferences(locale, methods, params)
         except Exception as err:
             raise ValueError(err)
         
 
     @staticmethod
-    def calculate_ranking(methods, results):
+    def calculate_ranking(locale, methods, results):
         """
             Calculates ranking order from the results data determined in the methods parameters
 
             Parameters
             ----------
+                locale : string
+                    User application language
+                    
                 methods : dictionary
                     Structure containing parameters for calculation of MCDA method, criteria weights vector, and ranking order
                     
@@ -170,7 +185,7 @@ class Calculations():
 
         try:
             ranking_obj = Ranking()
-            return ranking_obj.calculate_ranking(methods, results)
+            return ranking_obj.calculate_ranking(locale, methods, results)
         except Exception as err:
             raise ValueError(err)
         

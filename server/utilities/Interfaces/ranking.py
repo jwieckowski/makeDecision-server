@@ -1,15 +1,20 @@
 import numpy as np
 from pyfdm.helpers import rank
 
+from ..errors import get_error_message
+
 class Ranking():
 
     # calculation of ranking based on preferences and order
-    def _rank_preferences(self, preferences, order):
+    def _rank_preferences(self, locale, preferences, order):
         """
             Calculates criteria weights based on the decision matrix and given weights method
 
             Parameters
             ----------
+                locale : string
+                    User application language
+
                 preferences : ndarray
                     Vector of preference values
 
@@ -34,15 +39,18 @@ class Ranking():
                 return rank(preferences, False).tolist()
             else:
                 return rank(preferences).tolist()
-        except Exception as err:
-            raise ValueError(f'Unexpected error in ranking calculation: {err}')
+        except Exception:
+            raise ValueError(f'{get_error_message(locale, "ranking-unexpected-error")}')
 
-    def calculate_ranking(self, methods, results):
+    def calculate_ranking(self, locale, methods, results):
         """
             Calculates ranking order from the results data determined in the methods parameters
 
             Parameters
             ----------
+                locale : string
+                    User application language
+                    
                 methods : dictionary
                     Structure containing parameters for calculation of MCDA method, criteria weights vector, and ranking order
                     
@@ -60,6 +68,9 @@ class Ranking():
                     Vector of rankings calculated with the given orders
 
         """
+
+        print(methods)
+        print(results)
 
         try:
             rankings = []
@@ -82,25 +93,36 @@ class Ranking():
 
                                 # verification of ranking order
                                 if order.lower() not in ['ascending', 'descending']:
-                                    raise ValueError('Given ranking order not found')
+                                    raise ValueError(f'{order} {get_error_message(locale, "ranking-order-error")}')
                                     
                                 else:
                                     # calculation of ranking
                                     try:
+                                        # if (np.array(result['preference']).shape[0] == 1):
                                         item.append({
-                                            'ranking': self._rank_preferences(np.array(result['preference']), order),
+                                            'ranking': self._rank_preferences(locale, np.array(result['preference']), order),
                                             'methods': data
                                         })
+                                        # else:
+                                        #     ranks = []
+                                        #     for pref in (np.array(result['preference'])):
+                                        #         ranks.append(self._rank_preferences(locale, pref, order))
+
+                                        #     item.append({
+                                        #         'ranking': ranks,
+                                        #         'methods': data
+                                        #     })
+
                                     # catching error if occured
-                                    except Exception as err:
-                                        raise ValueError('Error while calculating ranking for preferences')
+                                    except Exception:
+                                        raise ValueError(f'{get_error_message(locale, "ranking-preference-error")}')
                                         
                     ranking_item.append(item)
                 rankings.append(ranking_item)
 
             return rankings
-        except Exception as err:
-            raise ValueError(f'Unexpected error in ranking calculation: {err}')
+        except Exception:
+            raise ValueError(f'{get_error_message(locale, "ranking-unexpected-error")}')
 
 if __name__ == '__main__':
     matrix = np.array([

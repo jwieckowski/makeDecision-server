@@ -15,7 +15,7 @@
         "extensions": ["crisp", "fuzzy"],
         "formats": ["json", "xlsx", "csv"],
         "requiredData": ["file"],
-        "hints": "Wskazówka w jakim formacie i jak zapisane dane"
+        "hints": "Decision matrix and criteria types uploaded from a file"
       },
       {
         "id": 2,
@@ -24,7 +24,7 @@
         "name": "Input",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": "Wskazówka o tym czego powinny dotyczyć dane"
+        "hints": "Decision matrix and criteria types provided by the user"
       },
       {
         "id": 3,
@@ -33,7 +33,7 @@
         "name": "Random",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["alternatives", "criteria", "ranges"],
-        "hints": "Wskazówka o tym na co wpływ będzie miała podana liczba"
+        "hints": "Decision matrix randomly generated, criteria types specified by the user"
       }
     ]
   },
@@ -52,7 +52,7 @@
         "name": "Angle",
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
-        "hints": ""
+        "hints": "Criteria weights calculated from the decision matrix"
       },
       {
         "id": 2,
@@ -61,7 +61,7 @@
         "name": "CILOS",
         "extensions": ["crisp"],
         "requiredData": ["matrix", "types"],
-        "hints": "Wymaga typów kryteriów"
+        "hints": "Criteria weights calculated from the decision matrix. Uses criteria types"
       },
       {
         "id": 3,
@@ -70,7 +70,7 @@
         "name": "CRITIC",
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
-        "hints": ""
+        "hints": "Criteria weights calculated from the decision matrix"
       },
       {
         "id": 4,
@@ -79,7 +79,7 @@
         "name": "Entropy",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": ""
+        "hints": "Criteria weights calculated from the decision matrix"
       },
       {
         "id": 5,
@@ -88,7 +88,7 @@
         "name": "Equal",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": ""
+        "hints": "Criteria weights calculated from the decision matrix"
       },
       {
         "id": 6,
@@ -97,7 +97,7 @@
         "name": "Gini",
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
-        "hints": ""
+        "hints": "Criteria weights calculated from the decision matrix"
       },
       {
         "id": 7,
@@ -106,7 +106,7 @@
         "name": "IDOCRIW",
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
-        "hints": "Wymaga typów kryteriów"
+        "hints": "Criteria weights calculated from the decision matrix. Uses criteria types"
       },
       {
         "id": 8,
@@ -115,7 +115,7 @@
         "name": "Input",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["weights"],
-        "hints": "Wartości wprowadzone przez użytkownika z klawiatury"
+        "hints": "Criteria weights provided by the user"
       },
       {
         "id": 9,
@@ -124,7 +124,7 @@
         "name": "MEREC",
         "extensions": ["crisp"],
         "requiredData": ["matrix"],
-        "hints": "Wymaga typów kryteriów"
+        "hints": "Criteria weights calculated from the decision matrix. Uses criteria types"
       },
       {
         "id": 10,
@@ -133,7 +133,7 @@
         "name": "Standard deviation",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": ""
+        "hints": "Criteria weights calculated from the decision matrix"
       },
       {
         "id": 11,
@@ -142,7 +142,7 @@
         "name": "Variance",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": ""
+        "hints": "Criteria weights calculated from the decision matrix"
       }
     ]
   },
@@ -185,7 +185,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Additive Ratio Assessment"
       },
       {
         "id": 2,
@@ -208,7 +208,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Combined Compromise Solution"
       },
       {
         "id": 3,
@@ -251,7 +251,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Combinative Distance-based Assessment"
       },
       {
         "id": 4,
@@ -263,7 +263,7 @@
         "order": "descending",
         "requiredData": ["matrix", "weights", "criteriaTypes"],
         "additional": [],
-        "hints": ""
+        "hints": "Characteristic Objects Method"
       },
       {
         "id": 5,
@@ -286,7 +286,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Complex Proportional Assessment. Requires unequal types of criteria"
       },
       {
         "id": 6,
@@ -309,7 +309,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Evaluation based on Distance from Average Solution"
       },
       {
         "id": 7,
@@ -347,7 +347,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Multi-Attributive Border Approximation area Comparison"
       },
       {
         "id": 8,
@@ -385,7 +385,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Multi-Attributive Ideal-Real Comparative Analysis"
       },
       {
         "id": 9,
@@ -408,7 +408,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Measurement Alternatives and Ranking according to COmpromise Solution"
       },
       {
         "id": 10,
@@ -431,7 +431,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Multi-Objective Optimization Method by Ratio Analysis"
       },
       {
         "id": 11,
@@ -464,7 +464,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Operational Competitiveness Ratings"
       },
       {
         "id": 12,
@@ -487,7 +487,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Preference Ranking Organization METHod for Enrichment of Evaluations"
       },
       {
         "id": 13,
@@ -499,7 +499,7 @@
         "order": "descending",
         "requiredData": ["matrix", "weights", "criteriaTypes"],
         "additional": [],
-        "hints": ""
+        "hints": "Stable Preference Ordering Towards Ideal Solution"
       },
       {
         "id": 14,
@@ -537,7 +537,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "Technique for the Order of Prioritisation by Similarity to Ideal Solution"
       },
       {
         "id": 15,
@@ -570,7 +570,7 @@
             ]
           }
         ],
-        "hints": ""
+        "hints": "VIseKriterijumska Optimizacija I Kompromisno Resenje. Returns results from approach 'Q'"
       }
     ]
   },
@@ -845,7 +845,7 @@
       {
         "id": 2,
         "type": "Preference function",
-        "label": "Ushape",
+        "label": "U-shape",
         "name": "Ushape",
         "functionName": "ushape",
         "extensions": ["crisp"],
@@ -855,7 +855,7 @@
       {
         "id": 3,
         "type": "Preference function",
-        "label": "Vshape",
+        "label": "V-shape",
         "name": "Vshape",
         "functionName": "vshape",
         "extensions": ["crisp"],
@@ -899,7 +899,7 @@
         "name": "Rank",
         "extensions": ["crisp", "fuzzy"],
         "requiredData": ["matrix"],
-        "hints": "Oblicza ranking na podstawie ocen wyznaczonych z metod"
+        "hints": "Calculates the ranking based on the preferences values according to the method assumption"
       }
     ]
   },
@@ -918,7 +918,7 @@
         "name": "Goodman-Kruskall",
         "extensions": ["crisp"],
         "requiredData": ["preferences"],
-        "hints": "Do korelacji wyników metod MCDA"
+        "hints": "Correlation of results of MCDA methods"
       },
       {
         "id": 2,
@@ -927,7 +927,7 @@
         "name": "Kendall-Tau",
         "extensions": ["crisp"],
         "requiredData": ["preferences"],
-        "hints": "Do korelacji wyników metod MCDA"
+        "hints": "Correlation of results of MCDA methods"
       },
       {
         "id": 3,
@@ -936,7 +936,7 @@
         "name": "Pearson",
         "extensions": ["crisp"],
         "requiredData": ["preferences"],
-        "hints": "Do korelacji wyników metod MCDA"
+        "hints": "Correlation of results of MCDA methods"
       },
       {
         "id": 4,
@@ -945,7 +945,7 @@
         "name": "Spearman",
         "extensions": ["crisp"],
         "requiredData": ["preferences"],
-        "hints": "Do korelacji wyników metod MCDA"
+        "hints": "Correlation of results of MCDA methods"
       },
       {
         "id": 5,
@@ -954,16 +954,16 @@
         "name": "Weighted Spearman",
         "extensions": ["crisp"],
         "requiredData": ["ranking"],
-        "hints": "Do korelacji rankingów metod MCDA"
+        "hints": "Correlation of MCDA method rankings"
       },
       {
         "id": 6,
         "type": "Correlation",
-        "label": "WS rank similarity",
+        "label": "WS similarity",
         "name": "WS rank similarity",
         "extensions": ["crisp"],
         "requiredData": ["ranking"],
-        "hints": "Do korelacji rankingów metod MCDA"
+        "hints": "Correlation of MCDA method rankings"
       }
     ]
   },
