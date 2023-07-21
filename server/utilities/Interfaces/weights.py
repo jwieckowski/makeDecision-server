@@ -1,3 +1,5 @@
+# Copyright (c) 2023 Jakub Więckowski
+
 import numpy as np
 import pymcdm.weights as crisp_weights
 import pyfdm.weights as fuzzy_weights

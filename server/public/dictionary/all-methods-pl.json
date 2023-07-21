@@ -171,7 +171,8 @@
               {
                 "id": 1,
                 "method": "normalization",
-                "parameter": "normalization_function"
+                "parameter": "normalization_function",
+                "default": "sum_normalization"
               }
             ]
           },
@@ -181,7 +182,8 @@
               {
                 "id": 1,
                 "method": "normalization",
-                "parameter": "normalization"
+                "parameter": "normalization",
+                "default": "sum_normalization"
               }
             ]
           }
@@ -204,7 +206,8 @@
               {
                 "id": 1,
                 "method": "normalization",
-                "parameter": "normalization_function"
+                "parameter": "normalization_function",
+                "default": "minmax_normalization"
               }
             ]
           }
@@ -227,7 +230,8 @@
               {
                 "id": 1,
                 "method": "normalization",
-                "parameter": "normalization_function"
+                "parameter": "normalization_function",
+                "default": "linear_normalization"
               }
             ]
           },
@@ -237,17 +241,20 @@
               {
                 "id": 1,
                 "method": "normalization",
-                "parameter": "normalization"
+                "parameter": "normalization",
+                "default": "max_normalization"
               },
               {
                 "id": 2,
                 "method": "distance",
-                "parameter": "distance_1"
+                "parameter": "distance_1",
+                "default": "euclidean_distance"
               },
               {
                 "id": 3,
                 "method": "distance",
-                "parameter": "distance_2"
+                "parameter": "distance_2",
+                "default": "hamming_distance"
               }
             ]
           }
@@ -282,7 +289,8 @@
               {
                 "id": 1,
                 "method": "normalization",
-                "parameter": "normalization"
+                "parameter": "normalization",
+                "default": "saw_normalization"
               }
             ]
           }
@@ -304,8 +312,9 @@
             "data": [
               {
                 "id": 1,
-                "method": "normalization",
-                "parameter": "normalization"
+                "method": "defuzzification",
+                "parameter": "defuzzify",
+                "default": "mean_defuzzification"
               }
             ]
           }
@@ -328,7 +337,8 @@
               {
                 "id": 1,
                 "method": "normalization",
-                "parameter": "normalization_function"
+                "parameter": "normalization_function",
+                "default": "minmax_normalization"
               }
             ]
           },
@@ -338,12 +348,14 @@
               {
                 "id": 1,
                 "method": "normalization",
-                "parameter": "normalization"
+                "parameter": "normalization",
+                "default": "minmax_normalization"
               },
               {
                 "id": 2,
                 "method": "defuzzification",
-                "parameter": "defuzzify"
+                "parameter": "defuzzify",
+                "default": "mean_defuzzification"
               }
             ]
           }
@@ -366,7 +378,8 @@
               {
                 "id": 1,
                 "method": "normalization",
-                "parameter": "normalization_function"
+                "parameter": "normalization_function",
+                "default": "minmax_normalization"
               }
             ]
           },
@@ -376,12 +389,14 @@
               {
                 "id": 1,
                 "method": "normalization",
-                "parameter": "normalization"
+                "parameter": "normalization",
+                "default": "vector_normalization"
               },
               {
                 "id": 2,
                 "method": "distance",
-                "parameter": "distance"
+                "parameter": "distance",
+                "default": "vertex_distance"
               }
             ]
           }
@@ -404,7 +419,8 @@
               {
                 "id": 1,
                 "method": "normalization",
-                "parameter": "normalization_function"
+                "parameter": "normalization_function",
+                "default": "sum_normalization"
               }
             ]
           }
@@ -427,7 +443,8 @@
               {
                 "id": 1,
                 "method": "normalization",
-                "parameter": "normalization"
+                "parameter": "normalization",
+                "default": "vector_normalization"
               }
             ]
           }
@@ -450,7 +467,8 @@
               {
                 "id": 1,
                 "method": "normalization",
-                "parameter": "normalization_function"
+                "parameter": "normalization_function",
+                "default": "sum_normalization"
               }
             ]
           },
@@ -460,7 +478,8 @@
               {
                 "id": 1,
                 "method": "defuzzification",
-                "parameter": "defuzzify"
+                "parameter": "defuzzify",
+                "default": "mean_defuzzification"
               }
             ]
           }
@@ -518,7 +537,8 @@
               {
                 "id": 1,
                 "method": "normalization",
-                "parameter": "normalization_function"
+                "parameter": "normalization_function",
+                "default": "minmax_normalization"
               }
             ]
           },
@@ -527,13 +547,15 @@
             "data": [
               {
                 "id": 1,
-                "method": "defuzzification",
-                "parameter": "defuzzify"
+                "method": "normalization",
+                "parameter": "normalization",
+                "default": "linear_normalization"
               },
               {
                 "id": 2,
                 "method": "distance",
-                "parameter": "distance"
+                "parameter": "distance",
+                "default": "vertex_distance"
               }
             ]
           }
@@ -556,7 +578,8 @@
               {
                 "id": 1,
                 "method": "normalization",
-                "parameter": "normalization_function"
+                "parameter": "normalization_function",
+                "default": "sum_normalization"
               }
             ]
           },
@@ -566,7 +589,8 @@
               {
                 "id": 1,
                 "method": "defuzzification",
-                "parameter": "defuzzify"
+                "parameter": "defuzzify",
+                "default": "mean_area_defuzzification"
               }
             ]
           }
@@ -915,7 +939,7 @@
       {
         "id": 1,
         "type": "Correlation",
-        "label": "Goodman'a-Kruskall",
+        "label": "Goodman-Kruskall",
         "name": "Goodman-Kruskall",
         "extensions": ["crisp"],
         "requiredData": ["preferences"],

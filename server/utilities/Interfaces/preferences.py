@@ -1,3 +1,5 @@
+# Copyright (c) 2023 Jakub Więckowski
+
 import numpy as np
 import pymcdm
 import pyfdm
@@ -157,11 +159,54 @@ class Preferences():
                     dictionary
                         Dictionary with additional parameters for given fuzzy MCDA method
             """
+
+            methods_default_metrics = {
+                'ARAS': {
+                    'normalization': 'sum_normalization'
+                },
+                'CODAS': {
+                    'normalization': 'max_normalization',
+                    'distance_1': 'euclidean_distance',
+                    'distance_2': 'hamming_distance'
+                },
+                'COPRAS': {
+                    'normalization': "saw_normalization"
+                },
+                'EDAS': {
+                    'defuzzify': 'mean_defuzzification'
+                },
+                'MABAC': {
+                    'normalization': 'minmax_normalization',
+                    'defuzzify': 'mean_defuzzification'
+                },
+                'MAIRCA': {
+                    'normalization': 'vector_normalization',
+                    'distance': 'vertex_distance'
+                },
+                'MOORA': {
+                    'normalization': 'vector_normalization'
+                },
+                'OCRA': {
+                    'defuzzification': 'mean_defuzzification'
+                },
+                'TOPSIS': {
+                    'normalization': 'linear_normalization',
+                    'distance': 'vertex_distance'
+                },
+                'VIKOR': {
+                    'defuzzify': "mean_area_defuzzification"
+                }
+            }
             
             try:
                 kwargs = {}
 
                 if params is not None and len(params[matrix_idx]) >= idx+1 and len(list(params[matrix_idx][idx].keys())) != 0:
+                    additional_keys = list(params[matrix_idx][idx]['additional'].keys())
+                    for key in additional_keys:
+                        if key not in ['normalization', 'distance', 'defuzzify', 'distance_1', 'distance_2']:
+                            raise ValueError(f'{get_error_message(locale, "additional-function-error")} {key}')
+                    
                     if mcda_method == params[matrix_idx][idx]['method'].upper() and params[matrix_idx][idx]['extension'].lower() == 'fuzzy' and len(list(params[matrix_idx][idx]['additional'].keys())) != 0:
                         
                         if check_normalization == True and 'normalization' in list(params[matrix_idx][idx]['additional'].keys()):
@@ -201,19 +246,19 @@ class Preferences():
                     
                     elif mcda_method == params[matrix_idx][idx]['method'].upper() and params[matrix_idx][idx]['extension'].lower() == 'fuzzy':
                         if check_normalization == True:
-                            kwargs = {'normalization': getattr(pyfdm.methods.fuzzy_sets.tfn.normalizations, 'sum_normalization')} | kwargs
+                            kwargs = {'normalization': getattr(pyfdm.methods.fuzzy_sets.tfn.normalizations, methods_default_metrics[mcda_method.upper()]['normalization'])} | kwargs
                         if check_distance == True:
-                            kwargs = {'distance': getattr(pyfdm.methods.fuzzy_sets.tfn.distances, 'euclidean_distance')} | kwargs
+                            kwargs = {'distance': getattr(pyfdm.methods.fuzzy_sets.tfn.distances, methods_default_metrics[mcda_method.upper()]['distance'])} | kwargs
                         if check_defuzzify == True:
-                            kwargs = {'defuzzify': getattr(pyfdm.methods.fuzzy_sets.tfn.defuzzifications, 'mean_defuzzification')} | kwargs
+                            kwargs = {'defuzzify': getattr(pyfdm.methods.fuzzy_sets.tfn.defuzzifications, methods_default_metrics[mcda_method.upper()]['defuzzify'])} | kwargs
                         if check_distance_1 == True:
-                            kwargs = {'distance_1': getattr(pyfdm.methods.fuzzy_sets.tfn.distances, 'euclidean_distance')} | kwargs
+                            kwargs = {'distance_1': getattr(pyfdm.methods.fuzzy_sets.tfn.distances, methods_default_metrics[mcda_method.upper()]['distance_1'])} | kwargs
                         if check_distance_2 == True:
-                            kwargs = {'distance_2': getattr(pyfdm.methods.fuzzy_sets.tfn.distances, 'hamming_distance')} | kwargs
+                            kwargs = {'distance_2': getattr(pyfdm.methods.fuzzy_sets.tfn.distances, methods_default_metrics[mcda_method.upper()]['distance_2'])} | kwargs
 
                 return kwargs
-            except Exception:
-                raise ValueError(f'{get_error_message(locale, "fuzzy-parameters-unexpected-error")}')
+            except Exception as err:
+                raise ValueError(err)
 
         # FOR ADDITIONAL PARAMETERS FOR CRISP MCDA METHODS
         def _check_crisp_parameters(locale, mcda_method, matrix_idx, idx, check_normalization_function=False, check_preference_function=False):
@@ -251,9 +296,47 @@ class Preferences():
                         Dictionary with additional parameters for given crisp MCDA method
             """
 
+            methods_default_metrics = {
+                'ARAS': {
+                    'normalization_function': 'sum_normalization'
+                },
+                'COCOSO': {
+                    'normalization_function': 'minmax_normalization',
+                },
+                'CODAS': {
+                    'normalization_function': 'linear_normalization',
+                },
+                'MABAC': {
+                    'normalization_function': 'minmax_normalization',
+                },
+                'MAIRCA': {
+                    'normalization_function': 'minmax_normalization',
+                },
+                'MARCOS': {
+                    'normalization_function': 'sum_normalization'
+                },
+                'OCRA': {
+                    'normalization_function': 'sum_normalization'
+                },
+                'PROMETHEE': {
+                    'preference_function': 'usual'
+                },
+                'TOPSIS': {
+                    'normalization_function': 'minmax_normalization',
+                },
+                'VIKOR': {
+                    'normalization_function': "sum_normalization"
+                }
+            }
+
             try:
                 kwargs = {}
                 if params is not None and len(params[matrix_idx]) >= idx+1 and len(list(params[matrix_idx][idx].keys())) != 0:
+                    additional_keys = list(params[matrix_idx][idx]['additional'].keys())
+                    for key in additional_keys:
+                        if key not in ['normalization_function', 'preference_function']:
+                            raise ValueError(f'{get_error_message(locale, "additional-function-error")} {key}')
+                    
                     if mcda_method == params[matrix_idx][idx]['method'].upper() and params[matrix_idx][idx]['extension'] == 'crisp' and len(list(params[matrix_idx][idx]['additional'].keys())) != 0:
                         if check_normalization_function == True and 'normalization_function' in list(params[matrix_idx][idx]['additional'].keys()):
                             try:
@@ -276,13 +359,13 @@ class Preferences():
                     # DEFAULT METRICS
                     elif mcda_method == params[matrix_idx][idx]['method'].upper() and params[matrix_idx][idx]['extension'] == 'crisp':
                         if check_normalization_function == True:
-                            kwargs = {'normalization_function': getattr(pymcdm.normalizations, 'sum_normalization')}
+                            kwargs = {'normalization_function': getattr(pymcdm.normalizations, methods_default_metrics[mcda_method.upper()]['normalization_function'])}
                         if check_preference_function == True:
-                            kwargs = {'preference_function': 'usual'} | kwargs
+                            kwargs = {'preference_function': methods_default_metrics[mcda_method.upper()]['preference_function']} | kwargs
                 
                 return kwargs
-            except Exception:
-                raise ValueError(f'{get_error_message(locale, "crisp-parameters-unexpected-error")}')
+            except Exception as err:
+                raise ValueError(err)
 
         # RETRIEVE METHOD NAME FROM FUNCTION NAME
         def _get_methods_name(locale, dict):
@@ -333,28 +416,36 @@ class Preferences():
                         
                     else:
                         weights_method = 'input'
-                        # fuzzy
-                        if isinstance(method['weights'][0], str):
-                            try:
-                                fuzzy_weights = [[float(c.replace(',', '')) for c in w.split()] for w in method['weights']]
-                            except:
-                                raise ValueError(f'{get_error_message(locale, "fuzzy-weights-user-error")}')
-
-                            weights = np.array(fuzzy_weights, dtype=float)
+                        weights_extension = 'crisp'
                         # crisp
+                        if extension == 'crisp':
+                            weights = np.array(method['weights'], dtype=float)
                         else:
-                            weights = np.array(method['weights'])
-                        
+                            # fuzzy
+
+                            # TFN weights
+                            if isinstance(method['weights'][0], str):
+                                try:
+                                    fuzzy_weights = [[float(c.replace(',', '')) for c in w.split()] for w in method['weights']]
+                                    weights_extension = 'fuzzy'
+                                except:
+                                    raise ValueError(f'{get_error_message(locale, "fuzzy-weights-user-error")}')
+
+                                weights = np.array(fuzzy_weights, dtype=float)
+                            # crisp weights
+                            else:
+                                weights = np.array(method['weights'], dtype=float)
+                            
                         try:
-                            Validator.validate_user_weights(locale, weights)
+                            Validator.validate_user_weights(locale, weights, weights_extension)
                         except Exception as err:
                             raise ValueError(err)
 
                     # FUZZY CALCULATIONS
                     if extension == 'fuzzy':
                         # fuzzy -> call (matrix, weights, types)
-                        # ARAS, COPRAS, EDAS, MOORA -> normalization
-                        if mcda_method in ['ARAS', 'COPRAS', 'EDAS', 'MOORA']:
+                        # ARAS, COPRAS, MOORA -> normalization
+                        if mcda_method in ['ARAS', 'COPRAS', 'MOORA']:
                             kwargs = _check_fuzzy_parameters(locale, mcda_method, idx, idx_method, check_normalization=True)
 
                         # fuzzy CODAS: normalization, distance_1, distance_2
@@ -370,9 +461,10 @@ class Preferences():
                         elif mcda_method == 'MABAC':
                             kwargs = _check_fuzzy_parameters(locale, mcda_method, idx, idx_method, check_normalization=True, check_defuzzify=True)
                         
+                        # fuzzy EDAS: defuzzify
                         # fuzzy OCRA: defuzzify
                         # fuzzy VIKOR: defuzzify
-                        elif mcda_method in ['OCRA', 'VIKOR']:
+                        elif mcda_method in ['EDAS', 'OCRA', 'VIKOR']:
                             kwargs = _check_fuzzy_parameters(locale, mcda_method, idx, idx_method, check_defuzzify=True)
 
                         else:
@@ -381,25 +473,15 @@ class Preferences():
                         try: 
                             body = self.mcda_methods[mcda_method][extension](**kwargs)
                             preference = body(matrix, weights, types)
+
                             if mcda_method == 'VIKOR':
-                                # variants = ['S', 'R', 'Q']
-                                # preference = [
-                                #     preference[0].tolist(),
-                                #     preference[1].tolist(),
-                                #     preference[2].tolist()
-                                # ]
-                                # for pref, variant in zip(preference, variants):
-                                #     matrix_preferences.append({
-                                #         "method": f'{mcda_method} {variant}',
-                                #         "preference": pref.tolist(),
-                                #         "weights": weights_method,
-                                #         "weights_value": weights.tolist(),
-                                #         "extension": extension,
-                                #         "additional": _get_methods_name(locale, kwargs)
-                                #     })
+
                                 preference = preference[2].tolist()
                             else:
                                 preference = preference.tolist()
+
+                            if np.nan in np.array(preference):
+                                raise ValueError(f'{get_error_message(locale, "nan-preferences-error")}')
 
                             matrix_preferences.append({
                                 "method": mcda_method,
@@ -423,28 +505,18 @@ class Preferences():
                             try:
                                 body = self.mcda_methods[mcda_method][extension](**kwargs)
 
+                            
                                 if mcda_method == 'VIKOR':
-                                    # variants = ['S', 'R', 'Q']
                                     preference = body(matrix, weights, types, return_all=True)
-                                    # preference = [
-                                    #     preference[0].tolist(),
-                                    #     preference[1].tolist(),
-                                    #     preference[2].tolist()
-                                    # ]
-                                    # for pref, variant in zip(preference, variants):
-                                    #     matrix_preferences.append({
-                                    #         "method": f'{mcda_method} {variant}',
-                                    #         "preference": pref.tolist(),
-                                    #         "weights": weights_method,
-                                    #         "weights_value": weights.tolist(),
-                                    #         "extension": extension,
-                                    #         "additional": _get_methods_name(locale, kwargs)
-                                    #     })
+
                                     preference = preference[2].tolist()
                                     
 
                                 else:
                                     preference = body(matrix, weights, types).tolist()
+
+                                if np.nan in np.array(preference):
+                                    raise ValueError(f'{get_error_message(locale, "nan-preferences-error")}')
 
                                 matrix_preferences.append({
                                     "method": mcda_method,
@@ -517,7 +589,7 @@ class Preferences():
                             except Exception:
                                 raise ValueError(f'{get_error_message(locale, "crisp-assessment-error")}')
                         else:
-                            raise ValueError(f'{mcda_method} {get_error_message(locale, "crisp-method-not-error")}')
+                            raise ValueError(f'{mcda_method} {get_error_message(locale, "crisp-method-not-found")}')
 
                     else:
                         raise ValueError(f'{extension} {get_error_message(locale, "data-extension-error")}')
@@ -528,4 +600,3 @@ class Preferences():
         except Exception as err:
             raise ValueError(err)
     
-

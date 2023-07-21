@@ -1,3 +1,5 @@
+# Copyright (c) 2023 Jakub Więckowski
+
 import numpy as np
 import json
 import pandas as pd
@@ -72,8 +74,6 @@ class Files():
                     Decision matrix and vector of criteria types formatted as numpy array
         """
 
-
-        # TODO add checking if all rows have the same length
         def read_from_csv_crisp(file):
             """
                 Process crisp data from CSV file and convert it to numpy array 

@@ -1,3 +1,5 @@
+# Copyright (c) 2023 Jakub Więckowski
+
 import numpy as np
 
 from .errors import get_error_message
@@ -108,7 +110,7 @@ class Validator():
 
             
     @staticmethod
-    def validate_user_weights(locale, weights):
+    def validate_user_weights(locale, weights, extension):
         """
             Validates if the weights vector given by user is correctly defined
 
@@ -122,19 +124,24 @@ class Validator():
                     For crisp data, weights should sum up to 1.
                     For the fuzzy data, weights should be given as Triangular Fuzzy Numbers.
 
+                extension : string (crisp or fuzzy)
+                    Extension of decision matrix.
+
             Raises
             -------
                 ValueError Exception
                     If weights data is badly formatted regarding given extension, or do not meet the requirements, the exception is thrown
         """
         
-        # crisp weights
-        if weights.ndim == 1 and np.round(np.sum(weights), 4) != 1:
-            raise ValueError(f'{get_error_message(locale, "weights-sum-error")}')
 
-        # fuzzy weights
-        if weights.ndim != 2 or weights.shape[1] != 3:
-            raise ValueError(f'{get_error_message(locale, "fuzzy-weights-error")}')
+        if extension == 'crisp':
+            # crisp weights
+            if weights.ndim == 1 and np.round(np.sum(weights), 4) != 1:
+                raise ValueError(f'{get_error_message(locale, "weights-sum-error")}')
+        else:
+            # fuzzy weights
+            if weights.ndim != 2 or weights.shape[1] != 3:
+                raise ValueError(f'{get_error_message(locale, "fuzzy-weights-error")}')
 
     @staticmethod
     def validate_types(locale, types, unique_values=False):

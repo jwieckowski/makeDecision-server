@@ -1,3 +1,5 @@
+# Copyright (c) 2023 Jakub Więckowski
+
 import numpy as np
 import pyfdm
 

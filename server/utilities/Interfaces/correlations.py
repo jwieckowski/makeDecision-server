@@ -1,3 +1,5 @@
+# Copyright (c) 2023 Jakub Więckowski
+
 import numpy as np
 import pymcdm.correlations as corr
 
@@ -107,14 +109,15 @@ class Correlation():
                         # retrieve data for correlation
                         correlation_data = method['data']
                         correlation_matrix = []
+                        methods_params = []
                 
                         for data in correlation_data:
                             for result in results[idx]:
-                                # match methods
-                                # what if methods are the same (?) - TODO CHECK
-                                if data['method'].upper() == result['method'] and data['weights'].upper() == result['weights']:       
-                                    correlation_matrix.append(result['preference'])
 
+                                # match methods
+                                if data['method'].upper() == result['method'].upper() and data['weights'].upper() == result['weights'].upper():       
+                                    correlation_matrix.append(result['preference'])
+                                    methods_params.append({'method': result['method'], 'weights': result['weights'], 'additionals': result['additional']})
                         # cast list to numpy array for correct calculations 
                         correlation_matrix = np.array(correlation_matrix)
                         
@@ -123,7 +126,7 @@ class Correlation():
                         correlations_item.append({
                             'correlation': correlation_method,
                             'results': res,
-                            'methods': method['data'],
+                            'methods': methods_params,
                         })
 
                 correlations.append(correlations_item)
@@ -159,6 +162,7 @@ class Correlation():
                     Matrix of correlation of ranking values calculated with given methods
         """
         
+        
         try:
             correlations = []
             for idx, methods_set in enumerate(methods):
@@ -177,7 +181,8 @@ class Correlation():
                         # retrieve data for correlation
                         correlation_data = method['data']
                         correlation_matrix = []
-                
+                        methods_params = []
+
                         for data in correlation_data:
                             for ranking_result in results[idx]:
                                 for result in ranking_result:
@@ -185,19 +190,19 @@ class Correlation():
                                     result_methods = result['methods'] 
                                     
                                     # match methods
-                                    # what if methods are the same (?) - TODO CHECK
-                                    if data['method'].upper() == result_methods['method'].upper() and data['weights'].upper() == result_methods['weights'].upper() and data['order'].upper() == result_methods['order'].upper():       
+                                    if data['method'].upper() == result_methods['method'].upper() and data['weights'].upper() == result_methods['weights'].upper() and data['correlation'] == True:       
                                         correlation_matrix.append(result['ranking'])
-                        
+                                        methods_params.append({'method': result_methods['method'], 'weights': result_methods['weights'], 'additionals': result_methods['additionals']})
+
                         # cast list to numpy array for correct calculations 
                         correlation_matrix = np.array(correlation_matrix)
-                        
+
                         # calculation of ranking correlation 
                         res = [[self.correlation_methods[correlation_method](a, b) for b in correlation_matrix] for a in correlation_matrix]
                         correlations_item.append({
                             'correlation': correlation_method,
                             'results': res,
-                            'methods': method['data'],
+                            'methods': methods_params,
                         })
 
                 correlations.append(correlations_item)
@@ -205,23 +210,3 @@ class Correlation():
             return correlations
         except Exception:
             raise ValueError(f'{get_error_message(locale, "correlation-unexpected-error")}')
-
-
-if __name__ == '__main__':
-    matrix = np.array([
-        [1, 2, 3, 4, 5],
-        [5, 4, 3, 4, 3],
-        [1, 1, 3, 1, 3],
-        [4, 1, 3, 5, 2],
-        [4, 2, 4, 2, 3]
-    ])
-    matrix2 = np.array([
-        [1, 2, 3, 4, 5],
-        [5, 4, 3, 4, 3]
-    ])
-
-    method = 'WS rank similarity'
-
-    correlation = Correlation()
-    print(correlation.calculate_correlation(matrix, method))
-    print(correlation.calculate_correlation(matrix2, method))

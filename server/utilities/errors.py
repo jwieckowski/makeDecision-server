@@ -1,3 +1,5 @@
+# Copyright (c) 2023 Jakub Więckowski
+
 import json
 
 project_home = '/home/jwieckowski/mysite/'

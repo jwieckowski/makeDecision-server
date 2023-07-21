@@ -3,6 +3,7 @@
   "no-assessment-method-error": "Multi-Criteria Assessment method was not given",
   "assessment-error": "Assessment error: ",
 
+  "matrix-criteria-extensions-shapes-mismatch": "The number of matrices, vectors of criteria types and data extensions are different",
   "criteria-types-number-error": "Number of criteria should equals number of criteria types: ",
   "criteria-dimension-error": "Number of criteria should equals number of weights and criteria types: ",
   "criteria-orders-error": "Number of arrays and orders should be the same: ",
@@ -17,6 +18,7 @@
 
   "criteria-types-not-numeric-error": "Criteria types values has not numeric elements",
   "not-all-keys-json-error": "Not all required keys (matrix, criteriaTypes) were found in .json file",
+  "empty-matrix": "One of the uploaded decision matrix is empty",
   "matrix-array-convert-error": "Converting matrix caused error",
   "criteria-array-convert-error": "Converting criteria types caused error",
   "file-type-error": "Uploaded file type is not allowed",
@@ -46,8 +48,10 @@
   "fuzzy-method-not-found": "fuzzy method not found",
   "fuzzy-assessment-error": "Fuzzy assessment caused error",
   "crisp-assessment-error": "Crisp assessment caused error",
+  "nan-preferences-error": "Non-numerical values in the results. Verify the given decision matrix",
   "no-preference-function-error": "Preference function was not given",
   "crisp-method-not-found": "crisp method not found",
+  "additional-function-error": "Wrong metric was used: ",
 
   "locale-error": "locale is not handled",
   "key-error": "Error message key was not handled"

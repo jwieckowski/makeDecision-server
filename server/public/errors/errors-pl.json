@@ -3,6 +3,7 @@
   "no-assessment-method-error": "Nie podano metody wielokryterialnej",
   "assessment-error": "Błąd oceny: ",
 
+  "matrix-criteria-extensions-shapes-mismatch": "Liczba macierzy, wektorów typów kryteriów i rozszerzeń danych są różne",
   "criteria-types-number-error": "Liczba kryteriów powinna być równa liczbie typów kryteriów:",
   "criteria-dimension-error": "Liczba kryteriów powinna być równa liczbie wag i typów kryteriów: ",
   "criteria-orders-error": "Liczba macierzy decyzyjnych i rankingów powinna być taka sama: ",
@@ -17,6 +18,7 @@
 
   "criteria-types-not-numeric-error": "Wartości typów kryteriów nie zawierają elementów liczbowych",
   "not-all-keys-json-error": "Nie wszystkie wymagane klucze (matrix, criteriaTypes) zostały wykryte w pliku .json",
+  "empty-matrix": "Jedna z przesłanych macierzy decyzyjnych jest pusta",
   "matrix-array-convert-error": "Konwersja macierzy spowodowała błąd",
   "criteria-array-convert-error": "Konwersja typów kryteriów spowodowała błąd",
   "file-type-error": "Przesłany typ pliku jest nieprawidłowy",
@@ -46,8 +48,10 @@
   "fuzzy-method-not-found": ": nie znaleziono metody typu rozmytego",
   "fuzzy-assessment-error": "Ocena na danych rozmytych spowodowała błąd",
   "crisp-assessment-error": "Ocena na danych ostrych spowodowała błąd",
+  "nan-preferences-error": "Wartości nienumeryczne w wynikach. Zweryfikuj podaną macierz decyzyjną",
   "no-preference-function-error": "Funkcja preferencji nie została podana",
   "crisp-method-not-found": ": nie znaleziono metody typu ostrego",
+  "additional-function-error": "Podano błędną metrykę: ",
 
   "locale-error": ": lokalizacja nie jest obsługiwana",
   "key-error": "Klucz komunikatu o błędzie nie został obsłużony"

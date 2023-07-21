@@ -1,3 +1,5 @@
+# Copyright (c) 2023 Jakub Więckowski
+
 from .Interfaces.correlations import Correlation
 from .Interfaces.preferences import Preferences
 from .Interfaces.ranking import Ranking

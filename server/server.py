@@ -1,9 +1,11 @@
+# Copyright (c) 2023 Jakub Więckowski
+
 from flask import Flask
 from flask_restx import fields, Resource, Api, reqparse
 from werkzeug.exceptions import BadRequest
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 import numpy as np
 import json
 import logging
@@ -49,7 +51,8 @@ ns = api.namespace('api/v1', description='REST API v1 endpoints for Multi-Criter
 dictionary_additional_data_item_model = api.model("AdditionalDataItem", {
     "id": fields.Integer(description='Element id'),
     "method": fields.String(description="Name of technique used in Multi-Criteria Decision Analysis method for additional measures"),
-    "parameter": fields.String(description='Name of parameter used in evaluations package in Python')
+    "parameter": fields.String(description='Name of parameter used in evaluations package in Python'),
+    "default": fields.String(description='Default technique used in Multi-Criteria Decision Analysis method calculation for given parameter')
 })
 
 dictionary_additional_data_model = api.model("AdditionalData", {
@@ -140,11 +143,6 @@ calculation_parser.add_argument('rankingCorrelations',  required=False, type=lis
 calculation_parser.add_argument('params',  required=True, type=list, action='append')
 
 # ROUTES
-@api.route('/home')
-class Home(Resource):
-    def get(self):
-        return {'message': 'Hello'}
-
 @ns.route('/dictionary/all-methods')
 class AllMethodsDictionary(Resource):
     @ns.expect(locale_parser)
@@ -223,8 +221,19 @@ class CalculationResults(Resource):
         calculationMatrixes = []
         calculationTypes = []
 
+        if len(np.unique([len(matrixes), len(extensions), len(types)])) != 1:
+            ns.logger.info(f'{get_error_message(locale, "matrix-criteria-extensions-shapes-mismatch")}')
+            e = BadRequest(f'{get_error_message(locale, "matrix-criteria-extensions-shapes-mismatch")}')
+            raise e
+
+        
         # check if need to generate random matrix or convert input matrix
         for idx, (m, ext) in enumerate(zip(matrixes, extensions)):
+            if np.array(m).shape[0] == 0:
+                ns.logger.info(f'{get_error_message(locale, "empty-matrix")}')
+                e = BadRequest(f'{get_error_message(locale, "empty-matrix")}')
+                raise e
+                
             try:
                 # random
                 if np.array(m).ndim == 1 and len(m) == 2:
@@ -232,19 +241,35 @@ class CalculationResults(Resource):
                     calculationTypes.append(types[idx])
                 # input
                 else:
+
                     # fuzzy
                     if isinstance(m[0][0], str):
-                        fuzzy_matrix = [[[float(c.replace(',', '')) for c in col.split()] for col in row] for row in m]
+                        fuzzy_matrix = [[[float(c.replace(',', '')) for c in col.split(',')] for col in row] for row in m]
                         calculationMatrixes.append(np.array(fuzzy_matrix, dtype=float))
                     # crisp
                     else:
                         calculationMatrixes.append(np.array(m, dtype=float))
                     
+                    try:
+                        Validator.validate_matrix(locale, calculationMatrixes[-1], ext)
+                    except Exception as err:
+                        raise ValueError(err)
+
+                    try:
+                        Validator.validate_types(locale, types[idx])
+                    except Exception as err:
+                        raise ValueError(err)
+
+                    try:
+                        Validator.validate_dimensions(locale, calculationMatrixes[-1], types[idx])
+                    except Exception as err:
+                        raise ValueError(err)
+
                     calculationTypes.append(types[idx])
 
             except Exception as err:
                 ns.logger.info(str(err))
-                e = BadRequest(f'{get_error_message(locale, "extract-data-error")}')
+                e = BadRequest(str(err))
                 raise e
 
 
