@@ -35,7 +35,6 @@ api = Api(app,
 # enable CORS
 CORS(app, resources={r'/*': {'origins': '*'}})
 
-project_home = '/home/jwieckowski/mysite/'
 project_home = ''
 
 def validate_locale(locale):
