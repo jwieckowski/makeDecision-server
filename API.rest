@@ -1,16 +1,3 @@
-GET http://127.0.0.1:5000/home HTTP/1.1
-content-type: application/json
-
-
-###
-GET http://127.0.0.1:5000/test HTTP/1.1
-content-type: application/json
-
-{
-    "name": "sample",
-    "time": "Wed, 21 Oct 2015 18:27:50 GMT"
-}
-
 ###
 GET http://127.0.0.1:5000/api/v1/dictionary/all-methods HTTP/1.1
 content-type: application/json
@@ -20,10 +7,6 @@ locale: pl
 GET http://127.0.0.1:5000/api/v1/descriptions/home HTTP/1.1
 content-type: application/json
 locale: en
-
-###
-GET http://127.0.0.1:5000/api/v1/files/about HTTP/1.1
-content-type: application/json
 
 
 ###
