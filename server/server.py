@@ -25,8 +25,8 @@ app = Flask(__name__)
 app.config['RESTX_VALIDATE'] = True
 
 api = Api(app, 
-    version='1.0',
-    title='GUI MCDA server',
+    version='1.0.0',
+    title='MakeDecision.it calculation server',
     description='REST API server to handle MCDA calculations',
     base_url='/',
     doc='/api/v1/documentation',
@@ -35,6 +35,7 @@ api = Api(app,
 # enable CORS
 CORS(app, resources={r'/*': {'origins': '*'}})
 
+project_home = '/home/jwieckowski/mysite/'
 project_home = ''
 
 def validate_locale(locale):
