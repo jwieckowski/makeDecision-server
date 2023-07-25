@@ -55,9 +55,9 @@ The `pymcdm` and `pyfdm` packages are used for the multi-criteria calculations.
 
 ### Get started
 
-[GUI application](https://jwieckowski.github.io/gui/)
+[GUI application](http://make-decision.it)
 
-[Server documentation](https://jwieckowski.pythonanywhere.com/api/v1/documentation)
+[Server documentation](http://api.make-decision.it/api/v1/documentation)
 
 ### Run server locally
 
@@ -66,13 +66,13 @@ To run the REST API server locally:
 - Clone the repository with the REST API server
 
 ```
-git clone https://github.com/jwieckowski/gui-server.git
+git clone https://github.com/jwieckowski/makeDecision-server.git
 ```
 
 - Enter the repository and install dependencies
 
 ```
-cd gui-server
+cd makeDecision-server
 pip install -r requirements.txt
 ```
 

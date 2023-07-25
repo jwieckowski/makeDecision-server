@@ -25,3 +25,9 @@ content-type: application/json
     "methodRankings": [],
     "rankingCorrelations": []
 }
+
+
+###
+GET http://api.make-decision.it/api/v1/descriptions/methods HTTP/1.1
+content-type: application/json
+locale: en
