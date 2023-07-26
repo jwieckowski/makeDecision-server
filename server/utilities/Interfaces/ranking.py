@@ -96,7 +96,8 @@ class Ranking():
                             else:
                                 # calculation of ranking
                                 try:
-                                    methods_data = data | {'additionals': result['additional']}
+                                    methods_data = data
+                                    methods_data['additionals'] = result['additional'] 
 
                                     item.append({
                                         'ranking': self._rank_preferences(locale, np.array(result['preference']), order),
@@ -113,3 +114,4 @@ class Ranking():
             return rankings
         except Exception:
             raise ValueError(f'{get_error_message(locale, "ranking-unexpected-error")}')
+
