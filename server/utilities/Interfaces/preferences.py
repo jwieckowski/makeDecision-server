@@ -212,49 +212,49 @@ class Preferences():
                         if check_normalization == True and 'normalization' in list(params[matrix_idx][idx]['additional'].keys()):
                             try:
                                 normalization = getattr(pyfdm.methods.fuzzy_sets.tfn.normalizations, params[matrix_idx][idx]['additional']['normalization'])
-                                kwargs = {'normalization': normalization} | kwargs
+                                kwargs['normalization'] = normalization
                             except:
                                 raise ValueError(f'{params[matrix_idx][idx]["additional"]["normalization"]} {get_error_message(locale, "fuzzy-normalization-method-error")}')
 
                         if check_distance == True and 'distance' in list(params[matrix_idx][idx]['additional'].keys()):
                             try:
                                 distance = getattr(pyfdm.methods.fuzzy_sets.tfn.distances, params[matrix_idx][idx]['additional']['distance'])
-                                kwargs = {'distance': distance} | kwargs
+                                kwargs['distance'] = distance
                             except:
                                 raise ValueError(f'{params[matrix_idx][idx]["additional"]["distance"]} {get_error_message(locale, "fuzzy-distance-method-error")}')
 
                         if check_defuzzify == True and 'defuzzify' in list(params[matrix_idx][idx]['additional'].keys()):
                             try:
                                 defuzzify = getattr(pyfdm.methods.fuzzy_sets.tfn.defuzzifications, params[matrix_idx][idx]['additional']['defuzzify'])
-                                kwargs = {'defuzzify': defuzzify} | kwargs
+                                kwargs['defuzzify'] = defuzzify
                             except:
                                 raise ValueError(f'{params[matrix_idx][idx]["additional"]["defuzzify"]} {get_error_message(locale, "fuzzy-defuzzification-method-error")}')
 
                         if check_distance_1 == True and 'distance_1' in list(params[matrix_idx][idx]['additional'].keys()):
                             try:
                                 distance_1 = getattr(pyfdm.methods.fuzzy_sets.tfn.distances, params[matrix_idx][idx]['additional']['distance_1'])
-                                kwargs = {'distance_1': distance_1} | kwargs
+                                kwargs['distance_1'] = distance_1
                             except:
                                 raise ValueError(f'{params[matrix_idx][idx]["additional"]["distance_1"]} {get_error_message(locale, "fuzzy-distance-method-error")}')
 
                         if check_distance_2 == True and 'distance_2' in list(params[matrix_idx][idx]['additional'].keys()): 
                             try:
                                 distance_2 = getattr(pyfdm.methods.fuzzy_sets.tfn.distances, params[matrix_idx][idx]['additional']['distance_2'])
-                                kwargs = {'distance_2': distance_2} | kwargs
+                                kwargs['distance_2'] = distance_2
                             except:
                                 raise ValueError(f'{params[matrix_idx][idx]["additional"]["distance_2"]} {get_error_message(locale, "fuzzy-distance-method-error")}')
                     
                     elif mcda_method == params[matrix_idx][idx]['method'].upper() and params[matrix_idx][idx]['extension'].lower() == 'fuzzy':
                         if check_normalization == True:
-                            kwargs = {'normalization': getattr(pyfdm.methods.fuzzy_sets.tfn.normalizations, methods_default_metrics[mcda_method.upper()]['normalization'])} | kwargs
+                            kwargs['normalization'] = getattr(pyfdm.methods.fuzzy_sets.tfn.normalizations, methods_default_metrics[mcda_method.upper()]['normalization'])
                         if check_distance == True:
-                            kwargs = {'distance': getattr(pyfdm.methods.fuzzy_sets.tfn.distances, methods_default_metrics[mcda_method.upper()]['distance'])} | kwargs
+                            kwargs['distance'] = getattr(pyfdm.methods.fuzzy_sets.tfn.distances, methods_default_metrics[mcda_method.upper()]['distance'])
                         if check_defuzzify == True:
-                            kwargs = {'defuzzify': getattr(pyfdm.methods.fuzzy_sets.tfn.defuzzifications, methods_default_metrics[mcda_method.upper()]['defuzzify'])} | kwargs
+                            kwargs['defuzzify'] = getattr(pyfdm.methods.fuzzy_sets.tfn.defuzzifications, methods_default_metrics[mcda_method.upper()]['defuzzify'])
                         if check_distance_1 == True:
-                            kwargs = {'distance_1': getattr(pyfdm.methods.fuzzy_sets.tfn.distances, methods_default_metrics[mcda_method.upper()]['distance_1'])} | kwargs
+                            kwargs['distance_1'] = getattr(pyfdm.methods.fuzzy_sets.tfn.distances, methods_default_metrics[mcda_method.upper()]['distance_1'])
                         if check_distance_2 == True:
-                            kwargs = {'distance_2': getattr(pyfdm.methods.fuzzy_sets.tfn.distances, methods_default_metrics[mcda_method.upper()]['distance_2'])} | kwargs
+                            kwargs['distance_2'] = getattr(pyfdm.methods.fuzzy_sets.tfn.distances, methods_default_metrics[mcda_method.upper()]['distance_2'])
 
                 return kwargs
             except Exception as err:
@@ -341,7 +341,7 @@ class Preferences():
                         if check_normalization_function == True and 'normalization_function' in list(params[matrix_idx][idx]['additional'].keys()):
                             try:
                                 normalization = getattr(pymcdm.normalizations, params[matrix_idx][idx]['additional']['normalization_function'])
-                                kwargs = {'normalization_function': normalization} | kwargs
+                                kwargs['normalization_function'] = normalization
                             except:
                                 raise ValueError(f'{params[matrix_idx][idx]["additional"]["normalization_function"]} {get_error_message(locale, "crisp-normalization-method-error")}')
                         elif check_normalization_function == True:
@@ -350,18 +350,18 @@ class Preferences():
                         if check_preference_function == True and 'preference_function' in list(params[matrix_idx][idx]['additional'].keys()):
                             pref_fun = params[matrix_idx][idx]['additional']['preference_function'] 
                             if pref_fun in ['usual', 'ushape', 'vshape', 'level', 'vshape_2']:
-                                kwargs = {'preference_function': pref_fun} | kwargs
+                                kwargs['preference_function'] = pref_fun
                             else:
                                 raise ValueError(f'{params[matrix_idx][idx]["additional"]["preference_function"]} {get_error_message(locale, "crisp-preference-function-error")}')
                         elif check_preference_function == True:
-                            kwargs = {'preference_function': 'usual'} | kwargs
+                            kwargs['preference_function'] = 'usual'
 
                     # DEFAULT METRICS
                     elif mcda_method == params[matrix_idx][idx]['method'].upper() and params[matrix_idx][idx]['extension'] == 'crisp':
                         if check_normalization_function == True:
-                            kwargs = {'normalization_function': getattr(pymcdm.normalizations, methods_default_metrics[mcda_method.upper()]['normalization_function'])}
+                            kwargs['normalization_function'] = getattr(pymcdm.normalizations, methods_default_metrics[mcda_method.upper()]['normalization_function'])
                         if check_preference_function == True:
-                            kwargs = {'preference_function': methods_default_metrics[mcda_method.upper()]['preference_function']} | kwargs
+                            kwargs['preference_function'] = methods_default_metrics[mcda_method.upper()]['preference_function']
                 
                 return kwargs
             except Exception as err:
