@@ -942,8 +942,8 @@
         "label": "Goodman-Kruskall",
         "name": "Goodman-Kruskall",
         "extensions": ["crisp"],
-        "requiredData": ["preferences"],
-        "hints": "Korelacja wyników metod MCDA"
+        "requiredData": ["ranking"],
+        "hints": "Korelacja rankingów metod MCDA"
       },
       {
         "id": 2,
@@ -951,8 +951,8 @@
         "label": "Kendall-Tau",
         "name": "Kendall-Tau",
         "extensions": ["crisp"],
-        "requiredData": ["preferences"],
-        "hints": "Korelacja wyników metod MCDA"
+        "requiredData": ["ranking"],
+        "hints": "Korelacja rankingów metod MCDA"
       },
       {
         "id": 3,

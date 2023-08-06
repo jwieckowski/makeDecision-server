@@ -6,52 +6,454 @@
       {
         "id": 0,
         "name": "Angle",
-        "description": []
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "From the two classic approaches, it can be known that if attribute values across alternatives of an attribute are all equal, a small weight will be assigned to it, because such attribute does not help in distinguishing alternatives."
+          },
+          {
+            "id": 1,
+            "text": "In another word, such an attribute should be assigned a very small weight. Assuming there is (n + 1)th attribute that has all equal attribute values, the decision matrix $$ B $$ becomes $$ B^{*} = [b^{*}_{ij}]_{m \\times (n+1)} $$, and the element new column are all $$ \\frac{1}{m} $$, i.e $$ b_{i, n+1} = \\frac{1}{m} $$."
+          },
+          {
+            "id": 2,
+            "text": " The existence of the (n + 1)th attribute doesn't affect the decision result of the first n attributes. If choosing the (n + 1)th attribute as reference and assigning 0 to its weight, the dispersion of each attribute of B can be measured by the angle between it and the reference attribute. The larger angle it has, the more important attribute is. The angle between the $$j-th$$ attribute and the reference attribute is:"
+          },
+          {
+            "id": 3,
+            "text": "$$ u_j = \\text{arccos } ( \\frac{\\sum^{m}_{i=1} \\frac{b_{ij}}{m} }{ \\sqrt{\\sum^{m}_{i=1}} (b_{ij})^{2} \\sqrt{\\sum^{m}_{i=1} (\\frac{1}{m})^{2} } } ) $$"
+          },
+          {
+            "id": 4,
+            "text": "Then the angle weight for the $$ j-th $$ attribute is:"
+          },
+          {
+            "id": 5,
+            "text": "$$ w_j = \\frac{u_j}{\\sum^{n}_{j=1} u_j} $$"
+          }
+        ]
       },
       {
         "id": 1,
         "name": "CILOS",
-        "description": []
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "The Criterion Impact LOSs (CILOS) method which is another promising approach to determining the objective weights, considers the significance (impact) loss of each criterion, when one of other criteria obtains the optimal largest or smallest value."
+          },
+          {
+            "id": 1,
+            "text": "First, the minimized criteria are transformed into the maximized ones, so that a criterion's largest value is optimal (best), using:"
+          },
+          {
+            "id": 2,
+            "text": "$$ \\bar{r}_{ij} = \\frac{\\text{min}_{i} r_{ij}}{r_{ij}} $$"
+          },
+          {
+            "id": 3,
+            "text": "The values of the maximized criteria require no transformation. The new matrix will be $$ X = || x_{ij} || $$. Now, the highest values of each criterion in the matrix, i.e., each column, are calculated:"
+          },
+          {
+            "id": 4,
+            "text": "$$ x_j = \\text{max}_{i} x_{ij} = x_{k_{j}j} $$"
+          },
+          {
+            "id": 5,
+            "text": " where $$ k_j $$ is the number of the row of $$ j-th $$ column, where the largest value is obtained."
+          },
+          {
+            "id": 6,
+            "text": "The matrix of the relative loss $$ P = || p_{ij} || $$ is formed as: "
+          },
+          {
+            "id": 7,
+            "text": "$$ p_{ij} = \\frac{x_j - a_{ij}}{x_j} = \\frac{a_{ii} - a_{ij}}{a_{ii}} $$"
+          },
+          {
+            "id": 8,
+            "text": "The elements pij in the CILOS matrix $$ P $$ show the relative loss of the $$ j-th $$ criterion, if the $$ i-th $$ criterion is selected to be the best."
+          },
+          {
+            "id": 9,
+            "text": "The $$ F $$ matrix is then determined as:"
+          },
+          {
+            "id": 10,
+            "text": "$$ F = P - diag(\\sum^{m}_{ij} p_{ij}) $$"
+          },
+          {
+            "id": 11,
+            "text": "Then, construct an orthonormal basis $$ q $$ for the null space of $$ F $$ matrix."
+          },
+          {
+            "id": 12,
+            "text": "The last step is to normalize the obtained values:"
+          },
+          {
+            "id": 13,
+            "text": "$$ w_{j} = \\frac{q_{j}}{\\sum^{m}_{j=1} q_j} $$"
+          }
+        ]
       },
       {
         "id": 2,
         "name": "CRITIC",
-        "description": []
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "CRiteria Importance Through Inter-criteria Correlation (CRITIC) method aims at the determination of objective weights of relative importance in Multi-Criteria Decision Making problems. The weights derived incorporate both contrast intensity and conflict which are contained in the structure of the decision problem. The method developed is based on the analytical investigation of the evaluation matrix for extracting all information contained in the evaluation criteria."
+          },
+          {
+            "id": 1,
+            "text": "The first step requires to normalize the decision matrix with:"
+          },
+          {
+            "id": 2,
+            "text": "$$ x_{aj} = \\frac{\\text{max} f_j (a) - f_{j^{*}}}{f_{j}^{*} - f_{j^{*}}} $$"
+          },
+          {
+            "id": 3,
+            "text": "where $$ f_j $$ represents every criterion, $$ f_{j}^{*} $$ represents the ideal value which is the best performance in criterion $$ j $$, and $$ f_{j^{*}} $$ stands for the anti-ideal value, which is the worst performance in criterion $$ j $$."
+          },
+          {
+            "id": 4,
+            "text": "Then, the the amount of information $$ C_j $$, emitted by the $$ j-th $$ criterion can be determined by composing the measures which quantify the two notions through the following multiplicative aggregation formula:"
+          },
+          {
+            "id": 5,
+            "text": "$$ C_j = \\sigma_j \\times \\sum^{m}_{k=1} (1 - r_{jk}) $$"
+          },
+          {
+            "id": 6,
+            "text": "where $$ \\sigma_j $$ represents the standard deviation of $$ x_j $$, and $$ r_{jk} $$ represents the linear correlation coefficient between the vectors $$ x_j $$ and $$ x_k $$."
+          },
+          {
+            "id": 7,
+            "text": "According to the previous analysis, the higher the value $$ C_j $$, the larger the amount of information transmitted by the corresponding criterion and the higher its relative importance for the decision making process. Objective weights result by normalizing these values to unity according to the following equation: "
+          },
+          {
+            "id": 8,
+            "text": "$$ w_j = \\frac{C_j}{\\sum^{m}_{k=1} C_k} $$"
+          }
+        ]
       },
       {
         "id": 3,
         "name": "Entropy",
-        "description": []
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "Shannon's entropy is a well known method in obtaining the weights for an Multi-Attribute Decision Making problem especially when obtaining a suitable weight based on the preferences and decision makers experiments are not possible. The original procedure of Shannon's entropy can be expressed in a series of steps:"
+          },
+          {
+            "id": 1,
+            "text": "Normalize the decision matrix with:"
+          },
+          {
+            "id": 2,
+            "text": "$$ p_{ij} = \\frac{x_{ij}}{\\sum^{m}_{i=1} x_{ij}} $$"
+          },
+          {
+            "id": 3,
+            "text": "The raw data are normalized to eliminate anomalies with different measurement units and scales. This process transforms different scales and units among various criteria into common measurable units to allow for comparisons of different criteria."
+          },
+          {
+            "id": 4,
+            "text": "Compute entropy $$ E_j $$ as:"
+          },
+          {
+            "id": 5,
+            "text": "$$ E_j = - \\frac{\\sum^{m}_{i=1} p_{ij} ln(p_{ij})}{ln(m)} $$"
+          },
+          {
+            "id": 6,
+            "text": "Calculate the final criteria weights with:"
+          },
+          {
+            "id": 7,
+            "text": "$$ w_j = \\frac{1 - E_j}{\\sum^{n}_{i=1} (1 - E_i)} $$"
+          },
+          {
+            "id": 9999,
+            "text": "**Triangular Fuzzy variant**"
+          },
+          {
+            "id": 8,
+            "text": "Normalize the fuzzy decision matrix with:"
+          },
+          {
+            "id": 9,
+            "text": "$$ n_{ij} = (\\frac{f_{x_{ij}}(0)}{\\sum^{m}_{i=1} f_{x_{ij}} (0)}, \\frac{f_{x_{ij}}(1)}{\\sum^{m}_{i=1} f_{x_{ij}} (1)}, \\frac{g_{x_{ij}}(0)}{\\sum^{m}_{i=1} g_{x_{ij}} (0)} ) $$"
+          },
+          {
+            "id": 10,
+            "text": "Construct the vector of fuzzy Shannon entropy as:"
+          },
+          {
+            "id": 11,
+            "text": "$$ e_j = (- \\frac{1}{ln(m)} \\sum^{m}_{i=1} f_{z_{ij}}(0) \\cdot ln(f_{z_{ij}})(0), - \\frac{1}{ln(m)} \\sum^{m}_{i=1} f_{z_{ij}}(1) \\cdot ln(f_{z_{ij}})(1), - \\frac{1}{ln(m)} \\sum^{m}_{i=1} g_{z_{ij}}(0) \\cdot ln(g_{z_{ij}})(0)  ) $$"
+          },
+          {
+            "id": 12,
+            "text": "Calculate the vector of fuzzy diversification as:"
+          },
+          {
+            "id": 13,
+            "text": "$$ d_j = (1 - f_{e_j}(0), 1 - f_{e_j}(1), 1 - g_{e_j}(0)) $$"
+          },
+          {
+            "id": 14,
+            "text": "Calculate the vector of fuzzy criteria weights with:"
+          },
+          {
+            "id": 15,
+            "text": "$$ w_j = (\\frac{f_{d_j}(0)}{\\sum^{n}_{j=1} f_{d_j}(0)} ) $$"
+          }
+        ]
       },
       {
         "id": 4,
         "name": "Equal",
-        "description": []
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "The criteria weights determined by assigning equal values to each criterion can be defined as:"
+          },
+          {
+            "id": 1,
+            "text": "$$ w_i = \\frac{1}{N} $$"
+          },
+          {
+            "id": 2,
+            "text": "where $$ N $$ represents the number of criteria in the problem."
+          },
+          {
+            "id": 9999,
+            "text": "**Triangular Fuzzy variant**"
+          },
+          {
+            "id": 3,
+            "text": "The criteria weights determined by assigning equal values to each criterion can be defined as:"
+          },
+          {
+            "id": 4,
+            "text": "$$ w_i = (\\frac{1}{N}, \\frac{1}{N}, \\frac{1}{N}) $$"
+          },
+          {
+            "id": 5,
+            "text": "where $$ N $$ represents the number of criteria in the problem."
+          }
+        ]
       },
       {
         "id": 5,
         "name": "Gini",
-        "description": []
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "Gini coefficient is used to measure the difference of income allocation quantitatively and investigate comprehensively the internal difference of inhabitant's income allocation as an important International indicator."
+          },
+          {
+            "id": 1,
+            "text": "The Gini coefficient weighting is an objective weighting method which calculates various indicators of the Gini coefficient as indicators' weights. The weights can be calculated with following steps."
+          },
+          {
+            "id": 2,
+            "text": "Calculation of the indicator Gini coefficient"
+          },
+          {
+            "id": 3,
+            "text": "Let $$ G_k $$ denote the Gini coefficient of the $$ k^{th} $$ index, let $$ Y_{ki} $$ denote the $$ k^{th} $$ index and the $$ i^{th} $$ data, let $$ n $$ denote the number of the data, let $$ \\mu_k $$ denote the expectation of the $$ k^{th} $$ index about all the data. The Gini coefficient of the $$ k^{th} $$ indicator $$ G_k $$ is defined as:"
+          },
+          {
+            "id": 4,
+            "text": "$$ G_k = \\sum^{n}_{i=1} \\sum^{n}_{j=1} \\frac{| Y_{ki} - Y_{kj} |}{2n^{2}\\mu_k} $$"
+          },
+          {
+            "id": 5,
+            "text": "The weight calculation of the indicator Gini coefficient"
+          },
+          {
+            "id": 6,
+            "text": "After Gini coefficient $$ G_k $$ of $$ m $$ indicators in the evaluating system are calculated, indicators' weights are determined according to each Gini coefficient. Gini coefficient weights are defined as:"
+          },
+          {
+            "id": 7,
+            "text": "$$ w_j = \\frac{G_k}{\\sum^{m}_{i=1} G_i} $$"
+          }
+        ]
       },
       {
         "id": 6,
         "name": "IDOCRIW",
-        "description": []
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "The idea of Integrated Determination of Objective CRIteria Weight (IDOCRIW) method is based on combining the weights of criteria with different significances into a single overall weight. It makes it possible to combine entropy weights $$ W_j $$ and Criterion Impact Loss weights (CILOS) $$ q_j $$ to obtain the aggregate weights $$ w_j $$ for objective assessment of the criteria array structure:"
+          },
+          {
+            "id": 1,
+            "text": "$$ w_j = \\frac{q_j \\times W_j}{\\sum^{m}_{j=1} q_j \\times W_j} $$"
+          },
+          {
+            "id": 2,
+            "text": "These weights will show the variation of individual criteria values (a characteristic of entropy), but the significance of the criteria will decrease due to their higher losses compared to those of other criteria."
+          }
+        ]
       },
       {
         "id": 7,
         "name": "MEREC",
-        "description": []
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "The MEthod based on the Removal Effects of Criteria (MEREC) method is in the category of objective weighting methods for obtaining criteria weights. The MEREC uses each criterion's removal effect on the performance of alternatives to determine criteria weights. Greater weights are assigned to the criteria that have higher effects on the performances. In this method, we should define a measure for the performances of alternatives first. To identify the effects of removing each criterion, the absolute deviation measure can be used. This measure reflects the difference between the overall alternative's performance and its performance in removing a criterion. The following steps are used to calculate objective weights by MEREC."
+          },
+          {
+            "id": 1,
+            "text": "Normalize the decision matrix with:"
+          },
+          {
+            "id": 2,
+            "text": "$$ n_{ij} = \\frac{\\text{min}_k x_{kj}}{x_{ij}} $$ for profit criteria"
+          },
+          {
+            "id": 3,
+            "text": "$$ n_{ij} = \\frac{x_{ij}}{\\text{max}_k x_{kj}} $$ for cost criteria"
+          },
+          {
+            "id": 4,
+            "text": "Calculate the overall performance of the alternatives $$ S_i $$ as:"
+          },
+          {
+            "id": 5,
+            "text": "$$ S_i = ln( 1 + (\\frac{1}{m} \\sum_{j} | ln(n_{ij}) | ) ) $$"
+          },
+          {
+            "id": 6,
+            "text": "Calculate the performance of the alternatives by removing each criterion as:"
+          },
+          {
+            "id": 7,
+            "text": "$$ S_{ij}^{'} = ln( 1 + (\\frac{1}{m} \\sum_{k, k\\neq j} | ln(n_{ik}) | ) ) $$"
+          },
+          {
+            "id": 8,
+            "text": "Compute the summation of absolute deviations with:"
+          },
+          {
+            "id": 9,
+            "text": "$$ E_j = \\sum_{i} | S_{ij}^{'} - S_i | $$"
+          },
+          {
+            "id": 10,
+            "text": "Determine the final weights of the criteria as:"
+          },
+          {
+            "id": 11,
+            "text": "$$ w_j = \\frac{E_j}{\\sum_{k} E_k} $$"
+          }
+        ]
       },
       {
         "id": 8,
         "name": "Standard deviation",
-        "description": []
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "The weights for criteria are determined by calculating the standard deviation of data separately for each column representing the criteria in the decision matrix. The criteria weights are calculated as:"
+          },
+          {
+            "id": 1,
+            "text": "$$ \\sigma_j = \\sqrt{\\frac{1}{n} \\sum^{n}_{i=1} (z_{ij} - \\bar{z}_j)^{2}} $$"
+          },
+          {
+            "id": 2,
+            "text": "where $$ \\bar{z}_j $$ is determined as $$ \\frac{1}{n} \\sum^{n}_{i=1} z_{ij} $$"
+          },
+          {
+            "id": 3,
+            "text": "$$ w_j  = \\frac{ \\sigma_j \\sqrt{1 - R_j}}{\\sum^{m}_{k=1} \\sigma_k \\sqrt{1 - R_k}} $$"
+          },
+          {
+            "id": 4,
+            "text": "where $$ 1 - R_j $$ is root squared to shorten the difference between the largest and the smallest weights. If it is not root square, the difference between the largest and the smallest weights will be bigger"
+          }
+        ]
       },
       {
         "id": 9,
         "name": "Variance",
-        "description": []
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "The weights for criteria are determined by calculating the variance of data separately for each column representing the criteria in the decision matrix."
+          },
+          {
+            "id": 1,
+            "text": "The first step of calculating criteria weights is to normalize the data with:"
+          },
+          {
+            "id": 2,
+            "text": "$$ n_{ij} = \\frac{x_{ij}}{\\sum^{n}_{i=1} x_{ij}} $$"
+          },
+          {
+            "id": 3,
+            "text": "Then the variance is calculated as:"
+          },
+          {
+            "id": 4,
+            "text": "$$ V_j = \\frac{1}{n} \\sum^{n}_{i=1} (n_{ij} - \\text{mean}(n_{ij}))^{2} $$"
+          },
+          {
+            "id": 5,
+            "text": "The final criteria weights are calculated with:"
+          },
+          {
+            "id": 6,
+            "text": "$$ w_j = \\frac{V_j}{\\sum^{m}_{i=1} V_j} $$"
+          }
+        ]
       }
     ]
   },
@@ -64,12 +466,16 @@
         "name": "ARAS",
         "description": [
           {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
             "id": 0,
             "text": "Following the Additive Ratio ASsessment (ARAS) method assumptions, the value of the utility function, which identifies the composite relative effectiveness of a feasible alternative, is directly proportional to the relative influence of the values and weights of the main criteria considered in the project. The ARAS method is used to evaluate decision alternatives according to the following steps."
           },
           {
             "id": 1,
-            "text": "**Step 1.** Definition of a decision matrix of dimension $$n \\times m$$, where $n$ is the number of alternatives, and $m$ is the number of criteria"
+            "text": "**Step 1.** Definition of a decision matrix of dimension $$n \\times m$$, where $n$ is the number of alternatives, and $$ m $$ is the number of criteria"
           },
           {
             "id": 2,
@@ -102,6 +508,70 @@
           {
             "id": 9,
             "text": "where $$S_i$$ and $$S_0$$ are the optimality criterion values."
+          },
+          {
+            "id": 9999,
+            "text": "**Triangular Fuzzy variant**"
+          },
+          {
+            "id": 10,
+            "text": "The fuzzy extension of the Additive Ratio Assessment (ARAS) method was presented by Zavadskas et al. It allows for operating in an uncertain environment based on the data represented as TFNs. The main steps of the fuzzy ARAS procedure can be described as follows."
+          },
+          {
+            "id": 11,
+            "text": "**Step 1.** Determination of the triangular fuzzy decision matrix $$ X $$, which contains $$ m $$ alternatives and $$ n $$ criteria ($$ i = 1, 2, \\ldots, m $$ and $$ j = 1, 2, \\ldots, n $$), where $$ x_{ij} $$ is represented as Triangular Fuzzy Number ($$ a, m, b $$)."
+          },
+          {
+            "id": 12,
+            "text": "**Step 2.** Determination of the optimal value of each criterion value."
+          },
+          {
+            "id": 13,
+            "text": "The $$ \\tilde{x}_{0j} $$ denotes the optimal value of $$ j $$ criterion (for a profit criteria $$ \\tilde{x}_{0j} = \\text{max}_i x_{ij} $$, and for a cost criteria $$ \\tilde{x}_{0j} = \\text{min}_i x_{ij} $$)."
+          },
+          {
+            "id": 14,
+            "text": "**Step 3.** Calculation of the normalized fuzzy decision matrix with:"
+          },
+          {
+            "id": 15,
+            "text": "$$ n_{ij} = \\frac{\\tilde{x}_{ij}}{\\sum^{m}_{i=0} \\tilde{x}_{ij}} $$ for profit criteria, and"
+          },
+          {
+            "id": 16,
+            "text": "$$ n_{ij} = \\frac{ \\frac{1}{\\tilde{x}_{ij}} }{ \\sum^{m}_{i=0} \\frac{1}{\\tilde{x}_{ij}}} $$ for cost criteria"
+          },
+          {
+            "id": 17,
+            "text": "**Step 4.** Calculation of the weighted normalized fuzzy decision matrix"
+          },
+          {
+            "id": 18,
+            "text": "$$ wn_{ij} = n_{ij} \\times w_j $$"
+          },
+          {
+            "id": 19,
+            "text": "**Step 5.** Determination of the overall performance index for each alternative with:"
+          },
+          {
+            "id": 20,
+            "text": "$$ S_i = \\sum^{n}_{j=1} wn_{ij} $$"
+          },
+          {
+            "id": 21,
+            "text": "**Step 6.** Calculation of the defuzzified values of performance index as:"
+          },
+          {
+            "id": 22,
+            "text": "$$ S_i = \\frac{1}{3} (S_{i_a} + S_{i_m} + S_{i_b}) $$"
+          },
+          {
+            "id": 23,
+            "text": "**Step 7.** Determination of the utility degree of each alternative with the formula:"
+          },
+          {
+            "id": 24,
+            "text": "$$ Q_i = \\frac{S_i}{S_0} $$"
           }
         ]
       },
@@ -109,6 +579,10 @@
         "id": 1,
         "name": "COCOSO",
         "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
           {
             "id": 0,
             "text": "The suggested approach is based on an integrated simple additive weighting and exponentially weighted product model. It can be a compendium of compromise solutions. To solve a Combined Compromise Solution (CoCoSo) decision problem, after determining the alternatives and the related criteria, the following steps are validated"
@@ -182,12 +656,181 @@
       {
         "id": 2,
         "name": "CODAS",
-        "description": []
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "In COmbinative Distance-based ASsessment (CODAS) method, the desirability of alternatives is determined by using two measures. The main and primary measure are related to the Euclidean distance of alternatives from the negative-ideal. Using this type of distance requires an -norm indifference space for criteria. The secondary measure is the Taxicab distance, which is related to the -norm indifference space. Clearly, the alternative which has greater distances from the negative-ideal solution is more desirable. In this method, if two alternatives are incomparable according to the Euclidean distance, then the Taxicab distance is used as secondary measure. Although the -norm indifference space is preferred in the CODAS, two types of indifference space could be considered in its process. Based on the assumption that alternatives and criteria are available, the steps of the proposed method can then be presented as follows:"
+          },
+          {
+            "id": 1,
+            "text": "**Step 1.** Construct the decision making matrix $$ X $$,"
+          },
+          {
+            "id": 2,
+            "text": "where $$ x_{ij} $$ denotes the performance value of $$i-th$$ alternative on $$j-th$$ criterion"
+          },
+          {
+            "id": 3,
+            "text": "**Step 2.** Calculate the normalized decision matrix. Linear normalization of performance values is used as given by:"
+          },
+          {
+            "id": 4,
+            "text": "$$ n_{ij} = \\frac{x_{ij}}{max_i x_{ij}} $$ if $$ j \\in N_b$$"
+          },
+          {
+            "id": 5,
+            "text": "$$ n_{ij} = \\frac{min_i x_{ij}}{x_{ij}} $$ if $$ j \\in N_c$$"
+          },
+          {
+            "id": 6,
+            "text": "where $$ N_b $$ and $$ N_c $$ represents the sets of benefit and cost criteria, respectively. "
+          },
+          {
+            "id": 7,
+            "text": "**Step 3.** Calculate the weighted normalized decision matrix. The weighted normalized performance values are calculated as given by:"
+          },
+          {
+            "id": 8,
+            "text": "$$ r_{ij} = w_j n_{ij} $$, where $$w_j$$ denotes the weight of $$j-th$$ criterion"
+          },
+          {
+            "id": 9,
+            "text": "**Step 4.** Determine the negative-ideal solution (point) as:"
+          },
+          {
+            "id": 10,
+            "text": "$$ ns = [ns_j]_{1 \\times m} ; ns_j = min_i r_{ij} $$"
+          },
+          {
+            "id": 11,
+            "text": "**Step 5.**  Calculate the Euclidean and Taxicab distances of alternatives from the negative-ideal solution as"
+          },
+          {
+            "id": 12,
+            "text": "$$ E_i =  \\sqrt{\\sum^{m}_{j=1} (r_{ij} - ns_j)^{2}} $$"
+          },
+          {
+            "id": 13,
+            "text": "$$ T_i = \\sum^{m}_{j=1} |r_{ij} - ns_j | $$"
+          },
+          {
+            "id": 14,
+            "text": "**Step 6.**  Construct the relative assessment matrix as"
+          },
+          {
+            "id": 15,
+            "text": "$$ R_{a} = [h_{ik}]_{n \\times n} $$"
+          },
+          {
+            "id": 16,
+            "text": "$$ h_{ik} = (E_i - E_k) + (\\psi(E_i - E_k) \\times (T_i - T_k)) $$"
+          },
+          {
+            "id": 17,
+            "text": "where $$k \\in {1, 2, ..., n} $$ and $$\\psi$$ denotes threshold function to recognize the equality of the Euclidean."
+          },
+          {
+            "id": 18,
+            "text": "**Step 7.** Calculate the assessment score of each alternative as given by:"
+          },
+          {
+            "id": 19,
+            "text": "$$ H_i = \\sum^{n}_{k=1} h_{ik} $$"
+          },
+          {
+            "id": 20,
+            "text": "**Step 8.** Rank the alternatives according to the decreasing values of assessment score ($$ H $$). The alternative with the highest $$ H $$ is the best choice among the alternatives."
+          },
+          {
+            "id": 9999,
+            "text": "**Triangular Fuzzy variant**"
+          },
+          {
+            "id": 21,
+            "text": "COmbinative Distance-based ASsessment (CODAS) is a new and influential MCDM tool which has been recently developed by Keshavarz Ghorabaee et al. Under this method, alternatives desirability is based on $$ l^1 $$-norm and $$ l^2 $$-norm indifference spaces for criteria. The desirability of alternatives is based on combined Euclidean and Taxicab distances values from the negative ideal solution. Since, for searching the desirability of alternatives for a problem under fuzzy environment Euclidean and Taxicab distances values can't be used (as defined only for crisp environment) therefore fuzzy weighted Euclidean distance ($$ ED_i $$) and fuzzy weighted Hamming distance ($$ HD_i $$) are used for alternatives selection. Let there are $$ m $$ possible alternatives, $$ n $$ criteria and $$ k $$ decision makers. The main steps involved in fuzzy CODAS approach are as follows:"
+          },
+          {
+            "id": 22,
+            "text": "**Step 1.** Determination of the triangular fuzzy decision matrix $$ X $$, which contains $$ m $$ alternatives and $$ n $$ criteria ($$ i = 1, 2, \\ldots, m $$ and $$ j = 1, 2, \\ldots, n $$), where $$ x_{ij} $$ is represented as Triangular Fuzzy Number ($$ a, m, b $$)."
+          },
+          {
+            "id": 23,
+            "text": "**Step 2.** Calculate the fuzzy normalized decision matrix. Fot the profit criteria, the following formula can be used:"
+          },
+          {
+            "id": 24,
+            "text": "$$ n_{ij} = \\frac{x_{ij}}{\\text{max}_i x_{ij}} $$"
+          },
+          {
+            "id": 25,
+            "text": "and for the cost criteria:"
+          },
+          {
+            "id": 26,
+            "text": "$$ n_{ij} = 1 - \\frac{x_{ij}}{\\text{max}_i x_{ij}} $$"
+          },
+          {
+            "id": 27,
+            "text": "**Step 3.** Compute fuzzy weighted normalized matrix $$ V = [v_{ij}]_{n \\times m} $$, where $$ v_{ij} = n_{ij} \\times w_j $$"
+          },
+          {
+            "id": 28,
+            "text": "**Step 4.** Tabulate fuzzy negative solution values by using the relation as $$ NS = [ns_j]_{1 \\times m} $$, where $$ ns_j = \\text{min}_i v_{ij} $$"
+          },
+          {
+            "id": 29,
+            "text": "**Step 5.** Compute $$ ED_i $$ and $$ HD_i $$ distances for each alternative from fuzzy negative solution value by using:"
+          },
+          {
+            "id": 30,
+            "text": "$$ ED_i = \\sum^{m}_{j=1} E_d (v_{ij}, ns_j) $$"
+          },
+          {
+            "id": 31,
+            "text": "$$ HD_i = \\sum^{m}_{j=1} H_d (v_{ij}, ns_j) $$"
+          },
+          {
+            "id": 32,
+            "text": "**Step 6.** Establish relative assessment matrix as $$ RA = [p_{ik}]_{n \\times n} $$, where $$ p_{ik} = (ED_i - ED_k) + (t(ED_i - ED_k)) \\times (HD_i - HD_k) $$"
+          },
+          {
+            "id": 33,
+            "text": "The $$ t $$ represents a threshold function that can be represented by:"
+          },
+          {
+            "id": 34,
+            "text": "$$ 1 \\quad if |x| \\geq \\emptyset $$"
+          },
+          {
+            "id": 35,
+            "text": "$$ 0 \\quad if |x| < \\emptyset $$"
+          },
+          {
+            "id": 36,
+            "text": "where $$ \\emptyset $$ is threshold parameter of the function and its value is to be set by the decision maker in the range of 0.01 - 0.05"
+          },
+          {
+            "id": 37,
+            "text": "**Step 7.** Compute the assessment score for each alternative with:"
+          },
+          {
+            "id": 38,
+            "text": "$$ AS_i = \\sum^{n}_{k=1} p_{ik} $$"
+          }
+        ]
       },
       {
         "id": 3,
         "name": "COMET",
         "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
           {
             "id": 0,
             "text": "The Characteristic Objects Method (COMET) method stands out from other MCDA methods in that it is completely free of ranking reversal phenomenon. It allows for creating a multi-criteria decision analysis model, which will serve unequivocal results regardless of the number of alternatives used in the system. Below main steps of the method are described."
@@ -233,23 +876,23 @@
             "text": "Afterwards, the vertical vector of the Summed Judgments ($$SJ$$) is obtained."
           },
           {
-            "id": 10,
+            "id": 11,
             "text": "$$ SJ_i=\\sum^{t}_{j=1}\\alpha_{ij} $$"
           },
           {
-            "id": 11,
+            "id": 12,
             "text": "Values of preference are approximated for each $$CO$$. As a result, the vertical vector $$P$$ is obtained, where $$i-th$$ row contains the approximate value of preference for $$CO_i$$."
           },
           {
-            "id": 12,
+            "id": 13,
             "text": "**Step 4.** The Rule Base - each Characteristic Object and value of preference is converted to a fuzzy rule."
           },
           {
-            "id": 13,
+            "id": 14,
             "text": "IF $$C(\\tilde{C}_{1i})$$ AND $$C(\\tilde{C}_{2i})$$ AND ... THEN $$P_i$$"
           },
           {
-            "id": 14,
+            "id": 15,
             "text": "**Step 5.** Inference and Final Ranking - each alternative is presented as a set of crisp numbers (e.g., $$A_i=\\{a_{1i}, a_{2i}, ..., a_{ri}\\}$$). This set corresponds to criteria $$C_1, C_2, ..., C_r$$. Mamdani's fuzzy inference method is used to compute preference of $$i-th$$ alternative. The rule base guarantees that the obtained results are unequivocal. The bijection makes the COMET a completely rank reversal free."
           }
         ]
@@ -257,47 +900,1035 @@
       {
         "id": 4,
         "name": "COPRAS",
-        "description": []
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "The COmplex PRoportional ASsessment (COPRAS) was introduced by Zavadskas. This approach assumes a direct and proportional relationship of the importance of investigated variants on a system of criteria adequately describing the decision variants and on values and weights of the criteria. This method ranks alternatives based on their relative importance (weight). Final ranking is creating using the positive and negative ideal solutions. Assuming, that we have a decision matrix with m alternatives and n criteria is represented as $$ X $$ , the COPRAS method is defined in five steps:"
+          },
+          {
+            "id": 1,
+            "text": "**Step 1.** Calculate the normalized decision matrix using:"
+          },
+          {
+            "id": 2,
+            "text": "$$ r_{ij} = \\frac{x_{ij}}{\\sum^{m}_{i=1} x_{ij}} $$"
+          },
+          {
+            "id": 3,
+            "text": "**Step 2.** Calculate the weighted normalized decision matrix, which represents a multiplication of the normalized decision matrix elements with the appropriate weight coefficients using:"
+          },
+          {
+            "id": 4,
+            "text": "$$ v_{ij} = r_{ij} \\times w_j $$"
+          },
+          {
+            "id": 5,
+            "text": "**Step 3.** Determine the sums of weighted normalized values, which was calculated previously with:"
+          },
+          {
+            "id": 6,
+            "text": "$$ S_{+i} = \\sum^{k}_{j=1} v_{ij} $$, if criterion $$ j $$ is profit"
+          },
+          {
+            "id": 7,
+            "text": "$$ S_{-i} = \\sum^{m}_{j=k+1} v_{ij} $$, if criterion $$ j $$ is cost"
+          },
+          {
+            "id": 8,
+            "text": "**Step 4.** Calculate the relative significance of alternatives using:"
+          },
+          {
+            "id": 9,
+            "text": "$$ Q_i = S_{+i} + \\frac{ S_{-min} \\times \\sum^{m}_{i=1} S_{-i}}{ S_{-i} \\times \\sum^{m}_{i=1} (\\frac{S_{-min}}{S_{-i}}) } $$"
+          },
+          {
+            "id": 10,
+            "text": "**Step 5.** Final ranking is performed according $$ U_i $$ values with:"
+          },
+          {
+            "id": 11,
+            "text": "$$ U_i = \\frac{Q_i}{Q^{max}_{i}} \\times 100%  $$"
+          },
+          {
+            "id": 9999,
+            "text": "**Triangular Fuzzy variant**"
+          },
+          {
+            "id": 12,
+            "text": "The steps of fuzzy COmplex PRoportional ASsessment (COPRAS) to investigate the importance and priority of the alternatives are as follows:"
+          },
+          {
+            "id": 13,
+            "text": "**Step 1.** Determination of the triangular fuzzy decision matrix $$ X $$, which contains $$ m $$ alternatives and $$ n $$ criteria ($$ i = 1, 2, \\ldots, m $$ and $$ j = 1, 2, \\ldots, n $$), where $$ x_{ij} $$ is represented as Triangular Fuzzy Number ($$ a, m, b $$)."
+          },
+          {
+            "id": 14,
+            "text": "**Step 2.** Calculate the fuzzy normalized decision matrix as:"
+          },
+          {
+            "id": 15,
+            "text": "$$ n_{ij} = (\\frac{a_{ij}}{a^{*}_{j}}, \\frac{m_{ij}}{a^{*}_{j}}, \\frac{b_{ij}}{a^{*}_{j}}) $$"
+          },
+          {
+            "id": 16,
+            "text": "where $$ a^{*}_{j} = \\text{max}_i a_{ij} $$"
+          },
+          {
+            "id": 17,
+            "text": "**Step 3.** Compute fuzzy weighted normalized matrix $$ V = [v_{ij}]_{n \\times m} $$, where $$ v_{ij} = n_{ij} \\times w_j $$"
+          },
+          {
+            "id": 18,
+            "text": "**Step 4.** Calculation of the sum of weighted normalized values is calculated for both the non-beneficial ($$ S_{-i} $$) and beneficial ($$ S_{+i} $$) criteria as:"
+          },
+          {
+            "id": 19,
+            "text": "$$ S_{-i} = \\sum^{n}_{j=1} v_{-ij} $$"
+          },
+          {
+            "id": 20,
+            "text": "$$ S_{+i} = \\sum^{n}_{j=1} v_{+ij} $$"
+          },
+          {
+            "id": 21,
+            "text": "**Step 5.** Calculation of the significance of each alternative by:"
+          },
+          {
+            "id": 22,
+            "text": "$$ Q_i = S_{+i} + \\frac{\\sum^{m}_{i=1} S_{-i}}{S_{-i} \\sum^{m}_{i=1} \\frac{1}{S_{-i}}} $$"
+          },
+          {
+            "id": 23,
+            "text": "where $$ Q_i $$ is represented as a triangular fuzzy number. In order to find out the best non-fuzzy performance value, the defuzzification method, a Center Of Area (COA) is used to transform the triangular fuzzy number $$ Q_i $$ into a crisp number which is given by"
+          },
+          {
+            "id": 24,
+            "text": "$$ Q^{*}_{i} = a_i + \\frac{(b_i - a_i) + (m_i - a_i)}{3} $$"
+          },
+          {
+            "id": 25,
+            "text": "Consequently, the larger the value of $$ Q^{*}_{i} $$, the higher the priority of the alternative accordingly."
+          },
+          {
+            "id": 26,
+            "text": "**Step 6.** To visually assess the efficiency of alternatives, the degree of utility is calculated in the following way:"
+          },
+          {
+            "id": 27,
+            "text": "$$ N_i = \\frac{Q^{*}_{i}}{Q^{*}_{\\text{max}}} \\times 100\\% $$"
+          },
+          {
+            "id": 28,
+            "text": "where $$ Q^{*}_{\\text{max}} $$ is the maximum relative significance value."
+          }
+        ]
       },
       {
         "id": 5,
         "name": "EDAS",
-        "description": []
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "The best alternative in the Evaluation based on Distance from Average Solution (EDAS) method is corresponded to the distance from average solution (AV). In this method, two first measures are delivered as the positive distance from average (PDA), and the negative distance from average (NDA). These measures can show the difference between each solution (alternative) and the average solution. Therefore, higher values of PDA and lower values of NDA will indicate optimal solution. In fact, the higher values of PDA and/or lower values of NDA represent that the solution (alternative) is better than average solution. Classical algorithm of EDAS can be followed using the following steps."
+          },
+          {
+            "id": 1,
+            "text": "**Step 1.**  Initial decision matrix $$ X $$ is expected to be constructed by real data or using decision-makers."
+          },
+          {
+            "id": 2,
+            "text": "**Step 2.** Average solution for each criterion is calculated based on:"
+          },
+          {
+            "id": 3,
+            "text": "$$ AV = [AV_j]_{1 \\times m} $$"
+          },
+          {
+            "id": 4,
+            "text": "$$ AV_j = \\frac{\\sum^{n}_{i=1} X_{ij}}{n} $$"
+          },
+          {
+            "id": 5,
+            "text": "**Step 3.** Positive distance from average (PDA) and negative distance from average (NDA) are calculated:"
+          },
+          {
+            "id": 6,
+            "text": "$$ PDA = [PDA_{ij}]_{n \\times m} $$"
+          },
+          {
+            "id": 7,
+            "text": "$$ NDA = [NDA_{ij}]_{n \\times m} $$"
+          },
+          {
+            "id": 8,
+            "text": "If criterion is type of profit, the PDA and NDA are calculated as:"
+          },
+          {
+            "id": 9,
+            "text": "$$ PDA_{ij} = \\frac{max (0, (X_{ij} - AV_j))}{AV_j} $$"
+          },
+          {
+            "id": 10,
+            "text": "$$ NDA_{ij} = \\frac{max (0, (AV_j - X_{ij}))}{AV_j} $$"
+          },
+          {
+            "id": 11,
+            "text": "If criterion is type of cost, the PDA and NDA are calculated as:"
+          },
+          {
+            "id": 12,
+            "text": "$$ PDA_{ij} = \\frac{max (0, ( AV_j - X_{ij}))}{AV_j} $$"
+          },
+          {
+            "id": 13,
+            "text": "$$ NDA_{ij} = \\frac{max (0, (X_{ij} - AV_j))}{AV_j} $$"
+          },
+          {
+            "id": 14,
+            "text": "**Step 4.** Calculate the weighted sum of PDA and NDA for all alternatives using:"
+          },
+          {
+            "id": 15,
+            "text": "$$ SP_i = \\sum^{m}_{j=1} w_j \\times PDA_{ij} $$"
+          },
+          {
+            "id": 16,
+            "text": "$$ SN_i = \\sum^{m}_{j=1} w_j \\times NDA_{ij} $$"
+          },
+          {
+            "id": 17,
+            "text": "**Step 5.** Normalization of the obtained values using:"
+          },
+          {
+            "id": 18,
+            "text": "$$ NSP_i = \\frac{SP_i}{max_i SP_i}  $$"
+          },
+          {
+            "id": 19,
+            "text": "$$ NSN_i = 1 - \\frac{SN_i}{max_i SN_i}  $$"
+          },
+          {
+            "id": 20,
+            "text": "**Step 6.** Finally, appraisal score (AS) for each alternative is calculated based on:"
+          },
+          {
+            "id": 21,
+            "text": "$$ AS_i = \\frac{1}{2} (NSP_i + NSN_i) $$"
+          },
+          {
+            "id": 9999,
+            "text": "**Triangular Fuzzy variant**"
+          },
+          {
+            "id": 22,
+            "text": "The Evaluation based on Distance from Average Solution (EDAS) method was proposed by Ghorabaee et al. Its functioning is based on the calculation of the positive distance from average (PDA) and negative distance from average (NDA). The decision variants characterized by higher PDA values and lower NDA values are preferable. The triangular fuzzy number extension of the standard EDAS method enables it to operate in the fuzzy environment where uncertain data appear. Main steps of the method are defined as follows."
+          },
+          {
+            "id": 23,
+            "text": "**Step 1.** Determination of the triangular fuzzy decision matrix $$ X $$, which contains $$ m $$ alternatives and $$ n $$ criteria ($$ i = 1, 2, \\ldots, m $$ and $$ j = 1, 2, \\ldots, n $$), where $$ x_{ij} $$ is represented as Triangular Fuzzy Number ($$ a, m, b $$)."
+          },
+          {
+            "id": 24,
+            "text": "**Step 2.** Determination of the average triangular fuzzy decision matrix based on the initial triangular fuzzy decision matrix as:"
+          },
+          {
+            "id": 25,
+            "text": "$$ AV_j = \\frac{\\sum^{n}_{i=1} x_{ij}}{n} $$"
+          },
+          {
+            "id": 26,
+            "text": "**Step 3.** Calculation of the fuzzy Positive Distance from Average (PDA) and fuzzy Negative Distance from Average (NDA). The calculation uses $$ k $$ function which represents the defuzzification method. Calculations for profit criteria can be performed as:"
+          },
+          {
+            "id": 27,
+            "text": "$$ PDA_{ij} = \\frac{\\psi(x_{ij} - AV_j)}{k(AV_j)} $$"
+          },
+          {
+            "id": 28,
+            "text": "$$ NDA_{ij} = \\frac{\\psi(AV_j - x_{ij})}{k(AV_j)} $$"
+          },
+          {
+            "id": 29,
+            "text": "and for cost criteria as:"
+          },
+          {
+            "id": 30,
+            "text": "$$ PDA_{ij} = \\frac{\\psi(AV_j - x_{ij})}{k(AV_j)} $$"
+          },
+          {
+            "id": 31,
+            "text": "$$ NDA_{ij} = \\frac{\\psi(x_{ij} - AV_j)}{k(AV_j)} $$"
+          },
+          {
+            "id": 32,
+            "text": "**Step 4.** Calculation of the fuzzy weighted positive (SP) and negative (SN) distances with:"
+          },
+          {
+            "id": 33,
+            "text": "$$ SP_i = \\sum^{m}_{j=1} ( w_j + PDA_{ij}) $$"
+          },
+          {
+            "id": 34,
+            "text": "$$ SN_i = \\sum^{m}_{j=1} ( w_j + NDA_{ij}) $$"
+          },
+          {
+            "id": 35,
+            "text": "**Step 5.** Determination of the normalized fuzzy weighted positive (NSP) and negative (NSN) distances as:"
+          },
+          {
+            "id": 36,
+            "text": "$$ NSP_i = \\frac{SP_i}{\\text{max}_i (k(SP_i))} $$"
+          },
+          {
+            "id": 37,
+            "text": "$$ NSN_i = 1 - \\frac{SN_i}{\\text{max}_i (k(SN_i))} $$"
+          },
+          {
+            "id": 38,
+            "text": "**Step 6.** Calculation of the fuzzy Appraisal Score (AS) for each alternative with:"
+          },
+          {
+            "id": 39,
+            "text": "$$ AS_i = \\frac{NSP_i + NSN_i}{2} $$"
+          }
+        ]
       },
       {
         "id": 6,
         "name": "MABAC",
-        "description": []
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "The basis of the Multi-Attributive Border Approximation area Comparison (MABAC) method is seen in the definition of the distance of the criterion function of each alternative from the border approximation area. The next section shows the process of implementing the MABAC method, consisting of 6 steps."
+          },
+          {
+            "id": 1,
+            "text": "**Step 1.** Formation of the initial decision matrix $$ X $$."
+          },
+          {
+            "id": 2,
+            "text": "**Step 2.** Normalization of the elements from the initial matrix, where the following formula is used to normalize the columns for a profit criteria type"
+          },
+          {
+            "id": 3,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{-}_{i}}{x^{+}_{i} - x^{-}_{i}} $$"
+          },
+          {
+            "id": 4,
+            "text": "and the normalization of columns for cost type is calculated as"
+          },
+          {
+            "id": 5,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{+}_{i}}{x^{-}_{i} - x^{+}_{i}} $$"
+          },
+          {
+            "id": 6,
+            "text": "where $$ x_{ij} $$ is the element of initial decision matrix, $$ x^{+}_{i} $$ is the maximum value of the observed criterion according to the alternatives, and $$ x^{-}_{i} $$ is the minimum value of the observed criterion according to the alternatives."
+          },
+          {
+            "id": 7,
+            "text": "**Step 3.**  Calculation of the elements from the weighted matrix (V). The elements from the weighted matrix (V) are calculated based on: "
+          },
+          {
+            "id": 8,
+            "text": "$$ v_{ij} = w_i \\times (n_{ij} + 1) $$"
+          },
+          {
+            "id": 9,
+            "text": "**Step 4.**  Determining the border approximation area matrix (G). The Border Approximation Area (BAA) for each criterion is determined according to: "
+          },
+          {
+            "id": 10,
+            "text": "$$ g_i = (\\prod^{m}_{j=1} v_{ij})^{\\frac{1}{m}} $$"
+          },
+          {
+            "id": 11,
+            "text": "**Step 5.**  Calculation of the distance of the alternative from the border approximation area for the matrix elements $$ Q $$ as:"
+          },
+          {
+            "id": 12,
+            "text": "$$ Q = V - G $$, where $$ q_{ij} = v_{ij} - g_j $$"
+          },
+          {
+            "id": 13,
+            "text": "The belonging of alternative $$ A_i $$ to the approximation area ($$ G $$, $$ G^{+} $$ or $$ G^{-} $$) is determined on the basis of:"
+          },
+          {
+            "id": 14,
+            "text": "$$ G^{+} $$ if $$ q_{ij} > 0 $$"
+          },
+          {
+            "id": 15,
+            "text": "$$ G $$ if $$ q_{ij} = 0 $$"
+          },
+          {
+            "id": 16,
+            "text": "$$ G^{-} $$ if $$ q_{ij} < 0 $$"
+          },
+          {
+            "id": 17,
+            "text": "**Step 6.** Ranking the alternatives. A calculation of the values of the criterion functions for the alternatives  is obtained as the sum of the distance of the alternatives from the border approximation areas ($$ q_i $$). By calculating the sum of the elements of matrix $$ Q $$ by rows we obtain the final values of the criterion functions of the alternatives"
+          },
+          {
+            "id": 18,
+            "text": "$$ S_i = \\sum^{n}_{j=1} q_{ij} $$"
+          },
+          {
+            "id": 9999,
+            "text": "**Triangular Fuzzy variant**"
+          },
+          {
+            "id": 19,
+            "text": "The Multi-Attributive Border Approximation area Comparison (MABAC) method is developed by Pamučar \\& Ćirović. The basic setting of  the  MABAC  method  consists in  defining  the  distance  of  the  criteria  function  of every  observed  alternative  from  the  border  approximate  area. The procedure for implementing the fuzzificated MABAC method (with Triangular Fuzzy Number) is defined as follows."
+          },
+          {
+            "id": 20,
+            "text": "**Step 1.** Determination of the triangular fuzzy decision matrix $$ X $$, which contains $$ m $$ alternatives and $$ n $$ criteria ($$ i = 1, 2, \\ldots, m $$ and $$ j = 1, 2, \\ldots, n $$), where $$ x_{ij} $$ is represented as Triangular Fuzzy Number ($$ a, m, b $$)."
+          },
+          {
+            "id": 21,
+            "text": "**Step 2.** Normalization of the initial matrix elements for the profit criteria as:"
+          },
+          {
+            "id": 22,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{-}_i}{x^{+}_i - x^{-}_i} $$"
+          },
+          {
+            "id": 23,
+            "text": "and for the cost criteria as:"
+          },
+          {
+            "id": 24,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{+}_i}{x^{-}_i - x^{+}_i} $$"
+          },
+          {
+            "id": 25,
+            "text": "where $$ x^{+}_{i} $$ denotes the maximum values of the marked criterion by its alternatives, and $$ x^{-}_{i} $$ is the minimum values of the marked criterion by its alternatives."
+          },
+          {
+            "id": 26,
+            "text": "**Step 3.** Compute fuzzy weighted normalized matrix $$ V = [v_{ij}]_{n \\times m} $$, where $$ v_{ij} = n_{ij} \\times w_i + w_i $$"
+          },
+          {
+            "id": 27,
+            "text": "**Step 4.** Determination  of  the  approximate  border  area  matrix  ($$ G $$).  The  border approximate area for every criterion is determined by:"
+          },
+          {
+            "id": 28,
+            "text": "$$ g_i = (\\prod^{m}_{j=1} v_{ij})^{\\frac{1}{m}} $$"
+          },
+          {
+            "id": 29,
+            "text": "**Step 5.** Calculation of the matrix elements of alternatives distance from the border approximate area $$ Q $$ as:"
+          },
+          {
+            "id": 30,
+            "text": "$$ Q = V - G $$, where $$ q_{ij} = v_{ij} - g_j $$"
+          },
+          {
+            "id": 31,
+            "text": "The belonging of alternative $$ A_i $$ to the approximation area ($$ G $$, $$ G^{+} $$ or $$ G^{-} $$) is determined on the basis of:"
+          },
+          {
+            "id": 32,
+            "text": "$$ G^{+} $$ if $$ q_{ij} > 0 $$"
+          },
+          {
+            "id": 33,
+            "text": "$$ G $$ if $$ q_{ij} = 0 $$"
+          },
+          {
+            "id": 34,
+            "text": "$$ G^{-} $$ if $$ q_{ij} < 0 $$"
+          },
+          {
+            "id": 35,
+            "text": "**Step 6.** Ranking  of  alternatives.  The  calculation  of  the  values  of  the  criteria functions  by  alternatives  is  obtained  as  the  sum  of  the  distance  of  alternatives  from the border approximate areas ($$ q_i $$). By summing up the matrix $$ Q $$ elements per rows, the final values of the criteria function of alternatives are obtained from:"
+          },
+          {
+            "id": 36,
+            "text": "$$ S_i = \\sum^{n}_{j=1} q_{ij} $$"
+          },
+          {
+            "id": 37,
+            "text": "**Step 7.** Final  ranking  of alternatives.  By  defuzzification of  the  obtained  values $$ S_i $$, the  final  rank  of alternatives  is  obtained."
+          }
+        ]
       },
       {
         "id": 7,
         "name": "MAIRCA",
-        "description": []
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "The main assumption of MultiAttributive Ideal-Real Comparative Analysis (MAIRCA) method is in the determination of the gap between ideal and empirical weights. The summation of gaps for each criterion gives the total gap for every observed alternative. At the end, it comes to the alternatives ranking, where the best ranked alternative is the one with the smallest value for the total gap. The alternative with the smallest value for the total gap is the alternative which had values closest to the ideal weights according to the largest number of criteria (ideal criteria values). The MAIRCA method is conducted in 6 steps."
+          },
+          {
+            "id": 1,
+            "text": "**Step 1.** The formation of the initial decision matrix $$ X $$. The criteria values ($$ x_{ij}, i = 1, 2, ..., n; j = 1, 2, ..., m $$) are determined."
+          },
+          {
+            "id": 2,
+            "text": "**Step 2.** Preference determination according to the alternative selection $$ P_{A_i} $$. During alternative selection, the decision-maker is neutral to the process. In fact, he does not have preference to any of the proposed alternatives. The main assumption is that decision-maker does not take into account the probabilities of any alternative selection. The decision-maker perceives the alternatives as if any of them can have equal probability of appearance, so the preference to choose one of them from m possible alternatives is:"
+          },
+          {
+            "id": 3,
+            "text": "$$ P_{A_{i}} = \\frac{1}{m} $$ ; $$ \\sum^{m}_{i=1} P_{A_{i}} $$"
+          },
+          {
+            "id": 4,
+            "text": "where $$ m $$ denotes the total number of choices."
+          },
+          {
+            "id": 5,
+            "text": "**Step 3.** The calculations of theoretical evaluation matrix elements $$ T_p $$. Theoretical evaluation matrix is created ($$ T_p $$) with format $$ n \\times m $$ ($$ n $$ is the total criteria number, $$ m $$ is the total number of alternatives). Theoretical evaluation matrix elements ($$ t_{pij} $$) are calculated as the multiplication of the preferences according to the alternatives $$ P_{A_{i}} $$ and criteria weights ($$ w_i, i = 1, 2, ..., n $$)"
+          },
+          {
+            "id": 6,
+            "text": "$$ t_{pij} = P_{A_{i}} \\times w_j $$"
+          },
+          {
+            "id": 7,
+            "text": "**Step 4.** Determination of real evaluation. For the profit type criteria:"
+          },
+          {
+            "id": 8,
+            "text": "$$ t_{rij} = t_{pij} ( \\frac{x_{ij} - x^{-}_{i} }{ x^{+}_{i} - x^{-}_{i}} ) $$"
+          },
+          {
+            "id": 9,
+            "text": "and for the cost type criteria:"
+          },
+          {
+            "id": 10,
+            "text": "$$ t_{rij} = t_{pij} ( \\frac{x_{ij} - x^{+}_{i} }{ x^{-}_{i} - x^{+}_{i}} ) $$"
+          },
+          {
+            "id": 11,
+            "text": "where $$ x^{+}_{i} $$ denotes the maximum values of the marked criterion by its alternatives, and $$ x^{-}_{i} $$ are the minimum values of the marked criterion by its alternatives."
+          },
+          {
+            "id": 12,
+            "text": "**Step 5.** The calculation of the total gap matrix $$ G $$. The elements of the matrix $$ G $$ are calculated as the difference (gap) between theoretical $$ t_{pij} $$ and real evaluations $$ t_{rij} $$, or by actually subtracting the elements of the theoretical evaluation matrix $$ T_p $$ with the elements of the real evaluation matrix $$ T_r $$."
+          },
+          {
+            "id": 13,
+            "text": "Gap $$ g_{ij} $$ takes values from the interval $$ g_{ij} \\in [0, (t_{pij} - t_{rij})] $$, according to:"
+          },
+          {
+            "id": 14,
+            "text": "$$ 0 $$ if $$ t_{pij} = t_{rij} $$"
+          },
+          {
+            "id": 15,
+            "text": "$$ t_{pij} - t_{rij} $$ if $$ t_{pij} > t_{rij} $$"
+          },
+          {
+            "id": 16,
+            "text": "**Step 6.** The calculation of the final values of the criteria functions $$ Q_i $$ for the alternatives. The values of the criteria functions are obtained from the sum of gaps $$ g_{ij} $$ for the alternatives, or just the sum of the matrix elements $$ G $$ in columns, using: "
+          },
+          {
+            "id": 17,
+            "text": "$$ Q_i = \\sum^{n}_{j=1} g_{ij} $$"
+          },
+          {
+            "id": 9999,
+            "text": "**Triangular Fuzzy variant**"
+          },
+          {
+            "id": 18,
+            "text": "The Multi-Attribute Ideal Real Comparative Analysis (MAIRCA) method is based on calculating the equal probability for the selection of each alternative. Moreover, it uses a theoretical ponder matrix, and actual ponder matrix to determine the final preferences. The subsequent steps of the method are presented below."
+          },
+          {
+            "id": 19,
+            "text": "**Step 1.** Determination of the triangular fuzzy decision matrix $$ X $$, which contains $$ m $$ alternatives and $$ n $$ criteria ($$ i = 1, 2, \\ldots, m $$ and $$ j = 1, 2, \\ldots, n $$), where $$ x_{ij} $$ is represented as Triangular Fuzzy Number ($$ a, m, b $$)."
+          },
+          {
+            "id": 20,
+            "text": "**Step 2.** Determination of the alternative selection probability based on the formula:"
+          },
+          {
+            "id": 21,
+            "text": "$$ P_{A_{i}} = \\frac{1}{m}; \\quad \\sum_{i=1}^{m} P_{A_{i}} = 1 $$"
+          },
+          {
+            "id": 22,
+            "text": "**Step 3.** Calculation of the fuzzy theoretical decision matrix, where $$ \\tilde{t}_{ij} $$ is calculated as $$ \\frac{1}{m}w_{j} $$."
+          },
+          {
+            "id": 23,
+            "text": "**Step 4.** Calculation of the normalized fuzzy decision matrix as:"
+          },
+          {
+            "id": 24,
+            "text": "$$ n_{i j}^a = \\frac{x_{i j}^a}{ \\sqrt{\\sum_{i=1}^m[(x_{i j}^a)^2+(x_{i j}^m)^2+(x_{i j}^b)^2]}} $$"
+          },
+          {
+            "id": 25,
+            "text": "$$ n_{i j}^m = \\frac{x_{i j}^m}{ \\sqrt{\\sum_{i=1}^m[(x_{i j}^a)^2+(x_{i j}^m)^2+(x_{i j}^b)^2]}} $$"
+          },
+          {
+            "id": 26,
+            "text": "$$ n_{i j}^b = \\frac{x_{i j}^b}{ \\sqrt{\\sum_{i=1}^m[(x_{i j}^a)^2+(x_{i j}^m)^2+(x_{i j}^b)^2]}} $$"
+          },
+          {
+            "id": 27,
+            "text": "**Step 5.** Calculation of the fuzzy elements of the actual ponder matrix, where $$ \\tilde{\\bar{t}}_{ij} $$ is calculated as $$ \\tilde{x}_{i j} \\times \\tilde{t}_{i j} $$."
+          },
+          {
+            "id": 28,
+            "text": "**Step 6.** Calculation of the fuzzy elements of the actual ponder matrix with:"
+          },
+          {
+            "id": 29,
+            "text": "$$ g_{i j} = \\sqrt{\\frac{1}{3}[(\\tilde{t}_{i j^a}-\\tilde{\\bar{t}}_{i j^a})^2+(\\tilde{t}_{i j^m}-\\tilde{\\bar{t}}_{i j^m})^2+(\\tilde{t}_{i j^b}-\\tilde{\\bar{t}}_{i j^b})^2]} $$"
+          },
+          {
+            "id": 30,
+            "text": "**Step 7.** Determination of the final preference values as:"
+          },
+          {
+            "id": 31,
+            "text": "$$  Q_i= \\sum_{j=1}^n g_{i j} $$"
+          }
+        ]
       },
       {
         "id": 8,
         "name": "MARCOS",
-        "description": []
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "The Measurement Alternatives and Ranking according to COmpromise Solution (MARCOS) method is based on defining the relationship between alternatives and reference values (ideal and anti-ideal alternatives). On the basis of the defined relationships, the utility functions of alternatives are determined and compromise ranking is made in relation to ideal and anti-ideal solutions. Decision preferences are defined on the basis of utility functions. Utility functions represent the position of an alternative with regard to an ideal and anti-ideal solution. The best alternative is the one that is closest to the ideal and at the same time furthest from the anti-ideal reference point. The MARCOS method is performed through the following steps:"
+          },
+          {
+            "id": 1,
+            "text": "**Step 1.** Formation of an initial decision-making matrix $$ X $$. Multi-criteria models include the definition of a set of $$ n $$ criteria and $$ m $$ alternatives."
+          },
+          {
+            "id": 2,
+            "text": "**Step 2.** Formation of an extended initial matrix. In this step, the extension of the initial matrix is performed by defining the ideal ($$ AI $$) and anti-ideal ($$ AAI $$) solution:"
+          },
+          {
+            "id": 3,
+            "text": "$$ AAI = min_i x_{ij} $$ if criterion $$ j $$ is profit, and $$ max_{i} x_{ij} $$ if criterion $$ j $$ is cost"
+          },
+          {
+            "id": 4,
+            "text": "$$ AI = max_i x_{ij} $$ if criterion $$ j $$ is profit, and $$ min_{i} x_{ij} $$ if criterion $$ j $$ is cost"
+          },
+          {
+            "id": 5,
+            "text": "**Step 3.** Normalization of the extended initial matrix $$ X $$. The elements of the normalized matrix $$ N = [n_{ij}]_{m \\times n} $$ are obtained by applying:"
+          },
+          {
+            "id": 6,
+            "text": "$$ n_{ij} = \\frac{x_{ai}}{x_{ij}} $$ if criterion $$ j $$ is cost"
+          },
+          {
+            "id": 7,
+            "text": "$$ n_{ij} = \\frac{x_{ij}}{x_{ai}} $$ if criterion $$ j $$ is profit"
+          },
+          {
+            "id": 8,
+            "text": "**Step 4.**: Determination of the weighted matrix $$ V = [v_{ij}]_{m \\times n} $$. The weighted matrix $$ V $$ is obtained by multiplying the normalized matrix $$ N $$ with the weight coefficients of the criterion $$ w_j $$ as:"
+          },
+          {
+            "id": 9,
+            "text": "$$ v_{ij} = n_{ij} \\times w_j $$"
+          },
+          {
+            "id": 10,
+            "text": "**Step 5.** Calculation of the utility degree of alternatives $$ K_i $$. The utility degrees of an alternative in relation to the anti-ideal and ideal solution are calculated as: "
+          },
+          {
+            "id": 11,
+            "text": "$$ K^{-}_{i} = \\frac{S_i}{S_{aai}} $$"
+          },
+          {
+            "id": 12,
+            "text": "$$ K^{+}_{i} = \\frac{S_i}{S_{ai}} $$"
+          },
+          {
+            "id": 13,
+            "text": "and the $$ S_i $$ is calculated as $$ S_{i} = \\sum^{n}_{i=1} v_{ij} $$"
+          },
+          {
+            "id": 14,
+            "text": "**Step 6.** Determination of the utility function of alternatives $$ f (K_i) $$. The utility function is the compromise of the observed alternative in relation to the ideal and anti-ideal solution. The utility function of alternatives is defined by: "
+          },
+          {
+            "id": 15,
+            "text": "$$ f(K_i) = \\frac{ K^{+}_{i} + K^{-}_{i} }{ 1 + \\frac{1 - f(K^{+}_{i})}{f(K^{+}_{i})} + \\frac{1 - f(K^{-}_{i})}{f(K^{-}_{i})} } $$"
+          },
+          {
+            "id": 16,
+            "text": "$$ f(K^{-}_{i}) = \\frac{K^{+}_{i}}{K^{+}_{i} + K^{-}_{i}} $$"
+          },
+          {
+            "id": 17,
+            "text": "$$ f(K^{+}_{i}) = \\frac{K^{-}_{i}}{K^{+}_{i} + K^{-}_{i}} $$"
+          },
+          {
+            "id": 18,
+            "text": "**Step 7.** Ranking the alternatives. Ranking of the alternatives is based on the final values of utility functions. It is desirable that an alternative has the highest possible value of the utility function."
+          }
+        ]
       },
       {
         "id": 9,
         "name": "MOORA",
-        "description": []
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "The Multi Objective Optimization on the Basis of Ratio Analysis (MOORA) method was first developed in the year 2004 by Brauers to solve various complex and conflicting decision matrix. The decision matrix of MOORA represents performance measures of alternatives regarding various criteria. Steps involved to rank different alternatives by MOORA method is as follows:"
+          },
+          {
+            "id": 1,
+            "text": "**Step 1.** Calculation of normalized decision matrix $$ X $$, where"
+          },
+          {
+            "id": 2,
+            "text": "$$ x_{ij} = \\frac{a_{ij}}{ \\sqrt{\\sum^{m}_{i=1} a^{2}_{ij}} } $$"
+          },
+          {
+            "id": 3,
+            "text": "and $$ a_{ij} $$ is a single element from the decision matrix."
+          },
+          {
+            "id": 4,
+            "text": "**Step 2.** Calculation of weighted normalized decision matrix as:"
+          },
+          {
+            "id": 5,
+            "text": "$$ W_{ij} = w_j \\times x_{ij} $$"
+          },
+          {
+            "id": 6,
+            "text": "**Step 3.** Calculation of Priorities $$ Q_i $$ with:"
+          },
+          {
+            "id": 7,
+            "text": "$$ Q_i = \\sum^{n}_{j=1} W_{ij} $$"
+          },
+          {
+            "id": 8,
+            "text": "**Step 4.** Ranking of alternatives - Maximum value of $$ Q_i $$ is given maximum priority and ranked 1, second largest value of $$ Q_i $$ is given second priority and ranked 2 and so on."
+          },
+          {
+            "id": 9999,
+            "text": "**Triangular Fuzzy variant**"
+          },
+          {
+            "id": 9,
+            "text": "In Multi Objective Optimization on the Basis of Ratio Analysis (MOORA) method, the overall performance of each alternative is calculated as the difference between sums of its normalized performances for beneficial and non-beneficial criteria. In order to take full advantage of MOORA method for solving the decision-making problems with imprecise and vague data, a variant of fuzzy MOORA was proposed which consists of the following procedural steps."
+          },
+          {
+            "id": 10,
+            "text": "**Step 1.** Determination of the triangular fuzzy decision matrix $$ X $$, which contains $$ m $$ alternatives and $$ n $$ criteria ($$ i = 1, 2, \\ldots, m $$ and $$ j = 1, 2, \\ldots, n $$), where $$ x_{ij} $$ is represented as Triangular Fuzzy Number ($$ a, m, b $$)."
+          },
+          {
+            "id": 11,
+            "text": "**Step 2.** Normalization of the defined decision matrix performed with:"
+          },
+          {
+            "id": 12,
+            "text": "$$ n^a_{ij} = \\frac{ x^a_{ij}}{ \\sqrt{\\sum^{m}_{i=1} (x^a_{ij})^2 + (x^m_{ij})^2 + (x^b_{ij})^2} } $$"
+          },
+          {
+            "id": 13,
+            "text": "$$ n^m_{ij} = \\frac{ x^m_{ij}}{ \\sqrt{\\sum^{m}_{i=1} (x^a_{ij})^2 + (x^m_{ij})^2 + (x^b_{ij})^2} } $$"
+          },
+          {
+            "id": 14,
+            "text": "$$ n^b_{ij} = \\frac{ x^b_{ij}}{ \\sqrt{\\sum^{m}_{i=1} (x^a_{ij})^2 + (x^m_{ij})^2 + (x^b_{ij})^2} } $$"
+          },
+          {
+            "id": 15,
+            "text": "**Step 3.** Calculation of the fuzzy theoretical decision matrix, where $$ \\tilde{t}_{ij} $$ is calculated as $$ \\frac{1}{m}w_{j} $$."
+          },
+          {
+            "id": 16,
+            "text": "**Step 4.** Calculation of the overall ratings of beneficial and non-beneficial criteria for each alternative. For beneficial criteria, the overall ratings of an alternative for lower, middle and upper values of the triangular membership function are computed as follows:"
+          },
+          {
+            "id": 17,
+            "text": "$$ s^{+a}_{i} = \\sum^{n}_{j=1} v^a_{ij} \\quad | \\quad j \\in J^{\\text{max}} $$"
+          },
+          {
+            "id": 18,
+            "text": "$$ s^{+m}_{i} = \\sum^{n}_{j=1} v^m_{ij} \\quad | \\quad j \\in J^{\\text{max}} $$"
+          },
+          {
+            "id": 19,
+            "text": "$$ s^{+b}_{i} = \\sum^{n}_{j=1} v^b_{ij} \\quad | \\quad j \\in J^{\\text{max}} $$"
+          },
+          {
+            "id": 20,
+            "text": "On the other hand, for non-beneficial criteria, the overall ratings of an alternative are calculated as follows:"
+          },
+          {
+            "id": 21,
+            "text": "$$ s^{-a}_{i} = \\sum^{n}_{j=1} v^a_{ij} \\quad | \\quad j \\in J^{\\text{min}} $$"
+          },
+          {
+            "id": 22,
+            "text": "$$ s^{-m}_{i} = \\sum^{n}_{j=1} v^m_{ij} \\quad | \\quad j \\in J^{\\text{min}} $$"
+          },
+          {
+            "id": 23,
+            "text": "$$ s^{-b}_{i} = \\sum^{n}_{j=1} v^b_{ij} \\quad | \\quad j \\in J^{\\text{min}} $$"
+          },
+          {
+            "id": 24,
+            "text": "**Step 5.** Determine the overall performance index (Si) for each alternative. For this, the defuzzified values of the overall ratings for beneficial and non-beneficial criteria for each alternative are computed using the vertex method as:"
+          },
+          {
+            "id": 25,
+            "text": "$$ S_i(s^{+}_i, s^{-}_i) = \\sqrt{\\frac{1}{3} [(s^{+a}_{i} - s^{-a}_{i})^2 + (s^{+m}_{i} - s^{-m}_{i})^2 + (s^{+b}_{i} - s^{-b}_{i})^2]} $$"
+          },
+          {
+            "id": 26,
+            "text": "**Step 6.** Based on the descending values of overall performance index, rank the alternatives from the best to the worst. The alternative with the highest overall performance index is the most favorable choice. "
+          }
+        ]
       },
       {
         "id": 10,
         "name": "OCRA",
-        "description": []
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "The Operational Competitiveness Ratings (OCRA) is MCDM method to measure the relative performance (efficiency) of a set of production units (competitive alternatives). The main idea of the OCRA method is to perform the evaluation of alternatives with respect to beneficial and non-beneficial criteria and finally to obtain the final ranking by combining these two sets of ratings. This method uses an intuitive method for incorporating the decision maker’s preferences as the relative importance of the criteria"
+          },
+          {
+            "id": 1,
+            "text": "**Step 1.** The decision matrix $$ X $$ is formed. Alternatives and criteria are listed in the row and column of the decision matrix respectively. The decision matrix shows the performance of different alternatives with respect to various criteria."
+          },
+          {
+            "id": 2,
+            "text": "**Step 2.** Preference ratings with respect to the non-beneficial or input criteria are computed. In this step, the scores that various alternatives receive for the non-beneficial criteria are only taken into account. The aggregate performance of $$ i-th $$ alternative with respect to all non-beneficial criteria ($$ \\bar{I_i} $$) is calculated using: "
+          },
+          {
+            "id": 3,
+            "text": "$$ \\bar{I_i} = \\sum^{g}_{j=1} w_j \\frac{max (x_{ij}) - x_{ij}}{min (x_{ij})} $$"
+          },
+          {
+            "id": 4,
+            "text": "where $$ g $$ is the number of non-beneficial criteria and $$ w_j $$ is the relative importance of $$ j-th $$ criterion (calibration constant). $$ w_j $$ issued to increase or decrease the impact of the difference on the rating ($$ \\bar{I_i} $$) with respect to $$ j-th $$ criterion."
+          },
+          {
+            "id": 5,
+            "text": "**Step 3.** For each alternative the linear preference rating for the non-beneficial criteria ($$ \\bar{I_i} $$) is calculated as:"
+          },
+          {
+            "id": 6,
+            "text": "$$ \\bar{\\bar{I_i}} = \\bar{I_i} - min(\\bar{I_i})  $$"
+          },
+          {
+            "id": 7,
+            "text": "**Step 4.** The preference ratings with respect to the beneficial or output criteria are computed. The aggregate performance for $$ i-th $$ alternative on all the beneficial criteria ($$ O_i$$ ) is measured by:"
+          },
+          {
+            "id": 8,
+            "text": "$$ \\bar{O_i} = \\sum^{n}_{j=g+1} w_j \\frac{x_{ij} - min(x_{ij})}{min(x_{ij})}  $$"
+          },
+          {
+            "id": 9,
+            "text": "where $$ (n - g) $$ is the number of beneficial criteria and $$ w_j $$ is the relative importance of $$ j-th $$ criterion."
+          },
+          {
+            "id": 10,
+            "text": "**Step 5.** The linear preference rating for the beneficial criteria is calculated as :"
+          },
+          {
+            "id": 11,
+            "text": "$$ \\bar{\\bar{O_i}} = \\bar{O_i} - min(\\bar{O_i})  $$"
+          },
+          {
+            "id": 12,
+            "text": "**Step 6.** The overall preference rating for each alternative is calculated by scaling the sum of $$ \\bar{\\bar{I_i}} $$ and $$ \\bar{\\bar{O_i}} $$ so that the least preferable alternative receives a rating of zero. The overall preference rating of $$ i-th $$ alternative ($$ P_i $$) is calculated as :"
+          },
+          {
+            "id": 13,
+            "text": "$$ P_i = ( \\bar{\\bar{I_i}} + \\bar{\\bar{O_i}} ) - min ( \\bar{\\bar{I}} + \\bar{\\bar{O}} ) $$"
+          },
+          {
+            "id": 9999,
+            "text": "**Triangular Fuzzy variant**"
+          },
+          {
+            "id": 14,
+            "text": "The Fuzzy Operational Competitiveness Ratings (OCRA) method consists of seven steps defined as follows."
+          },
+          {
+            "id": 15,
+            "text": "**Step 1.** Determination of the triangular fuzzy decision matrix $$ X $$, which contains $$ m $$ alternatives and $$ n $$ criteria ($$ i = 1, 2, \\ldots, m $$ and $$ j = 1, 2, \\ldots, n $$), where $$ x_{ij} $$ is represented as Triangular Fuzzy Number ($$ a, m, b $$)."
+          },
+          {
+            "id": 16,
+            "text": "**Step 2.** Calculation of fuzzy performance ratings in accordance with non-beneficial criteria are aggregated as:"
+          },
+          {
+            "id": 17,
+            "text": "$$ I_s = \\sum_{i \\in \\Omega_{\\text{min}}} w^{*}_i \\frac{\\text{max}_i x_{si} - x_{si}}{\\text{min}_i x_{si}} $$"
+          },
+          {
+            "id": 18,
+            "text": "where $$ I_s $$ represents the aggregate fuzzy performance rating of the $$ s-th $$ alternative calculated based on the non-beneficial criteria"
+          },
+          {
+            "id": 19,
+            "text": "**Step 3.** Calculation of fuzzy linear performance rating of each alternative considered the non-beneficial criteria are evaluated by:"
+          },
+          {
+            "id": 20,
+            "text": "$$ \\bar{I_s} = I_s - \\text{min}_s I_s $$"
+          },
+          {
+            "id": 21,
+            "text": "**Step 4.**  Calculation of fuzzy performance ratings for the beneficial criteria are aggregated using:"
+          },
+          {
+            "id": 22,
+            "text": "$$ O_s = \\sum_{i \\in \\Omega_{\\text{max}}} w^{*}_i \\frac{x_{si} - \\text{min}_i x_{si}}{\\text{min}_i x_{si}} $$"
+          },
+          {
+            "id": 23,
+            "text": "where $$ O_s $$ is the aggregate fuzzy performance rating of the $$ s-th $$ alternative calculated based on the beneficial criteria"
+          },
+          {
+            "id": 24,
+            "text": "**Step 5.** Calculation of fuzzy linear performance rating of each alternative in accordance with the beneficial criteria are calculated by:"
+          },
+          {
+            "id": 25,
+            "text": "$$ \\bar{O_s} = O_s - \\text{min}_s O_s $$"
+          },
+          {
+            "id": 26,
+            "text": "**Step 6.** Calculation of fuzzy overall performance rating for each alternative is obtained by:"
+          },
+          {
+            "id": 27,
+            "text": "$$ P_s = \\bar{I_s} + \\bar{O_s} - \\text{min} (\\bar{I_s} + \\bar{O_s}) $$"
+          },
+          {
+            "id": 28,
+            "text": "where $$ P_s $$ denotes fuzzy overall performance rating of $$ s-th $$ alternative."
+          },
+          {
+            "id": 29,
+            "text": "**Step 7.** : In the last step, fuzzy overall performance ratings are converted into crisp overall performance ratings ($$ P_s $$). After obtaining crisp overall performance ratings, alternatives are ranked with respect to these ratings. Alternative having the highest rating is selected as the most appropriate alternative."
+          }
+        ]
       },
       {
         "id": 11,
         "name": "PROMETHEE",
-        "description": []
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "The Preference Ranking Organization Method for Enrichment of Evaluations (PROMETHEE) is a family of MCDA methods developed by Brans. It is similar to other methods input data, but it optionally requires to choose preference function and some other variables. In this description, the PROMETHEE II method is presented, because  the output of this method has a full ranking of the alternatives. It is the approach where a complete ranking of the actions is based on the multi-criteria net flow. It includes preferences and indifferences (preorder). The calculations are performed as follows:"
+          },
+          {
+            "id": 1,
+            "text": "**Step 1.** After defining the problem, calculate the preference function values. It is defined for profit criteria as:"
+          },
+          {
+            "id": 2,
+            "text": "$$ P(a,b) = F[d(a,b)], \\forall a, b \\in A $$"
+          },
+          {
+            "id": 3,
+            "text": " where $$ d(a,b) $$ is the difference between two actions (pairwise comparison):"
+          },
+          {
+            "id": 4,
+            "text": "$$ d(a,b) = g(a) - g(b) $$ "
+          },
+          {
+            "id": 5,
+            "text": "and the value of the preference function $$ P $$ is always between 0 and 1 and it is calculating for each criterion."
+          },
+          {
+            "id": 6,
+            "text": "**Step 2.** Calculate the aggregated preference indices with:"
+          },
+          {
+            "id": 7,
+            "text": "$$ \\pi (a, b) = \\sum^{n}_{j=1} P_j (a, b) w_j $$"
+          },
+          {
+            "id": 8,
+            "text": "$$ \\pi (b, a) = \\sum^{n}_{j=1} P_j (b, a) w_j $$"
+          },
+          {
+            "id": 9,
+            "text": "where $$ a $$ and $$ b $$ are alternatives and $$ \\pi (b, a) $$ shows how much alternative $$ a $$ is preferred to $$ b $$ over all of the criteria."
+          },
+          {
+            "id": 10,
+            "text": "**Step 3.** Next, calculate positive and negative outranking flows with:"
+          },
+          {
+            "id": 11,
+            "text": "$$ \\Phi^{+} (a) = \\frac{1}{m-1} \\sum_{x \\in A} \\pi (a, x) $$"
+          },
+          {
+            "id": 12,
+            "text": "$$ \\Phi^{-} (a) = \\frac{1}{m-1} \\sum_{x \\in A} \\pi (x, a) $$"
+          },
+          {
+            "id": 13,
+            "text": "**Step 4.** Calculate the ranking based on the net flow $$ \\Phi $$ as:"
+          },
+          {
+            "id": 14,
+            "text": "$$ \\Phi (a) = \\Phi^{+} (a) - \\Phi^{i} (a) $$"
+          }
+        ]
       },
       {
         "id": 12,
         "name": "SPOTIS",
         "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
           {
             "id": 0,
             "text": "The Stable Preference Ordering Towards Ideal Solution (SPOTIS) method was introduced in 2020. It is one of a technique that proves to be resistant to rank reversal phenomenon. Main assumptions of the method should be shortly recalled."
@@ -348,6 +1979,10 @@
         "id": 13,
         "name": "TOPSIS",
         "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
           {
             "id": 0,
             "text": "The Technique for Order Preference by Similarity to an Ideal Solution (TOPSIS) method was developed in 1981 by Chen and Hwang. This technique determines each decision variant's distance to the Positive Ideal Solution (PIS) and Negative Ideal Solution (NIS). Based on them, the preference of alternatives is being calculated. Two types of criteria can be identified while performing the normalization step. Profit type means that greater values are preferred. On the other hand, cost type is assigned to factors for which lower values are more favorable. To present the formal notation of the method, main steps should be introduced."
@@ -415,6 +2050,78 @@
           {
             "id": 16,
             "text": "$$ C_{i}^{*}=\\frac{D_{i}^{-}}{\\left(D_{i}^{*}+D_{i}^{-}\\right)}, \\quad i=1, \\ldots, m $$"
+          },
+          {
+            "id": 9999,
+            "text": "**Triangular Fuzzy variant**"
+          },
+          {
+            "id": 17,
+            "text": "The Technique for Order Preference by Similarity to an Ideal Solution (TOPSIS) method was developed by Chen and Hwang in 1981. It is based on the distance to the Ideal Solution (IS). To extend the practical possibilities of the standard TOPSIS method, many fuzzy extensions have been introduced to this technique operation. One proposed solution is using Triangular Fuzzy Numbers to operate in an uncertain environment. To introduce the main steps of the fuzzy TOPSIS method, the main steps of the are presented as follows:"
+          },
+          {
+            "id": 18,
+            "text": "**Step 1.** Determination of the triangular fuzzy decision matrix $$ X $$, which contains $$ m $$ alternatives and $$ n $$ criteria ($$ i = 1, 2, \\ldots, m $$ and $$ j = 1, 2, \\ldots, n $$), where $$ x_{ij} $$ is represented as Triangular Fuzzy Number ($$ a, m, b $$)."
+          },
+          {
+            "id": 19,
+            "text": "**Step 2.** Calculation of the normalized fuzzy decision matrix for the profit criteria as:"
+          },
+          {
+            "id": 20,
+            "text": "$$ \\tilde{x}_{i j}=(\\frac{x_{i j}^a}{x_{j}^{*}}, \\frac{x_{i j}^m}{x_{j}^{*}}, \\frac{x_{i j}^b}{x_{j}^{*}}); \\quad x_{j}^{*}=\\text{max}_{i}{x_{i j}^b} $$"
+          },
+          {
+            "id": 21,
+            "text": "and for the cost criteria as:"
+          },
+          {
+            "id": 22,
+            "text": "$$ \\tilde{x}_{i j}=(\\frac{x_{j}^{-}}{x_{i j}^b}, \\frac{x_{j}^{-}}{x_{i j}^m}, \\frac{x_{j}^{-}}{x_{i j}^a}); \\quad x_{j}^{-}=\\text{min}_{i}{x_{i j}^a} $$"
+          },
+          {
+            "id": 23,
+            "text": "**Step 4.** Calculation of the weighted normalized fuzzy decision matrix, where $$ \\widetilde{\\widehat{x}}_{i j}=\\tilde{x}_{i j} \\times \\widetilde{w}_j $$"
+          },
+          {
+            "id": 24,
+            "text": "**Step 5.** Determination of the Fuzzy Positive Ideal Solution (FPIS) as:"
+          },
+          {
+            "id": 25,
+            "text": "$$ A^{*}=(\\widetilde{\\widehat{x}}_{1}^{*}, \\widetilde{\\widehat{x}}_{2}^{*}, \\cdots, \\widetilde{\\widehat{x}}_{n}^{*}); \\quad \\widetilde{\\widehat{x}}_{j}^{*}=\\text{max}_{i}{\\widetilde{\\widehat{x}}_{i j}} $$"
+          },
+          {
+            "id": 26,
+            "text": "and Fuzzy Negative Ideal Solution (FNIS) as:"
+          },
+          {
+            "id": 27,
+            "text": "$$ A^{-}=(\\widetilde{\\widehat{x}}_{1}^{-}, \\widetilde{\\widehat{x}}_{2}^{-}, \\cdots, \\widetilde{\\widehat{x}}_{n}^{-}); \\quad  \\widetilde{\\widehat{x}}_{j}^{-}=\\text{min}_{i}{\\widetilde{\\widehat{x}}_{i j}} $$"
+          },
+          {
+            "id": 28,
+            "text": "**Step 6.** Calculation of the distance from each alternative to the FPIS as:"
+          },
+          {
+            "id": 29,
+            "text": "$$ D_{i}^{*}= \\sum_{j=1}^{n} d (\\widetilde{\\widehat{x}}_{i j}, \\widetilde{\\widehat{x}}_{j}^{*}) $$"
+          },
+          {
+            "id": 30,
+            "text": "and to the FNIS with:"
+          },
+          {
+            "id": 31,
+            "text": "$$ D_{i}^{-}=\\sum_{j=1}^{n} d (\\widetilde{\\widehat{x}}_{i j}, \\widetilde{\\widehat{x}}_{j}^{-}) $$"
+          },
+          {
+            "id": 32,
+            "text": "**Step 7.** Determination of the Closeness Coefficient $$ $CC_{i} $$ for each alternative as:"
+          },
+          {
+            "id": 33,
+            "text": "$$ CC_{i}=\\frac{D_{i}^{-}}{D_{i}^{-}+D_{i}^{*}} $$"
           }
         ]
       },
@@ -422,6 +2129,10 @@
         "id": 13,
         "name": "VIKOR",
         "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
           {
             "id": 0,
             "text": "The VIseKriterijumska Optimizacija I Kompromisno Resenje (VIKOR) is a method developed by Opricovic in 1998. It is based on the definition of the vector of weights for the set of criteria considered in the problem. This approach allows for obtaining the closeness to the Ideal Solution ($$IS$$). Based on this distance, the final ranking is determined, assessing the quality of the decision variants. The result obtained may largely depend on the weights for the criteria defined at the initial phase."
@@ -465,6 +2176,102 @@
           {
             "id": 10,
             "text": "$$Q_{i} = v \\cdot \\frac{S_{i} - S^{*}}{S^{-} - S^{*}} + (1-v) \\cdot \\frac{R_{i} - R^{*}}{R^{-} - R^{*}} $$"
+          },
+          {
+            "id": 9999,
+            "text": "**Triangular Fuzzy variant**"
+          },
+          {
+            "id": 11,
+            "text": "The VIseKriterijumska Optimizacija I Kompromisno Resenje (VIKOR) method was introduced by Opricovic. It is characterized by the approach that produces three distinctive rankings ($$ S $$, $$ R $$, and compromised solution $$ Q $$). The standard technique that operates on the crisp numbers was extended with many fuzzy extensions that allow for calculating results when uncertain data appear. One method that is eagerly applied in fuzzy problems is Triangular Fuzzy Number VIKOR. Main steps of this technique are presented below."
+          },
+          {
+            "id": 12,
+            "text": "**Step 1.** Determination of the triangular fuzzy decision matrix $$ X $$, which contains $$ m $$ alternatives and $$ n $$ criteria ($$ i = 1, 2, \\ldots, m $$ and $$ j = 1, 2, \\ldots, n $$), where $$ x_{ij} $$ is represented as Triangular Fuzzy Number ($$ a, m, b $$)."
+          },
+          {
+            "id": 13,
+            "text": "**Step 2.** Determination of the Ideal and Non-Ideal Solution for each criterion based on the criterion type. For the profit type as:"
+          },
+          {
+            "id": 14,
+            "text": "$$ \\tilde{f}_{i}^{*}=\\text{max} \\tilde{f}_{i j} $$"
+          },
+          {
+            "id": 15,
+            "text": "$$ \\tilde{f}_{i}^{\\circ}=\\text{min} \\tilde{f}_{i j} $$"
+          },
+          {
+            "id": 16,
+            "text": "and for the cost criteria as:"
+          },
+          {
+            "id": 17,
+            "text": "$$ \\tilde{f}_{i}^{*}=\\text{min} \\tilde{f}_{i j} $$"
+          },
+          {
+            "id": 18,
+            "text": "$$ \\tilde{f}_{i}^{\\circ}=\\text{max} \\tilde{f}_{i j} $$"
+          },
+          {
+            "id": 19,
+            "text": "**Step 3.** Calculation of the normalized fuzzy difference from Ideal Solution. For the profit criteria as:"
+          },
+          {
+            "id": 20,
+            "text": "$$ \\tilde{D}_{i j}=(\\tilde{f}_{i}^{*}  \\Theta \\tilde{f}_{i j}) /(x_{i}^{*b}-x_{i}^{\\circ a}) $$"
+          },
+          {
+            "id": 21,
+            "text": "and for the cost criteria as:"
+          },
+          {
+            "id": 22,
+            "text": "$$ \\tilde{D}_{i j}=(\\tilde{f}_{i j} \\Theta \\tilde{f}_{i}^{*}) /(x_{i}^{\\circ b}-x_{i}^{* a}) $$"
+          },
+          {
+            "id": 23,
+            "text": "**Step 4.** Calculation of the fuzzy values of $$ \\tilde{S} $$ with:"
+          },
+          {
+            "id": 24,
+            "text": "$$ \\tilde{S}_{j}=\\sum_{i=1}^{n}{ }_{\\oplus}(\\tilde{w}_{i} \\otimes \\tilde{D}_{i j}) $$"
+          },
+          {
+            "id": 25,
+            "text": "and $$ \\tilde{R} $$ as:"
+          },
+          {
+            "id": 26,
+            "text": "$$ \\tilde{R}_{j}=\\text{max}_{i}(\\tilde{w}_{i} \\otimes \\tilde{D}_{i j}) $$"
+          },
+          {
+            "id": 27,
+            "text": "**Step 5.** Determination of the fuzzy $$ \\tilde{Q} $$ values as:"
+          },
+          {
+            "id": 28,
+            "text": "$$ \\tilde{Q}_{j}=v \\frac{(\\tilde{S}_{j} \\Theta \\tilde{S}^{*})}{(S^{\\circ b}-S^{* a})} \\oplus \\frac{(1-v)(\\tilde{R}_{j} \\Theta \\tilde{R}^{*})}{(R^{\\circ b}-R^{* a})} $$"
+          },
+          {
+            "id": 29,
+            "text": "where $$ v $$ can be adjusted by expert ($$ v \\in  [0, 1] $$), and"
+          },
+          {
+            "id": 30,
+            "text": "$$ \\tilde{S}^{*a}=\\text{min}(\\tilde{S}_{j}^a) \\quad S^{\\circ b}=\\text{max}(S_{j}^{b}) $$"
+          },
+          {
+            "id": 31,
+            "text": "$$ \\tilde{R}^{*a}=\\text{min}(\\tilde{R}_{j}^a) \\quad R^{\\circ b}=\\text{max}(R_{j}^{b}) $$"
+          },
+          {
+            "id": 32,
+            "text": "**Step 6.** Calculation of the defuzzified preference values with:"
+          },
+          {
+            "id": 33,
+            "text": "$$ \\tilde{N}_i=\\frac{(2 x_{j}^m+x_{j}^a+x_{j}^b)}{4} $$"
           }
         ]
       }
@@ -477,52 +2284,358 @@
       {
         "id": 0,
         "name": "Enhanced accuracy",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "**Crisp normalization**"
+          },
+          {
+            "id": 1,
+            "text": "The data for the profit criterion can be normalized as:"
+          },
+          {
+            "id": 2,
+            "text": "$$ n_{ij} = 1 - \\frac{\\text{max } x_j - x_{ij}}{\\sum (\\text{max } x_j - x_{ij} )} $$"
+          },
+          {
+            "id": 3,
+            "text": "and for the cost criterion as:"
+          },
+          {
+            "id": 4,
+            "text": "$$ n_{ij} = 1 - \\frac{\\text{min } x_j - x_{ij}}{\\sum (x_{ij} - \\text{min } x_j )} $$"
+          }
+        ]
       },
       {
         "id": 1,
         "name": "Logarithmic",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "**Crisp normalization**"
+          },
+          {
+            "id": 1,
+            "text": "The data for the profit criterion can be normalized as:"
+          },
+          {
+            "id": 2,
+            "text": "$$ n_{ij} = \\frac{ln(x_{ij})}{ln(\\prod^{n}_{i=1} x_{ij})} $$"
+          },
+          {
+            "id": 3,
+            "text": "and for the cost criterion as:"
+          },
+          {
+            "id": 4,
+            "text": "$$ n_{ij} = \\frac{1 - \\frac{lx(x_{ij})}{ln(\\prod^{n}_{i=1} x_{ij})}}{ n - 1} $$"
+          }
+        ]
       },
       {
         "id": 2,
         "name": "Linear",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "**Crisp normalization**"
+          },
+          {
+            "id": 1,
+            "text": "The data for the profit criterion can be normalized as:"
+          },
+          {
+            "id": 2,
+            "text": "$$ n_{ij} = \\frac{x_{ij}}{\\text{max } x_j} $$"
+          },
+          {
+            "id": 3,
+            "text": "and for the cost criterion as:"
+          },
+          {
+            "id": 4,
+            "text": "$$ n_{ij} = \\frac{\\text{min } x_j }{x_{ij}} $$"
+          },
+          {
+            "id": 5,
+            "text": "**Triangular Fuzzy Numbers normalization**"
+          },
+          {
+            "id": 6,
+            "text": "The matrix represented as Triangular Fuzzy Numbers $$ x_{ij} (a, m, b) $$, for the profit criterion can be normalized as:"
+          },
+          {
+            "id": 7,
+            "text": "$$ n_{ij} = ( \\frac{a_{ij}}{\\text{max}_{i} b_{ij}}, \\frac{m_{ij}}{\\text{max}_{i} b_{ij}}, \\frac{b_{ij}}{\\text{max}_{i} b_{ij}} ) $$"
+          },
+          {
+            "id": 8,
+            "text": "and for the cost criterion as:"
+          },
+          {
+            "id": 9,
+            "text": "$$ n_{ij} = ( \\frac{\\text{min}_{i} a_{ij}}{b_{ij}}, \\frac{\\text{min}_{i} a_{ij}}{m_{ij}}, \\frac{\\text{min}_{i} a_{ij}}{a_{ij}} ) $$"
+          }
+        ]
       },
       {
         "id": 3,
         "name": "Max",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "**Crisp normalization**"
+          },
+          {
+            "id": 1,
+            "text": "The data for the profit criterion can be normalized as:"
+          },
+          {
+            "id": 2,
+            "text": "$$ n_{ij} = \\frac{x_{ij} }{\\text{max } x_j } $$"
+          },
+          {
+            "id": 3,
+            "text": "and for the cost criterion as:"
+          },
+          {
+            "id": 4,
+            "text": "$$ n_{ij} = 1 - \\frac{x_{ij} }{\\text{max } x_j } $$"
+          },
+          {
+            "id": 5,
+            "text": "**Triangular Fuzzy Numbers normalization**"
+          },
+          {
+            "id": 6,
+            "text": "The matrix represented as Triangular Fuzzy Numbers $$ x_{ij} (a, m, b) $$, for the profit criterion can be normalized as:"
+          },
+          {
+            "id": 7,
+            "text": "$$ n_{ij} = \\frac{x_{ij}}{\\text{max }_{i} x_{ij}} $$"
+          },
+          {
+            "id": 8,
+            "text": "and for the cost criterion as:"
+          },
+          {
+            "id": 9,
+            "text": "$$ n_{ij} = 1 - \\frac{ x_{ij} }{\\text{max}_i x_{ij} } $$"
+          }
+        ]
       },
       {
         "id": 4,
         "name": "Min-max",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "**Crisp normalization**"
+          },
+          {
+            "id": 1,
+            "text": "The data for the profit criterion can be normalized as:"
+          },
+          {
+            "id": 2,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - \\text{min } x_{j}}{\\text{max } x_j - \\text{min } x_j } $$"
+          },
+          {
+            "id": 3,
+            "text": "and for the cost criterion as:"
+          },
+          {
+            "id": 4,
+            "text": "$$ n_{ij} = \\frac{\\text{max } x_{j} - x_{ij}}{\\text{max } x_j - \\text{min } x_j } $$"
+          },
+          {
+            "id": 5,
+            "text": "**Triangular Fuzzy Numbers normalization**"
+          },
+          {
+            "id": 6,
+            "text": "The matrix represented as Triangular Fuzzy Numbers $$ x_{ij} (a, m, b) $$, for the profit criterion can be normalized as:"
+          },
+          {
+            "id": 7,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - \\text{min}_{i} x_{ij}}{\\text{max}_{i} x_{ij} - \\text{min}_{i} x_{ij}} $$"
+          },
+          {
+            "id": 8,
+            "text": "and for the cost criterion as:"
+          },
+          {
+            "id": 9,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - \\text{max}_{i} x_{ij}}{\\text{min}_{i} x_{ij} - \\text{max}_{i} x_{ij}} $$"
+          }
+        ]
       },
       {
         "id": 5,
         "name": "Nonlinear",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "**Crisp normalization**"
+          },
+          {
+            "id": 1,
+            "text": "The data for the profit criterion can be normalized as:"
+          },
+          {
+            "id": 2,
+            "text": "$$ n_{ij} = (\\frac{x_{ij}}{\\text{max } x_j})^{2} $$"
+          },
+          {
+            "id": 3,
+            "text": "and for the cost criterion as:"
+          },
+          {
+            "id": 4,
+            "text": "$$ n_{ij} = (\\frac{\\text{min } x_j}{x_{ij}})^{3} $$"
+          }
+        ]
       },
       {
         "id": 6,
         "name": "SAW",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "**Triangular Fuzzy Numbers normalization**"
+          },
+          {
+            "id": 1,
+            "text": "The matrix represented as Triangular Fuzzy Numbers $$ x_{ij} (a, m, b) $$ can be normalized as:"
+          },
+          {
+            "id": 2,
+            "text": "$$ n_{ij} = ( \\frac{a_{ij}}{b^{*}_{j}}, \\frac{m_{ij}}{b^{*}_{j}}, \\frac{b_{ij}}{b^{*}_{j}} ) $$"
+          },
+          {
+            "id": 3,
+            "text": "where $$ b^{*}_{j} = \\text{max}_{i} b_{ijk}  $$ "
+          }
+        ]
       },
       {
         "id": 7,
         "name": "Sum",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "**Crisp normalization**"
+          },
+          {
+            "id": 1,
+            "text": "The data for the profit criterion can be normalized as:"
+          },
+          {
+            "id": 2,
+            "text": "$$ n_{ij} = \\frac{ x_{ij}}{\\sum x_j } $$"
+          },
+          {
+            "id": 3,
+            "text": "and for the cost criterion as:"
+          },
+          {
+            "id": 4,
+            "text": "$$ n_{ij} = \\frac{\\frac{1}{x_{ij}}}{\\sum \\frac{1}{x_j}} $$"
+          },
+          {
+            "id": 5,
+            "text": "**Triangular Fuzzy Numbers normalization**"
+          },
+          {
+            "id": 6,
+            "text": "The matrix represented as Triangular Fuzzy Numbers $$ x_{ij} (a, m, b) $$, for the profit criterion can be normalized as:"
+          },
+          {
+            "id": 7,
+            "text": "$$ n_{ij} = \\frac{x_{ij}}{\\sum^{m}_{i=0} x_{ij}} $$"
+          },
+          {
+            "id": 8,
+            "text": "and for the cost criterion as:"
+          },
+          {
+            "id": 9,
+            "text": "$$ n_{ij} = \\frac{ \\frac{1}{x_{ij}} }{\\sum^{m}_{i=0} \\frac{1}{x_{ij}} } $$"
+          }
+        ]
       },
       {
         "id": 8,
         "name": "Vector",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "**Crisp normalization**"
+          },
+          {
+            "id": 1,
+            "text": "The data for the profit criterion can be normalized as:"
+          },
+          {
+            "id": 2,
+            "text": "$$ n_{ij} = \\frac{ x_{ij}}{ \\sqrt{\\sum x^{2}_{j}} } $$"
+          },
+          {
+            "id": 3,
+            "text": "and for the cost criterion as:"
+          },
+          {
+            "id": 4,
+            "text": "$$ n_{ij} = 1 - \\frac{ x_{ij}}{ \\sqrt{\\sum x^{2}_{j}} }  $$"
+          },
+          {
+            "id": 5,
+            "text": "**Triangular Fuzzy Numbers normalization**"
+          },
+          {
+            "id": 6,
+            "text": "The matrix represented as Triangular Fuzzy Numbers $$ x_{ij} (a, m, b) $$ can be normalized as:"
+          },
+          {
+            "id": 7,
+            "text": "$$ na_{ij} = \\frac{a_{ij}}{\\sqrt{ \\sum^{m}_{i=1} [(a_{ij})^{2} + (m_{ij})^{2} + (b_{ij})^{2}] }} $$"
+          },
+          {
+            "id": 8,
+            "text": "$$ nm_{ij} = \\frac{m_{ij}}{\\sqrt{ \\sum^{m}_{i=1} [(a_{ij})^{2} + (m_{ij})^{2} + (b_{ij})^{2}] }} $$"
+          },
+          {
+            "id": 9,
+            "text": "$$ nb_{ij} = \\frac{b_{ij}}{\\sqrt{ \\sum^{m}_{i=1} [(a_{ij})^{2} + (m_{ij})^{2} + (b_{ij})^{2}] }} $$"
+          }
+        ]
       },
       {
         "id": 9,
         "name": "Zavadskas-Turskis",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "**Crisp normalization**"
+          },
+          {
+            "id": 1,
+            "text": "The data for the profit criterion can be normalized as:"
+          },
+          {
+            "id": 2,
+            "text": "$$ n_{ij} = 1 - | \\frac{\\text{min } x_j - x_{ij}}{\\text{min } x_j} | $$"
+          },
+          {
+            "id": 3,
+            "text": "and for the cost criterion as:"
+          },
+          {
+            "id": 4,
+            "text": "$$ n_{ij} = 1 - | \\frac{\\text{max } x_j - x_{ij}}{\\text{max } x_j} | $$"
+          }
+        ]
       }
     ]
   },
@@ -533,42 +2646,114 @@
       {
         "id": 0,
         "name": "Euclidean",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "The distance between two Triangular Fuzzy Numbers $$ T_1 (a_1, m_1, b_1) $$ and $$ T_2 (a_2, m_2, b_2) $$ with Euclidean distance is calculated as:"
+          },
+          {
+            "id": 1,
+            "text": "$$ d = \\sqrt{(a_1 - a_2)^{2} + (m_1 - m_2)^{2} + (b_1 - b_2)^{2}} $$"
+          }
+        ]
       },
       {
         "id": 1,
         "name": "Hamming",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "The distance between two Triangular Fuzzy Numbers $$ T_1 (a_1, m_1, b_1) $$ and $$ T_2 (a_2, m_2, b_2) $$ with Hamming distance is calculated as:"
+          },
+          {
+            "id": 1,
+            "text": "$$ d = |a_1 - a_2| + |m_1 - m_2| + |b_1 - b_2| $$"
+          }
+        ]
       },
       {
         "id": 2,
         "name": "L-R",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "The distance between two Triangular Fuzzy Numbers $$ T_1 (a_1, m_1, b_1) $$ and $$ T_2 (a_2, m_2, b_2) $$ with L-R distance is calculated as:"
+          },
+          {
+            "id": 1,
+            "text": "$$ d = (a_1 - b_1)^2 + ((m_1 - r \\cdot a_1) - (m_2 - r \\cdot a_2))^2 + ((m_1 + r \\cdot b_1) - (m_2 + r \\cdot b_2))^2 $$"
+          }
+        ]
       },
       {
         "id": 3,
         "name": "Mahdavi",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "The distance between two Triangular Fuzzy Numbers $$ T_1 (a_1, m_1, b_1) $$ and $$ T_2 (a_2, m_2, b_2) $$ with Mahdavi distance is calculated as:"
+          },
+          {
+            "id": 1,
+            "text": "$$ d =  \\sqrt{ \\frac{1}{6} \\cdot [ \\sum^{3}_{i=1} (T_{2i} - T_{1i})^2 + (b_2 - b_1)^2 + \\sum_{i \\in \\{1, 2 \\}} (T_{2i} - T_{1i})(T_{2i+1} - T_{1i+1}) ] } $$"
+          }
+        ]
       },
       {
         "id": 4,
         "name": "Tran-Duckstein",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "The distance between two Triangular Fuzzy Numbers $$ T_1 (a_1, m_1, b_1) $$ and $$ T_2 (a_2, m_2, b_2) $$ with Tran-Duckstein distance is calculated as:"
+          },
+          {
+            "id": 1,
+            "text": "$$ d = (m_1 - m_2)^2 + 0.5 \\cdot (m_1 - m_2) \\cdot ((b_1 - a_2) - (b_2 - a_2)) + \\frac{1}{9} \\cdot ((b_1-m_1)^2 + (m_1-a_1)^2 + (b_2-m_2)^2 + (m_2-a_2)^2) - \\frac{1}{9} \\cdot ((m_1-a_1) \\cdot (b_1-m_1) + (m_2-a_2) \\cdot (b_2-m_2)) + \\frac{1}{6} \\cdot (2 \\cdot m_1 - a_1 - b_1) \\cdot (2 \\cdot m_2 - a_2 - b_2) $$"
+          }
+        ]
       },
       {
         "id": 5,
         "name": "Vertex",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "The distance between two Triangular Fuzzy Numbers $$ T_1 (a_1, m_1, b_1) $$ and $$ T_2 (a_2, m_2, b_2) $$ with Vertex distance is calculated as:"
+          },
+          {
+            "id": 1,
+            "text": "$$ d = \\sqrt{\\frac{(a_1 - a_2)^{2} + (m_1 - m_2)^{2} + (b_1 - b_2)^{2}}{3}}$$"
+          }
+        ]
       },
       {
         "id": 6,
         "name": "Weighted Euclidean",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "The distance between two Triangular Fuzzy Numbers $$ T_1 (a_1, m_1, b_1) $$ and $$ T_2 (a_2, m_2, b_2) $$ with Weighted Euclidean distance is calculated as:"
+          },
+          {
+            "id": 1,
+            "text": "$$ d = \\sqrt{\\frac{ (a_1 - a_2)^{2} + 2 \\times (m_1 - m_2)^{2} + (b_1 - b_2)^{2}}{4}} $$"
+          }
+        ]
       },
       {
         "id": 7,
         "name": "Weighted Hamming",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "The distance between two Triangular Fuzzy Numbers $$ T_1 (a_1, m_1, b_1) $$ and $$ T_2 (a_2, m_2, b_2) $$ with Weighted Hamming distance is calculated as:"
+          },
+          {
+            "id": 1,
+            "text": "$$ d = \\frac{|a_1 - a_2| + 2 \\times |m_1 - m_2| + |b_1 - b_2|}{4} $$"
+          }
+        ]
       }
     ]
   },
@@ -579,22 +2764,62 @@
       {
         "id": 0,
         "name": "Graded mean average",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "The crisp value of a triangular fuzzy number $$ TFN = (a, m, b) $$ is defined as:"
+          },
+          {
+            "id": 1,
+            "text": "$$ k (TFN) = \\frac{1}{6} (a + 4 m + b) $$"
+          }
+        ]
       },
       {
         "id": 1,
         "name": "Mean",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "The crisp value of a triangular fuzzy number $$ TFN = (a, m, b) $$ is defined as:"
+          },
+          {
+            "id": 1,
+            "text": "$$ k (TFN) = \\frac{a + 2 b + c}{4} $$"
+          }
+        ]
       },
       {
         "id": 2,
         "name": "Mean area",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "The crisp value of a triangular fuzzy number $$ TFN = (a, m, b) $$ is defined as:"
+          },
+          {
+            "id": 1,
+            "text": "$$ k (TFN) = \\frac{1}{3} (a + m + b) $$"
+          }
+        ]
       },
       {
         "id": 3,
         "name": "Weighted mean",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "The crisp value of a triangular fuzzy number $$ TFN = (a, m, b) $$ is defined as:"
+          },
+          {
+            "id": 1,
+            "text": "$$ k (TFN) = \\frac{m + (a - m) - (m - b)}{k+2} $$"
+          },
+          {
+            "id": 2,
+            "text": "where $$ k $$ has the impact on defuzzification results and its' increasing value moves toward core of TFN and membership increases."
+          }
+        ]
       }
     ]
   },
@@ -604,33 +2829,167 @@
     "data": [
       {
         "id": 0,
-        "name": "Goodman-Kruskall",
-        "description": []
+        "name": "Goodman-Kruskal",
+        "description": [
+          {
+            "id": 0,
+            "text": "In statistics, Goodman and Kruskal's gamma is a measure of rank correlation, i.e., the similarity of the orderings of the data when ranked by each of the quantities. It measures the strength of association of the cross tabulated data when both variables are measured at the ordinal level. It makes no adjustment for either table size or ties. Values range from -1 (100% negative association, or perfect inversion) to +1 (100% positive association, or perfect agreement). A value of zero indicates the absence of association."
+          },
+          {
+            "id": 1,
+            "text": "The estimate of gamma, $$ G $$, depends on two quantities:"
+          },
+          {
+            "id": 2,
+            "text": "$$ N_s $$, the number of pairs of cases ranked in the same order on both variables"
+          },
+          {
+            "id": 3,
+            "text": "$$ N_d $$, the number of pairs of cases ranked in reversed order on both variables"
+          },
+          {
+            "id": 4,
+            "text": "where 'ties' (cases where either of the two variables in the pair are equal) are dropped. Then"
+          },
+          {
+            "id": 5,
+            "text": "$$ G = \\frac{N_s - N_d}{N_s + N_d} $$"
+          },
+          {
+            "id": 6,
+            "text": "This statistic can be regarded as the maximum likelihood estimator for the theoretical quantity $$ \\gamma $$, where"
+          },
+          {
+            "id": 7,
+            "text": "$$ \\gamma = \\frac{P_s - P_d}{P_s + P_d} $$"
+          },
+          {
+            "id": 8,
+            "text": "and where $$ P_s $$ and $$ P_d $$ are the probabilities that a randomly selected pair of observations will place in the same or opposite order respectively, when ranked by both variables."
+          },
+          {
+            "id": 9,
+            "text": "Critical values for the gamma statistic are sometimes found by using an approximation, whereby a transformed value, $$ t $$ of the statistic is referred to Student t distribution, where"
+          },
+          {
+            "id": 10,
+            "text": "$$ t \\approx G \\sqrt{ \\frac{N_s + N_d}{n(1-G^{2}} } $$"
+          },
+          {
+            "id": 11,
+            "text": "and where $$ n $$ is the number of observations (not the number of pairs):"
+          },
+          {
+            "id": 12,
+            "text": "$$ n \\neq N_s + N_d $$"
+          }
+        ]
       },
       {
         "id": 1,
         "name": "Kendall-Tau",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "In statistics, the Kendall rank correlation coefficient, commonly referred to as Kendall's $$ \\tau $$ coefficient (after the Greek letter $$ \\tau $$, tau), is a statistic used to measure the ordinal association between two measured quantities. A $$ \\tau $$ test is a non-parametric hypothesis test for statistical dependence based on the $$ \\tau $$ coefficient. It is a measure of rank correlation: the similarity of the orderings of the data when ranked by each of the quantities."
+          },
+          {
+            "id": 1,
+            "text": "The Tau-a statistic tests the strength of association of the cross tabulations. Both variables have to be ordinal. Tau-a will not make any adjustment for ties. It is defined as:"
+          },
+          {
+            "id": 2,
+            "text": "$$ \\tau = \\frac{n_c - n_d}{n_0} $$"
+          },
+          {
+            "id": 3,
+            "text": "where"
+          },
+          {
+            "id": 4,
+            "text": "$$ n_c $$ is number of concordant pairs,"
+          },
+          {
+            "id": 5,
+            "text": "$$ n_d $$ is number of discordant pairs,"
+          },
+          {
+            "id": 6,
+            "text": "and $$ n_0 = \\frac{n(n-1)}{2} $$ "
+          }
+        ]
       },
       {
         "id": 2,
         "name": "Pearson",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "When preference values calculated for alternatives are to be compared, the Pearson correlation coefficient can be used. Cross-correlation between vectors is used. It is often used when comparing real signals. The formula used to calculate the Pearson correlation coefficient is shown below: "
+          },
+          {
+            "id": 1,
+            "text": "$$ \\rho(a, b) = \\frac{E(a b)}{\\sigma_{a} \\sigma_{b}} $$"
+          },
+          {
+            "id": 2,
+            "text": "where $$ \\sigma_{a} $$ means preference for alternative $i$ from first method, $$ \\sigma_{b} $$ is the preference for alternative $$ i $$ from second method and $$ E $$ is a cross-correlation between $$ a $$ and $$ b $$. "
+          }
+        ]
       },
       {
         "id": 3,
         "name": "Spearman",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "As with the Pearson coefficient, the Spearman correlation coefficient is used when comparing preference values of alternatives. Its use is recommended when not following the normal bivarate distribution of rankings. The calculation of this coefficient is shown below: "
+          },
+          {
+            "id": 1,
+            "text": "$$ r_{s} = 1 - \\frac{6 \\times \\sum d_{i}^{2}}{N \\times ( N^{2} - 1 )} $$"
+          },
+          {
+            "id": 2,
+            "text": "where $$ d_i $$ - distance between ranked alternatives in both rankings, $$ N $$ - amount of alternatives. "
+          }
+        ]
       },
       {
         "id": 4,
         "name": "Weighted Spearman",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "The Weighted Spearman correlation coefficient allows comparing two vectors. It is using the weights for determining the importance of differences occurring. The formula for mentioned coefficient is presented below: "
+          },
+          {
+            "id": 1,
+            "text": "$$ r_{w} = 1 - \\frac{6 \\times \\sum (x_{i} - y_{i}) ^ {2} ( (n - x_{i}+1) + (n-y_{i}+1))}{n \\times (n^{3} + n^{2} - n -1)} $$"
+          },
+          {
+            "id": 2,
+            "text": "where $$ x_i $$ means position in the reference ranking, $$ y_i $$ is the position in the second ranking and $$ N $$ is a number of ranked elements. "
+          }
+        ]
       },
       {
         "id": 5,
         "name": "WS rank similarity",
-        "description": []
+        "description": [
+          {
+            "id": 0,
+            "text": "This similarity coefficient based on assigning a greater significance to the elements in the top part of the ranking. The discrepancies in higher positions will cause a lower similarity value than same differences at the bottom of the ranking. The formula for calculation the WS similarity coefficient stands as follows:"
+          },
+          {
+            "id": 1,
+            "text": "$$ WS = 1 - \\sum ( 2^{-x_{i}} \\frac{| x_{i} - y_{i} |}{max ({|x_{i}-1|, |x_{i}-N|}) } ) $$"
+          },
+          {
+            "id": 2,
+            "text": "where $$ x_i $$ means position in the reference ranking, $$ y_i $$ is the position in the second ranking and $$ N $$ is a number of ranked elements. "
+          }
+        ]
       }
     ]
   }
