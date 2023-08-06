@@ -102,25 +102,6 @@ methods_description_item = api.model('MethodsDescription', {
     "data": fields.List(fields.Nested(method_data_item))
 })
 
-# SCHEMA IS OK BUT FLASK ERROR
-# matrix_data_item = api.schema_model('MatrixData', {
-#     "properties": {
-#         "matrix": {
-#           "type": "array",
-#           "items": {
-#             "type": "array",
-#             "items": {
-#                 "type": "number"
-#             }
-#           }
-#         },
-#         "extension": {
-#           "type": "string"
-#         }
-#     },
-#     "type": "object"
-# })
-
 
 # ARGUMENTS PARSERS
 locale_parser = reqparse.RequestParser()
