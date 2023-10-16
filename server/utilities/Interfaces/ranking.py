@@ -7,6 +7,18 @@ from ..errors import get_error_message
 
 class Ranking():
 
+    def __init__(self,  logger=None):
+        """
+            Initialize ranking object with logger
+
+            Parameters
+            ----------
+                logger: object, default=None
+                    Logger object used for logging errors occurred in server 
+
+        """ 
+        self.logger = logger
+
     # calculation of ranking based on preferences and order
     def _rank_preferences(self, locale, preferences, order):
         """
@@ -22,7 +34,6 @@ class Ranking():
 
                 order : string (ascending or descending)
                     Order determining the direction of ranking sorting
-                    
 
             Raises
             ------
@@ -41,7 +52,9 @@ class Ranking():
                 return rank(preferences, False).tolist()
             else:
                 return rank(preferences).tolist()
-        except Exception:
+        except Exception as err:
+            if self.logger:
+                self.logger.logger.info(f'{err}')
             raise ValueError(f'{get_error_message(locale, "ranking-unexpected-error")}')
 
     def calculate_ranking(self, locale, methods, results):
@@ -91,6 +104,9 @@ class Ranking():
 
                             # verification of ranking order
                             if order.lower() not in ['ascending', 'descending']:
+                                
+                                if self.logger:
+                                    self.logger.logger.info(f'Ranking: order {order} not found')
                                 raise ValueError(f'{order} {get_error_message(locale, "ranking-order-error")}')
                                 
                             else:
@@ -105,13 +121,17 @@ class Ranking():
                                     })
 
                                 # catching error if occured
-                                except Exception:
+                                except Exception as err:
+                                    if self.logger:
+                                        self.logger.logger.info(f'{err}')
                                     raise ValueError(f'{get_error_message(locale, "ranking-preference-error")}')
                                         
                     ranking_item.append(item)
                 rankings.append(ranking_item)
 
             return rankings
-        except Exception:
+        except Exception as err:
+            if self.logger:
+                self.logger.logger.info(f'{err}')
             raise ValueError(f'{get_error_message(locale, "ranking-unexpected-error")}')
 

@@ -5,8 +5,9 @@ import pymcdm.weights as crisp_weights
 import pyfdm.weights as fuzzy_weights
 
 from ..errors import get_error_message
+
 class Weights():
-    def __init__(self, extension, types):
+    def __init__(self, extension, types, logger=None):
         """
             Initialize weights object with extension and types values
 
@@ -18,10 +19,14 @@ class Weights():
                 types : ndarray
                     Vector of criteria types formatted as numpy array. Number of types should correspond to number of weights.
 
+                logger: object, default=None
+                    Logger object used for logging errors occurred in server 
+
         """
 
         self.extension=extension
         self.types=types
+        self.logger = logger
 
         self.weights_methods = {
             'ANGLE': {
@@ -90,7 +95,9 @@ class Weights():
         try:
             weights = np.array([])
             if self.extension not in self.weights_methods[method].keys():
-                raise ValueError(f'{method} {get_error_message(locale, "")} {extension}')
+                if self.logger:
+                    self.logger.logger.info(f'Weights method {method} not found for {extension} extension')
+                raise ValueError(f'{method} {get_error_message(locale, "weights-method-not-found-error")} {extension}')
             else:
                 if method in ['MEREC', 'CILOS', 'IDOCRIW']:
                     weights = self.weights_methods[method][self.extension](matrix, self.types)
@@ -99,6 +106,8 @@ class Weights():
 
             return weights.tolist(),
         except Exception as err:
+            if self.logger:
+                self.logger.logger.info(f'{err}')
             raise ValueError(f'{get_error_message(locale, "weights-unexpected-error")}')
         
 

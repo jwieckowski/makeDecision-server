@@ -11,7 +11,7 @@ from ..validator import Validator
 from ..errors import get_error_message
 
 class Preferences():
-    def __init__(self, matrixes, extensions, types):
+    def __init__(self, matrixes, extensions, types, logger=None):
         """
             Initializes the object with matrixes, extensions and criteria types from parametres
 
@@ -26,10 +26,13 @@ class Preferences():
                 types : ndarray
                     Vector of criteria types formatted as numpy arrays.
 
+                logger: object, default=None
+                    Logger object used for logging errors occurred in server
         """
         self.matrixes = matrixes
         self.extensions = extensions
         self.types = types
+        self.logger = logger
 
         self.mcda_methods = {
             'ARAS': {

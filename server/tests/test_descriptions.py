@@ -1,6 +1,6 @@
 # Copyright (c) 2023 Jakub Więckowski
 
-from .server import app
+from server import app
 import json
 import pytest
 
@@ -10,12 +10,12 @@ def client():
     with app.test_client() as client:
         yield client
 
-def test_all_methods_dictionary(client):
+def test_all_methods_descriptions(client):
     """
-        Test verifying the content of the obtained dictionaries for all methods with given locale in headers
+        Test verifying the content of the obtained descriptions with locale given in headers
     """
 
-    response = client.get('/api/v1/dictionary/all-methods', headers={'locale': 'en'})
+    response = client.get('/api/v1/descriptions/methods', headers={'locale': 'en'})
     payload = json.loads(response.data.decode('utf-8'))
 
     assert response.status_code == 200
@@ -23,26 +23,26 @@ def test_all_methods_dictionary(client):
     assert type(payload[0]) is dict
     assert type(payload[0]['data']) is list
     
-    assert payload[0]['key'] == 'Decision matrix'
+    assert payload[0]['key'] == 'Weights'
 
-def test_all_methods_dictionary_no_locale(client):
+def test_all_methods_descriptions_no_locale(client):
     """
-        Test verifying the content of the obtained dictionaries for all methods with no locale given in headers
+        Test verifying the content of the obtained descriptions with no locale given in headers
     """
 
-    response = client.get('/api/v1/dictionary/all-methods')
+    response = client.get('/api/v1/descriptions/methods')
     payload = json.loads(response.data.decode('utf-8'))
 
     assert response.status_code == 400
     assert 'locale' in payload['errors'].keys()
 
-def test_all_methods_dictionary_unhandled_locale(client):
+def test_all_methods_descriptions_unhandled_locale(client):
     """
-        Test verifying the content of the obtained dictionaries for all methods with locale not handled in server given in headers.
+        Test verifying the content of the obtained descriptions with locale not handled in server given in headers.
         The default locale should be set to en
     """
 
-    response = client.get('/api/v1/dictionary/all-methods', headers={'locale': 'ua'})
+    response = client.get('/api/v1/descriptions/methods', headers={'locale': 'ua'})
     payload = json.loads(response.data.decode('utf-8'))
 
     assert response.status_code == 200
@@ -50,6 +50,5 @@ def test_all_methods_dictionary_unhandled_locale(client):
     assert type(payload[0]) is dict
     assert type(payload[0]['data']) is list
     
-    assert payload[0]['key'] == 'Decision matrix'
-
+    assert payload[0]['key'] == 'Weights'
 

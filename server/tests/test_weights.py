@@ -1,6 +1,6 @@
 # Copyright (c) 2023 Jakub Więckowski
 
-from .server import app
+from server import app
 import json
 import pytest
 

@@ -1,9 +1,9 @@
 # Copyright (c) 2023 Jakub Więckowski
 
 import json
+from config import dir_path
 
-project_home = '/home/jwieckowski/mysite/'
-project_home= './'
+project_home = dir_path
 error_file_en = open(project_home+'public/errors/errors-en.json', encoding='utf-8')
 errors_en = json.load(error_file_en)
 error_file_en.close()
