@@ -269,7 +269,25 @@
         "extensions": ["crisp"],
         "order": "descending",
         "requiredData": ["matrix", "weights", "criteriaTypes"],
-        "additional": [],
+        "additional": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "characteristic values",
+                "parameter": "cvalues",
+                "default": ""
+              },
+              {
+                "id": 2,
+                "method": "expert function",
+                "parameter": "expert_function",
+                "default": "method_expert"
+              }
+            ]
+          }
+        ],
         "hints": "Characteristic Objects Method"
       },
       {
@@ -323,6 +341,42 @@
       {
         "id": 7,
         "type": "Method",
+        "label": "ERVD",
+        "name": "ERVD",
+        "abbreviation": "Election based on Relative Value Distances method",
+        "extensions": ["crisp"],
+        "order": "descending",
+        "requiredData": ["matrix", "weights", "criteriaTypes"],
+        "additional": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "reference points",
+                "parameter": "ref_point",
+                "default": ""
+              },
+              {
+                "id": 2,
+                "method": "lambda",
+                "parameter": "lam",
+                "default": "2.25"
+              },
+              {
+                "id": 3,
+                "method": "alpha",
+                "parameter": "alpha",
+                "default": "0.88"
+              }
+            ]
+          }
+        ],
+        "hints": "Election based on Relative Value Distances method"
+      },
+      {
+        "id": 8,
+        "type": "Method",
         "label": "MABAC",
         "name": "MABAC",
         "abbreviation": "Multi-Attributive Border Approximation area Comparison",
@@ -362,7 +416,7 @@
         "hints": "Multi-Attributive Border Approximation area Comparison"
       },
       {
-        "id": 8,
+        "id": 9,
         "type": "Method",
         "label": "MAIRCA",
         "name": "MAIRCA",
@@ -403,7 +457,7 @@
         "hints": "Multi-Attributive Ideal-Real Comparative Analysis"
       },
       {
-        "id": 9,
+        "id": 10,
         "type": "Method",
         "label": "MARCOS",
         "name": "MARCOS",
@@ -427,7 +481,7 @@
         "hints": "Measurement Alternatives and Ranking according to COmpromise Solution"
       },
       {
-        "id": 10,
+        "id": 11,
         "type": "Method",
         "label": "MOORA",
         "name": "MOORA",
@@ -451,7 +505,7 @@
         "hints": "Multi-Objective Optimization Method by Ratio Analysis"
       },
       {
-        "id": 11,
+        "id": 12,
         "type": "Method",
         "label": "OCRA",
         "name": "OCRA",
@@ -486,14 +540,43 @@
         "hints": "Operational Competitiveness Ratings"
       },
       {
-        "id": 12,
+        "id": 13,
+        "type": "Method",
+        "label": "PROBID",
+        "name": "PROBID",
+        "abbreviation": "Preference Ranking on the Basis of Ideal-Average Distance Method",
+        "extensions": ["crisp"],
+        "order": "descending",
+        "requiredData": ["matrix", "weights", "criteriaTypes"],
+        "additional": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "short PROBID",
+                "parameter": "sPROBID",
+                "default": "false"
+              }
+            ]
+          }
+        ],
+        "hints": "Preference Ranking on the Basis of Ideal-Average Distance Method"
+      },
+      {
+        "id": 14,
         "type": "Method",
         "label": "PROMETHEE",
         "name": "PROMETHEE",
         "abbreviation": "Preference Ranking Organization METHod for Enrichment of Evaluations",
         "extensions": ["crisp"],
         "order": "descending",
-        "requiredData": ["matrix", "weights", "criteriaTypes", "function"],
+        "requiredData": [
+          "matrix",
+          "weights",
+          "criteriaTypes",
+          "preference_function"
+        ],
         "additional": [
           {
             "extension": "crisp",
@@ -501,7 +584,20 @@
               {
                 "id": 1,
                 "method": "preference function",
-                "parameter": "preference_function"
+                "parameter": "preference_function",
+                "default": "usual"
+              },
+              {
+                "id": 2,
+                "method": "p",
+                "parameter": "p",
+                "default": ""
+              },
+              {
+                "id": 2,
+                "method": "q",
+                "parameter": "q",
+                "default": ""
               }
             ]
           }
@@ -509,7 +605,42 @@
         "hints": "Preference Ranking Organization METHod for Enrichment of Evaluations"
       },
       {
-        "id": 13,
+        "id": 15,
+        "type": "Method",
+        "label": "RIM",
+        "name": "RIM",
+        "abbreviation": "Reference Ideal Method",
+        "extensions": ["crisp"],
+        "order": "descending",
+        "requiredData": [
+          "matrix",
+          "weights",
+          "criteriaTypes",
+          "preference_function"
+        ],
+        "additional": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "bounds",
+                "parameter": "bounds",
+                "default": ""
+              },
+              {
+                "id": 2,
+                "method": "reference ideal",
+                "parameter": "ref_ideal",
+                "default": ""
+              }
+            ]
+          }
+        ],
+        "hints": "Reference Ideal Method"
+      },
+      {
+        "id": 16,
         "type": "Method",
         "label": "SPOTIS",
         "name": "SPOTIS",
@@ -517,11 +648,29 @@
         "extensions": ["crisp"],
         "order": "descending",
         "requiredData": ["matrix", "weights", "criteriaTypes"],
-        "additional": [],
+        "additional": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "bounds",
+                "parameter": "bounds",
+                "default": ""
+              },
+              {
+                "id": 2,
+                "method": "expected solution points",
+                "parameter": "esp",
+                "default": ""
+              }
+            ]
+          }
+        ],
         "hints": "Stable Preference Ordering Towards Ideal Solution"
       },
       {
-        "id": 14,
+        "id": 17,
         "type": "Method",
         "label": "TOPSIS",
         "name": "TOPSIS",
@@ -562,7 +711,7 @@
         "hints": "Technique for the Order of Prioritisation by Similarity to Ideal Solution"
       },
       {
-        "id": 15,
+        "id": 18,
         "type": "Method",
         "label": "VIKOR",
         "name": "VIKOR",
@@ -579,6 +728,12 @@
                 "method": "normalization",
                 "parameter": "normalization_function",
                 "default": "sum_normalization"
+              },
+              {
+                "id": 2,
+                "method": "v",
+                "parameter": "v",
+                "default": "0.5"
               }
             ]
           },
@@ -590,11 +745,113 @@
                 "method": "defuzzification",
                 "parameter": "defuzzify",
                 "default": "mean_area_defuzzification"
+              },
+              {
+                "id": 2,
+                "method": "v",
+                "parameter": "v",
+                "default": "0.5"
               }
             ]
           }
         ],
         "hints": "VIseKriterijumska Optimizacija I Kompromisno Resenje. Returns results from approach 'Q'"
+      },
+      {
+        "id": 19,
+        "type": "Method",
+        "label": "WASPAS",
+        "name": "WASPAS",
+        "abbreviation": "Weighted Aggregated Sum Product ASSessment",
+        "extensions": ["crisp"],
+        "order": "descending",
+        "requiredData": ["matrix", "weights", "criteriaTypes"],
+        "additional": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "normalization",
+                "parameter": "normalization_function",
+                "default": "linear_normalization"
+              }
+            ]
+          }
+        ],
+        "hints": "Weighted Aggregated Sum Product ASSessment"
+      },
+      {
+        "id": 19,
+        "type": "Method",
+        "label": "WASPAS",
+        "name": "WASPAS",
+        "abbreviation": "Weighted Aggregated Sum Product ASSessment",
+        "extensions": ["crisp"],
+        "order": "descending",
+        "requiredData": ["matrix", "weights", "criteriaTypes"],
+        "additional": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "normalization",
+                "parameter": "normalization_function",
+                "default": "linear_normalization"
+              }
+            ]
+          }
+        ],
+        "hints": "Weighted Aggregated Sum Product ASSessment"
+      },
+      {
+        "id": 20,
+        "type": "Method",
+        "label": "WPM",
+        "name": "WPM",
+        "abbreviation": "Weighted Product Model",
+        "extensions": ["crisp"],
+        "order": "descending",
+        "requiredData": ["matrix", "weights", "criteriaTypes"],
+        "additional": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "normalization",
+                "parameter": "normalization_function",
+                "default": "sum_normalization"
+              }
+            ]
+          }
+        ],
+        "hints": "Weighted Product Model"
+      },
+      {
+        "id": 21,
+        "type": "Method",
+        "label": "WSM",
+        "name": "WSM",
+        "abbreviation": "Weighted Sum Model",
+        "extensions": ["crisp"],
+        "order": "descending",
+        "requiredData": ["matrix", "weights", "criteriaTypes"],
+        "additional": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "normalization",
+                "parameter": "normalization_function",
+                "default": "sum_normalization"
+              }
+            ]
+          }
+        ],
+        "hints": "Weighted Sum Model"
       }
     ]
   },
@@ -932,11 +1189,20 @@
     "key": "Correlation",
     "label": "Correlation",
     "type": "primary",
-    "inputConnections": ["ranking", "method"],
+    "inputConnections": ["weights", "ranking", "method"],
     "outputConnections": ["visualization"],
     "data": [
       {
         "id": 1,
+        "type": "Correlation",
+        "label": "Drastic",
+        "name": "Drastic",
+        "extensions": ["crisp"],
+        "requiredData": ["ranking"],
+        "hints": "Correlation of MCDA method rankings"
+      },
+      {
+        "id": 2,
         "type": "Correlation",
         "label": "Goodman-Kruskall",
         "name": "Goodman-Kruskall",
@@ -945,7 +1211,7 @@
         "hints": "Correlation of MCDA method rankings"
       },
       {
-        "id": 2,
+        "id": 3,
         "type": "Correlation",
         "label": "Kendall-Tau",
         "name": "Kendall-Tau",
@@ -954,7 +1220,7 @@
         "hints": "Correlation of MCDA method rankings"
       },
       {
-        "id": 3,
+        "id": 4,
         "type": "Correlation",
         "label": "Pearson",
         "name": "Pearson",
@@ -963,7 +1229,7 @@
         "hints": "Correlation of results of MCDA methods"
       },
       {
-        "id": 4,
+        "id": 5,
         "type": "Correlation",
         "label": "Spearman",
         "name": "Spearman",
@@ -972,7 +1238,7 @@
         "hints": "Correlation of results of MCDA methods"
       },
       {
-        "id": 5,
+        "id": 6,
         "type": "Correlation",
         "label": "Weighted Spearman",
         "name": "Weighted Spearman",
@@ -981,13 +1247,31 @@
         "hints": "Correlation of MCDA method rankings"
       },
       {
-        "id": 6,
+        "id": 7,
         "type": "Correlation",
         "label": "WS similarity",
         "name": "WS rank similarity",
         "extensions": ["crisp"],
         "requiredData": ["ranking"],
         "hints": "Correlation of MCDA method rankings"
+      },
+      {
+        "id": 8,
+        "type": "Correlation",
+        "label": "Weights similarity",
+        "name": "Weights similarity",
+        "extensions": ["crisp"],
+        "requiredData": ["weights"],
+        "hints": "Correlation of criteria weights vector"
+      },
+      {
+        "id": 9,
+        "type": "Correlation",
+        "label": "Weights similarity 2",
+        "name": "Weights similarity 2",
+        "extensions": ["crisp"],
+        "requiredData": ["weights"],
+        "hints": "Correlation of criteria weights vector"
       }
     ]
   },
