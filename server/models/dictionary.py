@@ -15,16 +15,14 @@ def get_dictionary_model(api):
 
     dictionary_data_model = api.model('DictionaryData', {
         "id": fields.Integer(description='Element id'),
-        "type": fields.String(description='Type of method'),
-        "label": fields.String(description='Label representing the variant of method used for visualization purposes'),
         "name": fields.String(description='Name of method variant'),
         "abbreviation": fields.String(description='Full name of the method'),
         "extensions": fields.List(fields.String(description="Data type representation")),
-        "formats": fields.List(fields.String(description="Accepted data formats")),
         "order": fields.String(description="Order for ranking calculation"),
         "functionName": fields.String(description="Name of parameter used in evaluations package in Pythonn"),
-        "requiredData": fields.List(fields.String(description='Required data needed for block usage')),
-        "additional": fields.List(fields.Nested(dictionary_additional_data_model, skip_none=True)),
+        "inputConnections": fields.List(fields.String(description="List of methods type that can be used as the input data for the element")),
+        "outputConnections": fields.List(fields.String(description="List of methods type that can be used as the output data for the element")),
+        "kwargs": fields.List(fields.Nested(dictionary_additional_data_model, skip_none=True)),
         "hints": fields.String(description="Hints for user about how to use given method")
     })
 
@@ -33,8 +31,7 @@ def get_dictionary_model(api):
         "key": fields.String(description="Name of the method categories"),
         "label": fields.String(description="Label representing the variant of method categories used for visualization purposes"),
         "type": fields.String(description="Type of method category"),
-        "inputConnections": fields.List(fields.String(description="List of methods type that can be used as the input data for the element")),
-        "outputConnections": fields.List(fields.String(description="List of methods type that can be used as the output data for the element")),
+        "function": fields.String(description="Information about the scope of items from category"),
         "data": fields.List(fields.Nested(dictionary_data_model, skip_none=True))
     })
 

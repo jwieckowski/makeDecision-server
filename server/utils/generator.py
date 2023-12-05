@@ -3,6 +3,9 @@ import pyfdm
 
 from .errors import get_error_message
 
+# LOGGER
+from routes.namespaces import v1 as api
+
 def generate_random_matrix(locale, alternatives, criteria, extension, lower_bound=None, upper_bound=None, precision=None):
     """
         Generates random matrix with given extension and given shape
@@ -55,19 +58,19 @@ def generate_random_matrix(locale, alternatives, criteria, extension, lower_boun
             
             if lower_bound is not None or upper_bound is not None:
                 if lower >= upper:
-                    # TODO: change message to dict message
-                    raise ValueError(f'Lower bound of the matrix values should not be greater than upper bound')
+                    raise ValueError(get_error_message(locale, 'matrix-generation-bounds-error'))
             
             return np.round(np.random.uniform(low=lower, high=upper, size=(alternatives, criteria)), precision)
         elif extension == 'fuzzy':
-            return pyfdm.helpers.generate_fuzzy_matrix(alternatives, criteria, lower_bound, upper_bound)
+            return np.round(pyfdm.helpers.generate_fuzzy_matrix(alternatives, criteria, lower_bound, upper_bound), precision)
         else:
             raise ValueError(f'{get_error_message(locale, "random-matrix-extension-error")} {extension}')
     except Exception as err:  
+        api.logger.info(str(err))
         raise ValueError(err)
 
 
-def generate_random_criteria_types(criteria):
+def generate_random_criteria_types(locale, criteria):
     """
         Generate random criteria types for Multi-Criteria Decision Analysis (MCDA).
 
@@ -78,7 +81,11 @@ def generate_random_criteria_types(criteria):
 
         Parameters:
         -----------
-            criteria (int): The number of criteria for which random types need to be generated.
+            locale : string
+                User application language
+                
+            criteria (int): 
+                The number of criteria for which random types need to be generated.
 
         Returns:
         --------
@@ -100,8 +107,7 @@ def generate_random_criteria_types(criteria):
     """
 
     if criteria <= 0:
-        # TODO: change message to dict message
-        raise ValueError('Number of criteria should be greater than 0')
+        raise ValueError(get_error_message(locale, 'criteria-types-generation-error'))
 
     types_values = np.array([-1, 1])
     return np.random.choice(types_values, criteria)

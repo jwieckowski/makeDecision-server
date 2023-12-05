@@ -1,7 +1,9 @@
 {
+  "assessment-error": "Something went wrong in multi-criteria assessment",
+  "graph-error": "Something went wrong in graph generation",
+
   "extract-data-error": "Something went wrong while retrieving decision matrix",
   "no-assessment-method-error": "Multi-Criteria Assessment method was not given",
-  "assessment-error": "Assessment error: ",
 
   "matrix-criteria-extensions-shapes-mismatch": "The number of matrices, vectors of criteria types and data extensions are different",
   "criteria-types-number-error": "Number of criteria should equals number of criteria types: ",
@@ -52,6 +54,9 @@
   "no-preference-function-error": "Preference function was not given",
   "crisp-method-not-found": "crisp method not found",
   "additional-function-error": "Wrong metric was used: ",
+
+  "matrix-generation-bounds-error": "Lower bound of the matrix values should not be greater than upper bound",
+  "criteria-types-generation-error": "Number of criteria should be greater than 0",
 
   "locale-error": "locale is not handled",
   "key-error": "Error message key was not handled"

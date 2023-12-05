@@ -7,6 +7,9 @@ import pandas as pd
 from .validator import validate_dimensions, validate_matrix, validate_types
 from .errors import get_error_message
 
+# LOGGER
+from routes.namespaces import v1 as api
+
 class Files():
     @staticmethod
     def __validate_input_data(locale, matrix, extension, criteria_types):
@@ -34,18 +37,11 @@ class Files():
         """
 
         try:
-            Validator.validate_matrix(locale, matrix, extension)
+            validate_matrix(locale, matrix, extension)
+            validate_types(locale, criteria_types)
+            validate_dimensions(locale, matrix, criteria_types)
         except Exception as err:
-            raise ValueError(err)
-
-        try:
-            Validator.validate_types(locale, criteria_types)
-        except Exception as err:
-            raise ValueError(err)
-
-        try:
-            Validator.validate_dimensions(locale, matrix, criteria_types)
-        except Exception as err:
+            api.logger.info(str(err))
             raise ValueError(err)
 
     @staticmethod
@@ -122,6 +118,7 @@ class Files():
                 Files.__validate_input_data(locale, matrix, extension, criteria_types)
                 return matrix, criteria_types
             except Exception as err:
+                api.logger.info(str(err))
                 raise ValueError(err)
         
         def read_from_csv_fuzzy(file):
@@ -181,6 +178,7 @@ class Files():
                 Files.__validate_input_data(locale, matrix, extension, criteria_types)
                 return matrix, criteria_types
             except Exception as err:
+                api.logger.info(str(err))
                 raise ValueError(err)
 
         def read_from_xlsx_crisp(file):
@@ -230,6 +228,7 @@ class Files():
                 Files.__validate_input_data(locale, matrix, extension, criteria_types)
                 return matrix, criteria_types
             except Exception as err:
+                api.logger.info(str(err))
                 raise ValueError(err)
         
         def read_from_xlsx_fuzzy(file):
@@ -288,6 +287,7 @@ class Files():
                 Files.__validate_input_data(locale, matrix, extension, criteria_types)
                 return matrix, criteria_types
             except Exception as err:
+                api.logger.info(str(err))
                 raise ValueError(err)
 
         def read_from_json_crisp(file):
@@ -332,6 +332,7 @@ class Files():
                 Files.__validate_input_data(locale, matrix, extension, criteria_types)
                 return matrix, criteria_types
             except Exception as err:
+                api.logger.info(str(err))
                 raise ValueError(err)
         
         def read_from_json_fuzzy(file):
@@ -376,6 +377,7 @@ class Files():
                 Files.__validate_input_data(locale, matrix, extension, criteria_types)
                 return matrix, criteria_types
             except Exception as err:
+                api.logger.info(str(err))
                 raise ValueError(err)
 
         if extension == 'crisp':

@@ -35,8 +35,8 @@ class AllMethodsDictionary(Resource):
             data = json.load(file)
 
         # filtering keys
-        filters = ['Visualization']
-        data = [d for d in data if d['key'] not in filters]
+        # filters = ['Visualization']
+        # data = [d for d in data if d['key'] not in filters]
         
         return {
             "response": data

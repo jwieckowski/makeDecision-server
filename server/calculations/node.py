@@ -6,6 +6,7 @@ from pymcdm.helpers import correlation_matrix
 
 # CONST
 from methods import weights_methods, mcda_methods, correlation_methods
+from graphs import graphs_methods, generate_graph
 
 # HELPERS
 from .parameters import get_parameters
@@ -13,7 +14,7 @@ from .parameters import get_parameters
 class Node(ABC):
     def __init__(self, id, node_type, extension, connections_from, connections_to, position_x, position_y) -> None:
         self.id = id
-        self.node_type = node_type
+        self.node_type = node_type.lower()
         self.extension = extension.lower()
         if self.extension not in ['crisp', 'fuzzy']:
             raise ValueError(f"Extension '{self.extension}' not found")
@@ -239,3 +240,82 @@ class CorrelationNode(Node):
             "data": self.calculation_data
         }
 
+class VisualizationNode(Node):
+    def __init__(self, id, node_type, extension, connections_from, connections_to, position_x, position_y, method) -> None:
+        
+        super().__init__(id, node_type, extension, connections_from, connections_to, position_x, position_y)
+        
+        self.method = method.upper()
+        if self.method not in list(graphs_methods.keys()):
+            raise ValueError(f"Method '{self.method}' not found")
+            
+        self.calculation_data = []
+
+    def _get_graph_data(self, nodes, node_type, matrix_node):
+
+        # TODO: check if data and labels the same size
+
+        calculation_data = []
+        for node in nodes:
+            for data in node.calculation_data:
+                if data['matrix_id'] == matrix_node.id:
+                    calculation_data.append([data, node.method])
+
+        graph_data, graph_labels = [], []
+        if node_type == 'weights':
+            temp_data, temp_labels = [], []
+            for item in calculation_data:
+                temp_data.append(item[0]['weights'])
+                temp_labels.append(item[1])
+            graph_data.append(temp_data)
+            graph_labels.append(temp_labels)
+        elif node_type == 'ranking':
+            temp_data, temp_labels = [], []
+            for item in calculation_data:
+                # TODO check if max two rankings given
+                if 'SCATTER' in self.method:
+                    temp_labels.append(item[0]['ranking'])
+                # elif 'CORRELATION' in self.method:
+                #     temp_data.append()    
+                #     temp_labels.append(item[0]['method'])
+                else:
+                    temp_data.append(item[0]['ranking'])
+                    temp_labels.append(item[0]['method'])
+            graph_data.append(temp_data)
+            graph_labels.append(temp_labels)
+                    
+        elif node_type == 'correlation':
+            for item in calculation_data:
+                if 'HEATMAP' in self.method:
+                    graph_data.append(item[0]['correlation'])
+                else:
+                    graph_data.append(item[0]['correlation'][0])
+                graph_labels.append(item[0]['labels'])
+                
+        return graph_data, graph_labels
+
+    def generate(self, nodes, matrix_node):
+
+        node_types = [node.node_type for node in nodes]
+        if len(set(node_types)) != 1:
+            raise ValueError(f'Graphs should be generated for nodes with the same type')
+
+        node_type = nodes[0].node_type
+        graph_data, graph_labels = self._get_graph_data(nodes, node_type, matrix_node)
+
+        for data, labels in zip(graph_data, graph_labels):
+            self.calculation_data = [
+                {
+                    "matrix_id": matrix_node.id,
+                    "img": generate_graph(data, labels, self.method),
+                }
+            ]
+        
+    
+    def get_response(self):
+        response = super().get_response()
+
+        return response | {
+            "method": self.method,
+            "data": self.calculation_data
+        }

@@ -44,7 +44,8 @@ def get_response_calculation_model(api):
         "kwargs": fields.List(fields.Nested(kwargs_item, skip_none=True), description='Additional parameters used for MCDA methods initialization'),
         "ranking": fields.List(fields.Integer(), description='1D array of ranking of alternatives', skip_none=True),
         "correlation": fields.List(fields.List(fields.Float()), description='2D array of calculated correlation values', skip_none=True),
-        "labels": fields.List(fields.String(), description="1D array of labels to represent correlation of the compared methods")
+        "labels": fields.List(fields.String(), description="1D array of labels to represent correlation of the compared methods"),
+        "img": fields.String(description='')
     })
 
     node_item = api.model('ResponseNode', {

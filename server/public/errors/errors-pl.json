@@ -1,7 +1,9 @@
 {
+  "assessment-error": "Wystąpił błąd przy ocenie wielokryterialnej",
+  "graph-error": "Wystąpił błąd przy generowaniu wykresu",
+
   "extract-data-error": "Błąd podczas pobierania macierzy decyzyjnej",
   "no-assessment-method-error": "Nie podano metody wielokryterialnej",
-  "assessment-error": "Błąd oceny: ",
 
   "matrix-criteria-extensions-shapes-mismatch": "Liczba macierzy, wektorów typów kryteriów i rozszerzeń danych są różne",
   "criteria-types-number-error": "Liczba kryteriów powinna być równa liczbie typów kryteriów:",
@@ -52,6 +54,9 @@
   "no-preference-function-error": "Funkcja preferencji nie została podana",
   "crisp-method-not-found": ": nie znaleziono metody typu ostrego",
   "additional-function-error": "Podano błędną metrykę: ",
+
+  "matrix-generation-bounds-error": "Dolny przedział generowania macierzy powinien być większy niż górny",
+  "criteria-types-generation-error": "Liczba kryteriów powinna być większa niż 0",
 
   "locale-error": ": lokalizacja nie jest obsługiwana",
   "key-error": "Klucz komunikatu o błędzie nie został obsłużony"

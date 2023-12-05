@@ -74,7 +74,7 @@ class MatrixConverter(Resource):
 
         try:
             matrix = generate_random_matrix(locale, alternatives, criteria, extension, lower_bound, upper_bound, precision)
-            criteria_types = generate_random_criteria_types(criteria)
+            criteria_types = generate_random_criteria_types(locale, criteria)
             
             return {
                 "response": {

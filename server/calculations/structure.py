@@ -27,6 +27,8 @@ class CalculationStructure:
                 nodes.append(RankingNode(**node))
             elif node_type == 'correlation':
                 nodes.append(CorrelationNode(**node))
+            elif node_type == 'visualization':
+                nodes.append(VisualizationNode(**node))
             else:
                 raise ValueError(f"Block type '{node_type}' not allowed. Check the block with ID {node['id']}")
         return nodes
@@ -59,10 +61,11 @@ class CalculationStructure:
     def _validate_connections(self):
         connections = {
             'matrix': ['weights'],
-            'weights': ['method', 'correlation'],
+            'weights': ['method', 'correlation', 'visualization'],
             'method': ['ranking', 'correlation'],
-            'ranking': ['correlation'],
-            "correlation": []
+            'ranking': ['correlation', 'visualization'],
+            "correlation": ['visualization'],
+            "visualization": []
         }
         for node in self.nodes:
             connected_nodes_types = [connected_node.node_type for connected_node in self._get_connected_nodes(node) if connected_node is not None]
@@ -126,6 +129,11 @@ class CalculationStructure:
                 
                 correlation_node.calculate(connected_nodes, matrix_node)
 
+            # VISUALIZATIONS FROM MATRIX
+            visualization_nodes = self._find_node_by_type('visualization')
+            for visualization_node in visualization_nodes:
+                connected_nodes = self._get_connected_nodes(visualization_node, output=False)
 
+                visualization_node.generate(connected_nodes, matrix_node)
         response = self._create_response()
         return response

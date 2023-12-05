@@ -26,12 +26,14 @@ calculation_parser = get_request_calculation_parser()
 
 @api.route('/calculations/calculate')
 class CalculationResults(Resource):
-    @api.expect(calculation_parser)
-    @api.marshal_with(response_calculation_model, skip_none=True)
+    # @api.expect(calculation_parser)
+    # @api.marshal_with(response_calculation_model)
     def post(self):
         args = calculation_parser.parse_args()
         # ARGUMENTS
         locale = validate_locale(args['locale'])
+
+        print(args)
         data = args['data']
 
         try:

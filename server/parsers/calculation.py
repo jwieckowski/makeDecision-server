@@ -14,6 +14,7 @@ def get_request_calculation_parser():
             raise ValueError('Empty data object given')
 
         for node_idx, node in enumerate(data):
+            print(node)
             required_set = set(required_keys)
             keys_set = set(node.keys())
 
@@ -27,9 +28,8 @@ def get_request_calculation_parser():
 
             if len(union_set) > len(optional_set):
 
-                # TODO: return error from dict of errors
-                # show which index of node and what key is not allowed
-                raise ValueError('Not allowed keys used')
+                bad_keys = union_set.difference(optional_keys)
+                raise ValueError(f'Not allowed keys used: {list(bad_keys)}. Check the element at index {node_idx}')
             
         return data
 

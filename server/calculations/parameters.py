@@ -3,15 +3,14 @@
 import numpy as np
 import pymcdm
 import pyfdm
-from pymcdm.methods import COMET, TOPSIS, SPOTIS
+from pymcdm.methods import TOPSIS, SPOTIS
 from pymcdm.methods.comet_tools import MethodExpert, ESPExpert, CompromiseExpert
 
 # UTILS
 # from utils.errors import get_error_message
 
 # FOR ADDITIONAL PARAMETERS FOR FUZZY MCDA METHODS
-@staticmethod
-def get_fuzzy_parameters(locale, kwargs, check_normalization=False, check_distance=False, check_defuzzify=False, check_distance_1=False, check_distance_2=False):
+def get_fuzzy_parameters(kwargs):
     """
         Retrieves additional parameters for given fuzzy MCDA method
 
@@ -23,21 +22,6 @@ def get_fuzzy_parameters(locale, kwargs, check_normalization=False, check_distan
             kwargs: 
                 TODO
 
-            check_normalization : bool, default=False
-                Flag determining if normalization parameter should be retrieve
-
-            check_distance : bool, default=False
-                Flag determining if distance parameter should be retrieve
-            
-            check_defuzzify : bool, default=False
-                Flag determining if defuzzify parameter should be retrieve
-            
-            check_distance_1 : bool, default=False
-                Flag determining if distance_1 parameter should be retrieve
-            
-            check_distance_2 : bool, default=False
-                Flag determining if distance_2 parameter should be retrieve
-            
         Raises
         -------
             ValueError Exception
@@ -48,77 +32,22 @@ def get_fuzzy_parameters(locale, kwargs, check_normalization=False, check_distan
             dictionary
                 Dictionary with additional parameters for given fuzzy MCDA method
     """
-
-    
-    
-    kwargs = {}
+    init_kwargs = {}
 
     try:
+        for key, value in kwargs.items():
+            if key == 'matrix_id': continue
+            elif key == 'normalization':
+                init_kwargs[key] = getattr(pyfdm.methods.fuzzy_sets.tfn.normalizations, value)
+            elif key in ['distance', 'distance_1', 'distance_2']:
+                init_kwargs[key] = getattr(pyfdm.methods.fuzzy_sets.tfn.distances, value)
+            elif key == 'defuzzify':
+                init_kwargs[key] = getattr(pyfdm.methods.fuzzy_sets.tfn.defuzzifications, value)
 
-        pass
-        # # CHECK IF KEY IN AVAILABLE PARAMS
-        # additional_keys = list(params['additional'].keys())
-        # for key in additional_keys:
-        #     if key not in ['normalization', 'distance', 'defuzzify', 'distance_1', 'distance_2']:
-        #         raise ValueError(f'{get_error_message(locale, "additional-function-error")} {key}')
-        
-        # # ASSIGN MEASURES SELECTED BY USER TO DICTIONARY 
-        # if mcda_method == params['method'].upper() and params['extension'].lower() == 'fuzzy' and len(list(params['additional'].keys())) != 0:
-            
-        #     if check_normalization == True and 'normalization' in list(params['additional'].keys()):
-        #         try:
-        #             normalization = getattr(pyfdm.methods.fuzzy_sets.tfn.normalizations, params['additional']['normalization'])
-        #             kwargs['normalization'] = normalization
-        #         except:
-        #             raise ValueError(f'{params["additional"]["normalization"]} {get_error_message(locale, "fuzzy-normalization-method-error")}')
-
-        #     if check_distance == True and 'distance' in list(params['additional'].keys()):
-        #         try:
-        #             distance = getattr(pyfdm.methods.fuzzy_sets.tfn.distances, params['additional']['distance'])
-        #             kwargs['distance'] = distance
-        #         except:
-        #             raise ValueError(f'{params["additional"]["distance"]} {get_error_message(locale, "fuzzy-distance-method-error")}')
-
-        #     if check_defuzzify == True and 'defuzzify' in list(params['additional'].keys()):
-        #         try:
-        #             defuzzify = getattr(pyfdm.methods.fuzzy_sets.tfn.defuzzifications, params['additional']['defuzzify'])
-        #             kwargs['defuzzify'] = defuzzify
-        #         except:
-        #             raise ValueError(f'{params["additional"]["defuzzify"]} {get_error_message(locale, "fuzzy-defuzzification-method-error")}')
-
-        #     if check_distance_1 == True and 'distance_1' in list(params['additional'].keys()):
-        #         try:
-        #             distance_1 = getattr(pyfdm.methods.fuzzy_sets.tfn.distances, params['additional']['distance_1'])
-        #             kwargs['distance_1'] = distance_1
-        #         except:
-        #             raise ValueError(f'{params["additional"]["distance_1"]} {get_error_message(locale, "fuzzy-distance-method-error")}')
-
-        #     if check_distance_2 == True and 'distance_2' in list(params['additional'].keys()): 
-        #         try:
-        #             distance_2 = getattr(pyfdm.methods.fuzzy_sets.tfn.distances, params['additional']['distance_2'])
-        #             kwargs['distance_2'] = distance_2
-        #         except:
-        #             raise ValueError(f'{params["additional"]["distance_2"]} {get_error_message(locale, "fuzzy-distance-method-error")}')
-        
-        # # ASSIGN DEFAULT METRICS FOR MCDA METHODS IF NOT GIVEN BY USER
-        # elif mcda_method == params['method'].upper() and params['extension'].lower() == 'fuzzy':
-        #     if check_normalization == True:
-        #         kwargs['normalization'] = getattr(pyfdm.methods.fuzzy_sets.tfn.normalizations, fuzzy_methods_default_metrics[mcda_method.upper()]['normalization'])
-        #     if check_distance == True:
-        #         kwargs['distance'] = getattr(pyfdm.methods.fuzzy_sets.tfn.distances, fuzzy_methods_default_metrics[mcda_method.upper()]['distance'])
-        #     if check_defuzzify == True:
-        #         kwargs['defuzzify'] = getattr(pyfdm.methods.fuzzy_sets.tfn.defuzzifications, fuzzy_methods_default_metrics[mcda_method.upper()]['defuzzify'])
-        #     if check_distance_1 == True:
-        #         kwargs['distance_1'] = getattr(pyfdm.methods.fuzzy_sets.tfn.distances, fuzzy_methods_default_metrics[mcda_method.upper()]['distance_1'])
-        #     if check_distance_2 == True:
-        #         kwargs['distance_2'] = getattr(pyfdm.methods.fuzzy_sets.tfn.distances, fuzzy_methods_default_metrics[mcda_method.upper()]['distance_2'])
-
-        return kwargs
+        return init_kwargs
     except Exception as err:
         raise ValueError(err)
 
-
-# FOR ADDITIONAL PARAMETERS FOR CRISP MCDA METHODS
 def get_crisp_parameters(kwargs, matrix_node, criteria_weights):
     """
         Retrieves additional parameters for given crisp MCDA method
@@ -131,12 +60,6 @@ def get_crisp_parameters(kwargs, matrix_node, criteria_weights):
             kwargs:
                 TODO
 
-            check_normalization_function : bool, default=False
-                Flag determining if normalization parameter should be retrieve
-
-            check_preference_function : bool, default=False
-                Flag determining if preference function parameter should be retrieve
-            
         Raises
         -------
             ValueError Exception
@@ -253,6 +176,6 @@ def get_parameters(kwargs, extension, matrix_node, criteria_weights):
         if extension == 'crisp':
             init_kwargs = get_crisp_parameters(items[0], matrix_node, criteria_weights)
         elif extension == 'fuzzy':
-            pass
+            init_kwargs = get_fuzzy_parameters(items[0])
 
     return init_kwargs
