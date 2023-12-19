@@ -2,7 +2,7 @@
 
 from abc import ABC
 import numpy as np
-from pymcdm.helpers import correlation_matrix
+from pymcdm.helpers import correlation_matrix, rrankdata
 
 # CONST
 from methods import weights_methods, mcda_methods, correlation_methods
@@ -35,7 +35,7 @@ class MatrixNode(Node):
         
         super().__init__(id, node_type, extension, connections_from, connections_to, position_x, position_y)
 
-        self.matrix = np.array(matrix)
+        self.matrix = np.array(matrix, dtype=float)
         self.method = method.upper()
         self.criteria_types = np.array(criteria_types)
 
@@ -68,14 +68,20 @@ class WeightsNode(Node):
         if self.method != 'INPUT':
             self.method_obj = weights_methods[self.method][self.extension]
             
+            print('matrix')
+            print(matrix_node.matrix)
             kwargs = {
                 'matrix': matrix_node.matrix
             }
 
+            print('criteria types')
+            print(matrix_node.criteria_types)
             if self.method in ['MEREC', 'CILOS', 'IDOCRIW']:
                 kwargs = kwargs | {"types": matrix_node.criteria_types}
             
             weights = np.round(self.method_obj(**kwargs), precision)
+            print('weights')
+            print(weights)
         else:
             weights = self.weights
 
@@ -109,10 +115,28 @@ class MethodNode(Node):
 
     def calculate(self, matrix_node, weights_node, precision=3):
 
-        criteria_weights = weights_node.calculate(matrix_node)
-        init_kwargs = get_parameters(self.kwargs, self.extension, matrix_node, criteria_weights)
-        method_obj = mcda_methods[self.method][self.extension](**init_kwargs)
-        pref = np.round(method_obj(matrix_node.matrix, criteria_weights, matrix_node.criteria_types), precision)
+        if self.method == 'INPUT':
+            method_obj = None
+            weights_node = None
+            pref = list(self.kwargs[0]['preferences'])
+            if any([p < 0 or p > 1 for p in pref]):
+                raise ValueError(f'Input preferences outside range [0, 1]')
+        else:
+            print('calculate method mcda')
+            criteria_weights = weights_node.calculate(matrix_node)
+            print('criteria_weights')
+            print(criteria_weights)
+            print('method kwargs')
+            print(self.kwargs)
+            init_kwargs = get_parameters(self.kwargs, self.extension, matrix_node, criteria_weights)
+            print('init kwargs')
+            print(init_kwargs)
+            method_obj = mcda_methods[self.method][self.extension](**init_kwargs)
+            print('method object')
+            print(method_obj)
+            pref = np.round(method_obj(matrix_node.matrix, criteria_weights, matrix_node.criteria_types), precision)
+            print('preference')
+            print(pref)
 
         self.calculation_data.append({
             "matrix_id": matrix_node.id,
@@ -128,10 +152,13 @@ class MethodNode(Node):
 
         # TODO: handle if error
         data = [data for data in self.calculation_data if data['matrix_id'] == matrix_id][0]
-        if self.extension == 'crisp':
-            ranking = data['method_obj'].rank(data['preference'])
-        elif self.extension == 'fuzzy':
-            ranking = data['method_obj'].rank()
+        if data['method_obj'] == None:
+            ranking = rrankdata(data['preference'])
+        else:
+            if self.extension == 'crisp':
+                ranking = data['method_obj'].rank(data['preference']).tolist()
+            elif self.extension == 'fuzzy':
+                ranking = data['method_obj'].rank().tolist()
         
         return ranking, data
 
@@ -206,6 +233,7 @@ class CorrelationNode(Node):
                     if data['matrix_id'] == matrix_id:
                         corr_data.append(data[data_field])
                         if data_field == 'ranking':
+                            print(data['method'])
                             corr_labels.append(data['method'])
                         else:
                             corr_labels.append(node.method)
@@ -259,7 +287,10 @@ class VisualizationNode(Node):
         for node in nodes:
             for data in node.calculation_data:
                 if data['matrix_id'] == matrix_node.id:
-                    calculation_data.append([data, node.method])
+                    if isinstance(node, RankingNode):
+                        calculation_data.append([data, data['method']]) # TODO add params from kwarg to label
+                    else:
+                        calculation_data.append([data, node.method])
 
         graph_data, graph_labels = [], []
         if node_type == 'weights':

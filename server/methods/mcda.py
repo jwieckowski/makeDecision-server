@@ -28,6 +28,7 @@ mcda_methods = {
     'ERVD': {
         'crisp': crisp_methods.ERVD,
     },
+    'INPUT': {},
     'MABAC': {
         'crisp': crisp_methods.MABAC,
         'fuzzy': fuzzy_methods.fMABAC

@@ -5,7 +5,12 @@ def get_dictionary_model(api):
         "id": fields.Integer(description='Element id'),
         "method": fields.String(description="Name of technique used in Multi-Criteria Decision Analysis method for additional measures"),
         "parameter": fields.String(description='Name of parameter used in evaluations package in Python'),
-        "default": fields.String(description='Default technique used in Multi-Criteria Decision Analysis method calculation for given parameter')
+        "default": fields.String(description='Default technique used in Multi-Criteria Decision Analysis method calculation for given parameter'),
+        "type": fields.String(description='Type of parameters to represent graphically in GUI'),
+        "min": fields.Float(description='Optional, minimum acceptable value of types (input, array)', skip_none=True),
+        "max": fields.Float(description='Optional, maximum acceptable value of types (input, array)', skip_none=True),
+        "dimension": fields.Integer(description='Optional, dimension of array type', skip_none=True),
+        "required": fields.Boolean(description='Optional, information about array data required', skip_none=True)
     })
 
     dictionary_additional_data_model = api.model("AdditionalData", {

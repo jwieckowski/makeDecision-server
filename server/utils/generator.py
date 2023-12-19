@@ -111,3 +111,111 @@ def generate_random_criteria_types(locale, criteria):
 
     types_values = np.array([-1, 1])
     return np.random.choice(types_values, criteria)
+
+
+def generate_method_items(method: str, data: dict, locale: str) -> list:
+    """
+        Generate list of items that could be used for the given method as a configuration parameters.
+
+        Parameters:
+        -----------
+        method : str
+            The name of the MCDA method for which to generate items.
+        
+        data : dict
+            The dictionary with functionalities available in the application
+            
+        locale : str
+            User application language.
+
+        Returns:
+        --------
+        list
+            A list containing dictionaries with information about randomly generated criteria types for the given method.
+
+        Raises:
+        -------
+        ValueError
+            If the specified method is not found in the dictionary.
+
+        Example:
+        --------
+        >>> generate_method_items("example_method", "en")
+        [
+            {
+                "extension": "extension_value",
+                "label": "param_name_1",
+                "type": "param_type_1",
+                "parameter": "param_value_1",
+                "default": "default_value_1",
+                "items": [{"value": "item_value_1", "label": "item_label_1"}, ...]
+            },
+            ...
+        ]
+
+        Note:
+        -----
+        Different parameters could be used for different methods, since some of them uses normalization, other use a distance metrics, etc.
+        This function produces a list of methods that could be used for the given parameter for the given method.
+    """
+
+    try:
+        methods = [d for d in data if d['type'] == 'method'][0]
+        methods_kwargs = [m for m in methods['data'] if m['name'].lower() == method.lower()][0]['kwargs']
+    except:
+        raise ValueError(f'{param["method"]} method not found')
+
+    kwargs_list_items = []
+    for mkw in methods_kwargs:
+        for param in mkw['data']:
+            item = {
+                    "extension": mkw['extension'],
+                    "label": param['method'],
+                    "type": param['type'],
+                    "parameter": param['parameter'],
+                    "default": param['default'],
+                }
+
+            items = None
+            # param['type']: select, input, array, bool
+            if param['type'] == 'select':
+                param_method = param['method']
+                if param_method == 'expert function':
+                    param_method = 'expert_function'
+                elif param_method == 'preference function':
+                    param_method = 'preference_function'
+
+                try:
+                    param_method = [d for d in data if param_method.lower() == d['type'].lower()][0]
+                    param_method_list = [p for p in param_method['data'] if mkw['extension'] in p['extensions']]
+                    
+                    items = [{"value": item['functionName'] if 'functionName' in list(item.keys()) else item['name'], "label": item['name']} for item in param_method_list]
+                except:
+                    raise ValueError(f'Parameters of type "{param_method}" for {param["method"]} method not found')
+
+            elif param['type'] == 'bool': 
+                items = [
+                    {
+                        'value': "false",
+                        "label": "False"
+                    },
+                    {
+                        'value': "true",
+                        "label": "True"
+                    },
+                ]
+
+            if items is not None:
+                item = item | {
+                    "items": items
+                }
+
+            for additional_props in ['min', 'max', 'dimension', 'required']:
+                if additional_props in list(param.keys()):
+                    item = item | {
+                        additional_props: param[additional_props]
+                    }
+
+            kwargs_list_items.append(item)
+
+    return kwargs_list_items

@@ -83,6 +83,8 @@ class CalculationStructure:
 
         # first step - get matrices
         matrix_nodes = self._find_node_by_type('matrix')
+        print('Matrix nodes')
+        print(matrix_nodes)
 
         # second step - get weights for matrices
         for matrix_node in matrix_nodes:
@@ -92,6 +94,8 @@ class CalculationStructure:
             if len(weights_nodes) == 0:
                 raise ValueError(f'No blocks were connected to matrix with ID {matrix_node.id}')
 
+            print('Weights nodes')
+            print(weights_nodes)
 
             for weights_node_idx, weights_node in enumerate(weights_nodes):
                 if weights_node is None:
@@ -105,6 +109,9 @@ class CalculationStructure:
                 
                 if len(methods_nodes) == 0:
                     raise ValueError(f'No blocks were connected to weights with ID {weights_node.id}')
+
+                print('Methods nodes')
+                print(methods_nodes)
 
                 # third step - calculate preferences
                 for method_node_idx, method_node in enumerate(methods_nodes):

@@ -32,6 +32,7 @@ def get_response_calculation_model(api):
         'bounds': fields.List(fields.List(fields.Raw()), description=''),
         "ref_ideal": fields.List(fields.Raw(), description=''),
         'esp': fields.List(fields.List(fields.Raw()), description=''),
+        'preference': fields.List(fields.Float(), description='')
     })
 
     data_item = api.model('ResponseNodeData', {

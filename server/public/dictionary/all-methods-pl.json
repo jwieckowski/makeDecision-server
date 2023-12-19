@@ -142,7 +142,7 @@
         "abbreviation": "Additive Ratio Assessment",
         "extensions": ["crisp", "fuzzy"],
         "order": "descending",
-        "additional": [
+        "kwargs": [
           {
             "extension": "crisp",
             "data": [
@@ -150,7 +150,8 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization_function",
-                "default": "sum_normalization"
+                "default": "sum_normalization",
+                "type": "select"
               }
             ]
           },
@@ -161,7 +162,8 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization",
-                "default": "sum_normalization"
+                "default": "sum_normalization",
+                "type": "select"
               }
             ]
           }
@@ -176,7 +178,7 @@
         "abbreviation": "Combined Compromise Solution",
         "extensions": ["crisp"],
         "order": "descending",
-        "additional": [
+        "kwargs": [
           {
             "extension": "crisp",
             "data": [
@@ -184,7 +186,8 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization_function",
-                "default": "minmax_normalization"
+                "default": "minmax_normalization",
+                "type": "select"
               }
             ]
           }
@@ -199,7 +202,7 @@
         "abbreviation": "Combinative Distance-based Assessment",
         "extensions": ["crisp", "fuzzy"],
         "order": "descending",
-        "additional": [
+        "kwargs": [
           {
             "extension": "crisp",
             "data": [
@@ -207,7 +210,8 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization_function",
-                "default": "linear_normalization"
+                "default": "linear_normalization",
+                "type": "select"
               }
             ]
           },
@@ -218,19 +222,22 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization",
-                "default": "max_normalization"
+                "default": "max_normalization",
+                "type": "select"
               },
               {
                 "id": 2,
                 "method": "distance",
                 "parameter": "distance_1",
-                "default": "euclidean_distance"
+                "default": "euclidean_distance",
+                "type": "select"
               },
               {
                 "id": 3,
                 "method": "distance",
                 "parameter": "distance_2",
-                "default": "hamming_distance"
+                "default": "hamming_distance",
+                "type": "select"
               }
             ]
           }
@@ -245,21 +252,26 @@
         "abbreviation": "Characteristic Objects Method",
         "extensions": ["crisp"],
         "order": "descending",
-        "additional": [
+        "kwargs": [
           {
             "extension": "crisp",
             "data": [
               {
                 "id": 1,
-                "method": "characteristic values",
-                "parameter": "cvalues",
-                "default": ""
+                "method": "expert function",
+                "parameter": "expert_function",
+                "default": "method_expert",
+                "type": "select"
               },
               {
                 "id": 2,
-                "method": "expert function",
-                "parameter": "expert_function",
-                "default": "method_expert"
+                "method": "characteristic values",
+                "parameter": "cvalues",
+                "default": "",
+                "type": "array",
+                "min": 0,
+                "dimension": 1,
+                "required": false
               }
             ]
           }
@@ -274,7 +286,7 @@
         "abbreviation": "Complex Proportional Assessment",
         "extensions": ["crisp", "fuzzy"],
         "order": "descending",
-        "additional": [
+        "kwargs": [
           {
             "extension": "fuzzy",
             "data": [
@@ -282,7 +294,8 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization",
-                "default": "saw_normalization"
+                "default": "saw_normalization",
+                "type": "select"
               }
             ]
           }
@@ -297,7 +310,7 @@
         "abbreviation": "Evaluation based on Distance from Average Solution",
         "extensions": ["crisp", "fuzzy"],
         "order": "descending",
-        "additional": [
+        "kwargs": [
           {
             "extension": "fuzzy",
             "data": [
@@ -305,7 +318,8 @@
                 "id": 1,
                 "method": "defuzzification",
                 "parameter": "defuzzify",
-                "default": "mean_defuzzification"
+                "default": "mean_defuzzification",
+                "type": "select"
               }
             ]
           }
@@ -320,27 +334,34 @@
         "abbreviation": "Election based on Relative Value Distances method",
         "extensions": ["crisp"],
         "order": "descending",
-        "additional": [
+        "kwargs": [
           {
             "extension": "crisp",
             "data": [
               {
                 "id": 1,
-                "method": "reference points",
-                "parameter": "ref_point",
-                "default": ""
+                "method": "lambda",
+                "parameter": "lam",
+                "default": "2.25",
+                "type": "input",
+                "min": 0.1
               },
               {
                 "id": 2,
-                "method": "lambda",
-                "parameter": "lam",
-                "default": "2.25"
+                "method": "alpha",
+                "parameter": "alpha",
+                "default": "0.88",
+                "type": "input",
+                "min": 0.1
               },
               {
                 "id": 3,
-                "method": "alpha",
-                "parameter": "alpha",
-                "default": "0.88"
+                "method": "reference points",
+                "parameter": "ref_point",
+                "default": "",
+                "type": "array",
+                "dimension": 1,
+                "required": false
               }
             ]
           }
@@ -351,11 +372,22 @@
       },
       {
         "id": 8,
+        "name": "INPUT",
+        "abbreviation": "",
+        "extensions": ["crisp"],
+        "order": "descending",
+        "kwargs": [],
+        "inputConnections": [],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": "Preferencje podane przez użytkownika"
+      },
+      {
+        "id": 9,
         "name": "MABAC",
         "abbreviation": "Multi-Attributive Border Approximation area Comparison",
         "extensions": ["crisp", "fuzzy"],
         "order": "descending",
-        "additional": [
+        "kwargs": [
           {
             "extension": "crisp",
             "data": [
@@ -363,7 +395,8 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization_function",
-                "default": "minmax_normalization"
+                "default": "minmax_normalization",
+                "type": "select"
               }
             ]
           },
@@ -374,53 +407,15 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization",
-                "default": "minmax_normalization"
+                "default": "minmax_normalization",
+                "type": "select"
               },
               {
                 "id": 2,
                 "method": "defuzzification",
                 "parameter": "defuzzify",
-                "default": "mean_defuzzification"
-              }
-            ]
-          }
-        ],
-        "inputConnections": ["weights"],
-        "outputConnections": ["visualization", "ranking", "correlation"],
-        "hints": ""
-      },
-      {
-        "id": 9,
-        "name": "MAIRCA",
-        "abbreviation": "Multi-Attributive Ideal-Real Comparative Analysis",
-        "extensions": ["crisp", "fuzzy"],
-        "order": "descending",
-        "additional": [
-          {
-            "extension": "crisp",
-            "data": [
-              {
-                "id": 1,
-                "method": "normalization",
-                "parameter": "normalization_function",
-                "default": "minmax_normalization"
-              }
-            ]
-          },
-          {
-            "extension": "fuzzy",
-            "data": [
-              {
-                "id": 1,
-                "method": "normalization",
-                "parameter": "normalization",
-                "default": "vector_normalization"
-              },
-              {
-                "id": 2,
-                "method": "distance",
-                "parameter": "distance",
-                "default": "vertex_distance"
+                "default": "mean_defuzzification",
+                "type": "select"
               }
             ]
           }
@@ -431,11 +426,11 @@
       },
       {
         "id": 10,
-        "name": "MARCOS",
-        "abbreviation": "Measurement Alternatives and Ranking according to COmpromise Solution",
-        "extensions": ["crisp"],
+        "name": "MAIRCA",
+        "abbreviation": "Multi-Attributive Ideal-Real Comparative Analysis",
+        "extensions": ["crisp", "fuzzy"],
         "order": "descending",
-        "additional": [
+        "kwargs": [
           {
             "extension": "crisp",
             "data": [
@@ -443,7 +438,27 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization_function",
-                "default": "sum_normalization"
+                "default": "minmax_normalization",
+                "type": "select"
+              }
+            ]
+          },
+          {
+            "extension": "fuzzy",
+            "data": [
+              {
+                "id": 1,
+                "method": "normalization",
+                "parameter": "normalization",
+                "default": "vector_normalization",
+                "type": "select"
+              },
+              {
+                "id": 2,
+                "method": "distance",
+                "parameter": "distance",
+                "default": "vertex_distance",
+                "type": "select"
               }
             ]
           }
@@ -454,19 +469,20 @@
       },
       {
         "id": 11,
-        "name": "MOORA",
-        "abbreviation": "Multi-Objective Optimization Method by Ratio Analysis",
-        "extensions": ["crisp", "fuzzy"],
+        "name": "MARCOS",
+        "abbreviation": "Measurement Alternatives and Ranking according to COmpromise Solution",
+        "extensions": ["crisp"],
         "order": "descending",
-        "additional": [
+        "kwargs": [
           {
-            "extension": "fuzzy",
+            "extension": "crisp",
             "data": [
               {
                 "id": 1,
                 "method": "normalization",
-                "parameter": "normalization",
-                "default": "vector_normalization"
+                "parameter": "normalization_function",
+                "default": "sum_normalization",
+                "type": "select"
               }
             ]
           }
@@ -477,30 +493,20 @@
       },
       {
         "id": 12,
-        "name": "OCRA",
-        "abbreviation": "Operational Competitiveness Ratings",
+        "name": "MOORA",
+        "abbreviation": "Multi-Objective Optimization Method by Ratio Analysis",
         "extensions": ["crisp", "fuzzy"],
         "order": "descending",
-        "additional": [
-          {
-            "extension": "crisp",
-            "data": [
-              {
-                "id": 1,
-                "method": "normalization",
-                "parameter": "normalization_function",
-                "default": "sum_normalization"
-              }
-            ]
-          },
+        "kwargs": [
           {
             "extension": "fuzzy",
             "data": [
               {
                 "id": 1,
-                "method": "defuzzification",
-                "parameter": "defuzzify",
-                "default": "mean_defuzzification"
+                "method": "normalization",
+                "parameter": "normalization",
+                "default": "vector_normalization",
+                "type": "select"
               }
             ]
           }
@@ -511,127 +517,11 @@
       },
       {
         "id": 13,
-        "name": "PROBID",
-        "abbreviation": "Preference Ranking on the Basis of Ideal-Average Distance Method",
-        "extensions": ["crisp"],
-        "order": "descending",
-        "additional": [
-          {
-            "extension": "crisp",
-            "data": [
-              {
-                "id": 1,
-                "method": "short PROBID",
-                "parameter": "sPROBID",
-                "default": "false"
-              }
-            ]
-          }
-        ],
-        "inputConnections": ["weights"],
-        "outputConnections": ["visualization", "ranking", "correlation"],
-        "hints": ""
-      },
-      {
-        "id": 14,
-        "name": "PROMETHEE",
-        "abbreviation": "Preference Ranking Organization METHod for Enrichment of Evaluations",
-        "extensions": ["crisp"],
-        "order": "descending",
-        "additional": [
-          {
-            "extension": "crisp",
-            "data": [
-              {
-                "id": 1,
-                "method": "preference function",
-                "parameter": "preference_function",
-                "default": "usual"
-              },
-              {
-                "id": 2,
-                "method": "p",
-                "parameter": "p",
-                "default": ""
-              },
-              {
-                "id": 2,
-                "method": "q",
-                "parameter": "q",
-                "default": ""
-              }
-            ]
-          }
-        ],
-        "inputConnections": ["weights"],
-        "outputConnections": ["visualization", "ranking", "correlation"],
-        "hints": ""
-      },
-      {
-        "id": 15,
-        "name": "RIM",
-        "abbreviation": "Reference Ideal Method",
-        "extensions": ["crisp"],
-        "order": "descending",
-        "additional": [
-          {
-            "extension": "crisp",
-            "data": [
-              {
-                "id": 1,
-                "method": "bounds",
-                "parameter": "bounds",
-                "default": ""
-              },
-              {
-                "id": 2,
-                "method": "reference ideal",
-                "parameter": "ref_ideal",
-                "default": ""
-              }
-            ]
-          }
-        ],
-        "inputConnections": ["weights"],
-        "outputConnections": ["visualization", "ranking", "correlation"],
-        "hints": ""
-      },
-      {
-        "id": 16,
-        "name": "SPOTIS",
-        "abbreviation": "Stable Preference Ordering Towards Ideal Solution",
-        "extensions": ["crisp"],
-        "order": "descending",
-        "additional": [
-          {
-            "extension": "crisp",
-            "data": [
-              {
-                "id": 1,
-                "method": "bounds",
-                "parameter": "bounds",
-                "default": ""
-              },
-              {
-                "id": 2,
-                "method": "expected solution points",
-                "parameter": "esp",
-                "default": ""
-              }
-            ]
-          }
-        ],
-        "inputConnections": ["weights"],
-        "outputConnections": ["visualization", "ranking", "correlation"],
-        "hints": ""
-      },
-      {
-        "id": 17,
-        "name": "TOPSIS",
-        "abbreviation": "Technique for the Order of Prioritisation by Similarity to Ideal Solution",
+        "name": "OCRA",
+        "abbreviation": "Operational Competitiveness Ratings",
         "extensions": ["crisp", "fuzzy"],
         "order": "descending",
-        "additional": [
+        "kwargs": [
           {
             "extension": "crisp",
             "data": [
@@ -639,53 +529,8 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization_function",
-                "default": "minmax_normalization"
-              }
-            ]
-          },
-          {
-            "extension": "fuzzy",
-            "data": [
-              {
-                "id": 1,
-                "method": "normalization",
-                "parameter": "normalization",
-                "default": "linear_normalization"
-              },
-              {
-                "id": 2,
-                "method": "distance",
-                "parameter": "distance",
-                "default": "vertex_distance"
-              }
-            ]
-          }
-        ],
-        "inputConnections": ["weights"],
-        "outputConnections": ["visualization", "ranking", "correlation"],
-        "hints": ""
-      },
-      {
-        "id": 18,
-        "name": "VIKOR",
-        "abbreviation": "VIseKriterijumska Optimizacija I Kompromisno Resenje",
-        "extensions": ["crisp", "fuzzy"],
-        "order": "ascending",
-        "additional": [
-          {
-            "extension": "crisp",
-            "data": [
-              {
-                "id": 1,
-                "method": "normalization",
-                "parameter": "normalization_function",
-                "default": "sum_normalization"
-              },
-              {
-                "id": 2,
-                "method": "v",
-                "parameter": "v",
-                "default": "0.5"
+                "default": "sum_normalization",
+                "type": "select"
               }
             ]
           },
@@ -696,36 +541,8 @@
                 "id": 1,
                 "method": "defuzzification",
                 "parameter": "defuzzify",
-                "default": "mean_area_defuzzification"
-              },
-              {
-                "id": 2,
-                "method": "v",
-                "parameter": "v",
-                "default": "0.5"
-              }
-            ]
-          }
-        ],
-        "inputConnections": ["weights"],
-        "outputConnections": ["visualization", "ranking", "correlation"],
-        "hints": "Zwraca wyniki dla podejścia 'Q'"
-      },
-      {
-        "id": 19,
-        "name": "WASPAS",
-        "abbreviation": "Weighted Aggregated Sum Product ASSessment",
-        "extensions": ["crisp"],
-        "order": "descending",
-        "additional": [
-          {
-            "extension": "crisp",
-            "data": [
-              {
-                "id": 1,
-                "method": "normalization",
-                "parameter": "normalization_function",
-                "default": "linear_normalization"
+                "default": "mean_defuzzification",
+                "type": "select"
               }
             ]
           }
@@ -735,12 +552,150 @@
         "hints": ""
       },
       {
-        "id": 20,
-        "name": "WPM",
-        "abbreviation": "Weighted Product Model",
+        "id": 14,
+        "name": "PROBID",
+        "abbreviation": "Preference Ranking on the Basis of Ideal-Average Distance Method",
         "extensions": ["crisp"],
         "order": "descending",
-        "additional": [
+        "kwargs": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "short PROBID",
+                "parameter": "sPROBID",
+                "default": "false",
+                "type": "bool"
+              }
+            ]
+          }
+        ],
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
+      },
+      {
+        "id": 15,
+        "name": "PROMETHEE",
+        "abbreviation": "Preference Ranking Organization METHod for Enrichment of Evaluations",
+        "extensions": ["crisp"],
+        "order": "descending",
+        "kwargs": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "preference function",
+                "parameter": "preference_function",
+                "default": "usual",
+                "type": "select"
+              },
+              {
+                "id": 2,
+                "method": "p",
+                "parameter": "p",
+                "default": "",
+                "type": "array",
+                "min": 0.1,
+                "dimension": 1,
+                "required": false
+              },
+              {
+                "id": 2,
+                "method": "q",
+                "parameter": "q",
+                "default": "",
+                "type": "array",
+                "min": 0.1,
+                "dimension": 1,
+                "required": false
+              }
+            ]
+          }
+        ],
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
+      },
+      {
+        "id": 16,
+        "name": "RIM",
+        "abbreviation": "Reference Ideal Method",
+        "extensions": ["crisp"],
+        "order": "descending",
+        "kwargs": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "bounds",
+                "parameter": "bounds",
+                "default": "",
+                "type": "array",
+                "dimension": 2,
+                "required": true
+              },
+              {
+                "id": 2,
+                "method": "reference ideal",
+                "parameter": "ref_ideal",
+                "default": "",
+                "type": "array",
+                "dimension": 1,
+                "required": false
+              }
+            ]
+          }
+        ],
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
+      },
+      {
+        "id": 17,
+        "name": "SPOTIS",
+        "abbreviation": "Stable Preference Ordering Towards Ideal Solution",
+        "extensions": ["crisp"],
+        "order": "descending",
+        "kwargs": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "bounds",
+                "parameter": "bounds",
+                "default": "",
+                "type": "array",
+                "dimension": 2,
+                "required": true
+              },
+              {
+                "id": 2,
+                "method": "expected solution points",
+                "parameter": "esp",
+                "default": "",
+                "type": "array",
+                "dimension": 1,
+                "required": false
+              }
+            ]
+          }
+        ],
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
+      },
+      {
+        "id": 18,
+        "name": "TOPSIS",
+        "abbreviation": "Technique for the Order of Prioritisation by Similarity to Ideal Solution",
+        "extensions": ["crisp", "fuzzy"],
+        "order": "descending",
+        "kwargs": [
           {
             "extension": "crisp",
             "data": [
@@ -748,7 +703,105 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization_function",
-                "default": "sum_normalization"
+                "default": "minmax_normalization",
+                "type": "select"
+              }
+            ]
+          },
+          {
+            "extension": "fuzzy",
+            "data": [
+              {
+                "id": 1,
+                "method": "normalization",
+                "parameter": "normalization",
+                "default": "linear_normalization",
+                "type": "select"
+              },
+              {
+                "id": 2,
+                "method": "distance",
+                "parameter": "distance",
+                "default": "vertex_distance",
+                "type": "select"
+              }
+            ]
+          }
+        ],
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
+      },
+      {
+        "id": 19,
+        "name": "VIKOR",
+        "abbreviation": "VIseKriterijumska Optimizacija I Kompromisno Resenje",
+        "extensions": ["crisp", "fuzzy"],
+        "order": "ascending",
+        "kwargs": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "normalization",
+                "parameter": "normalization_function",
+                "default": "sum_normalization",
+                "type": "select"
+              },
+              {
+                "id": 2,
+                "method": "v",
+                "parameter": "v",
+                "default": "0.5",
+                "type": "input",
+                "min": 0,
+                "max": 1
+              }
+            ]
+          },
+          {
+            "extension": "fuzzy",
+            "data": [
+              {
+                "id": 1,
+                "method": "defuzzification",
+                "parameter": "defuzzify",
+                "default": "mean_area_defuzzification",
+                "type": "select"
+              },
+              {
+                "id": 2,
+                "method": "v",
+                "parameter": "v",
+                "default": "0.5",
+                "type": "input",
+                "min": 0,
+                "max": 1
+              }
+            ]
+          }
+        ],
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": "Zwraca wyniki dla podejścia 'Q'"
+      },
+      {
+        "id": 20,
+        "name": "WASPAS",
+        "abbreviation": "Weighted Aggregated Sum Product ASSessment",
+        "extensions": ["crisp"],
+        "order": "descending",
+        "kwargs": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "normalization",
+                "parameter": "normalization_function",
+                "default": "linear_normalization",
+                "type": "select"
               }
             ]
           }
@@ -759,11 +812,11 @@
       },
       {
         "id": 21,
-        "name": "WSM",
-        "abbreviation": "Weighted Sum Model",
+        "name": "WPM",
+        "abbreviation": "Weighted Product Model",
         "extensions": ["crisp"],
         "order": "descending",
-        "additional": [
+        "kwargs": [
           {
             "extension": "crisp",
             "data": [
@@ -771,7 +824,32 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization_function",
-                "default": "sum_normalization"
+                "default": "sum_normalization",
+                "type": "select"
+              }
+            ]
+          }
+        ],
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
+      },
+      {
+        "id": 22,
+        "name": "WSM",
+        "abbreviation": "Weighted Sum Model",
+        "extensions": ["crisp"],
+        "order": "descending",
+        "kwargs": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "normalization",
+                "parameter": "normalization_function",
+                "default": "sum_normalization",
+                "type": "select"
               }
             ]
           }
@@ -1016,6 +1094,14 @@
     "data": [
       {
         "id": 1,
+        "name": "Input",
+        "extensions": ["crisp"],
+        "inputConnections": [],
+        "outputConnections": ["visualization"],
+        "hints": "Ranking pozycyjny od użytkownika"
+      },
+      {
+        "id": 2,
         "name": "Rank",
         "extensions": ["crisp", "fuzzy"],
         "inputConnections": ["method"],
@@ -1190,6 +1276,7 @@
       {
         "id": 1,
         "name": "Method expert",
+        "functionName": "method_expert",
         "extensions": ["crisp"],
         "inputConnections": [],
         "outputConnections": [],
@@ -1198,6 +1285,7 @@
       {
         "id": 2,
         "name": "ESP expert",
+        "functionName": "esp_expert",
         "extensions": ["crisp"],
         "inputConnections": [],
         "outputConnections": [],
@@ -1206,6 +1294,7 @@
       {
         "id": 3,
         "name": "Compromise expert",
+        "functionName": "compromise_expert",
         "extensions": ["crisp"],
         "inputConnections": [],
         "outputConnections": [],

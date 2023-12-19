@@ -7,7 +7,7 @@ correlation_methods = {
     'PEARSON': corr.pearson,
     'SPEARMAN': corr.spearman,
     'WEIGHTED SPEARMAN': corr.weighted_spearman,
-    'WS RANK SIMILARITY': corr.rank_similarity_coef,
+    'WS RANK': corr.rank_similarity_coef,
     'WEIGHTS SIMILARITY': corr.wsc,
     'WEIGHTS SIMILARITY 2': corr.wsc2
 }

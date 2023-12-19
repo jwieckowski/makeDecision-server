@@ -60,4 +60,9 @@ def get_request_calculation_parser():
     
     return parser
 
+def get_kwargs_items_parser():
+    parser = reqparse.RequestParser()
+    parser.add_argument('locale', location='headers', required=True)
+    parser.add_argument('method', type=str, location='json', required=True)
 
+    return parser
