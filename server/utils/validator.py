@@ -130,15 +130,18 @@ def validate_user_weights(locale: str, weights_node: object, extension: str):
                 If weights data is badly formatted regarding given extension, or do not meet the requirements, the exception is thrown
     """
     
-
     if extension == 'crisp':
         # crisp weights
         if weights_node.weights.ndim == 1 and np.round(np.sum(weights_node.weights), 4) != 1:
-            raise ValueError(f'{get_error_message(locale, "weights-sum-error")}. Check the block with ID {weights_node.id}')
+            raise ValueError(f'{get_error_message(locale, "weights-sum-error")} (ID {weights_node.id})')
     else:
-        # fuzzy weights
-        if weights_node.weights.ndim != 2 or weights_node.weights.shape[1] != 3:
-            raise ValueError(f'{get_error_message(locale, "fuzzy-weights-error")}. Check the block with ID {weights_node.id}')
+        # crisp weights
+        if weights_node.weights.ndim == 1 and np.round(np.sum(weights_node.weights), 4) != 1:
+            raise ValueError(f'{get_error_message(locale, "weights-sum-error")} (ID {weights_node.id})')
+        elif weights_node.weights.ndim != 1:
+            # fuzzy weights
+            if weights_node.weights.ndim != 2 or weights_node.weights.shape[1] != 3:
+                raise ValueError(f'{get_error_message(locale, "fuzzy-weights-error")} (ID {weights_node.id})')
 
 def validate_types(locale: str, types: np.ndarray, unique_values: bool =False):
     """

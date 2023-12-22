@@ -262,16 +262,6 @@
                 "parameter": "expert_function",
                 "default": "method_expert",
                 "type": "select"
-              },
-              {
-                "id": 2,
-                "method": "characteristic values",
-                "parameter": "cvalues",
-                "default": "",
-                "type": "array",
-                "min": 0,
-                "dimension": 1,
-                "required": false
               }
             ]
           }

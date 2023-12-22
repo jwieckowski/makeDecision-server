@@ -107,27 +107,31 @@ class CalculationStructure:
                 
                 methods_nodes = self._get_connected_nodes(weights_node, node_type='method')
                 
-                if len(methods_nodes) == 0:
-                    raise ValueError(f'No blocks were connected to weights with ID {weights_node.id}')
+                # if len(methods_nodes) == 0:
+                #     raise ValueError(f'No blocks were connected to weights with ID {weights_node.id}')
 
                 print('Methods nodes')
                 print(methods_nodes)
 
-                # third step - calculate preferences
-                for method_node_idx, method_node in enumerate(methods_nodes):
-                    if method_node is None:
-                        raise ValueError(f'Method block with ID {weights_node.connections_to[method_node_idx]} not found')
-                    
-                    method_node.calculate(matrix_node, weights_node)
-
-                    # fourth.one step - calculate ranking
-                    ranking_nodes = self._get_connected_nodes(method_node, node_type='ranking')
-
-                    for ranking_node_idx, ranking_node in enumerate(ranking_nodes):
-                        if ranking_node is None:
-                            raise ValueError(f'Ranking block with ID {matrix_node.connections_to[ranking_node_idx]} not found')
+                # only weights given
+                if len(methods_nodes) == 0:
+                    weights_node.calculate(matrix_node)
+                else:
+                    # third step - calculate preferences
+                    for method_node_idx, method_node in enumerate(methods_nodes):
+                        if method_node is None:
+                            raise ValueError(f'Method block with ID {weights_node.connections_to[method_node_idx]} not found')
                         
-                        ranking_node.calculate(method_node, matrix_node)
+                        method_node.calculate(matrix_node, weights_node)
+
+                        # fourth.one step - calculate ranking
+                        ranking_nodes = self._get_connected_nodes(method_node, node_type='ranking')
+
+                        for ranking_node_idx, ranking_node in enumerate(ranking_nodes):
+                            if ranking_node is None:
+                                raise ValueError(f'Ranking block with ID {matrix_node.connections_to[ranking_node_idx]} not found')
+                            
+                            ranking_node.calculate(method_node, matrix_node)
                         
             # CORRELATION FROM MATRIX
             correlation_nodes = self._find_node_by_type('correlation')

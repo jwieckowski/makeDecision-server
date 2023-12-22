@@ -35,6 +35,8 @@ class MatrixNode(Node):
         
         super().__init__(id, node_type, extension, connections_from, connections_to, position_x, position_y)
 
+        if ',' in matrix[0][0]:
+            matrix = [[col.split(',') for col in row] for row in matrix]
         self.matrix = np.array(matrix, dtype=float)
         self.method = method.upper()
         self.criteria_types = np.array(criteria_types)
@@ -57,7 +59,7 @@ class WeightsNode(Node):
         
         super().__init__(id, node_type, extension, connections_from, connections_to, position_x, position_y)
 
-        self.weights = np.array(weights)
+        self.weights = np.array(weights, dtype=float)
         self.method = method.upper()
         if self.method != 'INPUT' and self.method not in list(weights_methods.keys()):
             raise ValueError(f"Method '{self.method}' not found")
@@ -65,8 +67,9 @@ class WeightsNode(Node):
         self.calculation_data = []
 
     def calculate(self, matrix_node, precision=3):
+        print(self.method)
         if self.method != 'INPUT':
-            self.method_obj = weights_methods[self.method][self.extension]
+            self.method_obj = weights_methods[self.method][matrix_node.extension]
             
             print('matrix')
             print(matrix_node.matrix)
@@ -84,6 +87,7 @@ class WeightsNode(Node):
             print(weights)
         else:
             weights = self.weights
+            print(weights)
 
         if len([data for data in self.calculation_data if data['matrix_id'] == matrix_node.id]) == 0:
             self.calculation_data.append({
@@ -119,8 +123,9 @@ class MethodNode(Node):
             method_obj = None
             weights_node = None
             pref = list(self.kwargs[0]['preferences'])
-            if any([p < 0 or p > 1 for p in pref]):
-                raise ValueError(f'Input preferences outside range [0, 1]')
+            # TODO: think about preferences range
+            # if any([p < 0 or p > 1 for p in pref]):
+            #     raise ValueError(f'Input preferences outside range [0, 1]')
         else:
             print('calculate method mcda')
             criteria_weights = weights_node.calculate(matrix_node)
@@ -128,13 +133,29 @@ class MethodNode(Node):
             print(criteria_weights)
             print('method kwargs')
             print(self.kwargs)
-            init_kwargs = get_parameters(self.kwargs, self.extension, matrix_node, criteria_weights)
+            init_kwargs = get_parameters(self.kwargs, matrix_node.extension, matrix_node, criteria_weights)
             print('init kwargs')
             print(init_kwargs)
-            method_obj = mcda_methods[self.method][self.extension](**init_kwargs)
+
+            # get call parameters
+            call_kwargs = {}
+            if self.method == 'VIKOR':
+                call_kwargs['v'] = init_kwargs['v']
+                del init_kwargs['v']
+            if self.method == 'PROMETHEE':
+                if 'p' in list(init_kwargs.keys()):
+                    call_kwargs['p'] = init_kwargs['p']
+                    del init_kwargs['p']
+                if 'q' in list(init_kwargs.keys()):
+                    call_kwargs['q'] = init_kwargs['q']
+                    del init_kwargs['q']
+                
+            print('call kwargs')
+            print(call_kwargs)
+            method_obj = mcda_methods[self.method][matrix_node.extension](**init_kwargs)
             print('method object')
             print(method_obj)
-            pref = np.round(method_obj(matrix_node.matrix, criteria_weights, matrix_node.criteria_types), precision)
+            pref = np.round(method_obj(matrix_node.matrix, criteria_weights, matrix_node.criteria_types, **call_kwargs), precision)
             print('preference')
             print(pref)
 
@@ -171,7 +192,7 @@ class MethodNode(Node):
                 "matrix_id": cdata['matrix_id'],
                 "weights_method": cdata['weights_node'].method,
                 "preference": cdata['preference'],
-                "kwargs": cdata['kwargs']
+                "kwargs": [kwarg for kwarg in cdata['kwargs'] if kwarg['matrix_id'] == cdata['matrix_id']]
             })
 
         return response | {

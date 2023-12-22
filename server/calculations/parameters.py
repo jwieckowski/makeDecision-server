@@ -3,8 +3,9 @@
 import numpy as np
 import pymcdm
 import pyfdm
-from pymcdm.methods import TOPSIS, SPOTIS
+from pymcdm.methods import TOPSIS, SPOTIS, COMET
 from pymcdm.methods.comet_tools import MethodExpert, ESPExpert, CompromiseExpert
+from pymcdm.weights import equal_weights, gini_weights, standard_deviation_weights
 
 # UTILS
 # from utils.errors import get_error_message
@@ -38,11 +39,11 @@ def get_fuzzy_parameters(kwargs):
         for key, value in kwargs.items():
             if key == 'matrix_id': continue
             elif key == 'normalization':
-                init_kwargs[key] = getattr(pyfdm.methods.fuzzy_sets.tfn.normalizations, value)
+                init_kwargs[key] = getattr(pyfdm.methods.utils.normalizations, value)
             elif key in ['distance', 'distance_1', 'distance_2']:
-                init_kwargs[key] = getattr(pyfdm.methods.fuzzy_sets.tfn.distances, value)
+                init_kwargs[key] = getattr(pyfdm.methods.utils.distances, value)
             elif key == 'defuzzify':
-                init_kwargs[key] = getattr(pyfdm.methods.fuzzy_sets.tfn.defuzzifications, value)
+                init_kwargs[key] = getattr(pyfdm.methods.utils.defuzzifications, value)
 
         return init_kwargs
     except Exception as err:
@@ -82,7 +83,10 @@ def get_crisp_parameters(kwargs, matrix_node, criteria_weights):
                 init_kwargs[key] = getattr(pymcdm.normalizations, value)
             # COMET
             elif key == 'cvalues':
-                init_kwargs[key] = np.array(value)
+                if value != '':
+                    init_kwargs[key] = np.array(value, dtype=float)
+                else:
+                    init_kwargs[key] = COMET.make_cvalues(matrix_node.matrix)
             elif key == 'expert_function':
                 if value == 'method_expert':
                     expert_function = MethodExpert(TOPSIS(), criteria_weights, matrix_node.criteria_types)
@@ -94,7 +98,7 @@ def get_crisp_parameters(kwargs, matrix_node, criteria_weights):
                     
                     bounds = SPOTIS.make_bounds(matrix_node.matrix)
                     # esps = np.array([[0.4, 0.4]])
-                    esps = np.array(kwargs['esp'])
+                    esps = np.array(kwargs['esp'], dtype=float)
                     
                     expert_function = ESPExpert(esps, bounds, cvalues_psi=None)
                     init_kwargs[key] = expert_function
@@ -102,16 +106,16 @@ def get_crisp_parameters(kwargs, matrix_node, criteria_weights):
                 elif value == 'compromise_expert':
                     topsis = TOPSIS()
                     evaluation_function = [
-                            lambda co: topsis(co, np.array([0.2, 0.3, 0.5]), matrix_node.criteria_types),
-                            lambda co: topsis(co, np.array([0.3, 0.4, 0.3]), matrix_node.criteria_types),
-                            lambda co: topsis(co, np.array([0.1, 0.5, 0.4]), matrix_node.criteria_types),
+                            lambda co: topsis(co, equal_weights(matrix_node.matrix), matrix_node.criteria_types),
+                            lambda co: topsis(co, gini_weights(matrix_node.matrix), matrix_node.criteria_types),
+                            lambda co: topsis(co, standard_deviation_weights(matrix_node.matrix), matrix_node.criteria_types),
                             ]
 
                     expert_function = CompromiseExpert(evaluation_function)
                     init_kwargs[key] = expert_function
             # ERVD
             elif key == 'ref_point':
-                init_kwargs[key] = np.array(value)
+                init_kwargs[key] = np.array(value, dtype=float)
             elif key == 'lam':
                 init_kwargs[key] = float(value)
             elif key == 'alpha':
@@ -121,16 +125,24 @@ def get_crisp_parameters(kwargs, matrix_node, criteria_weights):
                 init_kwargs[key] = value
             # PROMETHEE
             elif key == 'preference_function':
-                init_kwargs[key] = getattr(pymcdm.methods.PROMETHEE_II._PreferenceFunctions, value)
+                init_kwargs[key] = value
+            elif key  == 'p' and value != '':
+                init_kwargs[key] = np.array(value, dtype=float)
+            elif key  == 'q' and value != '':
+                init_kwargs[key] = np.array(value, dtype=float)
             # RIM
             elif key == 'bounds':
-                init_kwargs[key] = np.array(value)
+                temp_bounds = np.array(value, dtype=float)
+                init_kwargs[key] = np.array([[l, u] for l, u in zip(temp_bounds[0], temp_bounds[1])])
             elif key == 'ref_ideal':
-                init_kwargs[key] = np.array(value)
+                init_kwargs[key] = np.array(value, dtype=float)
             # SPOTIS
-            elif key == 'esp':
+            elif key == 'esp' and value != '':
                 if 'expert_function' not in kwargs.keys():
-                    init_kwargs[key] = np.array(value)
+                    init_kwargs[key] = np.array(value, dtype=float)
+            # VIKOR
+            elif key == 'v':
+                init_kwargs[key] = float(value)
 
         return init_kwargs
     except Exception as err:
