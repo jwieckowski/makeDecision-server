@@ -131,7 +131,7 @@ class CalculationStructure:
                             if ranking_node is None:
                                 raise ValueError(f'Ranking block with ID {matrix_node.connections_to[ranking_node_idx]} not found')
                             
-                            ranking_node.calculate(method_node, matrix_node)
+                            ranking_node.calculate(method_node, matrix_node, weights_node)
                         
             # CORRELATION FROM MATRIX
             correlation_nodes = self._find_node_by_type('correlation')

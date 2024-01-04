@@ -17,6 +17,7 @@ error_codes = {
 }
 
 def get_error_message(locale, key):
+    print(locale)
     if locale not in list(error_codes.keys()):
         return error_codes['en']['locale-error'] 
     if key not in list(error_codes[locale].keys()):

@@ -169,10 +169,10 @@ class MethodNode(Node):
 
         return pref
 
-    def rank(self, matrix_id):
+    def rank(self, matrix_id, weights_id):
 
         # TODO: handle if error
-        data = [data for data in self.calculation_data if data['matrix_id'] == matrix_id][0]
+        data = [data for data in self.calculation_data if data['matrix_id'] == matrix_id and data['weights_node'].id == weights_id][0]
         if data['method_obj'] == None:
             ranking = rrankdata(data['preference'])
         else:
@@ -188,11 +188,13 @@ class MethodNode(Node):
 
         data = []
         for cdata in self.calculation_data:
+            kwargs = [kwarg for kwarg in cdata['kwargs'] if kwarg['matrix_id'] == cdata['matrix_id'] and len(kwarg.values()) > 1]
+            kwargs = [{k:v for k, v in kwarg.items() if v != ''} for kwarg in kwargs]
             data.append({
                 "matrix_id": cdata['matrix_id'],
                 "weights_method": cdata['weights_node'].method,
                 "preference": cdata['preference'],
-                "kwargs": [kwarg for kwarg in cdata['kwargs'] if kwarg['matrix_id'] == cdata['matrix_id']]
+                "kwargs": kwargs
             })
 
         return response | {
@@ -207,14 +209,14 @@ class RankingNode(Node):
 
         self.calculation_data = []
 
-    def calculate(self, method_node, matrix_node):
+    def calculate(self, method_node, matrix_node, weights_node):
         
-        ranking, data = method_node.rank(matrix_node.id)
+        ranking, data = method_node.rank(matrix_node.id, weights_node.id)
 
         self.calculation_data.append({
             "matrix_id": matrix_node.id,
             "method": method_node.method,
-            "weights": data['weights_node'].method,
+            "weights_method": data['weights_node'].method,
             "ranking": ranking,
             "kwargs": data['kwargs']
         })
@@ -254,10 +256,15 @@ class CorrelationNode(Node):
                     if data['matrix_id'] == matrix_id:
                         corr_data.append(data[data_field])
                         if data_field == 'ranking':
-                            print(data['method'])
-                            corr_labels.append(data['method'])
+                            if 'weights_method' in data.keys():
+                                corr_labels.append(f'{data["method"]} | {data["weights_method"]}')
+                            else:
+                                corr_labels.append(data['method'])
                         else:
-                            corr_labels.append(node.method)
+                            if 'weights_node' in data.keys():
+                                corr_labels.append(f'{node.method} | {data["weights_node"].method}')
+                            else:
+                                corr_labels.append(node.method)
 
         return corr_data, corr_labels
 

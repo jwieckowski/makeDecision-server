@@ -59,5 +59,6 @@
   "criteria-types-generation-error": "Number of criteria should be greater than 0",
 
   "locale-error": "locale is not handled",
-  "key-error": "Error message key was not handled"
+  "key-error": "Error message key was not handled",
+  "timeout-error": "It took too long to generate a response"
 }

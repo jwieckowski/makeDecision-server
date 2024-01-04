@@ -59,5 +59,6 @@
   "criteria-types-generation-error": "Liczba kryteriów powinna być większa niż 0",
 
   "locale-error": ": lokalizacja nie jest obsługiwana",
-  "key-error": "Klucz komunikatu o błędzie nie został obsłużony"
+  "key-error": "Klucz komunikatu o błędzie nie został obsłużony",
+  "timeout-error": "Generowanie odpowiedzi zajęło zbyt wiele czasu"
 }

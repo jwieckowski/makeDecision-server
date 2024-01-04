@@ -10,9 +10,6 @@ matplotlib.use('agg')
 # ROUTES
 from routes import api
 
-# # CALCULATIONS
-# from calculations.structure import CalculationStructure
-
 # ROOT LOGGER
 logging.basicConfig(level=logging.INFO)
 

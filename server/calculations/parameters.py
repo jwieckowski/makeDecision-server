@@ -88,20 +88,22 @@ def get_crisp_parameters(kwargs, matrix_node, criteria_weights):
                 else:
                     init_kwargs[key] = COMET.make_cvalues(matrix_node.matrix)
             elif key == 'expert_function':
+                init_kwargs['cvalues'] = COMET.make_cvalues(matrix_node.matrix)
                 if value == 'method_expert':
                     expert_function = MethodExpert(TOPSIS(), criteria_weights, matrix_node.criteria_types)
                     init_kwargs[key] = expert_function
 
                 elif value == 'esp_expert':
                     if 'esp' not in list(kwargs.keys()):
+                        # TODO add error message from dict
                         raise ValueError("Missing key 'esp' for the COMET method for the ESP Expert variant")
                     
                     bounds = SPOTIS.make_bounds(matrix_node.matrix)
-                    # esps = np.array([[0.4, 0.4]])
-                    esps = np.array(kwargs['esp'], dtype=float)
+                    esps = np.array([kwargs['esp']], dtype=float)
                     
                     expert_function = ESPExpert(esps, bounds, cvalues_psi=None)
                     init_kwargs[key] = expert_function
+
 
                 elif value == 'compromise_expert':
                     topsis = TOPSIS()
@@ -114,7 +116,7 @@ def get_crisp_parameters(kwargs, matrix_node, criteria_weights):
                     expert_function = CompromiseExpert(evaluation_function)
                     init_kwargs[key] = expert_function
             # ERVD
-            elif key == 'ref_point':
+            elif key == 'ref_point' and value != '':
                 init_kwargs[key] = np.array(value, dtype=float)
             elif key == 'lam':
                 init_kwargs[key] = float(value)
@@ -134,8 +136,8 @@ def get_crisp_parameters(kwargs, matrix_node, criteria_weights):
             elif key == 'bounds':
                 temp_bounds = np.array(value, dtype=float)
                 init_kwargs[key] = np.array([[l, u] for l, u in zip(temp_bounds[0], temp_bounds[1])])
-            elif key == 'ref_ideal':
-                init_kwargs[key] = np.array(value, dtype=float)
+            elif key == 'ref_ideal' and value != '':
+                init_kwargs[key] = (np.ones((2, len(value))) * np.array(value, dtype=float)).transpose()
             # SPOTIS
             elif key == 'esp' and value != '':
                 if 'expert_function' not in kwargs.keys():

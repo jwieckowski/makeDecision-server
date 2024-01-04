@@ -23,7 +23,8 @@ def graphs_wrapper(func):
             
             return f'data:image/jpeg;base64,{encoded_img}'
         except Exception as err:
-            locale = kwargs.get('locale')
+            # locale = kwargs.get('locale')
+            locale = 'en'
             api.logger.info(str(err))
             raise ValueError(f'{get_error_message(locale, "graph-error")}')
 

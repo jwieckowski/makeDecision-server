@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Jakub Więckowski
+# Copyright (c) 2023 - 2024 Jakub Więckowski
 
 from flask_restx import Resource
 import json
@@ -33,10 +33,6 @@ class AllMethodsDictionary(Resource):
         
         with open(dir_path+f'public/dictionary/all-methods-{locale}.json',  encoding='utf-8') as file:
             data = json.load(file)
-
-        # filtering keys
-        # filters = ['Visualization']
-        # data = [d for d in data if d['key'] not in filters]
         
         return {
             "response": data
