@@ -1,4 +1,4 @@
-# Copyright (C) Jakub Więckowski 2023
+# Copyright (C) Jakub Więckowski 2023 - 2024
 
 import numpy as np
 import pymcdm
@@ -44,9 +44,13 @@ def get_fuzzy_parameters(kwargs):
                 init_kwargs[key] = getattr(pyfdm.methods.utils.distances, value)
             elif key == 'defuzzify':
                 init_kwargs[key] = getattr(pyfdm.methods.utils.defuzzifications, value)
+            # VIKOR
+            elif key == 'v':
+                init_kwargs[key] = float(value)
 
         return init_kwargs
     except Exception as err:
+        # TODO change error message
         raise ValueError(err)
 
 def get_crisp_parameters(kwargs, matrix_node, criteria_weights):
@@ -148,36 +152,8 @@ def get_crisp_parameters(kwargs, matrix_node, criteria_weights):
 
         return init_kwargs
     except Exception as err:
+        # TODO change error message
         raise ValueError(err)
-
-# RETRIEVE METHOD NAME FROM FUNCTION NAME
-def get_methods_name(locale, dict):
-    """
-        Gets name of MCDA methods
-
-        Parameters
-        ----------
-            locale : string
-                User application language
-
-            dict: dictionary
-                Dictionary with MCDA methods
-        
-        Returns
-        -------
-            dictionary
-                Dictionary with MCDA methods names
-
-    """
-    try:
-        names_dict = {}
-        for key, val in dict.items():
-            names_dict[key] = val.__name__
-        return names_dict
-    except Exception:
-        pass
-        # raise ValueError(f'{get_error_message(locale, "method-name-error")}')
-
 
 def get_parameters(kwargs, extension, matrix_node, criteria_weights):
 
@@ -193,3 +169,23 @@ def get_parameters(kwargs, extension, matrix_node, criteria_weights):
             init_kwargs = get_fuzzy_parameters(items[0])
 
     return init_kwargs
+
+
+def get_call_kwargs(method, init_kwargs):
+    call_kwargs = {}
+    try:
+        if method == 'VIKOR':
+            call_kwargs['v'] = init_kwargs['v']
+            del init_kwargs['v']
+        if method == 'PROMETHEE':
+            if 'p' in list(init_kwargs.keys()):
+                call_kwargs['p'] = init_kwargs['p']
+                del init_kwargs['p']
+            if 'q' in list(init_kwargs.keys()):
+                call_kwargs['q'] = init_kwargs['q']
+                del init_kwargs['q']
+    except Exception as err:
+        # TODO message
+        raise ValueError(err)
+
+    return call_kwargs

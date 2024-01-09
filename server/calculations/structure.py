@@ -1,10 +1,9 @@
-# Copyright (C) Jakub Więckowski 2023
+# Copyright (C) Jakub Więckowski 2023 - 2024
 
 from .node import *
 
 # VALIDATOR
 from utils.validator import validate_user_weights
-
 
 class CalculationStructure:
     def __init__(self, data, locale) -> None:
@@ -85,6 +84,8 @@ class CalculationStructure:
         matrix_nodes = self._find_node_by_type('matrix')
         print('Matrix nodes')
         print(matrix_nodes)
+        
+        calculated_input_ranks_id = []
 
         # second step - get weights for matrices
         for matrix_node in matrix_nodes:
@@ -127,17 +128,31 @@ class CalculationStructure:
                         # fourth.one step - calculate ranking
                         ranking_nodes = self._get_connected_nodes(method_node, node_type='ranking')
 
+
                         for ranking_node_idx, ranking_node in enumerate(ranking_nodes):
                             if ranking_node is None:
                                 raise ValueError(f'Ranking block with ID {matrix_node.connections_to[ranking_node_idx]} not found')
                             
                             ranking_node.calculate(method_node, matrix_node, weights_node)
+                            # for input nodes
+                            ranking_connected_nodes = [input_node for input_node in self._get_connected_nodes(ranking_node, output=False) if input_node.method.lower() == 'input']
+
+                            if len(set([*[len(data['ranking']) for data in ranking_node.calculation_data], *[len(input_pref.kwargs[0]['preference']) for input_pref in ranking_connected_nodes]])) > 1:
+                                raise ValueError(f'Data for ranking calculation should have the same size')
+
+                            if len(ranking_connected_nodes) > 0:
+                                for input_ranking_node in ranking_connected_nodes:
+                                    if input_ranking_node.id not in calculated_input_ranks_id:
+                                        calculated_input_ranks_id.append(input_ranking_node.id)
+                                        RankingNode.calculate_input(input_ranking_node, ranking_node, matrix_node.id)
+
                         
             # CORRELATION FROM MATRIX
             correlation_nodes = self._find_node_by_type('correlation')
             for correlation_node in correlation_nodes:
                 connected_nodes = self._get_connected_nodes(correlation_node, output=False)
-                
+                print('correlation connected nodes')
+                print(connected_nodes)
                 correlation_node.calculate(connected_nodes, matrix_node)
 
             # VISUALIZATIONS FROM MATRIX

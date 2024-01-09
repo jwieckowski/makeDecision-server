@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Jakub Więckowski
+# Copyright (c) 2023 - 2024 Jakub Więckowski
 
 from flask_restx import Resource
 from werkzeug.utils import secure_filename
@@ -66,7 +66,7 @@ class MatrixConverter(Resource):
         extension = args['extension']
         alternatives = args['alternatives']
         criteria = args['criteria']
-        
+
         # OPTIONAL
         lower_bound = args['lower_bound']
         upper_bound = args['upper_bound']

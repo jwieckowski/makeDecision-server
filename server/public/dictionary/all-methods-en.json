@@ -262,6 +262,15 @@
                 "parameter": "expert_function",
                 "default": "method_expert",
                 "type": "select"
+              },
+              {
+                "id": 2,
+                "method": "expected solution points",
+                "parameter": "esp",
+                "default": "",
+                "type": "array",
+                "dimension": 1,
+                "required": false
               }
             ]
           }
