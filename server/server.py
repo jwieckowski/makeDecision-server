@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Jakub Więckowski
+# Copyright (c) 2023 - 2024 Jakub Więckowski
 
 from flask import Flask
 from flask_cors import CORS

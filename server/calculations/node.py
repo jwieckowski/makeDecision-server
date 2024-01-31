@@ -95,9 +95,12 @@ class WeightsNode(Node):
                 if self.method in ['MEREC', 'CILOS', 'IDOCRIW']:
                     kwargs = kwargs | {"types": matrix_node.criteria_types}
                 
+                print(kwargs)
                 weights = np.round(self.method_obj(**kwargs), precision)
                 print('weights')
                 print(weights)
+                if len(weights) != len(matrix_node.matrix[0]):
+                    raise ValueError(f'{self.method} method produced wrong weights') 
             except Exception as err:
                 raise ValueError(f'Error in weights calculation ({self.method})')
         else:
@@ -153,23 +156,6 @@ class MethodNode(Node):
             print('init kwargs')
             print(init_kwargs)
 
-            # get call parameters
-            # TODO: move to function to parameter file
-            # try:
-            #     call_kwargs = {}
-            #     if self.method == 'VIKOR':
-            #         call_kwargs['v'] = init_kwargs['v']
-            #         del init_kwargs['v']
-            #     if self.method == 'PROMETHEE':
-            #         if 'p' in list(init_kwargs.keys()):
-            #             call_kwargs['p'] = init_kwargs['p']
-            #             del init_kwargs['p']
-            #         if 'q' in list(init_kwargs.keys()):
-            #             call_kwargs['q'] = init_kwargs['q']
-            #             del init_kwargs['q']
-            # except Exception as err:
-            #     # TODO message
-            #     raise ValueError(err)
             call_kwargs = get_call_kwargs(self.method, init_kwargs)
 
             print('call kwargs')
@@ -193,6 +179,7 @@ class MethodNode(Node):
                 raise ValueError(err)
             except Exception as err:
                 # TODO message
+                print(err)
                 raise ValueError('Method calculation error')
             
             print(pref)
@@ -419,6 +406,9 @@ class VisualizationNode(Node):
             # TODO message
             raise ValueError(f"Error in retrieving visualization data ({self.method})")
 
+        print('calculation_data')
+        print(calculation_data)
+
         graph_data, graph_labels = [], []
         try:
             if node_type == 'weights':
@@ -469,13 +459,15 @@ class VisualizationNode(Node):
             # TODO message
             raise ValueError(f"Error in generating graph ({self.method})")
 
+        print('graph_data')
+        print(graph_data)
         for data, labels in zip(graph_data, graph_labels):
-            self.calculation_data = [
+            self.calculation_data.append(
                 {
                     "matrix_id": matrix_node.id,
                     "img": generate_graph(data, labels, self.method),
                 }
-            ]
+            )
         
     
     def get_response(self):

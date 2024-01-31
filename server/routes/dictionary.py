@@ -2,7 +2,6 @@
 
 from flask_restx import Resource
 import json
-import time
 
 from config import dir_path
 

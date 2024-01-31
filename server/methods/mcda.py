@@ -1,6 +1,5 @@
 import pymcdm.methods as crisp_methods
 import pyfdm.methods as fuzzy_methods
-import numpy as np
 
 mcda_methods = {
     'ARAS': {
@@ -8,7 +7,8 @@ mcda_methods = {
         'fuzzy': fuzzy_methods.fARAS
     },
     'COCOSO': {
-        'crisp': crisp_methods.COCOSO
+        'crisp': crisp_methods.COCOSO,
+        'fuzzy': fuzzy_methods.fCOCOSO
     },
     'CODAS': {
         'crisp': crisp_methods.CODAS,
@@ -58,7 +58,8 @@ mcda_methods = {
         'crisp': crisp_methods.RIM,
     },
     'SPOTIS': {
-        'crisp': crisp_methods.SPOTIS
+        'crisp': crisp_methods.SPOTIS,
+        'fuzzy': fuzzy_methods.fSPOTIS
     },
     'TOPSIS': {
         'crisp': crisp_methods.TOPSIS,
@@ -69,12 +70,15 @@ mcda_methods = {
         'fuzzy': fuzzy_methods.fVIKOR
     },
     "WASPAS": {
-        'crisp': crisp_methods.WASPAS
+        'crisp': crisp_methods.WASPAS,
+        'fuzzy': fuzzy_methods.fWASPAS
     },
     'WPM': {
         'crisp': crisp_methods.WPM,
+        'fuzzy': fuzzy_methods.fWPM
     },
     'WSM': {
         'crisp': crisp_methods.WSM,
+        'fuzzy': fuzzy_methods.fWSM
     }
 }

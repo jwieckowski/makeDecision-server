@@ -131,5 +131,5 @@ dmypy.json
 # Setup
 setup.py
 
-# deploy instruction
-deploy.md
+# personal deploy instruction
+deploy.txt

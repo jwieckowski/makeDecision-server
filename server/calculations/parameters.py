@@ -47,6 +47,10 @@ def get_fuzzy_parameters(kwargs):
             # VIKOR
             elif key == 'v':
                 init_kwargs[key] = float(value)
+            # SPOTIS
+            elif key == 'bounds':
+                temp_bounds = np.array(value, dtype=float)
+                init_kwargs[key] = np.array([[l, u] for l, u in zip(temp_bounds[0], temp_bounds[1])])
 
         return init_kwargs
     except Exception as err:
@@ -184,6 +188,10 @@ def get_call_kwargs(method, init_kwargs):
             if 'q' in list(init_kwargs.keys()):
                 call_kwargs['q'] = init_kwargs['q']
                 del init_kwargs['q']
+        if method == 'SPOTIS':
+            call_kwargs['bounds'] = init_kwargs['bounds']
+            del init_kwargs['bounds']
+            
     except Exception as err:
         # TODO message
         raise ValueError(err)

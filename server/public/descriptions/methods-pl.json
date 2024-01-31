@@ -650,6 +650,14 @@
           {
             "id": 16,
             "text": "$$ k_{i}=\\left(k_{i a} k_{i b} k_{i c}\\right)^{\\frac{1}{3}}+\\frac{1}{3}\\left(k_{i a}+k_{i b}+k_{i c}\\right) $$"
+          },
+          {
+            "id": 9999,
+            "text": "**Dane rozmyte - Trójkątne Liczby Rozmyte**"
+          },
+          {
+            "id": 17,
+            "text": "**Step 1.** Todo"
           }
         ]
       },
@@ -1203,6 +1211,20 @@
       },
       {
         "id": 6,
+        "name": "ERVD",
+        "description": [
+          {
+            "id": 9999,
+            "text": "**Dane ostre**"
+          },
+          {
+            "id": 17,
+            "text": "**Krok 1.** Todo"
+          }
+        ]
+      },
+      {
+        "id": 7,
         "name": "MABAC",
         "description": [
           {
@@ -1368,7 +1390,7 @@
         ]
       },
       {
-        "id": 7,
+        "id": 8,
         "name": "MAIRCA",
         "description": [
           {
@@ -1510,7 +1532,7 @@
         ]
       },
       {
-        "id": 8,
+        "id": 9,
         "name": "MARCOS",
         "description": [
           {
@@ -1596,7 +1618,7 @@
         ]
       },
       {
-        "id": 9,
+        "id": 10,
         "name": "MOORA",
         "description": [
           {
@@ -1718,7 +1740,7 @@
         ]
       },
       {
-        "id": 10,
+        "id": 11,
         "name": "OCRA",
         "description": [
           {
@@ -1852,7 +1874,21 @@
         ]
       },
       {
-        "id": 11,
+        "id": 12,
+        "name": "PROBID",
+        "description": [
+          {
+            "id": 999,
+            "text": "**Dane ostre**"
+          },
+          {
+            "id": 0,
+            "text": "**Krok 1**. Todo"
+          }
+        ]
+      },
+      {
+        "id": 13,
         "name": "PROMETHEE",
         "description": [
           {
@@ -1922,7 +1958,21 @@
         ]
       },
       {
-        "id": 12,
+        "id": 14,
+        "name": "RIM",
+        "description": [
+          {
+            "id": 999,
+            "text": "**Dane ostre**"
+          },
+          {
+            "id": 0,
+            "text": "**Krok 1**. Todo"
+          }
+        ]
+      },
+      {
+        "id": 15,
         "name": "SPOTIS",
         "description": [
           {
@@ -1972,11 +2022,19 @@
           {
             "id": 10,
             "text": "**Krok 5.** Uszeregowanie kryteriów według preferencji - wartości powinny być uszeregowane w kolejności rosnącej."
+          },
+          {
+            "id": 9999,
+            "text": "**Dane rozmyte - Trójkątne Liczby Rozmyte**"
+          },
+          {
+            "id": 11,
+            "text": "**Krok 1.** Todo"
           }
         ]
       },
       {
-        "id": 13,
+        "id": 16,
         "name": "TOPSIS",
         "description": [
           {
@@ -2126,7 +2184,7 @@
         ]
       },
       {
-        "id": 13,
+        "id": 17,
         "name": "VIKOR",
         "description": [
           {
@@ -2274,6 +2332,72 @@
             "text": "$$ \\tilde{N}_i=\\frac{(2 x_{j}^m+x_{j}^a+x_{j}^b)}{4} $$"
           }
         ]
+      },
+      {
+        "id": 18,
+        "name": "WASPAS",
+        "description": [
+          {
+            "id": 999,
+            "text": "**Dane ostre**"
+          },
+          {
+            "id": 0,
+            "text": "**Krok 1.** Todo"
+          },
+          {
+            "id": 9999,
+            "text": "**Dane rozmyte - Trójkątne Liczby Rozmyte**"
+          },
+          {
+            "id": 1,
+            "text": "**Krok 1.** Todo"
+          }
+        ]
+      },
+      {
+        "id": 19,
+        "name": "WPM",
+        "description": [
+          {
+            "id": 999,
+            "text": "**Dane ostre**"
+          },
+          {
+            "id": 0,
+            "text": "**Krok 1.** Todo"
+          },
+          {
+            "id": 9999,
+            "text": "**Dane rozmyte - Trójkątne Liczby Rozmyte**"
+          },
+          {
+            "id": 1,
+            "text": "**Krok 1.** Todo"
+          }
+        ]
+      },
+      {
+        "id": 20,
+        "name": "WSM",
+        "description": [
+          {
+            "id": 999,
+            "text": "**Dane ostre**"
+          },
+          {
+            "id": 0,
+            "text": "**Krok 1.** Todo"
+          },
+          {
+            "id": 9999,
+            "text": "**Dane rozmyte - Trójkątne Liczby Rozmyte**"
+          },
+          {
+            "id": 1,
+            "text": "**Krok 1.** Todo"
+          }
+        ]
       }
     ]
   },
@@ -2283,6 +2407,20 @@
     "data": [
       {
         "id": 0,
+        "name": "CoCoSo",
+        "description": [
+          {
+            "id": 0,
+            "text": "**Normalizacja na danych rozmytych - Trójkątne Liczby Rozmyte**"
+          },
+          {
+            "id": 1,
+            "text": "Todo"
+          }
+        ]
+      },
+      {
+        "id": 1,
         "name": "Enhanced accuracy",
         "description": [
           {
@@ -2308,7 +2446,7 @@
         ]
       },
       {
-        "id": 1,
+        "id": 2,
         "name": "Logarithmic",
         "description": [
           {
@@ -2334,7 +2472,7 @@
         ]
       },
       {
-        "id": 2,
+        "id": 3,
         "name": "Linear",
         "description": [
           {
@@ -2380,7 +2518,7 @@
         ]
       },
       {
-        "id": 3,
+        "id": 4,
         "name": "Max",
         "description": [
           {
@@ -2426,7 +2564,7 @@
         ]
       },
       {
-        "id": 4,
+        "id": 5,
         "name": "Min-max",
         "description": [
           {
@@ -2472,7 +2610,7 @@
         ]
       },
       {
-        "id": 5,
+        "id": 6,
         "name": "Nonlinear",
         "description": [
           {
@@ -2498,7 +2636,7 @@
         ]
       },
       {
-        "id": 6,
+        "id": 7,
         "name": "SAW",
         "description": [
           {
@@ -2520,7 +2658,7 @@
         ]
       },
       {
-        "id": 7,
+        "id": 8,
         "name": "Sum",
         "description": [
           {
@@ -2566,7 +2704,21 @@
         ]
       },
       {
-        "id": 8,
+        "id": 9,
+        "name": "Square root",
+        "description": [
+          {
+            "id": 0,
+            "text": "**Normalizacja na danych rozmytych - Trójkątne Liczby Rozmyte**"
+          },
+          {
+            "id": 1,
+            "text": "Todo"
+          }
+        ]
+      },
+      {
+        "id": 10,
         "name": "Vector",
         "description": [
           {
@@ -2612,7 +2764,7 @@
         ]
       },
       {
-        "id": 9,
+        "id": 11,
         "name": "Zavadskas-Turskis",
         "description": [
           {
@@ -2636,6 +2788,20 @@
             "text": "$$ n_{ij} = 1 - | \\frac{\\text{max } x_j - x_{ij}}{\\text{max } x_j} | $$"
           }
         ]
+      },
+      {
+        "id": 12,
+        "name": "WASPAS",
+        "description": [
+          {
+            "id": 0,
+            "text": "**Normalizacja na danych rozmytych - Trójkątne Liczby Rozmyte**"
+          },
+          {
+            "id": 1,
+            "text": "Todo"
+          }
+        ]
       }
     ]
   },
@@ -2645,6 +2811,34 @@
     "data": [
       {
         "id": 0,
+        "name": "Canberra",
+        "description": [
+          {
+            "id": 0,
+            "text": "TODO: Odległość między dwiema trójkątnymi liczbami rozmytymi $$ T_1 (a_1, m_1, b_1) $$ oraz $$ T_2 (a_2, m_2, b_2) $$ dla odległości Canberry jest obliczana jako:"
+          },
+          {
+            "id": 1,
+            "text": "$$ d = \\sqrt{(a_1 - a_2)^{2} + (m_1 - m_2)^{2} + (b_1 - b_2)^{2}} $$"
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "Chebyshev",
+        "description": [
+          {
+            "id": 0,
+            "text": "TODO: Odległość między dwiema trójkątnymi liczbami rozmytymi $$ T_1 (a_1, m_1, b_1) $$ oraz $$ T_2 (a_2, m_2, b_2) $$ dla odległości Chebysheva jest obliczana jako:"
+          },
+          {
+            "id": 1,
+            "text": "$$ d = \\sqrt{(a_1 - a_2)^{2} + (m_1 - m_2)^{2} + (b_1 - b_2)^{2}} $$"
+          }
+        ]
+      },
+      {
+        "id": 2,
         "name": "Euclidean",
         "description": [
           {
@@ -2658,7 +2852,7 @@
         ]
       },
       {
-        "id": 1,
+        "id": 3,
         "name": "Hamming",
         "description": [
           {
@@ -2672,7 +2866,7 @@
         ]
       },
       {
-        "id": 2,
+        "id": 4,
         "name": "L-R",
         "description": [
           {
@@ -2686,7 +2880,7 @@
         ]
       },
       {
-        "id": 3,
+        "id": 5,
         "name": "Mahdavi",
         "description": [
           {
@@ -2700,7 +2894,7 @@
         ]
       },
       {
-        "id": 4,
+        "id": 6,
         "name": "Tran-Duckstein",
         "description": [
           {
@@ -2714,7 +2908,7 @@
         ]
       },
       {
-        "id": 5,
+        "id": 7,
         "name": "Vertex",
         "description": [
           {
@@ -2728,7 +2922,7 @@
         ]
       },
       {
-        "id": 6,
+        "id": 8,
         "name": "Weighted Euclidean",
         "description": [
           {
@@ -2742,7 +2936,7 @@
         ]
       },
       {
-        "id": 7,
+        "id": 9,
         "name": "Weighted Hamming",
         "description": [
           {
@@ -2763,6 +2957,20 @@
     "data": [
       {
         "id": 0,
+        "name": "Bisector",
+        "description": [
+          {
+            "id": 0,
+            "text": "TODO: Wartość ostra trójkątnej liczby rozmytej $$ TFN = (a, m, b) $$ jest zdefiniowana jako:"
+          },
+          {
+            "id": 1,
+            "text": "$$ k (TFN) = \\frac{1}{6} (a + 4 m + b) $$"
+          }
+        ]
+      },
+      {
+        "id": 1,
         "name": "Graded mean average",
         "description": [
           {
@@ -2776,7 +2984,35 @@
         ]
       },
       {
-        "id": 1,
+        "id": 2,
+        "name": "Height",
+        "description": [
+          {
+            "id": 0,
+            "text": "TODO: Wartość ostra trójkątnej liczby rozmytej $$ TFN = (a, m, b) $$ jest zdefiniowana jako:"
+          },
+          {
+            "id": 1,
+            "text": "$$ k (TFN) = \\frac{1}{6} (a + 4 m + b) $$"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Largest of Maximum",
+        "description": [
+          {
+            "id": 0,
+            "text": "TODO: Wartość ostra trójkątnej liczby rozmytej $$ TFN = (a, m, b) $$ jest zdefiniowana jako:"
+          },
+          {
+            "id": 1,
+            "text": "$$ k (TFN) = \\frac{1}{6} (a + 4 m + b) $$"
+          }
+        ]
+      },
+      {
+        "id": 4,
         "name": "Mean",
         "description": [
           {
@@ -2790,7 +3026,7 @@
         ]
       },
       {
-        "id": 2,
+        "id": 5,
         "name": "Mean area",
         "description": [
           {
@@ -2804,7 +3040,21 @@
         ]
       },
       {
-        "id": 3,
+        "id": 6,
+        "name": "Smallest of Minimum",
+        "description": [
+          {
+            "id": 0,
+            "text": "TODO: Wartość ostra trójkątnej liczby rozmytej $$ TFN = (a, m, b) $$ jest zdefiniowana jako:"
+          },
+          {
+            "id": 1,
+            "text": "$$ k (TFN) = \\frac{1}{3} (a + m + b) $$"
+          }
+        ]
+      },
+      {
+        "id": 7,
         "name": "Weighted mean",
         "description": [
           {
@@ -2829,6 +3079,16 @@
     "data": [
       {
         "id": 0,
+        "name": "Drastic",
+        "description": [
+          {
+            "id": 0,
+            "text": "TODO"
+          }
+        ]
+      },
+      {
+        "id": 1,
         "name": "Goodman-Kruskal",
         "description": [
           {
@@ -2886,7 +3146,7 @@
         ]
       },
       {
-        "id": 1,
+        "id": 2,
         "name": "Kendall-Tau",
         "description": [
           {
@@ -2920,7 +3180,7 @@
         ]
       },
       {
-        "id": 2,
+        "id": 3,
         "name": "Pearson",
         "description": [
           {
@@ -2938,7 +3198,7 @@
         ]
       },
       {
-        "id": 3,
+        "id": 4,
         "name": "Spearman",
         "description": [
           {
@@ -2956,7 +3216,7 @@
         ]
       },
       {
-        "id": 4,
+        "id": 5,
         "name": "Weighted Spearman",
         "description": [
           {
@@ -2974,7 +3234,7 @@
         ]
       },
       {
-        "id": 5,
+        "id": 6,
         "name": "WS rank similarity",
         "description": [
           {
@@ -2988,6 +3248,26 @@
           {
             "id": 2,
             "text": "gdzie $$ x_i $$ oznacza pozycję w rankingu referencyjnym, $$ y_i $$ to pozycja w drugim rankingu, a $$ N $$ to liczba elementów w rankingu. "
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "name": "Weights similarity",
+        "description": [
+          {
+            "id": 0,
+            "text": "TODO"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "name": "Weights similarity 2",
+        "description": [
+          {
+            "id": 0,
+            "text": "TODO"
           }
         ]
       }
