@@ -12,7 +12,11 @@ def generate_graph(data, labels, method_name):
     if method is None:
         raise ValueError(f"Visualization method '{method_name}' not found")
 
-    fig = method(data, labels)
+    if 'scatter' in method_name.lower():
+        fig = method(data)
+    else:
+        fig = method(data, labels)
+        
     
     return fig
 

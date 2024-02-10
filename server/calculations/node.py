@@ -409,7 +409,7 @@ class VisualizationNode(Node):
         print('calculation_data')
         print(calculation_data)
 
-        graph_data, graph_labels = [], []
+        graph_data, graph_labels, metrics_names = [], [], []
         try:
             if node_type == 'weights':
                 temp_data, temp_labels = [], []
@@ -420,16 +420,20 @@ class VisualizationNode(Node):
                 graph_labels.append(temp_labels)
             elif node_type == 'ranking':
                 temp_data, temp_labels = [], []
+                if 'SCATTER' in self.method:
+                    if len(calculation_data) != 2:
+                        # TODO change error from dict
+                        raise ValueError('Only two rankings can be visualized with scatter plot')
+
                 for item in calculation_data:
-                    # TODO check if max two rankings given
-                    if 'SCATTER' in self.method:
-                        temp_labels.append(item[0]['ranking'])
+                    temp_labels.append(item[0]['method'])
+                    temp_data.append(item[0]['ranking'])
                     # elif 'CORRELATION' in self.method:
                     #     temp_data.append()    
                     #     temp_labels.append(item[0]['method'])
-                    else:
-                        temp_data.append(item[0]['ranking'])
-                        temp_labels.append(item[0]['method'])
+                    # else:
+                    #     temp_data.append(item[0]['ranking'])
+                    #     temp_labels.append(item[0]['method'])
                 graph_data.append(temp_data)
                 graph_labels.append(temp_labels)
                         
@@ -440,11 +444,15 @@ class VisualizationNode(Node):
                     else:
                         graph_data.append(item[0]['correlation'][0])
                     graph_labels.append(item[0]['labels'])
+                    metrics_names.append(item[1])
         except Exception as err:
             # TODO message
+            if 'Only two rankings' in str(err):
+                raise ValueError(err)
+
             raise ValueError(f"Error in preparing visualization data ({self.method})")
 
-        return graph_data, graph_labels
+        return graph_data, graph_labels, metrics_names
 
     def generate(self, nodes, matrix_node):
 
@@ -454,18 +462,22 @@ class VisualizationNode(Node):
 
         node_type = nodes[0].node_type
         try:
-            graph_data, graph_labels = self._get_graph_data(nodes, node_type, matrix_node)
+            graph_data, graph_labels, metrics_names = self._get_graph_data(nodes, node_type, matrix_node)
         except Exception as err:
             # TODO message
+            if 'Only two rankings' in str(err) or 'Error in preparing' in str(err):
+                raise ValueError(err)
             raise ValueError(f"Error in generating graph ({self.method})")
 
-        print('graph_data')
-        print(graph_data)
-        for data, labels in zip(graph_data, graph_labels):
+        for idx, (data, labels) in enumerate(zip(graph_data, graph_labels)):
+            metric = None
+            if len(metrics_names) == len(graph_data):
+                metric = metrics_names[idx]
             self.calculation_data.append(
                 {
                     "matrix_id": matrix_node.id,
                     "img": generate_graph(data, labels, self.method),
+                    'metric': metric 
                 }
             )
         
