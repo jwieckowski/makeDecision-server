@@ -56,7 +56,7 @@ class MatrixConverter(Resource):
             raise e
 
 @api.route('/matrix/generate')
-class MatrixConverter(Resource):
+class MatrixGenerator(Resource):
     @api.expect(generate_matrix_parser)
     @api.marshal_with(matrix_model)
     def post(self):

@@ -35,29 +35,8 @@ def get_request_calculation_parser():
 
     parser = reqparse.RequestParser()
     parser.add_argument('locale', location='headers', required=True)
-    # parser.add_argument('data', required=True, type=list, location='json')
     parser.add_argument('data', required=True, type=my_type, location='json')
-    # parser.add_argument('data', required=True, type=get_request_calculation_model, location='json')
-    
 
-    # # Swagger documentation
-    # my_type.__schema__ = {'type': 'array', 'items': {
-    #     'id': {'type': 'integer', "example": "1", 'description': 'The type of your custom format'},
-    #     'node_type': {'type': 'string', "example": "matrix", 'description': 'A description of your custom format'}
-    # }}
-
-    # my_type.__schema__ = {
-    #       'type': 'array',
-    #         'items': {
-    #             'type': 'object',
-    #             'properties': {
-    #                 'field1': {'type': 'string'},
-    #                 'field2': {'type': 'integer'},
-    #             },
-    #             'required': ['field1', 'field2']
-    #         }
-    #     }
-    
     return parser
 
 def get_kwargs_items_parser():

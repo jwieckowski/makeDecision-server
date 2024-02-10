@@ -6,6 +6,7 @@ from .matrix import api as matrixApi
 from .calculations import api as calculationsApi
 from .graphs import api as graphsApi
 from .statistics import api as statsApi
+from .surveys import api as surveysApi
 
 api = Api( 
     version='1.1.0',
@@ -22,3 +23,4 @@ api.add_namespace(matrixApi)
 api.add_namespace(calculationsApi)
 api.add_namespace(graphsApi)
 api.add_namespace(statsApi)
+api.add_namespace(surveysApi)
