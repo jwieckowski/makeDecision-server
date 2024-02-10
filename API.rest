@@ -68,3 +68,8 @@ locale: en
 ###
 GET http://127.0.0.1:5000/api/v1/stats/logs HTTP/1.1
 content-type: application/json
+
+###
+GET http://127.0.0.1:5000/api/v1/surveys/usage HTTP/1.1
+content-type: application/json
+locale: en

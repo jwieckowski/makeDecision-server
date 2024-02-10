@@ -133,3 +133,6 @@ setup.py
 
 # personal deploy instruction
 deploy.txt
+
+# db config
+server/db/.env
