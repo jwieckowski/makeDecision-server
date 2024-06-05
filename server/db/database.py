@@ -37,5 +37,29 @@ class MongoDB:
             collection.insert_one(item)
             return 'Success'
         except:
-            print('Error while adding new usage survey response')
             raise ConnectionError('Error while adding new usage survey response')
+
+    def get_rating_survey_results(self):
+        collection = self.get_collection('ratings')
+        cursor = collection.find({})
+        
+        return [{
+                "id": idx, 
+                "helpful": item['helpful'],
+                "easyInterface": item['easyInterface'],
+                "changeSuggestion": item['changeSuggestion'],
+                "easeOfUse": item['easeOfUse'],
+                "overallRating": item['overallRating'],
+                "features": item['features'],
+            } 
+            for idx, item in enumerate(list(cursor))
+            ]
+
+    def add_rating_survey_item(self, survey_item):
+        collection = self.get_collection('ratings')
+
+        try:
+            collection.insert_one(survey_item)
+            return 'Success'
+        except:
+            raise ConnectionError('Error while adding new rating survey response')

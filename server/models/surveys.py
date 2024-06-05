@@ -41,3 +41,20 @@ def get_survey_usage_items(api):
     })
 
     return response_item
+
+def get_survey_rating_items(api):
+    results_item = api.model('ResultsSurveyRatingItem', {
+        'id': fields.Integer(description='Answer ID'),
+        'helpful': fields.String(description='Rating aspect name'),
+        'easyInterface': fields.String(description='Rating aspect name'),
+        'changeSuggestion': fields.String(description='Rating aspect name'),
+        'easeOfUse': fields.Integer(description='Rating aspect name'),
+        'overallRating': fields.Integer(description='Rating aspect name'),
+        'features': fields.String(description='Rating aspect name'),
+    })
+
+    response_item = api.model('ResultsSurveyRating', {
+        "response": fields.Nested(results_item)
+    })
+
+    return response_item

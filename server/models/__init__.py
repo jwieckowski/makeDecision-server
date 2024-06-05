@@ -2,4 +2,4 @@ from .descriptions import get_description_model
 from .dictionary import get_dictionary_model
 from .matrix import get_matrix_model
 from .calculations import get_request_calculation_model, get_response_calculation_model
-from .surveys import get_survey_usage_model, get_survey_usage_items
+from .surveys import get_survey_usage_model, get_survey_usage_items, get_survey_rating_items
