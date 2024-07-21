@@ -11,13 +11,16 @@ from graphs import graphs_methods, generate_graph
 # HELPERS
 from .parameters import get_parameters, get_call_kwargs
 
+from utils.errors import get_error_message
+
 class Node(ABC):
-    def __init__(self, id, node_type, extension, connections_from, connections_to, position_x, position_y) -> None:
+    def __init__(self, locale, id, node_type, extension, connections_from, connections_to, position_x, position_y) -> None:
+        self.locale = locale
         self.id = id
         self.node_type = node_type.lower()
         self.extension = extension.lower()
         if self.extension not in ['crisp', 'fuzzy']:
-            raise ValueError(f"Extension '{self.extension}' not found")
+            raise ValueError(f"'{self.extension}': {get_error_message(self.locale, 'extension-not-found')}")
         self.connections_from = connections_from
         self.connections_to = connections_to
         self.position_x = position_x
@@ -31,15 +34,15 @@ class Node(ABC):
         }
 
 class MatrixNode(Node):
-    def __init__(self, id, node_type, extension, connections_from, connections_to, position_x, position_y, matrix, criteria_types, method) -> None:
+    def __init__(self, locale, id, node_type, extension, connections_from, connections_to, position_x, position_y, matrix, criteria_types, method) -> None:
         
-        super().__init__(id, node_type, extension, connections_from, connections_to, position_x, position_y)
+        super().__init__(locale, id, node_type, extension, connections_from, connections_to, position_x, position_y)
 
         try:
             if ',' in matrix[0][0]:
                 matrix = [[col.split(',') for col in row] for row in matrix]
         except:
-            raise ValueError(f'Error in matrix node ({self.id}). Check the format of matrix.')
+            raise ValueError(f'{get_error_message(self.locale, "matrix-data-error")} ({self.id})')
         self.matrix = np.array(matrix, dtype=float)
         self.method = method.upper()
         self.criteria_types = np.array(criteria_types, dtype=float)
@@ -67,14 +70,14 @@ class MatrixNode(Node):
         }
 
 class WeightsNode(Node):
-    def __init__(self, id, node_type, extension, connections_from, connections_to, position_x, position_y, weights, method) -> None:
+    def __init__(self, locale, id, node_type, extension, connections_from, connections_to, position_x, position_y, weights, method) -> None:
         
-        super().__init__(id, node_type, extension, connections_from, connections_to, position_x, position_y)
+        super().__init__(locale, id, node_type, extension, connections_from, connections_to, position_x, position_y)
 
         self.weights = np.array(weights, dtype=float)
         self.method = method.upper()
         if self.method != 'INPUT' and self.method not in list(weights_methods.keys()):
-            raise ValueError(f"Method '{self.method}' not found")
+            raise ValueError(f"'{self.method}': {get_error_message(self.locale, 'method-name-not-found')}")
             
         self.calculation_data = []
 
@@ -100,9 +103,9 @@ class WeightsNode(Node):
                 print('weights')
                 print(weights)
                 if len(weights) != len(matrix_node.matrix[0]):
-                    raise ValueError(f'{self.method} method produced wrong weights') 
+                    raise ValueError(f'{self.method} {get_error_message(self.locale, "matrix-weights-size-error")}') 
             except Exception as err:
-                raise ValueError(f'Error in weights calculation ({self.method})')
+                raise ValueError(f'{get_error_message(self.locale, "weights-error-calculation")} ({self.method})')
         else:
             weights = self.weights
             print(weights)
@@ -124,13 +127,13 @@ class WeightsNode(Node):
         }
 
 class MethodNode(Node):
-    def __init__(self, id, node_type, extension, connections_from, connections_to, position_x, position_y, method, kwargs) -> None:
+    def __init__(self, locale, id, node_type, extension, connections_from, connections_to, position_x, position_y, method, kwargs) -> None:
         
-        super().__init__(id, node_type, extension, connections_from, connections_to, position_x, position_y)
+        super().__init__(locale, id, node_type, extension, connections_from, connections_to, position_x, position_y)
 
         self.method = method.upper()
         if self.method not in list(mcda_methods.keys()):
-            raise ValueError(f"Method '{self.method}' not found")
+            raise ValueError(f"'{self.method}': {get_error_message(self.locale, 'method-name-not-found')}")
             
         self.kwargs = kwargs
         self.calculation_data = []
@@ -142,9 +145,6 @@ class MethodNode(Node):
             method_obj = None
             weights_node = None
             pref = list(self.kwargs[0]['preference'])
-            # TODO: think about preferences range
-            # if any([p < 0 or p > 1 for p in pref]):
-            #     raise ValueError(f'Input preferences outside range [0, 1]')
         else:
             print('calculate method mcda')
             criteria_weights = weights_node.calculate(matrix_node)
@@ -152,19 +152,20 @@ class MethodNode(Node):
             print(criteria_weights)
             print('method kwargs')
             print(self.kwargs)
-            init_kwargs = get_parameters(self.kwargs, matrix_node.extension, matrix_node, criteria_weights)
+            init_kwargs = get_parameters(self.kwargs, matrix_node.extension, matrix_node, criteria_weights, self.locale)
             print('init kwargs')
             print(init_kwargs)
 
-            call_kwargs = get_call_kwargs(self.method, init_kwargs)
+            call_kwargs = get_call_kwargs(self.method, init_kwargs, self.extension, self.locale)
 
+            print(init_kwargs)
             print('call kwargs')
             print(call_kwargs)
             try: 
                 method_obj = mcda_methods[self.method][matrix_node.extension](**init_kwargs)
             except Exception as err:
-                # TODO message
-                raise ValueError('Object creation error')
+                print(err)
+                raise ValueError(get_error_message(self.locale, "mcda-method-object-error"))
             print('method object')
             print(method_obj)
             print(matrix_node.criteria_types)
@@ -173,14 +174,12 @@ class MethodNode(Node):
                 pref = np.round(method_obj(matrix_node.matrix, criteria_weights, matrix_node.criteria_types, **call_kwargs), precision)
                 print(pref)
                 if np.isnan(pref).any() or np.isinf(pref).any():
-                    # TODO message
-                    raise ValueError('Not numeric values in results')
+                    raise ValueError(get_error_message(self.locale, 'not-numeric-results'))
             except ValueError as err:
                 raise ValueError(err)
             except Exception as err:
-                # TODO message
                 print(err)
-                raise ValueError('Method calculation error')
+                raise ValueError(get_error_message(self.locale, 'method-calculation-error'))
             
             print(pref)
             if self.method == 'VIKOR' and np.array(pref).ndim == 2:
@@ -213,8 +212,8 @@ class MethodNode(Node):
                     if self.method == 'VIKOR' and np.array(ranking).ndim == 2:
                         ranking = ranking[2]
         except Exception as err:
-            # TODO message
-            raise ValueError('Ranking error')
+            print(err)
+            raise ValueError(get_error_message(self.locale, 'ranking-calculation-error'))
 
         return ranking, data
 
@@ -238,9 +237,9 @@ class MethodNode(Node):
         }
 
 class RankingNode(Node):
-    def __init__(self, id, node_type, extension, connections_from, connections_to, position_x, position_y, **kwargs) -> None:
+    def __init__(self, locale, id, node_type, extension, connections_from, connections_to, position_x, position_y, **kwargs) -> None:
         
-        super().__init__(id, node_type, extension, connections_from, connections_to, position_x, position_y)
+        super().__init__(locale, id, node_type, extension, connections_from, connections_to, position_x, position_y)
 
         if 'kwargs' in list(kwargs.keys()):
             self.kwargs = kwargs['kwargs']
@@ -286,13 +285,13 @@ class RankingNode(Node):
 
 
 class CorrelationNode(Node):
-    def __init__(self, id, node_type, extension, connections_from, connections_to, position_x, position_y, method) -> None:
+    def __init__(self, locale, id, node_type, extension, connections_from, connections_to, position_x, position_y, method) -> None:
         
-        super().__init__(id, node_type, extension, connections_from, connections_to, position_x, position_y)
+        super().__init__(locale, id, node_type, extension, connections_from, connections_to, position_x, position_y)
         
         self.method = method.upper()
         if self.method not in list(correlation_methods.keys()):
-            raise ValueError(f"Method '{self.method}' not found")
+            raise ValueError(f"'{self.method}': {get_error_message(self.locale, 'method-name-not-found')}")
             
         self.calculation_data = []
 
@@ -322,18 +321,19 @@ class CorrelationNode(Node):
                                 corr_data.append(data[data_field])
                                 if data_field == 'ranking':
                                     if 'weights_method' in data.keys():
-                                        corr_labels.append(f'{data["method"]} | {data["weights_method"]}')
+                                        # corr_labels.append(f'{data["method"]} | {data["weights_method"]}')
+                                        corr_labels.append(f'{data["method"]}\n{data["weights_method"]}')
                                     else:
                                         corr_labels.append(data['method'])
                                 else:
                                     if 'weights_node' in data.keys():
-                                        corr_labels.append(f'{node.method} | {data["weights_node"].method}')
+                                        # corr_labels.append(f'{node.method} | {data["weights_node"].method}')
+                                        corr_labels.append(f'{node.method}\n{data["weights_node"].method}')
                                     else:
                                         corr_labels.append(node.method)
         except Exception as err:
-            # TODO message
             print(err)
-            raise ValueError(f"Error in generating correlation data ({self.method})")
+            raise ValueError(f"{get_error_message(self.locale, 'correlation-generating-error')} ({self.method})")
 
         return corr_data, corr_labels
 
@@ -352,16 +352,16 @@ class CorrelationNode(Node):
             print(len(corr_data))
             if len(corr_data) > 0:
                 if len(set([len(row) for row in corr_data])) > 1:
-                    raise ValueError(f'Data for correlation calculation should have the same size')
+                    raise ValueError(get_error_message(self.locale, 'correlation-same-size-error'))
 
                 correlation_obj = correlation_methods[self.method]
 
                 try:
                     corr_matrix = np.round(correlation_matrix(np.array(corr_data, dtype=float), correlation_obj), precision)
                 except Exception as err:
-                    # TODO message
-                    raise ValueError(f"Error in calculating correlation data ({self.method})")
-                
+                    print(err)
+                    raise ValueError(f"{get_error_message(self.locale, 'correlation-calculation-error')} ({self.method})")
+
                 self.calculation_data.append({
                     "matrix_id": matrix_node.id,
                     "correlation": corr_matrix.tolist(),
@@ -379,13 +379,13 @@ class CorrelationNode(Node):
         }
 
 class VisualizationNode(Node):
-    def __init__(self, id, node_type, extension, connections_from, connections_to, position_x, position_y, method) -> None:
+    def __init__(self, locale, id, node_type, extension, connections_from, connections_to, position_x, position_y, method) -> None:
         
-        super().__init__(id, node_type, extension, connections_from, connections_to, position_x, position_y)
+        super().__init__(locale, id, node_type, extension, connections_from, connections_to, position_x, position_y)
         
         self.method = method.upper()
         if self.method not in list(graphs_methods.keys()):
-            raise ValueError(f"Method '{self.method}' not found")
+            raise ValueError(f"'{self.method}': {get_error_message(self.locale, 'method-name-not-found')}")
             
         self.calculation_data = []
 
@@ -403,8 +403,7 @@ class VisualizationNode(Node):
                         else:
                             calculation_data.append([data, node.method])
         except Exception as err:
-            # TODO message
-            raise ValueError(f"Error in retrieving visualization data ({self.method})")
+            raise ValueError(f"{get_error_message(self.locale, 'visualization-data-error')} ({self.method})")
 
         print('calculation_data')
         print(calculation_data)
@@ -421,12 +420,16 @@ class VisualizationNode(Node):
             elif node_type == 'ranking':
                 temp_data, temp_labels = [], []
                 if 'SCATTER' in self.method:
+                    print('tu scatter')
+                    print(calculation_data)
                     if len(calculation_data) != 2:
                         # TODO change error from dict
-                        raise ValueError('Only two rankings can be visualized with scatter plot')
+                        raise ValueError(get_error_message(self.locale, 'scatter-ranking-limit'))
 
                 for item in calculation_data:
-                    temp_labels.append(item[0]['method'])
+                    print('tutaj')
+                    print(item)
+                    temp_labels.append(f"{item[0]['method']}\n({item[0]['weights_method']})")
                     temp_data.append(item[0]['ranking'])
                     # elif 'CORRELATION' in self.method:
                     #     temp_data.append()    
@@ -446,11 +449,10 @@ class VisualizationNode(Node):
                     graph_labels.append(item[0]['labels'])
                     metrics_names.append(item[1])
         except Exception as err:
-            # TODO message
-            if 'Only two rankings' in str(err):
+            if get_error_message('en', "scatter-ranking-limit") in str(err):
                 raise ValueError(err)
 
-            raise ValueError(f"Error in preparing visualization data ({self.method})")
+            raise ValueError(f"{get_error_message(self.locale, 'visualization-calculation-error')} ({self.method})")
 
         return graph_data, graph_labels, metrics_names
 
@@ -458,16 +460,15 @@ class VisualizationNode(Node):
 
         node_types = [node.node_type for node in nodes]
         if len(set(node_types)) != 1:
-            raise ValueError(f'Graphs should be generated for nodes with the same type')
+            raise ValueError(f'{get_error_message(self.locale, "graphs-same-type")}')
 
         node_type = nodes[0].node_type
         try:
             graph_data, graph_labels, metrics_names = self._get_graph_data(nodes, node_type, matrix_node)
         except Exception as err:
-            # TODO message
-            if 'Only two rankings' in str(err) or 'Error in preparing' in str(err):
+            if 'Only two rankings' in str(err) or 'Tylko dwa rankingi' in str(err) or 'Error in preparing' in str(err) or 'przygotowywania danych wizualizacji' in str(err):
                 raise ValueError(err)
-            raise ValueError(f"Error in generating graph ({self.method})")
+            raise ValueError(f"{get_error_message(self.locale, 'graph-generation-error')} ({self.method})")
 
         for idx, (data, labels) in enumerate(zip(graph_data, graph_labels)):
             metric = None
@@ -476,7 +477,7 @@ class VisualizationNode(Node):
             self.calculation_data.append(
                 {
                     "matrix_id": matrix_node.id,
-                    "img": generate_graph(data, labels, self.method),
+                    "img": generate_graph(data, labels, self.method, self.locale),
                     'metric': metric 
                 }
             )

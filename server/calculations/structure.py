@@ -4,32 +4,33 @@ from .node import *
 
 # VALIDATOR
 from utils.validator import validate_user_weights
+from utils.errors import get_error_message
 
 class CalculationStructure:
     def __init__(self, data, locale) -> None:
-        self.nodes = CalculationStructure._create_nodes_structure(data) # array of calculationNode
+        self.nodes = CalculationStructure._create_nodes_structure(data, locale) # array of calculationNode
         self.calculation_data = [] # results calculated for each node in the structure
         self.locale = locale # app language
 
     @staticmethod
-    def _create_nodes_structure(data):
+    def _create_nodes_structure(data, locale):
         nodes = []
         for node in data:
             node_type = node['node_type']
             if node_type == 'matrix':
-                nodes.append(MatrixNode(**node))
+                nodes.append(MatrixNode(**node, locale=locale))
             elif node_type == 'weights':
-                nodes.append(WeightsNode(**node))
+                nodes.append(WeightsNode(**node, locale=locale))
             elif node_type == 'method':
-                nodes.append(MethodNode(**node))
+                nodes.append(MethodNode(**node, locale=locale))
             elif node_type == 'ranking':
-                nodes.append(RankingNode(**node))
+                nodes.append(RankingNode(**node, locale=locale))
             elif node_type == 'correlation':
-                nodes.append(CorrelationNode(**node))
+                nodes.append(CorrelationNode(**node, locale=locale))
             elif node_type == 'visualization':
-                nodes.append(VisualizationNode(**node))
+                nodes.append(VisualizationNode(**node, locale=locale))
             else:
-                raise ValueError(f"Block type '{node_type}' not allowed. Check the block with ID {node['id']}")
+                raise ValueError(f"'{node_type}'{get_error_message(locale, 'block-type-error')} {node['id']}")
         return nodes
 
     def _create_response(self):
@@ -78,7 +79,7 @@ class CalculationStructure:
         # Validate connections
         flag, message = self._validate_connections()
         if not flag:
-            raise ValueError(f'Connection structure is wrong. Check the connection between {message[0]} and {message[1]}')
+            raise ValueError(f'{get_error_message(self.locale, "connection-structure-error")} ({message[0]}, {message[1]})')
 
         # first step - get matrices
         matrix_nodes = self._find_node_by_type('matrix')
@@ -93,24 +94,21 @@ class CalculationStructure:
             weights_nodes = self._get_connected_nodes(matrix_node)
 
             if len(weights_nodes) == 0:
-                raise ValueError(f'No blocks were connected to matrix with ID {matrix_node.id}')
+                raise ValueError(f'{get_error_message(self.locale, "matrix-no-connections")} {matrix_node.id}')
 
             print('Weights nodes')
             print(weights_nodes)
 
             for weights_node_idx, weights_node in enumerate(weights_nodes):
                 if weights_node is None:
-                    raise ValueError(f'Weights block with ID {matrix_node.connections_to[weights_node_idx]} not found')
+                    raise ValueError(f'{get_error_message(self.locale, "weights-not-found")} {matrix_node.id}')
                 
                 # Validate input weights
                 if weights_node.method == 'INPUT':
                     validate_user_weights(self.locale, weights_node, matrix_node.extension)
                 
                 methods_nodes = self._get_connected_nodes(weights_node, node_type='method')
-                
-                # if len(methods_nodes) == 0:
-                #     raise ValueError(f'No blocks were connected to weights with ID {weights_node.id}')
-
+            
                 print('Methods nodes')
                 print(methods_nodes)
 
@@ -121,7 +119,7 @@ class CalculationStructure:
                     # third step - calculate preferences
                     for method_node_idx, method_node in enumerate(methods_nodes):
                         if method_node is None:
-                            raise ValueError(f'Method block with ID {weights_node.connections_to[method_node_idx]} not found')
+                            raise ValueError(f'{get_error_message(self.locale, "method-not-found")} {weights_node.connections_to[method_node_idx]}')
                         
                         method_node.calculate(matrix_node, weights_node)
 
@@ -131,14 +129,14 @@ class CalculationStructure:
 
                         for ranking_node_idx, ranking_node in enumerate(ranking_nodes):
                             if ranking_node is None:
-                                raise ValueError(f'Ranking block with ID {matrix_node.connections_to[ranking_node_idx]} not found')
+                                raise ValueError(f'{get_error_message(self.locale, "ranking-not-found")} {matrix_node.connections_to[ranking_node_idx]}')
                             
                             ranking_node.calculate(method_node, matrix_node, weights_node)
                             # for input nodes
                             ranking_connected_nodes = [input_node for input_node in self._get_connected_nodes(ranking_node, output=False) if input_node.method.lower() == 'input']
 
                             if len(set([*[len(data['ranking']) for data in ranking_node.calculation_data], *[len(input_pref.kwargs[0]['preference']) for input_pref in ranking_connected_nodes]])) > 1:
-                                raise ValueError(f'Data for ranking calculation should have the same size')
+                                raise ValueError(f'{get_error_message(self.locale, "ranking-calculation-size")}')
 
                             if len(ranking_connected_nodes) > 0:
                                 for input_ranking_node in ranking_connected_nodes:

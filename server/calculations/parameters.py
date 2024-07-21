@@ -8,20 +8,20 @@ from pymcdm.methods.comet_tools import MethodExpert, ESPExpert, CompromiseExpert
 from pymcdm.weights import equal_weights, gini_weights, standard_deviation_weights
 
 # UTILS
-# from utils.errors import get_error_message
+from utils.errors import get_error_message
 
 # FOR ADDITIONAL PARAMETERS FOR FUZZY MCDA METHODS
-def get_fuzzy_parameters(kwargs):
+def get_fuzzy_parameters(kwargs, locale):
     """
         Retrieves additional parameters for given fuzzy MCDA method
 
         Parameters
         ----------
+            kwargs: 
+                Dictionary with key as metric and value as name of metric to be used for given metric
+
             locale : string
                 User application language
-
-            kwargs: 
-                TODO
 
         Raises
         -------
@@ -54,21 +54,19 @@ def get_fuzzy_parameters(kwargs):
 
         return init_kwargs
     except Exception as err:
-        # TODO change error message
-        raise ValueError(err)
+        raise ValueError(get_error_message(locale, "fuzzy-params-not-found"))
 
-def get_crisp_parameters(kwargs, matrix_node, criteria_weights):
+def get_crisp_parameters(kwargs, matrix_node, criteria_weights, locale):
     """
         Retrieves additional parameters for given crisp MCDA method
 
         Parameters
         ----------
+            kwargs:
+                Dictionary with key as metric and value as name of metric to be used for given metric
+            
             locale : string
                 User application language
-
-            kwargs:
-                TODO
-
         Raises
         -------
             ValueError Exception
@@ -84,7 +82,6 @@ def get_crisp_parameters(kwargs, matrix_node, criteria_weights):
     init_kwargs = {}
     try:
 
-        # TODO check keys if allowed
         for key, value in kwargs.items():
             if key == 'matrix_id': continue
             elif key == 'normalization_function':
@@ -103,8 +100,7 @@ def get_crisp_parameters(kwargs, matrix_node, criteria_weights):
 
                 elif value == 'esp_expert':
                     if 'esp' not in list(kwargs.keys()):
-                        # TODO add error message from dict
-                        raise ValueError("Missing key 'esp' for the COMET method for the ESP Expert variant")
+                        raise ValueError(get_error_message(locale, 'missing-esp-comet'))
                     
                     bounds = SPOTIS.make_bounds(matrix_node.matrix)
                     esps = np.array([kwargs['esp']], dtype=float)
@@ -156,10 +152,9 @@ def get_crisp_parameters(kwargs, matrix_node, criteria_weights):
 
         return init_kwargs
     except Exception as err:
-        # TODO change error message
-        raise ValueError(err)
+        raise ValueError(get_error_message(locale, "crisp-params-not-found"))
 
-def get_parameters(kwargs, extension, matrix_node, criteria_weights):
+def get_parameters(kwargs, extension, matrix_node, criteria_weights, locale):
 
     init_kwargs = {}
 
@@ -168,14 +163,14 @@ def get_parameters(kwargs, extension, matrix_node, criteria_weights):
     if len(items) > 0:
 
         if extension == 'crisp':
-            init_kwargs = get_crisp_parameters(items[0], matrix_node, criteria_weights)
+            init_kwargs = get_crisp_parameters(items[0], matrix_node, criteria_weights, locale)
         elif extension == 'fuzzy':
-            init_kwargs = get_fuzzy_parameters(items[0])
+            init_kwargs = get_fuzzy_parameters(items[0], locale)
 
     return init_kwargs
 
 
-def get_call_kwargs(method, init_kwargs):
+def get_call_kwargs(method, init_kwargs, extension, locale):
     call_kwargs = {}
     try:
         if method == 'VIKOR':
@@ -188,12 +183,11 @@ def get_call_kwargs(method, init_kwargs):
             if 'q' in list(init_kwargs.keys()):
                 call_kwargs['q'] = init_kwargs['q']
                 del init_kwargs['q']
-        if method == 'SPOTIS':
+        if method == 'SPOTIS' and extension == 'fuzzy':
             call_kwargs['bounds'] = init_kwargs['bounds']
             del init_kwargs['bounds']
             
     except Exception as err:
-        # TODO message
-        raise ValueError(err)
+        raise ValueError(get_error_message(locale, "call-kwargs-error"))
 
     return call_kwargs

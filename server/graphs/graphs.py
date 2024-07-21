@@ -10,8 +10,6 @@ graphs_methods = {
     'RANKING FLOW': get_ranking_flow_plot,
     'POLAR RANKING': get_ranking_polar_plot,
     'SCATTER RANKING': get_ranking_scatter_plot,
-    # TODO: handle showing this plot
-    # 'RANKING CORRELATION': get_ranking_correlation_plot, 
     'RANKING CORRELATION': get_ranking_polar_plot,
     'CORRELATION HEATMAP': get_correlation_heatmap_plot,
     'CORRELATION FLOW': get_correlation_plot

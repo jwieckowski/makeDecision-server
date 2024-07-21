@@ -1,5 +1,7 @@
 from pymongo import MongoClient
 
+from utils.errors import get_error_message
+
 class MongoDB:
     def __init__(self, uri, name):
         self.__client = None
@@ -7,7 +9,7 @@ class MongoDB:
         try:
             self.__client = MongoClient(uri)
         except:
-            raise ConnectionError('Cannot connect to database')
+            raise ConnectionError(get_error_message('en', 'db-connection'))
     
     def __del__(self):
         if self.__client:
@@ -21,7 +23,7 @@ class MongoDB:
             collection = self.__client[self.__name][collection_name]
             return collection
         except:
-            raise ConnectionError(f'No collection named {collection_name} in database')
+            raise ConnectionError(f'{get_error_message("en", "db-collection-name")} {collection_name}')
 
     def get_usage_survey_results(self):
         collection = self.get_collection('surveys')
@@ -37,7 +39,7 @@ class MongoDB:
             collection.insert_one(item)
             return 'Success'
         except:
-            raise ConnectionError('Error while adding new usage survey response')
+            raise ConnectionError(get_error_message("en", "db-add-error"))
 
     def get_rating_survey_results(self):
         collection = self.get_collection('ratings')
@@ -62,4 +64,4 @@ class MongoDB:
             collection.insert_one(survey_item)
             return 'Success'
         except:
-            raise ConnectionError('Error while adding new rating survey response')
+            raise ConnectionError(get_error_message("en", "db-add-error"))
