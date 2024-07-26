@@ -27,13 +27,8 @@ dictionary_model = get_dictionary_model(api)
 # ARGUMENTS PARSERS
 locale_parser = get_locale_parser()
 
-# TODO: prepare endpoint to return figures for the given data
-# not connected to the whole flow of the assessment
-
 @api.route('/graphs/plot')
 class GraphsConverter(Resource):
-    # @api.expect(locale_parser)
-    # @api.marshal_with(dictionary_model)
     def get(self):
         @graphs_wrapper
         def get_data():

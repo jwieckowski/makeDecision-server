@@ -3,7 +3,6 @@
 from flask_restx import Resource
 from werkzeug.exceptions import BadRequest
 import json
-import time
 
 # CONST
 from config import dir_path
@@ -35,15 +34,12 @@ items_parser = get_kwargs_items_parser()
 
 @api.route('/calculations/calculate')
 class CalculationResults(Resource):
-    # @api.expect(calculation_parser)
-    # @api.marshal_with(response_calculation_model)
     def post(self):
         args = calculation_parser.parse_args()
         # ARGUMENTS
         locale = validate_locale(args['locale'])
 
         data = args['data']
-        print(data)
 
         try:
             # CALCULATE
@@ -62,7 +58,6 @@ class CalculationResults(Resource):
 @api.route('/calculations/items')
 class CalculationResults(Resource):
     @api.expect(calculation_parser)
-    # @api.marshal_with(response_calculation_model)
     def post(self):
         args = items_parser.parse_args()
         # ARGUMENTS

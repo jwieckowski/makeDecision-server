@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Jakub Więckowski
+# Copyright (c) 2023 - 2024 Jakub Więckowski
 
 from server import app
 import json
@@ -10,625 +10,335 @@ def client():
     with app.test_client() as client:
         yield client
 
-def test_results_calculation_angle_method_crisp(client):
+def test_results_calculation_weights_method_crisp(client):
     """
-        Test verifying the functionality of multi-criteria calculations for basic model structure with ANGLE weights method with crisp data
+        Test verifying the functionality of multi-criteria calculations for basic model structure with weights method with crisp data
     """
-    matrix = [
-        [1, 2, 3],
-        [4, 5, 3],
-        [6, 2, 1],
-    ]
-    types = [1, -1, 1]
-    extensions = ['crisp']
-    method = [
+    data = [
         {
-            'method': "TOPSIS",
-            'weights': "ANGLE"
+            "id": 1,
+            "node_type": "matrix",
+            "extension": "crisp",
+            "matrix": [
+                [6, 2, 3],
+                [3, 7, 2],
+                [2, 3, 8],
+            ],
+            "criteria_types": [1, -1, 1],
+            "method": "input",
+            "connections_from": [],
+            "connections_to": [2],
+            "position_x": 10,
+            "position_y": 10,
+        },
+        {
+            "id": 2,
+            "node_type": "weights",
+            "extension": "crisp",
+            "weights": [],
+            "method": "IDOCRIW",
+            "connections_from": [1],
+            "connections_to": [],
+            "position_x": 20,
+            "position_y": 20,
         }
     ]
-    params = [{}]
 
-    response = client.post('/api/v1/results', headers={'locale': 'en'}, json={'matrix': [matrix],'extensions': extensions,'types': [types],'method': [method], 'params': [params]}, content_type='application/json')
+
+    response = client.post('/api/v1/calculations/calculate', headers={'locale': 'en'}, json={'data': data}, content_type='application/json')
     payload = json.loads(response.data.decode('utf-8'))
 
     assert response.status_code == 200
-    assert type(payload) is dict
-    assert 'matrices' in payload.keys()
-    assert 'method' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-    assert 'methodRankings' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
+    assert 'response' in list(payload.keys())
+    assert type(payload['response']) is list
+    assert len(payload['response']) == 2
+    assert type(payload['response'][0]) is dict
+    assert payload['response'][0]['node_type'] == 'matrix'
+    assert payload['response'][1]['node_type'] == 'weights'
+    assert type(payload['response'][1]['data'][0]) is dict
+    assert len(payload['response'][1]['data'][0]['weights']) == 3
 
-def test_results_calculation_cilos_method_crisp(client):
+def test_results_calculation_multiple_weights_method_crisp(client):
     """
-        Test verifying the functionality of multi-criteria calculations for basic model structure with CILOS weights method with crisp data
+        Test verifying the functionality of multi-criteria calculations for basic model structure with weights method with crisp data
     """
-    matrix = [
-        [1, 2, 3],
-        [4, 5, 3],
-        [6, 2, 1],
-    ]
-    types = [1, -1, 1]
-    extensions = ['crisp']
-    method = [
+    data = [
         {
-            'method': "TOPSIS",
-            'weights': "CILOS"
+            "id": 1,
+            "node_type": "matrix",
+            "extension": "crisp",
+            "matrix": [
+                [6, 2, 3],
+                [3, 7, 2],
+                [2, 3, 8],
+            ],
+            "criteria_types": [1, -1, 1],
+            "method": "input",
+            "connections_from": [],
+            "connections_to": [2, 3],
+            "position_x": 10,
+            "position_y": 10,
+        },
+        {
+            "id": 2,
+            "node_type": "weights",
+            "extension": "crisp",
+            "weights": [],
+            "method": "IDOCRIW",
+            "connections_from": [1],
+            "connections_to": [],
+            "position_x": 20,
+            "position_y": 20,
+        },
+        {
+            "id": 3,
+            "node_type": "weights",
+            "extension": "crisp",
+            "weights": [],
+            "method": "MEREC",
+            "connections_from": [1],
+            "connections_to": [],
+            "position_x": 30,
+            "position_y": 30,
         }
     ]
-    params = [{}]
 
-    response = client.post('/api/v1/results', headers={'locale': 'en'}, json={'matrix': [matrix],'extensions': extensions,'types': [types],'method': [method], 'params': [params]}, content_type='application/json')
+
+    response = client.post('/api/v1/calculations/calculate', headers={'locale': 'en'}, json={'data': data}, content_type='application/json')
     payload = json.loads(response.data.decode('utf-8'))
 
     assert response.status_code == 200
-    assert type(payload) is dict
-    assert 'matrices' in payload.keys()
-    assert 'method' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-    assert 'methodRankings' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
+    assert 'response' in list(payload.keys())
+    assert type(payload['response']) is list
+    assert type(payload['response'][0]) is dict
+    assert len(payload['response']) == 3
+    assert payload['response'][0]['node_type'] == 'matrix'
+    assert payload['response'][1]['node_type'] == 'weights'
+    assert type(payload['response'][1]['data'][0]) is dict
+    assert len(payload['response'][1]['data'][0]['weights']) == 3
+    assert payload['response'][1]['method'] == 'IDOCRIW'
+    assert len(payload['response'][2]['data'][0]['weights']) == 3
+    assert payload['response'][2]['method'] == 'MEREC'
+    
 
-def test_results_calculation_critic_method_crisp(client):
+def test_results_calculation_weights_method_fuzzy(client):
     """
-        Test verifying the functionality of multi-criteria calculations for basic model structure with CRITIC weights method with crisp data
+        Test verifying the functionality of multi-criteria calculations for basic model structure with weights method with fuzzy data
     """
-    matrix = [
-        [1, 2, 3],
-        [4, 5, 3],
-        [6, 2, 1],
-    ]
-    types = [1, -1, 1]
-    extensions = ['crisp']
-    method = [
+    data = [
         {
-            'method': "TOPSIS",
-            'weights': "CRITIC"
+            "id": 1,
+            "node_type": "matrix",
+            "extension": "fuzzy",
+            "matrix": [
+                [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
+                [[5, 7, 8], [7, 8, 9], [3, 4, 5]],
+                [[2, 3, 4], [5, 7, 9], [6, 8, 9]],
+            ],
+            "criteria_types": [1, -1, 1],
+            "method": "input",
+            "connections_from": [],
+            "connections_to": [2],
+            "position_x": 10,
+            "position_y": 10,
+        },
+        {
+            "id": 2,
+            "node_type": "weights",
+            "extension": "fuzzy",
+            "weights": [],
+            "method": "EQUAL",
+            "connections_from": [1],
+            "connections_to": [],
+            "position_x": 20,
+            "position_y": 20,
         }
     ]
-    params = [{}]
 
-    response = client.post('/api/v1/results', headers={'locale': 'en'}, json={'matrix': [matrix],'extensions': extensions,'types': [types],'method': [method], 'params': [params]}, content_type='application/json')
+    response = client.post('/api/v1/calculations/calculate', headers={'locale': 'en'}, json={'data': data}, content_type='application/json')
     payload = json.loads(response.data.decode('utf-8'))
 
     assert response.status_code == 200
-    assert type(payload) is dict
-    assert 'matrices' in payload.keys()
-    assert 'method' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-    assert 'methodRankings' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
+    assert 'response' in list(payload.keys())
+    assert type(payload['response']) is list
+    assert len(payload['response']) == 2
+    assert type(payload['response'][0]) is dict
+    assert payload['response'][0]['node_type'] == 'matrix'
+    assert payload['response'][1]['node_type'] == 'weights'
+    assert type(payload['response'][1]['data'][0]) is dict
+    assert len(payload['response'][1]['data'][0]['weights']) == 3
 
-def test_results_calculation_entropy_method_crisp(client):
+def test_results_calculation_multiple_weights_method_fuzzy(client):
     """
-        Test verifying the functionality of multi-criteria calculations for basic model structure with ENTROPY weights method with crisp data
+        Test verifying the functionality of multi-criteria calculations for basic model structure with weights method with fuzzy data
     """
-    matrix = [
-        [1, 2, 3],
-        [4, 5, 3],
-        [6, 2, 1],
-    ]
-    types = [1, -1, 1]
-    extensions = ['crisp']
-    method = [
+    data = [
         {
-            'method': "TOPSIS",
-            'weights': "ENTROPY"
+            "id": 1,
+            "node_type": "matrix",
+            "extension": "fuzzy",
+            "matrix": [
+                [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
+                [[5, 7, 8], [7, 8, 9], [3, 4, 5]],
+                [[2, 3, 4], [5, 7, 9], [6, 8, 9]],
+            ],
+            "criteria_types": [1, -1, 1],
+            "method": "input",
+            "connections_from": [],
+            "connections_to": [2, 3],
+            "position_x": 10,
+            "position_y": 10,
+        },
+        {
+            "id": 2,
+            "node_type": "weights",
+            "extension": "fuzzy",
+            "weights": [],
+            "method": "EQUAL",
+            "connections_from": [1],
+            "connections_to": [],
+            "position_x": 20,
+            "position_y": 20,
+        },
+        {
+            "id": 3,
+            "node_type": "weights",
+            "extension": "fuzzy",
+            "weights": [],
+            "method": "ENTROPY",
+            "connections_from": [1],
+            "connections_to": [],
+            "position_x": 30,
+            "position_y": 30,
         }
     ]
-    params = [{}]
 
-    response = client.post('/api/v1/results', headers={'locale': 'en'}, json={'matrix': [matrix],'extensions': extensions,'types': [types],'method': [method], 'params': [params]}, content_type='application/json')
+
+    response = client.post('/api/v1/calculations/calculate', headers={'locale': 'en'}, json={'data': data}, content_type='application/json')
     payload = json.loads(response.data.decode('utf-8'))
 
     assert response.status_code == 200
-    assert type(payload) is dict
-    assert 'matrices' in payload.keys()
-    assert 'method' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-    assert 'methodRankings' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
+    assert 'response' in list(payload.keys())
+    assert type(payload['response']) is list
+    assert type(payload['response'][0]) is dict
+    assert len(payload['response']) == 3
+    assert payload['response'][0]['node_type'] == 'matrix'
+    assert payload['response'][1]['node_type'] == 'weights'
+    assert type(payload['response'][1]['data'][0]) is dict
+    assert len(payload['response'][1]['data'][0]['weights']) == 3
+    assert payload['response'][1]['method'] == 'EQUAL'
+    assert len(payload['response'][2]['data'][0]['weights']) == 3
+    assert payload['response'][2]['method'] == 'ENTROPY'
 
-def test_results_calculation_equal_method_crisp(client):
+def test_results_calculation_no_weights_method(client):
     """
-        Test verifying the functionality of multi-criteria calculations for basic model structure with EQUAL weights method with crisp data
+        Test verifying the functionality of multi-criteria calculations for model with no weights
     """
-    matrix = [
-        [1, 2, 3],
-        [4, 5, 3],
-        [6, 2, 1],
-    ]
-    types = [1, -1, 1]
-    extensions = ['crisp']
-    method = [
+    data = [
         {
-            'method': "TOPSIS",
-            'weights': "EQUAL"
+            "id": 1,
+            "node_type": "matrix",
+            "extension": "crisp",
+            "matrix": [
+                [6, 2, 3],
+                [3, 7, 2],
+                [2, 3, 8],
+            ],
+            "criteria_types": [1, -1, 1],
+            "method": "input",
+            "connections_from": [],
+            "connections_to": [2, 3],
+            "position_x": 10,
+            "position_y": 10,
         }
     ]
-    params = [{}]
 
-    response = client.post('/api/v1/results', headers={'locale': 'en'}, json={'matrix': [matrix],'extensions': extensions,'types': [types],'method': [method], 'params': [params]}, content_type='application/json')
-    payload = json.loads(response.data.decode('utf-8'))
 
-    assert response.status_code == 200
-    assert type(payload) is dict
-    assert 'matrices' in payload.keys()
-    assert 'method' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-    assert 'methodRankings' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-
-def test_results_calculation_gini_method_crisp(client):
-    """
-        Test verifying the functionality of multi-criteria calculations for basic model structure with GINI weights method with crisp data
-    """
-    matrix = [
-        [1, 2, 3],
-        [4, 5, 3],
-        [6, 2, 1],
-    ]
-    types = [1, -1, 1]
-    extensions = ['crisp']
-    method = [
-        {
-            'method': "TOPSIS",
-            'weights': "GINI"
-        }
-    ]
-    params = [{}]
-
-    response = client.post('/api/v1/results', headers={'locale': 'en'}, json={'matrix': [matrix],'extensions': extensions,'types': [types],'method': [method], 'params': [params]}, content_type='application/json')
-    payload = json.loads(response.data.decode('utf-8'))
-
-    assert response.status_code == 200
-    assert type(payload) is dict
-    assert 'matrices' in payload.keys()
-    assert 'method' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-    assert 'methodRankings' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-
-def test_results_calculation_idocriw_method_crisp(client):
-    """
-        Test verifying the functionality of multi-criteria calculations for basic model structure with IDOCRIW weights method with crisp data
-    """
-    matrix = [
-        [1, 2, 3],
-        [4, 5, 3],
-        [6, 2, 1],
-    ]
-    types = [1, -1, 1]
-    extensions = ['crisp']
-    method = [
-        {
-            'method': "TOPSIS",
-            'weights': "IDOCRIW"
-        }
-    ]
-    params = [{}]
-
-    response = client.post('/api/v1/results', headers={'locale': 'en'}, json={'matrix': [matrix],'extensions': extensions,'types': [types],'method': [method], 'params': [params]}, content_type='application/json')
-    payload = json.loads(response.data.decode('utf-8'))
-
-    assert response.status_code == 200
-    assert type(payload) is dict
-    assert 'matrices' in payload.keys()
-    assert 'method' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-    assert 'methodRankings' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-
-def test_results_calculation_input_method_crisp(client):
-    """
-        Test verifying the functionality of multi-criteria calculations for basic model structure with INPUT weights method with crisp data
-    """
-    matrix = [
-        [1, 2, 3],
-        [4, 5, 3],
-        [6, 2, 1],
-    ]
-    types = [1, -1, 1]
-    extensions = ['crisp']
-    method = [
-        {
-            'method': "TOPSIS",
-            'weights': [0.1, 0.4, 0.5]
-        }
-    ]
-    params = [{}]
-
-    response = client.post('/api/v1/results', headers={'locale': 'en'}, json={'matrix': [matrix],'extensions': extensions,'types': [types],'method': [method], 'params': [params]}, content_type='application/json')
-    payload = json.loads(response.data.decode('utf-8'))
-
-    assert response.status_code == 200
-    assert type(payload) is dict
-    assert 'matrices' in payload.keys()
-    assert 'method' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-    assert 'methodRankings' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-
-def test_results_calculation_merec_method_crisp(client):
-    """
-        Test verifying the functionality of multi-criteria calculations for basic model structure with MEREC weights method with crisp data
-    """
-    matrix = [
-        [1, 2, 3],
-        [4, 5, 3],
-        [6, 2, 1],
-    ]
-    types = [1, -1, 1]
-    extensions = ['crisp']
-    method = [
-        {
-            'method': "TOPSIS",
-            'weights': "MEREC"
-        }
-    ]
-    params = [{}]
-
-    response = client.post('/api/v1/results', headers={'locale': 'en'}, json={'matrix': [matrix],'extensions': extensions,'types': [types],'method': [method], 'params': [params]}, content_type='application/json')
-    payload = json.loads(response.data.decode('utf-8'))
-
-    assert response.status_code == 200
-    assert type(payload) is dict
-    assert 'matrices' in payload.keys()
-    assert 'method' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-    assert 'methodRankings' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-
-def test_results_calculation_std_method_crisp(client):
-    """
-        Test verifying the functionality of multi-criteria calculations for basic model structure with STANDARD DEVIATION weights method with crisp data
-    """
-    matrix = [
-        [1, 2, 3],
-        [4, 5, 3],
-        [6, 2, 1],
-    ]
-    types = [1, -1, 1]
-    extensions = ['crisp']
-    method = [
-        {
-            'method': "TOPSIS",
-            'weights': "STANDARD DEVIATION"
-        }
-    ]
-    params = [{}]
-
-    response = client.post('/api/v1/results', headers={'locale': 'en'}, json={'matrix': [matrix],'extensions': extensions,'types': [types],'method': [method], 'params': [params]}, content_type='application/json')
-    payload = json.loads(response.data.decode('utf-8'))
-
-    assert response.status_code == 200
-    assert type(payload) is dict
-    assert 'matrices' in payload.keys()
-    assert 'method' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-    assert 'methodRankings' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-
-def test_results_calculation_variance_method_crisp(client):
-    """
-        Test verifying the functionality of multi-criteria calculations for basic model structure with VARIANCE weights method with crisp data
-    """
-    matrix = [
-        [1, 2, 3],
-        [4, 5, 3],
-        [6, 2, 1],
-    ]
-    types = [1, -1, 1]
-    extensions = ['crisp']
-    method = [
-        {
-            'method': "TOPSIS",
-            'weights': "VARIANCE"
-        }
-    ]
-    params = [{}]
-
-    response = client.post('/api/v1/results', headers={'locale': 'en'}, json={'matrix': [matrix],'extensions': extensions,'types': [types],'method': [method], 'params': [params]}, content_type='application/json')
-    payload = json.loads(response.data.decode('utf-8'))
-
-    assert response.status_code == 200
-    assert type(payload) is dict
-    assert 'matrices' in payload.keys()
-    assert 'method' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-    assert 'methodRankings' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-
-def test_results_calculation_entropy_method_fuzzy(client):
-    """
-        Test verifying the functionality of multi-criteria calculations for basic model structure with ENTROPY weights method with fuzzy data
-    """
-    matrix = [
-        [
-            [[1, 2, 3], [4, 5, 6], [6, 7, 8]],
-            [[4, 5, 7], [1, 2, 4], [6, 8, 9]],
-            [[4, 5, 6], [2, 2, 3], [3, 3, 4]],
-        ],
-    ]
-    types = [1, -1, 1]
-    extensions = ['fuzzy']
-    method = [
-        {
-            'method': "TOPSIS",
-            'weights': "ENTROPY"
-        }
-    ]
-    params = [{}]
-
-    response = client.post('/api/v1/results', headers={'locale': 'en'}, json={'matrix': matrix,'extensions': extensions,'types': [types],'method': [method], 'params': [params]}, content_type='application/json')
-    payload = json.loads(response.data.decode('utf-8'))
-
-    assert response.status_code == 200
-    assert type(payload) is dict
-    assert 'matrices' in payload.keys()
-    assert 'method' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-    assert 'methodRankings' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-
-def test_results_calculation_equal_method_fuzzy(client):
-    """
-        Test verifying the functionality of multi-criteria calculations for basic model structure with EQUAL weights method with fuzzy data
-    """
-    matrix = [
-        [
-            [[1, 2, 3], [4, 5, 6], [6, 7, 8]],
-            [[4, 5, 7], [1, 2, 4], [6, 8, 9]],
-            [[4, 5, 6], [2, 2, 3], [3, 3, 4]],
-        ],
-    ]
-    types = [1, -1, 1]
-    extensions = ['fuzzy']
-    method = [
-        {
-            'method': "TOPSIS",
-            'weights': "EQUAL"
-        }
-    ]
-    params = [{}]
-
-    response = client.post('/api/v1/results', headers={'locale': 'en'}, json={'matrix': matrix,'extensions': extensions,'types': [types],'method': [method], 'params': [params]}, content_type='application/json')
-    payload = json.loads(response.data.decode('utf-8'))
-
-    assert response.status_code == 200
-    assert type(payload) is dict
-    assert 'matrices' in payload.keys()
-    assert 'method' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-    assert 'methodRankings' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-
-def test_results_calculation_input_method_fuzzy(client):
-    """
-        Test verifying the functionality of multi-criteria calculations for basic model structure with INPUT weights method with fuzzy data
-    """
-    matrix = [
-        [
-            [[1, 2, 3], [4, 5, 6], [6, 7, 8]],
-            [[4, 5, 7], [1, 2, 4], [6, 8, 9]],
-            [[4, 5, 6], [2, 2, 3], [3, 3, 4]],
-        ],
-    ]
-    types = [1, -1, 1]
-    extensions = ['fuzzy']
-    method = [
-        {
-            'method': "TOPSIS",
-            'weights': [0.4, 0.2, 0.4]
-        }
-    ]
-    params = [{}]
-
-    response = client.post('/api/v1/results', headers={'locale': 'en'}, json={'matrix': matrix,'extensions': extensions,'types': [types],'method': [method], 'params': [params]}, content_type='application/json')
-    payload = json.loads(response.data.decode('utf-8'))
-
-    assert response.status_code == 200
-    assert type(payload) is dict
-    assert 'matrices' in payload.keys()
-    assert 'method' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-    assert 'methodRankings' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-
-def test_results_calculation_std_method_fuzzy(client):
-    """
-        Test verifying the functionality of multi-criteria calculations for basic model structure with STANDARD DEVIATION weights method with fuzzy data
-    """
-    matrix = [
-        [
-            [[1, 2, 3], [4, 5, 6], [6, 7, 8]],
-            [[4, 5, 7], [1, 2, 4], [6, 8, 9]],
-            [[4, 5, 6], [2, 2, 3], [3, 3, 4]],
-        ],
-    ]
-    types = [1, -1, 1]
-    extensions = ['fuzzy']
-    method = [
-        {
-            'method': "TOPSIS",
-            'weights': "STANDARD DEVIATION"
-        }
-    ]
-    params = [{}]
-
-    response = client.post('/api/v1/results', headers={'locale': 'en'}, json={'matrix': matrix,'extensions': extensions,'types': [types],'method': [method], 'params': [params]}, content_type='application/json')
-    payload = json.loads(response.data.decode('utf-8'))
-
-    assert response.status_code == 200
-    assert type(payload) is dict
-    assert 'matrices' in payload.keys()
-    assert 'method' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-    assert 'methodRankings' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-
-def test_results_calculation_variance_method_fuzzy(client):
-    """
-        Test verifying the functionality of multi-criteria calculations for basic model structure with VARIANCE weights method with fuzzy data
-    """
-    matrix = [
-        [
-            [[1, 2, 3], [4, 5, 6], [6, 7, 8]],
-            [[4, 5, 7], [1, 2, 4], [6, 8, 9]],
-            [[4, 5, 6], [2, 2, 3], [3, 3, 4]],
-        ],
-    ]
-    types = [1, -1, 1]
-    extensions = ['fuzzy']
-    method = [
-        {
-            'method': "TOPSIS",
-            'weights': "VARIANCE"
-        }
-    ]
-    params = [{}]
-
-    response = client.post('/api/v1/results', headers={'locale': 'en'}, json={'matrix': matrix,'extensions': extensions,'types': [types],'method': [method], 'params': [params]}, content_type='application/json')
-    payload = json.loads(response.data.decode('utf-8'))
-
-    assert response.status_code == 200
-    assert type(payload) is dict
-    assert 'matrices' in payload.keys()
-    assert 'method' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-    assert 'methodRankings' in payload.keys()
-    assert 'methodCorrelations' in payload.keys()
-
-def test_results_calculation_unhandled_method_crisp(client):
-    """
-        Test verifying the functionality of multi-criteria calculations for basic model structure with not available weights method with crisp data
-    """
-    matrix = [
-        [1, 2, 3],
-        [4, 5, 3],
-        [6, 2, 1],
-    ]
-    types = [1, -1, 1]
-    extensions = ['crisp']
-    method = [
-        {
-            'method': "TOPSIS",
-            'weights': "ABC"
-        }
-    ]
-    params = [{}]
-
-    response = client.post('/api/v1/results', headers={'locale': 'en'}, json={'matrix': [matrix],'extensions': extensions,'types': [types],'method': [method], 'params': [params]}, content_type='application/json')
+    response = client.post('/api/v1/calculations/calculate', headers={'locale': 'en'}, json={'data': data}, content_type='application/json')
     payload = json.loads(response.data.decode('utf-8'))
 
     assert response.status_code == 400
-    assert type(payload) is dict
-    assert 'message' in payload.keys()
-
-def test_results_calculation_wrong_input_method_crisp(client):
+    assert 'message' in list(payload.keys())
+    
+def test_results_calculation_wrong_weights_method(client):
     """
-        Test verifying the functionality of multi-criteria calculations for basic model structure with wrong INPUT weights method with crisp data
+        Test verifying the functionality of multi-criteria calculations for model with wrong name of weights method
     """
-    matrix = [
-        [1, 2, 3],
-        [4, 5, 3],
-        [6, 2, 1],
-    ]
-    types = [1, -1, 1]
-    extensions = ['crisp']
-    method = [
+    data = [
         {
-            'method': "TOPSIS",
-            'weights': ['a', 'b', 'c']
+            "id": 1,
+            "node_type": "matrix",
+            "extension": "crisp",
+            "matrix": [
+                [6, 2, 3],
+                [3, 7, 2],
+                [2, 3, 8],
+            ],
+            "criteria_types": [1, -1, 1],
+            "method": "input",
+            "connections_from": [],
+            "connections_to": [2, 3],
+            "position_x": 10,
+            "position_y": 10,
+        },
+        {
+            "id": 2,
+            "node_type": "weights",
+            "extension": "crisp",
+            "weights": [],
+            "method": "Wrong name",
+            "connections_from": [1],
+            "connections_to": [],
+            "position_x": 20,
+            "position_y": 20,
         }
     ]
-    params = [{}]
 
-    response = client.post('/api/v1/results', headers={'locale': 'en'}, json={'matrix': [matrix],'extensions': extensions,'types': [types],'method': [method], 'params': [params]}, content_type='application/json')
+
+    response = client.post('/api/v1/calculations/calculate', headers={'locale': 'en'}, json={'data': data}, content_type='application/json')
     payload = json.loads(response.data.decode('utf-8'))
 
     assert response.status_code == 400
-    assert type(payload) is dict
-    assert 'message' in payload.keys()
+    assert 'message' in list(payload.keys())
 
-def test_results_calculation_wrong_sum_input_method_crisp(client):
+def test_results_calculation_weights_method_with_wrong_matrix(client):
     """
-        Test verifying the functionality of multi-criteria calculations for basic model structure with wrong sum of weights from INPUT weights method with crisp data
+        Test verifying the functionality of multi-criteria calculations for model with weights method and wrong matrix
     """
-    matrix = [
-        [1, 2, 3],
-        [4, 5, 3],
-        [6, 2, 1],
-    ]
-    types = [1, -1, 1]
-    extensions = ['crisp']
-    method = [
+    data = [
         {
-            'method': "TOPSIS",
-            'weights': [0.1, 0.2, 0.1]
+            "id": 1,
+            "node_type": "matrix",
+            "extension": "crisp",
+            "matrix": [
+                [6, 2, 3],
+                [3, 7, 2],
+                [2, 3],
+            ],
+            "criteria_types": [1, -1, 1],
+            "method": "input",
+            "connections_from": [],
+            "connections_to": [2, 3],
+            "position_x": 10,
+            "position_y": 10,
+        },
+        {
+            "id": 2,
+            "node_type": "weights",
+            "extension": "crisp",
+            "weights": [],
+            "method": "EQUAL",
+            "connections_from": [1],
+            "connections_to": [],
+            "position_x": 20,
+            "position_y": 20,
         }
     ]
-    params = [{}]
 
-    response = client.post('/api/v1/results', headers={'locale': 'en'}, json={'matrix': [matrix],'extensions': extensions,'types': [types],'method': [method], 'params': [params]}, content_type='application/json')
+
+    response = client.post('/api/v1/calculations/calculate', headers={'locale': 'en'}, json={'data': data}, content_type='application/json')
     payload = json.loads(response.data.decode('utf-8'))
 
     assert response.status_code == 400
-    assert type(payload) is dict
-    assert 'message' in payload.keys()
-
-def test_results_calculation_wrong_size_input_method_crisp(client):
-    """
-        Test verifying the functionality of multi-criteria calculations for basic model structure with wrong size of weights from INPUT weights method with crisp data
-    """
-    matrix = [
-        [1, 2, 3],
-        [4, 5, 3],
-        [6, 2, 1],
-    ]
-    types = [1, -1, 1]
-    extensions = ['crisp']
-    method = [
-        {
-            'method': "TOPSIS",
-            'weights': [0.1, 0.2]
-        }
-    ]
-    params = [{}]
-
-    response = client.post('/api/v1/results', headers={'locale': 'en'}, json={'matrix': [matrix],'extensions': extensions,'types': [types],'method': [method], 'params': [params]}, content_type='application/json')
-    payload = json.loads(response.data.decode('utf-8'))
-
-    assert response.status_code == 400
-    assert type(payload) is dict
-    assert 'message' in payload.keys()
-
-def test_results_calculation_unhandled_method_fuzzy(client):
-    """
-        Test verifying the functionality of multi-criteria calculations for basic model structure with not available weights method with fuzzy data
-    """
-    matrix = [
-        [
-            [[1, 2, 3], [4, 5, 6], [6, 7, 8]],
-            [[4, 5, 7], [1, 2, 4], [6, 8, 9]],
-            [[4, 5, 6], [2, 2, 3], [3, 3, 4]],
-        ],
-    ]
-    types = [1, -1, 1]
-    extensions = ['fuzzy']
-    method = [
-        {
-            'method': "TOPSIS",
-            'weights': "ANGLE"
-        }
-    ]
-    params = [{}]
-
-    response = client.post('/api/v1/results', headers={'locale': 'en'}, json={'matrix': matrix,'extensions': extensions,'types': [types],'method': [method], 'params': [params]}, content_type='application/json')
-    payload = json.loads(response.data.decode('utf-8'))
-
-    assert response.status_code == 400
-    assert type(payload) is dict
-    assert 'message' in payload.keys()
-
+    assert 'message' in list(payload.keys())
+    

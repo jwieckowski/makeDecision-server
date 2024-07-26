@@ -1,6 +1,19 @@
 from flask_restx import fields
 
 def get_dictionary_model(api):
+    """
+    Defines the model for representing the dictionary of methods and their attributes.
+
+    Parameters
+    ----------
+    api : flask_restx.Api
+        The Flask-RESTX API instance.
+
+    Returns
+    -------
+    Model
+        The data model for the response containing the dictionary of methods and their attributes.
+    """
     dictionary_additional_data_item_model = api.model("AdditionalDataItem", {
         "id": fields.Integer(description='Element id'),
         "method": fields.String(description="Name of technique used in Multi-Criteria Decision Analysis method for additional measures"),

@@ -1,6 +1,19 @@
 from flask_restx import fields
 
 def get_survey_usage_model(api):
+    """
+    Defines the model for representing survey usage data, including options and their details.
+
+    Parameters
+    ----------
+    api : flask_restx.Api
+        The Flask-RESTX API instance.
+
+    Returns
+    -------
+    flask_restx.Model
+        The data model for the response containing survey usage details.
+    """
     base_option_item = api.model('baseOptionItem', {
         'id': fields.Integer(description='Option ID'),
         'label': fields.String(description='Option label'),
@@ -30,6 +43,19 @@ def get_survey_usage_model(api):
 
 
 def get_survey_usage_items(api):
+    """
+    Defines the model for representing individual items in survey usage results.
+
+    Parameters
+    ----------
+    api : flask_restx.Api
+        The Flask-RESTX API instance.
+
+    Returns
+    -------
+    flask_restx.Model
+        The data model for the response containing survey usage results.
+    """
     results_item = api.model('ResultsSurveyUsageItem', {
         'id': fields.Integer(description='Answer ID'),
         'option': fields.String(description='Answer option'),
@@ -43,6 +69,19 @@ def get_survey_usage_items(api):
     return response_item
 
 def get_survey_rating_items(api):
+    """
+    Defines the model for representing individual items in survey rating results.
+
+    Parameters
+    ----------
+    api : flask_restx.Api
+        The Flask-RESTX API instance.
+
+    Returns
+    -------
+    flask_restx.Model
+        The data model for the response containing survey rating results.
+    """
     results_item = api.model('ResultsSurveyRatingItem', {
         'id': fields.Integer(description='Answer ID'),
         'helpful': fields.String(description='Rating aspect name'),

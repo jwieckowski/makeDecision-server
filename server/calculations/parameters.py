@@ -155,7 +155,27 @@ def get_crisp_parameters(kwargs, matrix_node, criteria_weights, locale):
         raise ValueError(get_error_message(locale, "crisp-params-not-found"))
 
 def get_parameters(kwargs, extension, matrix_node, criteria_weights, locale):
+    """
+    Retrieves additional parameters based on the method extension type (crisp or fuzzy).
 
+    Parameters
+    ----------
+    kwargs : dict
+        Dictionary with key as metric and value as name of metric to be used for the given metric.
+    extension : str
+        The type of MCDA method, either 'crisp' or 'fuzzy'.
+    matrix_node : object
+        The matrix node object containing the decision matrix and related information.
+    criteria_weights : list
+        List of criteria weights.
+    locale : str
+        User application language.
+
+    Returns
+    -------
+    dict
+        Dictionary with additional parameters for the given MCDA method based on the extension type.
+    """
     init_kwargs = {}
 
     items = [item for item in kwargs if item['matrix_id'] == matrix_node.id]
@@ -171,6 +191,30 @@ def get_parameters(kwargs, extension, matrix_node, criteria_weights, locale):
 
 
 def get_call_kwargs(method, init_kwargs, extension, locale):
+    """
+    Retrieves call-specific parameters for a given MCDA method.
+
+    Parameters
+    ----------
+    method : str
+        The MCDA method name.
+    init_kwargs : dict
+        Initial parameters for the MCDA method.
+    extension : str
+        The type of MCDA method, either 'crisp' or 'fuzzy'.
+    locale : str
+        User application language.
+
+    Raises
+    ------
+    ValueError
+        If an error occurs in retrieving the call-specific parameters, the exception is thrown.
+
+    Returns
+    -------
+    dict
+        Dictionary with call-specific parameters for the given MCDA method.
+    """
     call_kwargs = {}
     try:
         if method == 'VIKOR':

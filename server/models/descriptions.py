@@ -1,10 +1,23 @@
 from flask_restx import fields
 
 def get_description_model(api):
+    """
+    Defines the model for describing methods and their categories.
+
+    Parameters
+    ----------
+    api : flask_restx.Api
+        The Flask-RESTX API instance.
+
+    Returns
+    -------
+    Model
+        The data model for the response containing descriptions of methods and their categories.
+    """
     description_item = api.model('Description', {
-    'id': fields.Integer(description='Element id'),
-    'text': fields.String(description="Description content")
-})
+        'id': fields.Integer(description='Element id'),
+        'text': fields.String(description="Description content")
+    })
 
     method_data_item = api.model('MethodData', {
         "id": fields.Integer(description='Element id'),

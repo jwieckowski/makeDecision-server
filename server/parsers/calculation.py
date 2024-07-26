@@ -3,6 +3,14 @@ from flask_restx import reqparse
 from models.calculations import get_request_calculation_model
 
 def get_request_calculation_parser():
+    """
+    Creates and returns a parser for request data related to calculations.
+
+    Returns
+    -------
+    flask_restx.reqparse.RequestParser
+        The configured request parser.
+    """
     def my_type(data):
         '''Parse my type'''
 
@@ -10,11 +18,9 @@ def get_request_calculation_parser():
         optional_keys = ['matrix', 'criteria_types', 'method', 'weights', 'kwargs']
 
         if len(data) == 0:
-            # TODO: return error from dict of errors
             raise ValueError('Empty data object given')
 
         for node_idx, node in enumerate(data):
-            print(node)
             required_set = set(required_keys)
             keys_set = set(node.keys())
 
@@ -40,6 +46,14 @@ def get_request_calculation_parser():
     return parser
 
 def get_kwargs_items_parser():
+    """
+    Creates and returns a parser for request data related to method-specific parameters.
+
+    Returns
+    -------
+    flask_restx.reqparse.RequestParser
+        The configured request parser.
+    """
     parser = reqparse.RequestParser()
     parser.add_argument('locale', location='headers', required=True)
     parser.add_argument('method', type=str, location='json', required=True)

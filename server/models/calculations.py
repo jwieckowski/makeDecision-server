@@ -1,7 +1,19 @@
 from flask_restx import fields
 
 def get_request_calculation_model(api):
+    """
+    Defines the model for a calculation request.
 
+    Parameters
+    ----------
+    api : flask_restx.Api
+        The Flask-RESTX API instance.
+
+    Returns
+    -------
+    Model
+        The data model for the request containing nodes and their properties.
+    """
     node_item = api.model('Node', {
         "id": fields.Integer(description='Node id', example='1'),
         "node_type": fields.String(description="Type of node", example="matrix"),
@@ -19,6 +31,20 @@ def get_request_calculation_model(api):
     return data_model
 
 def get_response_calculation_model(api):
+    """
+    Defines the model for a calculation response.
+
+    Parameters
+    ----------
+    api : flask_restx.Api
+        The Flask-RESTX API instance.
+
+    Returns
+    -------
+    Model
+        The data model for the response containing calculated results and additional parameters.
+    """
+    
     kwargs_item = api.model('Kwargs', {
         "matrix_id": fields.Integer(description="ID of matrix used to calculate results within the node"),
         "normalization_function": fields.String(description=""),

@@ -17,7 +17,22 @@ error_codes = {
 }
 
 def get_error_message(locale, key):
-    print(locale)
+    """
+    Retrieve an error message based on locale and error key.
+
+    Parameters
+    ----------
+    locale : str
+        The locale code ('en' or 'pl') for the desired language.
+    key : str
+        The key for the specific error message.
+
+    Returns
+    -------
+    str
+        The corresponding error message for the given locale and key.
+        Returns a default error message if the locale or key is not found.
+    """
     if locale not in list(error_codes.keys()):
         return error_codes['en']['locale-error'] 
     if key not in list(error_codes[locale].keys()):

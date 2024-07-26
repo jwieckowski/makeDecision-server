@@ -38,11 +38,12 @@ class MatrixNode(Node):
         
         super().__init__(locale, id, node_type, extension, connections_from, connections_to, position_x, position_y)
 
-        try:
-            if ',' in matrix[0][0]:
-                matrix = [[col.split(',') for col in row] for row in matrix]
-        except:
-            raise ValueError(f'{get_error_message(self.locale, "matrix-data-error")} ({self.id})')
+        if isinstance(matrix[0][0], str):
+            try:
+                if ',' in matrix[0][0]:
+                    matrix = [[col.split(',') for col in row] for row in matrix]
+            except:
+                raise ValueError(f'{get_error_message(self.locale, "matrix-data-error")} ({self.id})')
         self.matrix = np.array(matrix, dtype=float)
         self.method = method.upper()
         self.criteria_types = np.array(criteria_types, dtype=float)
@@ -82,33 +83,23 @@ class WeightsNode(Node):
         self.calculation_data = []
 
     def calculate(self, matrix_node, precision=3):
-        print(self.method)
         if self.method != 'INPUT':
             try: 
                 self.method_obj = weights_methods[self.method][matrix_node.extension]
-                
-                print('matrix')
-                print(matrix_node.matrix)
                 kwargs = {
                     'matrix': matrix_node.matrix
                 }
 
-                print('criteria types')
-                print(matrix_node.criteria_types)
                 if self.method in ['MEREC', 'CILOS', 'IDOCRIW']:
                     kwargs = kwargs | {"types": matrix_node.criteria_types}
                 
-                print(kwargs)
                 weights = np.round(self.method_obj(**kwargs), precision)
-                print('weights')
-                print(weights)
                 if len(weights) != len(matrix_node.matrix[0]):
                     raise ValueError(f'{self.method} {get_error_message(self.locale, "matrix-weights-size-error")}') 
             except Exception as err:
                 raise ValueError(f'{get_error_message(self.locale, "weights-error-calculation")} ({self.method})')
         else:
             weights = self.weights
-            print(weights)
 
         if len([data for data in self.calculation_data if data['matrix_id'] == matrix_node.id]) == 0:
             self.calculation_data.append({
@@ -141,79 +132,70 @@ class MethodNode(Node):
     def calculate(self, matrix_node, weights_node, precision=3):
 
         if self.method == 'INPUT':
-            print('tutaj-------------------------------')
             method_obj = None
             weights_node = None
             pref = list(self.kwargs[0]['preference'])
         else:
-            print('calculate method mcda')
             criteria_weights = weights_node.calculate(matrix_node)
-            print('criteria_weights')
-            print(criteria_weights)
-            print('method kwargs')
-            print(self.kwargs)
             init_kwargs = get_parameters(self.kwargs, matrix_node.extension, matrix_node, criteria_weights, self.locale)
-            print('init kwargs')
-            print(init_kwargs)
-
+            
             call_kwargs = get_call_kwargs(self.method, init_kwargs, self.extension, self.locale)
 
-            print(init_kwargs)
-            print('call kwargs')
-            print(call_kwargs)
             try: 
                 method_obj = mcda_methods[self.method][matrix_node.extension](**init_kwargs)
             except Exception as err:
-                print(err)
                 raise ValueError(get_error_message(self.locale, "mcda-method-object-error"))
-            print('method object')
-            print(method_obj)
-            print(matrix_node.criteria_types)
 
             try: 
                 pref = np.round(method_obj(matrix_node.matrix, criteria_weights, matrix_node.criteria_types, **call_kwargs), precision)
-                print(pref)
                 if np.isnan(pref).any() or np.isinf(pref).any():
                     raise ValueError(get_error_message(self.locale, 'not-numeric-results'))
             except ValueError as err:
                 raise ValueError(err)
             except Exception as err:
-                print(err)
                 raise ValueError(get_error_message(self.locale, 'method-calculation-error'))
             
-            print(pref)
             if self.method == 'VIKOR' and np.array(pref).ndim == 2:
                 pref = pref[2]
-            print('preference')
-            print(pref)
 
-        self.calculation_data.append({
-            "matrix_id": matrix_node.id,
-            "method_obj": method_obj,
-            "weights_node": weights_node,
-            "preference": pref.tolist(),
-            "kwargs": self.kwargs
-        })
+        if matrix_node:
+            self.calculation_data.append({
+                "matrix_id": matrix_node.id,
+                "method_obj": method_obj,
+                "weights_node": weights_node,
+                "preference": pref.tolist(),
+                "kwargs": self.kwargs
+            })
+        else:
+            self.calculation_data.append({
+                "matrix_id": 0,
+                "method_obj": method_obj,
+                "weights_node": weights_node,
+                "preference": pref,
+                "kwargs": self.kwargs
+            })
 
         return pref
 
-    def rank(self, matrix_id, weights_id, extension):
+    def rank(self, matrix_id=None, weights_id=None, extension=None):
 
-        try:
-            data = [data for data in self.calculation_data if data['matrix_id'] == matrix_id and data['weights_node'].id == weights_id][0]
-            if data['method_obj'] == None:
-                print('tutaj rank')
-                ranking = rrankdata(data['preference'])
-            else:
-                if extension == 'crisp':
-                    ranking = data['method_obj'].rank(data['preference']).tolist()
-                elif extension == 'fuzzy':
-                    ranking = data['method_obj'].rank().tolist()
-                    if self.method == 'VIKOR' and np.array(ranking).ndim == 2:
-                        ranking = ranking[2]
-        except Exception as err:
-            print(err)
-            raise ValueError(get_error_message(self.locale, 'ranking-calculation-error'))
+        if matrix_id and weights_id and extension:
+            try:
+                data = [data for data in self.calculation_data if data['matrix_id'] == matrix_id and data['weights_node'].id == weights_id][0]
+                if data['method_obj'] == None:
+                    ranking = rrankdata(data['preference'])
+                else:
+                    if extension == 'crisp':
+                        ranking = data['method_obj'].rank(data['preference']).tolist()
+                    elif extension == 'fuzzy':
+                        ranking = data['method_obj'].rank().tolist()
+                        if self.method == 'VIKOR' and np.array(ranking).ndim == 2:
+                            ranking = ranking[2]
+            except Exception as err:
+                raise ValueError(get_error_message(self.locale, 'ranking-calculation-error'))
+        else:
+            data = self.calculation_data[0]
+            ranking = list(rrankdata(data['preference']))
 
         return ranking, data
 
@@ -222,14 +204,22 @@ class MethodNode(Node):
 
         data = []
         for cdata in self.calculation_data:
-            kwargs = [kwarg for kwarg in cdata['kwargs'] if kwarg['matrix_id'] == cdata['matrix_id'] and len(kwarg.values()) > 1]
-            kwargs = [{k:v for k, v in kwarg.items() if v != ''} for kwarg in kwargs]
-            data.append({
-                "matrix_id": cdata['matrix_id'],
-                "weights_method": cdata['weights_node'].method,
-                "preference": cdata['preference'],
-                "kwargs": kwargs
-            })
+            if self.method.lower() == 'input':
+                data.append({
+                    "matrix_id": 0,
+                    "weights_method": '',
+                    "preference": cdata['preference'],
+                    "kwargs": cdata['kwargs']
+                })
+            else:
+                kwargs = [kwarg for kwarg in cdata['kwargs'] if kwarg['matrix_id'] == cdata['matrix_id'] and len(kwarg.values()) > 1]
+                kwargs = [{k:v for k, v in kwarg.items() if v != ''} for kwarg in kwargs]
+                data.append({
+                    "matrix_id": cdata['matrix_id'],
+                    "weights_method": cdata['weights_node'].method,
+                    "preference": cdata['preference'],
+                    "kwargs": kwargs
+                })
 
         return response | {
             "method": self.method,
@@ -246,19 +236,40 @@ class RankingNode(Node):
         self.method = kwargs['method'].lower()
         self.calculation_data = []
 
-    def calculate(self, method_node, matrix_node, weights_node):
+    def calculate(self, method_node, matrix_node=None, weights_node=None):
         
-        ranking, data = method_node.rank(matrix_node.id, weights_node.id, matrix_node.extension)
-
-        self.calculation_data.append({
-            "matrix_id": matrix_node.id,
-            "method": method_node.method,
-            "weights_method": data['weights_node'].method,
-            "ranking": ranking,
-            "kwargs": data['kwargs']
-        })
+        if matrix_node and weights_node:
+            ranking, data = method_node.rank(matrix_node.id, weights_node.id, matrix_node.extension)
+            
+            self.calculation_data.append({
+                "matrix_id": matrix_node.id,
+                "method": method_node.method,
+                "weights_method": data['weights_node'].method,
+                "ranking": ranking,
+                "kwargs": data['kwargs']
+            })
+        else:
+            ranking, data = method_node.rank()
+            self.calculation_data.append({
+                "matrix_id": 0,
+                "method": method_node.method,
+                "weights_method": '',
+                "ranking": list(ranking),
+                "kwargs": data['kwargs']
+            })
 
         return ranking
+
+    def get_input_rank(self):
+        self.calculation_data.append({
+            "matrix_id": 0,
+            "method": 'INPUT RANK',
+            "weights_method": '',
+            "ranking": self.kwargs[0]['ranking'],
+            "kwargs": self.kwargs
+        })
+
+        return np.array(self.kwargs[0]['ranking'])
 
     @staticmethod
     def calculate_input(method_node, ranking_node, matrix_id):
@@ -283,7 +294,6 @@ class RankingNode(Node):
             "data": self.calculation_data
         }
 
-
 class CorrelationNode(Node):
     def __init__(self, locale, id, node_type, extension, connections_from, connections_to, position_x, position_y, method) -> None:
         
@@ -302,54 +312,65 @@ class CorrelationNode(Node):
         if node_type == 'method':
             data_field = 'preference'
 
-        print('corr fun')
         try:
             filtered_nodes = [node for node in nodes if node.node_type == node_type]
             if len(filtered_nodes) > 0:
                 for node in filtered_nodes:
-                    print('node')
-                    print(node)
                     if node_type in ['method', 'ranking'] and node.method.lower() == 'input':
-                        print('a tu')
                         corr_labels.append(node.method.upper())
-                        print(node.kwargs)
                         corr_data.append(node.kwargs[0][data_field])
                     else:
-                        print('tu')
                         for data in node.calculation_data:
                             if data['matrix_id'] == matrix_id:
                                 corr_data.append(data[data_field])
                                 if data_field == 'ranking':
                                     if 'weights_method' in data.keys():
-                                        # corr_labels.append(f'{data["method"]} | {data["weights_method"]}')
                                         corr_labels.append(f'{data["method"]}\n{data["weights_method"]}')
                                     else:
                                         corr_labels.append(data['method'])
                                 else:
                                     if 'weights_node' in data.keys():
-                                        # corr_labels.append(f'{node.method} | {data["weights_node"].method}')
                                         corr_labels.append(f'{node.method}\n{data["weights_node"].method}')
                                     else:
                                         corr_labels.append(node.method)
         except Exception as err:
-            print(err)
             raise ValueError(f"{get_error_message(self.locale, 'correlation-generating-error')} ({self.method})")
 
         return corr_data, corr_labels
 
-    def calculate(self, nodes, matrix_node, precision=3):
+    def calculate(self, nodes, matrix_node=None, precision=3):
 
         corr_matrix = []
 
-        for node_type in ['weights', 'method', 'ranking']:
-            corr_data, corr_labels = self._calculate_correlation(nodes, node_type, matrix_node.id)
+        if matrix_node:
+            for node_type in ['weights', 'method', 'ranking']:
+                corr_data, corr_labels = self._calculate_correlation(nodes, node_type, matrix_node.id)
+                if len(corr_data) > 0:
+                    if len(set([len(row) for row in corr_data])) > 1:
+                        raise ValueError(get_error_message(self.locale, 'correlation-same-size-error'))
 
-            print('node type')
-            print(node_type)
-            print('corr data')
-            print(corr_data)
-            print(corr_labels)
-            print(len(corr_data))
+                    correlation_obj = correlation_methods[self.method]
+
+                    try:
+                        corr_matrix = np.round(correlation_matrix(np.array(corr_data, dtype=float), correlation_obj), precision)
+                    except Exception as err:
+                        raise ValueError(f"{get_error_message(self.locale, 'correlation-calculation-error')} ({self.method})")
+
+                    self.calculation_data.append({
+                        "matrix_id": matrix_node.id,
+                        "correlation": corr_matrix.tolist(),
+                        "labels": corr_labels
+                    })  
+        else:
+            corr_key = 'preference'
+            if nodes[0].node_type == 'ranking':
+                corr_key = 'ranking'
+            corr_data = [list(conn_node.calculation_data[0][corr_key]) for conn_node in nodes]
+            if corr_key == 'preference':
+                corr_labels = [f'INPUT (ID {conn_node.id})' for conn_node in nodes]
+            else:
+                corr_labels = [f'INPUT (ID {conn_node.id})' if conn_node.method == 'input' else f'INPUT RANK (ID {conn_node.id})' for conn_node in nodes]
+                
             if len(corr_data) > 0:
                 if len(set([len(row) for row in corr_data])) > 1:
                     raise ValueError(get_error_message(self.locale, 'correlation-same-size-error'))
@@ -359,11 +380,10 @@ class CorrelationNode(Node):
                 try:
                     corr_matrix = np.round(correlation_matrix(np.array(corr_data, dtype=float), correlation_obj), precision)
                 except Exception as err:
-                    print(err)
                     raise ValueError(f"{get_error_message(self.locale, 'correlation-calculation-error')} ({self.method})")
 
                 self.calculation_data.append({
-                    "matrix_id": matrix_node.id,
+                    "matrix_id": 0,
                     "correlation": corr_matrix.tolist(),
                     "labels": corr_labels
                 })  
@@ -389,24 +409,25 @@ class VisualizationNode(Node):
             
         self.calculation_data = []
 
-    def _get_graph_data(self, nodes, node_type, matrix_node):
-
-        # TODO: check if data and labels the same size
+    def _get_graph_data(self, nodes, node_type, matrix_node=None):
 
         calculation_data = []
         try:
             for node in nodes:
                 for data in node.calculation_data:
-                    if data['matrix_id'] == matrix_node.id:
+                    if matrix_node:
+                        if data['matrix_id'] == matrix_node.id:
+                            if isinstance(node, RankingNode):
+                                calculation_data.append([data, data['method']])
+                            else:
+                                calculation_data.append([data, node.method])
+                    else:
                         if isinstance(node, RankingNode):
-                            calculation_data.append([data, data['method']]) # TODO add params from kwarg to label
+                            calculation_data.append([data, f"{data['method']} (ID {node.id})"])
                         else:
-                            calculation_data.append([data, node.method])
+                            calculation_data.append([data, f"{node.method} (ID {node.id})"])
         except Exception as err:
             raise ValueError(f"{get_error_message(self.locale, 'visualization-data-error')} ({self.method})")
-
-        print('calculation_data')
-        print(calculation_data)
 
         graph_data, graph_labels, metrics_names = [], [], []
         try:
@@ -420,23 +441,15 @@ class VisualizationNode(Node):
             elif node_type == 'ranking':
                 temp_data, temp_labels = [], []
                 if 'SCATTER' in self.method:
-                    print('tu scatter')
-                    print(calculation_data)
                     if len(calculation_data) != 2:
-                        # TODO change error from dict
                         raise ValueError(get_error_message(self.locale, 'scatter-ranking-limit'))
 
                 for item in calculation_data:
-                    print('tutaj')
-                    print(item)
-                    temp_labels.append(f"{item[0]['method']}\n({item[0]['weights_method']})")
-                    temp_data.append(item[0]['ranking'])
-                    # elif 'CORRELATION' in self.method:
-                    #     temp_data.append()    
-                    #     temp_labels.append(item[0]['method'])
-                    # else:
-                    #     temp_data.append(item[0]['ranking'])
-                    #     temp_labels.append(item[0]['method'])
+                    if item[0]['weights_method'] == '' or item[0]['weights_method'] == None:
+                        temp_labels.append(item[-1])
+                    else:
+                        temp_labels.append(f"{item[0]['method']}\n({item[0]['weights_method']})")
+                    temp_data.append(list(np.array(item[0]['ranking']).astype(float)))
                 graph_data.append(temp_data)
                 graph_labels.append(temp_labels)
                         
@@ -456,7 +469,7 @@ class VisualizationNode(Node):
 
         return graph_data, graph_labels, metrics_names
 
-    def generate(self, nodes, matrix_node):
+    def generate(self, nodes, matrix_node=None):
 
         node_types = [node.node_type for node in nodes]
         if len(set(node_types)) != 1:
@@ -476,7 +489,7 @@ class VisualizationNode(Node):
                 metric = metrics_names[idx]
             self.calculation_data.append(
                 {
-                    "matrix_id": matrix_node.id,
+                    "matrix_id": matrix_node.id if matrix_node else 0,
                     "img": generate_graph(data, labels, self.method, self.locale),
                     'metric': metric 
                 }

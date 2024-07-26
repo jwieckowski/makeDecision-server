@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Jakub Więckowski
+# Copyright (c) 2023 - 2024 Jakub Więckowski
 
 from server import app
 import json
@@ -10,64 +10,120 @@ def client():
     with app.test_client() as client:
         yield client
 
-# def test_matrix_converter_crisp(client):
-#     """
-#         Test verifying the functionality of crisp matrix converter from file to array.
-#         Tests both for correct and incorrect files
-#     """
+def test_matrix_generate_crisp(client):
+    """
+        Test verifying the functionality of crisp matrix generation
+    """
 
-#     file_correct = open('./examples/files/crisp_data JSON.json', 'rb')
-#     data_correct = {"file": (file_correct, "crisp_data JSON.json")}
+    response = client.post('/api/v1/matrix/generate', headers={'locale': 'en'}, json={'extension': 'crisp', 'alternatives': 3, 'criteria': 3})
+    payload = json.loads(response.data.decode('utf-8'))
 
-#     response = client.post('/api/v1/matrix', headers={'locale': 'en'}, data={'matrix': data_correct, 'extension': "crisp"}, content_type='multipart/form-data', follow_redirects=True)
-#     payload = json.loads(response.data.decode('utf-8'))
-
-#     print(payload)
-#     assert response.status_code == 200
-#     assert type(payload) is dict
-#     assert 'matrix' in payload.keys()
+    assert response.status_code == 200
+    assert 'response' in list(payload.keys())
+    assert type(payload['response']) is dict
+    assert 'matrix' in list(payload['response'].keys())
+    assert 'criteria_types' in list(payload['response'].keys())
+    assert 'extension' in list(payload['response'].keys())
+    assert payload['response']['extension'] == 'crisp'
     
-# def test_matrix_converter_fuzzy(client):
-#     """
-#         Test verifying the functionality of fuzzy matrix converter from file to array.
-#         Tests both for correct and incorrect files
-#     """
-
-#     file_correct = open('./examples/files/crisp_data JSON.json', 'rb')
-#     data_correct = {"files": (file_correct, "crisp_data JSON.json")}
-
-#     response = client.post('/api/v1/matrix', headers={'locale': 'en'}, data={'matrix': data_correct, 'extension': 'crisp'}, content_type='multipart/form-data')
-#     payload = json.loads(response.data.decode('utf-8'))
-
-#     assert response.status_code == 200
-#     assert type(payload) is dict
-#     assert 'matrix' in payload.keys()
-
-def test_matrix_converter_missing_field(client):
+def test_matrix_generate_fuzzy(client):
     """
-        Test verifying the functionality of matrix converter from file to array when missing required field
+        Test verifying the functionality of fuzzy matrix generation
     """
 
-    response = client.post('/api/v1/matrix', headers={'locale': 'en'}, data={'extension': 'crisp'}, content_type='multipart/form-data')
+    response = client.post('/api/v1/matrix/generate', headers={'locale': 'en'}, json={"extension": "fuzzy", "alternatives": 4, "criteria": 4, "lower_bound": 0.2, "upper_bound": 1, "precision": 3})
+    payload = json.loads(response.data.decode('utf-8'))
+
+    assert response.status_code == 200
+    assert 'response' in list(payload.keys())
+    assert type(payload['response']) is dict
+    assert 'matrix' in list(payload['response'].keys())
+    assert 'criteria_types' in list(payload['response'].keys())
+    assert 'extension' in list(payload['response'].keys())
+    assert payload['response']['extension'] == 'fuzzy'
+
+def test_matrix_generate_invalid_extension(client):
+    """
+        Test verifying the functionality of matrix generation with invalid extension
+    """
+
+    response = client.post('/api/v1/matrix/generate', headers={'locale': 'en'}, json={"extension": "ifs", "alternatives": 4, "criteria": 4, "lower_bound": 0.2, "upper_bound": 1, "precision": 3})
     payload = json.loads(response.data.decode('utf-8'))
 
     assert response.status_code == 400
+    assert 'message' in list(payload.keys())
+    
+def test_matrix_upload_crisp(client):
+    """
+        Test verifying the functionality of crisp matrix upload from file to array.
+        Tests both for correct and incorrect files
+    """
+
+    file_correct = open('./examples/matrix_files/crisp_data JSON.json', 'rb')
+    data = {
+            'matrix': (file_correct, 'crisp_data JSON.json'),
+            'extension': 'crisp'
+        }
+
+    response = client.post('/api/v1/matrix/upload', 
+                        headers={'locale': 'en'}, 
+                        data=data,
+                        content_type='multipart/form-data',
+                        follow_redirects=True)
+    payload = json.loads(response.data.decode('utf-8'))
+
+    assert response.status_code == 200
+    assert 'response' in list(payload.keys())
     assert type(payload) is dict
-    assert 'errors' in payload.keys()
-    assert 'matrix' in payload['errors'].keys()
-
-def test_matrix_converter_no_locale(client):
+    assert 'matrix' in list(payload['response'].keys())
+    assert 'criteria_types' in list(payload['response'].keys())
+    assert 'extension' in list(payload['response'].keys())
+    
+def test_matrix_upload_fuzzy(client):
     """
-        Test verifying the functionality of matrix converter from file to array with no locale given in headers
+        Test verifying the functionality of fuzzy matrix upload from file to array.
+        Tests both for correct and incorrect files
     """
 
-    file_correct = open('./examples/files/crisp_data JSON.json', 'rb')
-    data_correct = {"files": (file_correct, "crisp_data JSON.json")}
+    file_correct = open('./examples/matrix_files/fuzzy_data JSON.json', 'rb')
+    data = {
+            'matrix': (file_correct, 'fuzzy_data JSON.json'),
+            'extension': 'fuzzy'
+        }
 
-    response = client.post('/api/v1/matrix', data={'extension': 'crisp', 'matrix': data_correct}, content_type='multipart/form-data')
+    response = client.post('/api/v1/matrix/upload', 
+                        headers={'locale': 'en'}, 
+                        data=data,
+                        content_type='multipart/form-data',
+                        follow_redirects=True)
+    payload = json.loads(response.data.decode('utf-8'))
+
+    assert response.status_code == 200
+    assert 'response' in list(payload.keys())
+    assert type(payload) is dict
+    assert 'matrix' in list(payload['response'].keys())
+    assert 'criteria_types' in list(payload['response'].keys())
+    assert 'extension' in list(payload['response'].keys())
+    
+def test_matrix_upload_invalid_extension(client):
+    """
+        Test verifying the functionality of invalid matrix upload from file to array.
+        Tests both for correct and incorrect files
+    """
+
+    file_correct = open('./examples/matrix_files/fuzzy_data JSON.json', 'rb')
+    data = {
+            'matrix': (file_correct, 'fuzzy_data JSON.json'),
+            'extension': 'invalid'
+        }
+
+    response = client.post('/api/v1/matrix/upload', 
+                        headers={'locale': 'en'}, 
+                        data=data,
+                        content_type='multipart/form-data',
+                        follow_redirects=True)
     payload = json.loads(response.data.decode('utf-8'))
 
     assert response.status_code == 400
-    assert type(payload) is dict
-    assert 'errors' in payload.keys()
-    assert 'locale' in payload['errors'].keys()
+    assert 'message' in list(payload.keys())
+    

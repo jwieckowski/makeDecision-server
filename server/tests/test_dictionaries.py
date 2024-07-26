@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Jakub Więckowski
+# Copyright (c) 2023 - 2024 Jakub Więckowski
 
 from server import app
 import json
@@ -19,11 +19,12 @@ def test_all_methods_dictionary(client):
     payload = json.loads(response.data.decode('utf-8'))
 
     assert response.status_code == 200
-    assert type(payload) is list
-    assert type(payload[0]) is dict
-    assert type(payload[0]['data']) is list
+    assert 'response' in list(payload.keys())
+    assert type(payload['response']) is list
+    assert type(payload['response'][0]) is dict
+    assert type(payload['response'][0]['data']) is list
     
-    assert payload[0]['key'] == 'Decision matrix'
+    assert payload['response'][0]['key'] == 'Decision matrix'
 
 def test_all_methods_dictionary_no_locale(client):
     """
@@ -46,10 +47,11 @@ def test_all_methods_dictionary_unhandled_locale(client):
     payload = json.loads(response.data.decode('utf-8'))
 
     assert response.status_code == 200
-    assert type(payload) is list
-    assert type(payload[0]) is dict
-    assert type(payload[0]['data']) is list
+    assert 'response' in list(payload.keys())
+    assert type(payload['response']) is list
+    assert type(payload['response'][0]) is dict
+    assert type(payload['response'][0]['data']) is list
     
-    assert payload[0]['key'] == 'Decision matrix'
+    assert payload['response'][0]['key'] == 'Decision matrix'
 
 
