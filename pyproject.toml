@@ -39,7 +39,7 @@ dependencies = [
 ]
 
 [project.urls] 
-"Homepage" = "http://api.make-decision.it/api/v1/documentation"
+"Homepage" = "https://api.make-decision.it/api/v1/documentation"
 "Bug Reports" = "https://github.com/jwieckowski/makeDecision-server/issues"
 "Source" = "https://github.com/jwieckowski/makeDecision-server"
 

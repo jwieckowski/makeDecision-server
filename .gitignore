@@ -136,3 +136,6 @@ deploy.txt
 
 # db config
 server/db/.env
+
+# zip files
+*.zip
