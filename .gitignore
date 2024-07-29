@@ -128,9 +128,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Setup
-setup.py
-
 # personal deploy instruction
 deploy.txt
 
