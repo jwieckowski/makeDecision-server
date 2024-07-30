@@ -10,7 +10,7 @@ The `pymcdm` and `pyfdm` packages are used for the multi-criteria calculations.
 
 - GET /api/v1/descriptions/methods
   - returns descriptions of multi-criteria methods available in the GUI
-- GET /api/v2/dictionary/all-methods
+- GET /api/v1/dictionary/all-methods
   - return dictionaries based on which the data regarding the given techniques is used in the development of the structural decision models in the web application
 - POST /api/v1/matrix
   - allows for updating the decision matrix and criteria types from file with verifying the data format, and convert it to list format, then returns it back to web application
@@ -55,9 +55,9 @@ The `pymcdm` and `pyfdm` packages are used for the multi-criteria calculations.
 
 ### Get started
 
-[GUI application](http://make-decision.it)
+[GUI application](https://make-decision.it)
 
-[Server documentation](http://api.make-decision.it/api/v1/documentation)
+[Server documentation](https://api.make-decision.it/api/v1/documentation)
 
 ### Run server locally
 
