@@ -1,0 +1,50 @@
+[project]
+name = "mdserver"
+version = "1.1.0"
+description = "Python Flask-RESTX server for make-decision.it application"
+readme = "README.md"
+license = {file = "LICENSE.txt"}
+requires-python = " >= 3.10"
+keywords = ["python", "decision making", "mcda", "gui", "rest api", "flask server"]
+authors = [
+    {name = "Jakub Więckowski", email = "j.wieckowski@il-pib.pl"}
+]
+maintainers = [
+  {name = "Jakub Więckowski", email = "j.wieckowski@il-pib.pl" }
+]
+  # How mature is this project? Common values are
+  #   3 - Alpha
+  #   4 - Beta
+  #   5 - Production/Stable
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Programming Language :: Python",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3.10",
+]
+# packages from requirements + versions
+dependencies = [
+    "Flask >= 2.2.2",
+    "flask-restx >= 1.1.0",
+    "Flask-Cors >= 3.0.10",
+    "Werkzeug >= 2.2.2",
+    "numpy >= 1.23.1",
+    "pymcdm == 1.2.0",
+    "pyfdm == 1.1.12",
+    "pandas >= 1.4.4",
+    "Pillow >= 9.2.0",
+    "pytest >= 7.1.2",
+    "setuptools >= 63.2.0",
+    "pymongo==4.6.1",
+    "wheel >= 0.38.4",
+    "python-dotenv==1.0.1"
+]
+
+[project.urls] 
+"Homepage" = "https://api.make-decision.it/api/v1/documentation"
+"Bug Reports" = "https://github.com/jwieckowski/makeDecision-server/issues"
+"Source" = "https://github.com/jwieckowski/makeDecision-server"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"

@@ -1,0 +1,60 @@
+mcda/Uv7YtKlzptUYQ2zf5iND
+
+Prepare files
+* zip all files (requirements, setup, server folder, readme)
+* put in public_python folder
+* unzip folderName.zip
+* files and folders server folder should be placed directly in public_python folder
+cd server
+cp -r * ..
+cd ..
+rm -r server
+
+1. Build a Wheel distribution
+
+python setup.py bdist_wheel
+
+1.1 To clean setup.py dist
+
+python setup.py clean --all
+
+2. Install package locally
+
+pip install dist/mdserver-1.1.0-py3-none-any.whl --no-cache --force-reinstall
+
+3. Install requirements
+
+pip install -r requirements.txt
+
+4. In folder public_python
+add passenger_wsgi.py
+with:
+
+import sys, os
+sys.path.append(os.getcwd())
+from server import app as application
+
+In folder public_python
+add server.py file with server logic
+
+In folder public_python
+add all other folders from the server logic
+
+leave the tmp folder
+public is not needed
+
+5. restart server
+devil www restart domainName
+
+
+Path to virtual environment
+
+venv/make_decision_server
+
+To run virtual environment
+
+source ./make_decision_server/bin/activate
+
+To leave
+
+deactivate
