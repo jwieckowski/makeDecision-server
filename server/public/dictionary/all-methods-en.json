@@ -3,37 +3,32 @@
     "id": 1,
     "key": "Decision matrix",
     "label": "Decision matrix",
-    "type": "primary",
-    "inputConnections": [],
-    "outputConnections": ["weights"],
+    "function": "primary",
+    "type": "matrix",
     "data": [
       {
         "id": 1,
-        "type": "matrix",
-        "label": "File",
         "name": "File",
         "extensions": ["crisp", "fuzzy"],
-        "formats": ["json", "xlsx", "csv"],
-        "requiredData": ["file"],
-        "hints": "Decision matrix and criteria types uploaded from a file"
+        "hints": "Decision matrix and criteria types loaded from a file",
+        "inputConnections": [],
+        "outputConnections": ["weights"]
       },
       {
         "id": 2,
-        "type": "matrix",
-        "label": "Input",
         "name": "Input",
         "extensions": ["crisp", "fuzzy"],
-        "requiredData": ["matrix"],
-        "hints": "Decision matrix and criteria types provided by the user"
+        "hints": "Decision matrix and types of criteria provided by the user",
+        "inputConnections": [],
+        "outputConnections": ["weights"]
       },
       {
         "id": 3,
-        "type": "matrix",
-        "label": "Random",
         "name": "Random",
         "extensions": ["crisp", "fuzzy"],
-        "requiredData": ["alternatives", "criteria", "ranges"],
-        "hints": "Decision matrix randomly generated, criteria types specified by the user"
+        "hints": "Decision matrix and randomly generated criteria types",
+        "inputConnections": [],
+        "outputConnections": ["weights"]
       }
     ]
   },
@@ -41,129 +36,113 @@
     "id": 2,
     "key": "Weights",
     "label": "Weights",
-    "type": "primary",
-    "inputConnections": ["matrix"],
-    "outputConnections": ["method"],
+    "function": "primary",
+    "type": "weights",
     "data": [
       {
         "id": 1,
-        "type": "Weights",
-        "label": "Angle",
         "name": "Angle",
         "extensions": ["crisp"],
-        "requiredData": ["matrix"],
-        "hints": "Criteria weights calculated from the decision matrix"
+        "hints": "Criteria weights calculated from the decision matrix",
+        "inputConnections": ["matrix"],
+        "outputConnections": ["method"]
       },
       {
         "id": 2,
-        "type": "Weights",
-        "label": "CILOS",
         "name": "CILOS",
         "extensions": ["crisp"],
-        "requiredData": ["matrix", "types"],
-        "hints": "Criteria weights calculated from the decision matrix. Uses criteria types"
+        "hints": "Criteria weights calculated from the decision matrix. Uses criteria types",
+        "inputConnections": ["matrix"],
+        "outputConnections": ["method"]
       },
       {
         "id": 3,
-        "type": "Weights",
-        "label": "CRITIC",
         "name": "CRITIC",
         "extensions": ["crisp"],
-        "requiredData": ["matrix"],
-        "hints": "Criteria weights calculated from the decision matrix"
+        "hints": "Criteria weights calculated from the decision matrix",
+        "inputConnections": ["matrix"],
+        "outputConnections": ["method"]
       },
       {
         "id": 4,
-        "type": "Weights",
-        "label": "Entropy",
         "name": "Entropy",
         "extensions": ["crisp", "fuzzy"],
-        "requiredData": ["matrix"],
-        "hints": "Criteria weights calculated from the decision matrix"
+        "hints": "Criteria weights calculated from the decision matrix",
+        "inputConnections": ["matrix"],
+        "outputConnections": ["method"]
       },
       {
         "id": 5,
-        "type": "Weights",
-        "label": "Equal",
         "name": "Equal",
         "extensions": ["crisp", "fuzzy"],
-        "requiredData": ["matrix"],
-        "hints": "Criteria weights calculated from the decision matrix"
+        "hints": "Criteria weights calculated from the decision matrix",
+        "inputConnections": ["matrix"],
+        "outputConnections": ["method"]
       },
       {
         "id": 6,
-        "type": "Weights",
-        "label": "Gini",
         "name": "Gini",
         "extensions": ["crisp"],
-        "requiredData": ["matrix"],
-        "hints": "Criteria weights calculated from the decision matrix"
+        "hints": "Criteria weights calculated from the decision matrix",
+        "inputConnections": ["matrix"],
+        "outputConnections": ["method"]
       },
       {
         "id": 7,
-        "type": "Weights",
-        "label": "IDOCRIW",
         "name": "IDOCRIW",
         "extensions": ["crisp"],
-        "requiredData": ["matrix"],
-        "hints": "Criteria weights calculated from the decision matrix. Uses criteria types"
+        "hints": "Criteria weights calculated from the decision matrix. Uses criteria types",
+        "inputConnections": ["matrix"],
+        "outputConnections": ["method"]
       },
       {
         "id": 8,
-        "type": "Weights",
-        "label": "Input",
         "name": "Input",
         "extensions": ["crisp", "fuzzy"],
-        "requiredData": ["weights"],
-        "hints": "Criteria weights provided by the user"
+        "hints": "User-entered criteria weights",
+        "inputConnections": ["matrix"],
+        "outputConnections": ["method"]
       },
       {
         "id": 9,
-        "type": "Weights",
-        "label": "MEREC",
         "name": "MEREC",
         "extensions": ["crisp"],
-        "requiredData": ["matrix"],
-        "hints": "Criteria weights calculated from the decision matrix. Uses criteria types"
+        "hints": "Criteria weights calculated from the decision matrix. Uses criteria types",
+        "inputConnections": ["matrix"],
+        "outputConnections": ["method"]
       },
       {
         "id": 10,
-        "type": "Weights",
-        "label": "Standard deviation",
         "name": "Standard deviation",
         "extensions": ["crisp", "fuzzy"],
-        "requiredData": ["matrix"],
-        "hints": "Criteria weights calculated from the decision matrix"
+        "hints": "Criteria weights calculated from the decision matrix",
+        "inputConnections": ["matrix"],
+        "outputConnections": ["method"]
       },
       {
         "id": 11,
-        "type": "Weights",
-        "label": "Variance",
         "name": "Variance",
         "extensions": ["crisp", "fuzzy"],
-        "requiredData": ["matrix"],
-        "hints": "Criteria weights calculated from the decision matrix"
+        "hints": "Criteria weights calculated from the decision matrix",
+        "inputConnections": ["matrix"],
+        "outputConnections": ["method"]
       }
     ]
   },
   {
     "id": 3,
-    "key": "Method",
-    "label": "Method",
-    "type": "primary",
-    "inputConnections": ["weights"],
-    "outputConnections": ["visualization", "ranking", "correlation"],
+    "key": "Methods",
+    "label": "Methods",
+    "function": "primary",
+    "type": "method",
     "data": [
       {
         "id": 1,
-        "type": "Method",
-        "label": "ARAS",
         "name": "ARAS",
         "abbreviation": "Additive Ratio Assessment",
         "extensions": ["crisp", "fuzzy"],
         "order": "descending",
-        "requiredData": ["matrix", "weights", "criteriaTypes"],
-        "additional": [
+        "kwargs": [
           {
             "extension": "crisp",
             "data": [
@@ -171,7 +150,8 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization_function",
-                "default": "sum_normalization"
+                "default": "sum_normalization",
+                "type": "select"
               }
             ]
           },
@@ -182,23 +162,23 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization",
-                "default": "sum_normalization"
+                "default": "sum_normalization",
+                "type": "select"
               }
             ]
           }
         ],
-        "hints": "Additive Ratio Assessment"
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
       },
       {
         "id": 2,
-        "type": "Method",
-        "label": "COCOSO",
         "name": "COCOSO",
         "abbreviation": "Combined Compromise Solution",
-        "extensions": ["crisp"],
+        "extensions": ["crisp", "fuzzy"],
         "order": "descending",
-        "requiredData": ["matrix", "weights", "criteriaTypes"],
-        "additional": [
+        "kwargs": [
           {
             "extension": "crisp",
             "data": [
@@ -206,23 +186,42 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization_function",
-                "default": "minmax_normalization"
+                "default": "minmax_normalization",
+                "type": "select"
+              }
+            ]
+          },
+          {
+            "extension": "fuzzy",
+            "data": [
+              {
+                "id": 1,
+                "method": "normalization",
+                "parameter": "normalization",
+                "default": "cocoso_normalization",
+                "type": "select"
+              },
+              {
+                "id": 2,
+                "method": "defuzzification",
+                "parameter": "defuzzify",
+                "default": "mean_defuzzification",
+                "type": "select"
               }
             ]
           }
         ],
-        "hints": "Combined Compromise Solution"
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
       },
       {
         "id": 3,
-        "type": "Method",
-        "label": "CODAS",
         "name": "CODAS",
         "abbreviation": "Combinative Distance-based Assessment",
         "extensions": ["crisp", "fuzzy"],
         "order": "descending",
-        "requiredData": ["matrix", "weights", "criteriaTypes"],
-        "additional": [
+        "kwargs": [
           {
             "extension": "crisp",
             "data": [
@@ -230,7 +229,8 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization_function",
-                "default": "linear_normalization"
+                "default": "linear_normalization",
+                "type": "select"
               }
             ]
           },
@@ -241,47 +241,70 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization",
-                "default": "max_normalization"
+                "default": "max_normalization",
+                "type": "select"
               },
               {
                 "id": 2,
                 "method": "distance",
                 "parameter": "distance_1",
-                "default": "euclidean_distance"
+                "default": "euclidean_distance",
+                "type": "select"
               },
               {
                 "id": 3,
                 "method": "distance",
                 "parameter": "distance_2",
-                "default": "hamming_distance"
+                "default": "hamming_distance",
+                "type": "select"
               }
             ]
           }
         ],
-        "hints": "Combinative Distance-based Assessment"
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
       },
       {
         "id": 4,
-        "type": "Method",
-        "label": "COMET",
         "name": "COMET",
         "abbreviation": "Characteristic Objects Method",
         "extensions": ["crisp"],
         "order": "descending",
-        "requiredData": ["matrix", "weights", "criteriaTypes"],
-        "additional": [],
-        "hints": "Characteristic Objects Method"
+        "kwargs": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "expert function",
+                "parameter": "expert_function",
+                "default": "method_expert",
+                "type": "select"
+              },
+              {
+                "id": 2,
+                "method": "expected solution points",
+                "parameter": "esp",
+                "default": "",
+                "type": "array",
+                "dimension": 1,
+                "required": false
+              }
+            ]
+          }
+        ],
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
       },
       {
         "id": 5,
-        "type": "Method",
-        "label": "COPRAS",
         "name": "COPRAS",
         "abbreviation": "Complex Proportional Assessment",
         "extensions": ["crisp", "fuzzy"],
         "order": "descending",
-        "requiredData": ["matrix", "weights", "criteriaTypes"],
-        "additional": [
+        "kwargs": [
           {
             "extension": "fuzzy",
             "data": [
@@ -289,23 +312,23 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization",
-                "default": "saw_normalization"
+                "default": "saw_normalization",
+                "type": "select"
               }
             ]
           }
         ],
-        "hints": "Complex Proportional Assessment. Requires unequal types of criteria"
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": "Requires different types of criteria"
       },
       {
         "id": 6,
-        "type": "Method",
-        "label": "EDAS",
         "name": "EDAS",
         "abbreviation": "Evaluation based on Distance from Average Solution",
         "extensions": ["crisp", "fuzzy"],
         "order": "descending",
-        "requiredData": ["matrix", "weights", "criteriaTypes"],
-        "additional": [
+        "kwargs": [
           {
             "extension": "fuzzy",
             "data": [
@@ -313,23 +336,76 @@
                 "id": 1,
                 "method": "defuzzification",
                 "parameter": "defuzzify",
-                "default": "mean_defuzzification"
+                "default": "mean_defuzzification",
+                "type": "select"
               }
             ]
           }
         ],
-        "hints": "Evaluation based on Distance from Average Solution"
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
       },
       {
         "id": 7,
-        "type": "Method",
-        "label": "MABAC",
+        "name": "ERVD",
+        "abbreviation": "Election based on Relative Value Distances method",
+        "extensions": ["crisp"],
+        "order": "descending",
+        "kwargs": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "lambda",
+                "parameter": "lam",
+                "default": "2.25",
+                "type": "input",
+                "min": 0.1
+              },
+              {
+                "id": 2,
+                "method": "alpha",
+                "parameter": "alpha",
+                "default": "0.88",
+                "type": "input",
+                "min": 0.1
+              },
+              {
+                "id": 3,
+                "method": "reference points",
+                "parameter": "ref_point",
+                "default": "",
+                "type": "array",
+                "dimension": 1,
+                "required": false
+              }
+            ]
+          }
+        ],
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
+      },
+      {
+        "id": 8,
+        "name": "INPUT",
+        "abbreviation": "",
+        "extensions": ["crisp"],
+        "order": "descending",
+        "kwargs": [],
+        "inputConnections": [],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": "Preference given from user"
+      },
+      {
+        "id": 9,
         "name": "MABAC",
         "abbreviation": "Multi-Attributive Border Approximation area Comparison",
         "extensions": ["crisp", "fuzzy"],
         "order": "descending",
-        "requiredData": ["matrix", "weights", "criteriaTypes"],
-        "additional": [
+        "kwargs": [
           {
             "extension": "crisp",
             "data": [
@@ -337,7 +413,8 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization_function",
-                "default": "minmax_normalization"
+                "default": "minmax_normalization",
+                "type": "select"
               }
             ]
           },
@@ -348,29 +425,30 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization",
-                "default": "minmax_normalization"
+                "default": "minmax_normalization",
+                "type": "select"
               },
               {
                 "id": 2,
                 "method": "defuzzification",
                 "parameter": "defuzzify",
-                "default": "mean_defuzzification"
+                "default": "mean_defuzzification",
+                "type": "select"
               }
             ]
           }
         ],
-        "hints": "Multi-Attributive Border Approximation area Comparison"
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
       },
       {
-        "id": 8,
-        "type": "Method",
-        "label": "MAIRCA",
+        "id": 10,
         "name": "MAIRCA",
         "abbreviation": "Multi-Attributive Ideal-Real Comparative Analysis",
         "extensions": ["crisp", "fuzzy"],
         "order": "descending",
-        "requiredData": ["matrix", "weights", "criteriaTypes"],
-        "additional": [
+        "kwargs": [
           {
             "extension": "crisp",
             "data": [
@@ -378,7 +456,8 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization_function",
-                "default": "minmax_normalization"
+                "default": "minmax_normalization",
+                "type": "select"
               }
             ]
           },
@@ -389,29 +468,30 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization",
-                "default": "vector_normalization"
+                "default": "vector_normalization",
+                "type": "select"
               },
               {
                 "id": 2,
                 "method": "distance",
                 "parameter": "distance",
-                "default": "vertex_distance"
+                "default": "vertex_distance",
+                "type": "select"
               }
             ]
           }
         ],
-        "hints": "Multi-Attributive Ideal-Real Comparative Analysis"
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
       },
       {
-        "id": 9,
-        "type": "Method",
-        "label": "MARCOS",
+        "id": 11,
         "name": "MARCOS",
         "abbreviation": "Measurement Alternatives and Ranking according to COmpromise Solution",
         "extensions": ["crisp"],
         "order": "descending",
-        "requiredData": ["matrix", "weights", "criteriaTypes"],
-        "additional": [
+        "kwargs": [
           {
             "extension": "crisp",
             "data": [
@@ -419,23 +499,23 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization_function",
-                "default": "sum_normalization"
+                "default": "sum_normalization",
+                "type": "select"
               }
             ]
           }
         ],
-        "hints": "Measurement Alternatives and Ranking according to COmpromise Solution"
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
       },
       {
-        "id": 10,
-        "type": "Method",
-        "label": "MOORA",
+        "id": 12,
         "name": "MOORA",
         "abbreviation": "Multi-Objective Optimization Method by Ratio Analysis",
         "extensions": ["crisp", "fuzzy"],
         "order": "descending",
-        "requiredData": ["matrix", "weights", "criteriaTypes"],
-        "additional": [
+        "kwargs": [
           {
             "extension": "fuzzy",
             "data": [
@@ -443,23 +523,23 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization",
-                "default": "vector_normalization"
+                "default": "vector_normalization",
+                "type": "select"
               }
             ]
           }
         ],
-        "hints": "Multi-Objective Optimization Method by Ratio Analysis"
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
       },
       {
-        "id": 11,
-        "type": "Method",
-        "label": "OCRA",
+        "id": 13,
         "name": "OCRA",
         "abbreviation": "Operational Competitiveness Ratings",
         "extensions": ["crisp", "fuzzy"],
         "order": "descending",
-        "requiredData": ["matrix", "weights", "criteriaTypes"],
-        "additional": [
+        "kwargs": [
           {
             "extension": "crisp",
             "data": [
@@ -467,7 +547,8 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization_function",
-                "default": "sum_normalization"
+                "default": "sum_normalization",
+                "type": "select"
               }
             ]
           },
@@ -478,58 +559,175 @@
                 "id": 1,
                 "method": "defuzzification",
                 "parameter": "defuzzify",
-                "default": "mean_defuzzification"
+                "default": "mean_defuzzification",
+                "type": "select"
               }
             ]
           }
         ],
-        "hints": "Operational Competitiveness Ratings"
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
       },
       {
-        "id": 12,
-        "type": "Method",
-        "label": "PROMETHEE",
+        "id": 14,
+        "name": "PROBID",
+        "abbreviation": "Preference Ranking on the Basis of Ideal-Average Distance Method",
+        "extensions": ["crisp"],
+        "order": "descending",
+        "kwargs": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "short PROBID",
+                "parameter": "sPROBID",
+                "default": "false",
+                "type": "bool"
+              }
+            ]
+          }
+        ],
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
+      },
+      {
+        "id": 15,
         "name": "PROMETHEE",
         "abbreviation": "Preference Ranking Organization METHod for Enrichment of Evaluations",
         "extensions": ["crisp"],
         "order": "descending",
-        "requiredData": ["matrix", "weights", "criteriaTypes", "function"],
-        "additional": [
+        "kwargs": [
           {
             "extension": "crisp",
             "data": [
               {
                 "id": 1,
                 "method": "preference function",
-                "parameter": "preference_function"
+                "parameter": "preference_function",
+                "default": "usual",
+                "type": "select"
+              },
+              {
+                "id": 2,
+                "method": "p",
+                "parameter": "p",
+                "default": "",
+                "type": "array",
+                "min": 0.1,
+                "dimension": 1,
+                "required": false
+              },
+              {
+                "id": 3,
+                "method": "q",
+                "parameter": "q",
+                "default": "",
+                "type": "array",
+                "min": 0.1,
+                "dimension": 1,
+                "required": false
               }
             ]
           }
         ],
-        "hints": "Preference Ranking Organization METHod for Enrichment of Evaluations"
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
       },
       {
-        "id": 13,
-        "type": "Method",
-        "label": "SPOTIS",
-        "name": "SPOTIS",
-        "abbreviation": "Stable Preference Ordering Towards Ideal Solution",
+        "id": 16,
+        "name": "RIM",
+        "abbreviation": "Reference Ideal Method",
         "extensions": ["crisp"],
         "order": "descending",
-        "requiredData": ["matrix", "weights", "criteriaTypes"],
-        "additional": [],
-        "hints": "Stable Preference Ordering Towards Ideal Solution"
+        "kwargs": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "bounds",
+                "parameter": "bounds",
+                "default": "",
+                "type": "array",
+                "dimension": 2,
+                "required": true
+              },
+              {
+                "id": 2,
+                "method": "reference ideal",
+                "parameter": "ref_ideal",
+                "default": "",
+                "type": "array",
+                "dimension": 1,
+                "required": false
+              }
+            ]
+          }
+        ],
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
       },
       {
-        "id": 14,
-        "type": "Method",
-        "label": "TOPSIS",
+        "id": 17,
+        "name": "SPOTIS",
+        "abbreviation": "Stable Preference Ordering Towards Ideal Solution",
+        "extensions": ["crisp", "fuzzy"],
+        "order": "descending",
+        "kwargs": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "bounds",
+                "parameter": "bounds",
+                "default": "",
+                "type": "array",
+                "dimension": 2,
+                "required": true
+              },
+              {
+                "id": 2,
+                "method": "expected solution points",
+                "parameter": "esp",
+                "default": "",
+                "type": "array",
+                "dimension": 1,
+                "required": false
+              }
+            ]
+          },
+          {
+            "extension": "fuzzy",
+            "data": [
+              {
+                "id": 1,
+                "method": "bounds",
+                "parameter": "bounds",
+                "default": "",
+                "type": "array",
+                "dimension": 2,
+                "required": true
+              }
+            ]
+          }
+        ],
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
+      },
+      {
+        "id": 18,
         "name": "TOPSIS",
         "abbreviation": "Technique for the Order of Prioritisation by Similarity to Ideal Solution",
         "extensions": ["crisp", "fuzzy"],
         "order": "descending",
-        "requiredData": ["matrix", "weights", "criteriaTypes"],
-        "additional": [
+        "kwargs": [
           {
             "extension": "crisp",
             "data": [
@@ -537,7 +735,8 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization_function",
-                "default": "minmax_normalization"
+                "default": "minmax_normalization",
+                "type": "select"
               }
             ]
           },
@@ -548,29 +747,30 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization",
-                "default": "linear_normalization"
+                "default": "linear_normalization",
+                "type": "select"
               },
               {
                 "id": 2,
                 "method": "distance",
                 "parameter": "distance",
-                "default": "vertex_distance"
+                "default": "vertex_distance",
+                "type": "select"
               }
             ]
           }
         ],
-        "hints": "Technique for the Order of Prioritisation by Similarity to Ideal Solution"
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
       },
       {
-        "id": 15,
-        "type": "Method",
-        "label": "VIKOR",
+        "id": 19,
         "name": "VIKOR",
         "abbreviation": "VIseKriterijumska Optimizacija I Kompromisno Resenje",
         "extensions": ["crisp", "fuzzy"],
         "order": "ascending",
-        "requiredData": ["matrix", "weights", "criteriaTypes", "v"],
-        "additional": [
+        "kwargs": [
           {
             "extension": "crisp",
             "data": [
@@ -578,7 +778,17 @@
                 "id": 1,
                 "method": "normalization",
                 "parameter": "normalization_function",
-                "default": "sum_normalization"
+                "default": "sum_normalization",
+                "type": "select"
+              },
+              {
+                "id": 2,
+                "method": "v",
+                "parameter": "v",
+                "default": "0.5",
+                "type": "input",
+                "min": 0,
+                "max": 1
               }
             ]
           },
@@ -589,12 +799,139 @@
                 "id": 1,
                 "method": "defuzzification",
                 "parameter": "defuzzify",
-                "default": "mean_area_defuzzification"
+                "default": "mean_area_defuzzification",
+                "type": "select"
+              },
+              {
+                "id": 2,
+                "method": "v",
+                "parameter": "v",
+                "default": "0.5",
+                "type": "input",
+                "min": 0,
+                "max": 1
               }
             ]
           }
         ],
-        "hints": "VIseKriterijumska Optimizacija I Kompromisno Resenje. Returns results from approach 'Q'"
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": "Returns result for the 'Q' approach"
+      },
+      {
+        "id": 20,
+        "name": "WASPAS",
+        "abbreviation": "Weighted Aggregated Sum Product ASSessment",
+        "extensions": ["crisp", "fuzzy"],
+        "order": "descending",
+        "kwargs": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "normalization",
+                "parameter": "normalization_function",
+                "default": "linear_normalization",
+                "type": "select"
+              }
+            ]
+          },
+          {
+            "extension": "fuzzy",
+            "data": [
+              {
+                "id": 1,
+                "method": "normalization",
+                "parameter": "normalization",
+                "default": "waspas_normalization",
+                "type": "select"
+              },
+              {
+                "id": 2,
+                "method": "defuzzification",
+                "parameter": "defuzzify",
+                "default": "mean_defuzzification",
+                "type": "select"
+              }
+            ]
+          }
+        ],
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
+      },
+      {
+        "id": 21,
+        "name": "WPM",
+        "abbreviation": "Weighted Product Model",
+        "extensions": ["crisp", "fuzzy"],
+        "order": "descending",
+        "kwargs": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "normalization",
+                "parameter": "normalization_function",
+                "default": "sum_normalization",
+                "type": "select"
+              }
+            ]
+          },
+          {
+            "extension": "fuzzy",
+            "data": [
+              {
+                "id": 1,
+                "method": "defuzzification",
+                "parameter": "defuzzify",
+                "default": "mean_defuzzification",
+                "type": "select"
+              }
+            ]
+          }
+        ],
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
+      },
+      {
+        "id": 22,
+        "name": "WSM",
+        "abbreviation": "Weighted Sum Model",
+        "extensions": ["crisp", "fuzzy"],
+        "order": "descending",
+        "kwargs": [
+          {
+            "extension": "crisp",
+            "data": [
+              {
+                "id": 1,
+                "method": "normalization",
+                "parameter": "normalization_function",
+                "default": "sum_normalization",
+                "type": "select"
+              }
+            ]
+          },
+          {
+            "extension": "fuzzy",
+            "data": [
+              {
+                "id": 1,
+                "method": "defuzzification",
+                "parameter": "defuzzify",
+                "default": "mean_defuzzification",
+                "type": "select"
+              }
+            ]
+          }
+        ],
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization", "ranking", "correlation"],
+        "hints": ""
       }
     ]
   },
@@ -602,108 +939,98 @@
     "id": 4,
     "key": "Normalization",
     "label": "Normalization",
-    "type": "additional",
-    "inputConnections": [],
-    "outputConnections": [],
+    "function": "additional",
+    "type": "normalization",
     "data": [
       {
         "id": 1,
-        "type": "Normalization",
-        "label": "Enhanced accuracy",
-        "name": "Enhanced accuracy",
-        "functionName": "enhanced_accuracy_normalization",
-        "extensions": ["crisp"],
-        "requiredData": ["matrix"],
+        "name": "CoCoSo",
+        "functionName": "cocoso_normalization",
+        "extensions": ["fuzzy"],
         "hints": ""
       },
       {
         "id": 2,
-        "type": "Normalization",
-        "label": "Logarithmic",
-        "name": "Logarithmic",
-        "functionName": "logarithmic_normalization",
+        "name": "Enhanced accuracy",
+        "functionName": "enhanced_accuracy_normalization",
         "extensions": ["crisp"],
-        "requiredData": ["matrix"],
         "hints": ""
       },
       {
         "id": 3,
-        "type": "Normalization",
-        "label": "Linear",
-        "name": "Linear",
-        "functionName": "linear_normalization",
-        "extensions": ["crisp", "fuzzy"],
-        "requiredData": ["matrix"],
+        "name": "Logarithmic",
+        "functionName": "logarithmic_normalization",
+        "extensions": ["crisp"],
         "hints": ""
       },
       {
         "id": 4,
-        "type": "Normalization",
-        "label": "Max",
-        "name": "Max",
-        "functionName": "max_normalization",
+        "name": "Linear",
+        "functionName": "linear_normalization",
         "extensions": ["crisp", "fuzzy"],
-        "requiredData": ["matrix"],
         "hints": ""
       },
       {
         "id": 5,
-        "type": "Normalization",
-        "label": "Min-max",
-        "name": "Min-max",
-        "functionName": "minmax_normalization",
+        "name": "Max",
+        "functionName": "max_normalization",
         "extensions": ["crisp", "fuzzy"],
-        "requiredData": ["matrix"],
         "hints": ""
       },
       {
         "id": 6,
-        "type": "Normalization",
-        "label": "Nonlinear",
-        "name": "Nonlinear",
-        "functionName": "nonlinear_normalization",
-        "extensions": ["crisp"],
-        "requiredData": ["matrix"],
+        "name": "Min-max",
+        "functionName": "minmax_normalization",
+        "extensions": ["crisp", "fuzzy"],
         "hints": ""
       },
       {
         "id": 7,
-        "type": "Normalization",
-        "label": "SAW",
-        "name": "SAW",
-        "functionName": "saw_normalization",
-        "extensions": ["fuzzy"],
-        "requiredData": ["matrix"],
+        "name": "Nonlinear",
+        "functionName": "nonlinear_normalization",
+        "extensions": ["crisp"],
         "hints": ""
       },
       {
         "id": 8,
-        "type": "Normalization",
-        "label": "Sum",
-        "name": "Sum",
-        "functionName": "sum_normalization",
-        "extensions": ["crisp", "fuzzy"],
-        "requiredData": ["matrix"],
+        "name": "SAW",
+        "functionName": "saw_normalization",
+        "extensions": ["fuzzy"],
         "hints": ""
       },
       {
         "id": 9,
-        "type": "Normalization",
-        "label": "Vector",
-        "name": "Vector",
-        "functionName": "vector_normalization",
+        "name": "Sum",
+        "functionName": "sum_normalization",
         "extensions": ["crisp", "fuzzy"],
-        "requiredData": ["matrix"],
         "hints": ""
       },
       {
         "id": 10,
-        "type": "Normalization",
-        "label": "Zavadskas-Turskis",
+        "name": "Square root",
+        "functionName": "sqrt_normalization",
+        "extensions": ["fuzzy"],
+        "hints": ""
+      },
+      {
+        "id": 11,
+        "name": "Vector",
+        "functionName": "vector_normalization",
+        "extensions": ["crisp", "fuzzy"],
+        "hints": ""
+      },
+      {
+        "id": 12,
+        "name": "WASPAS",
+        "functionName": "waspas_normalization",
+        "extensions": ["fuzzy"],
+        "hints": ""
+      },
+      {
+        "id": 13,
         "name": "Zavadskas-Turskis",
         "functionName": "zavadskas_turskis_normalization",
         "extensions": ["crisp"],
-        "requiredData": ["matrix"],
         "hints": ""
       }
     ]
@@ -712,88 +1039,77 @@
     "id": 5,
     "key": "Distance",
     "label": "Distance",
-    "type": "additional",
-    "inputConnections": [],
-    "outputConnections": [],
+    "function": "additional",
+    "type": "distance",
     "data": [
       {
         "id": 1,
-        "type": "Distance",
-        "label": "Euclidean",
-        "name": "Euclidean",
-        "functionName": "euclidean_distance",
+        "name": "Canberra",
+        "functionName": "canberra_distance",
         "extensions": ["fuzzy"],
-        "requiredData": [],
         "hints": ""
       },
       {
         "id": 2,
-        "type": "Distance",
-        "label": "Hamming",
-        "name": "Hamming",
-        "functionName": "hamming_distance",
+        "name": "Chebyshev",
+        "functionName": "chebyshev_distance",
         "extensions": ["fuzzy"],
-        "requiredData": [],
         "hints": ""
       },
       {
         "id": 3,
-        "type": "Distance",
-        "label": "L-R",
-        "name": "L-R",
-        "functionName": "lr_distance",
+        "name": "Euclidean",
+        "functionName": "euclidean_distance",
         "extensions": ["fuzzy"],
-        "requiredData": [],
         "hints": ""
       },
       {
         "id": 4,
-        "type": "Distance",
-        "label": "Mahdavi",
-        "name": "Mahdavi",
-        "functionName": "mahdavi_distance",
+        "name": "Hamming",
+        "functionName": "hamming_distance",
         "extensions": ["fuzzy"],
-        "requiredData": [],
         "hints": ""
       },
       {
         "id": 5,
-        "type": "Distance",
-        "label": "Tran-Duckstein",
-        "name": "Tran-Duckstein",
-        "functionName": "tran_duckstein_distance",
+        "name": "L-R",
+        "functionName": "lr_distance",
         "extensions": ["fuzzy"],
-        "requiredData": [],
         "hints": ""
       },
       {
         "id": 6,
-        "type": "Distance",
-        "label": "Vertex",
-        "name": "Vertex",
-        "functionName": "vertex_distance",
+        "name": "Mahdavi",
+        "functionName": "mahdavi_distance",
         "extensions": ["fuzzy"],
-        "requiredData": [],
         "hints": ""
       },
       {
         "id": 7,
-        "type": "Distance",
-        "label": "Weighted Euclidean",
-        "name": "Weighted Euclidean",
-        "functionName": "weighted_euclidean_distance",
+        "name": "Tran-Duckstein",
+        "functionName": "tran_duckstein_distance",
         "extensions": ["fuzzy"],
-        "requiredData": [],
         "hints": ""
       },
       {
         "id": 8,
-        "type": "Distance",
-        "label": "Weighted Hamming",
+        "name": "Vertex",
+        "functionName": "vertex_distance",
+        "extensions": ["fuzzy"],
+        "hints": ""
+      },
+      {
+        "id": 9,
+        "name": "Weighted Euclidean",
+        "functionName": "weighted_euclidean_distance",
+        "extensions": ["fuzzy"],
+        "hints": ""
+      },
+      {
+        "id": 10,
         "name": "Weighted Hamming",
         "functionName": "weighted_hamming_distance",
         "extensions": ["fuzzy"],
-        "requiredData": [],
         "hints": ""
       }
     ]
@@ -802,48 +1118,63 @@
     "id": 6,
     "key": "Defuzzification",
     "label": "Defuzzification",
-    "type": "additional",
-    "inputConnections": [],
-    "outputConnections": [],
+    "function": "additional",
+    "type": "defuzzification",
     "data": [
       {
         "id": 1,
-        "type": "Defuzzification",
-        "label": "Graded mean average",
-        "name": "Graded mean average",
-        "functionName": "graded_mean_average_defuzzification",
+        "name": "Bisector",
+        "functionName": "bisector_defuzzification",
         "extensions": ["fuzzy"],
-        "requiredData": [],
         "hints": ""
       },
       {
         "id": 2,
-        "type": "Defuzzification",
-        "label": "Mean",
-        "name": "Mean",
-        "functionName": "mean_defuzzification",
+        "name": "Graded mean average",
+        "functionName": "graded_mean_average_defuzzification",
         "extensions": ["fuzzy"],
-        "requiredData": [],
         "hints": ""
       },
       {
         "id": 3,
-        "type": "Defuzzification",
-        "label": "Mean area",
-        "name": "Mean area",
-        "functionName": "mean_area_defuzzification",
+        "name": "Height",
+        "functionName": "height_defuzzification",
         "extensions": ["fuzzy"],
-        "requiredData": [],
         "hints": ""
       },
       {
         "id": 4,
-        "type": "Defuzzification",
-        "label": "Weighted mean",
+        "name": "Largest of Maximum",
+        "functionName": "lom_defuzzification",
+        "extensions": ["fuzzy"],
+        "hints": ""
+      },
+      {
+        "id": 5,
+        "name": "Mean",
+        "functionName": "mean_defuzzification",
+        "extensions": ["fuzzy"],
+        "hints": ""
+      },
+      {
+        "id": 6,
+        "name": "Mean area",
+        "functionName": "mean_area_defuzzification",
+        "extensions": ["fuzzy"],
+        "hints": ""
+      },
+      {
+        "id": 7,
+        "name": "Smallest of Minimum",
+        "functionName": "som_defuzzification",
+        "extensions": ["fuzzy"],
+        "hints": ""
+      },
+      {
+        "id": 8,
         "name": "Weighted mean",
         "functionName": "weighted_mean_defuzzification",
         "extensions": ["fuzzy"],
-        "requiredData": [],
         "hints": ""
       }
     ]
@@ -852,58 +1183,42 @@
     "id": 7,
     "key": "Preference function",
     "label": "Preference function",
-    "type": "additional",
-    "inputConnections": [],
-    "outputConnections": [],
+    "function": "additional",
+    "type": "preference_function",
     "data": [
       {
         "id": 1,
-        "type": "Preference function",
-        "label": "Usual",
         "name": "Usual",
         "functionName": "usual",
         "extensions": ["crisp"],
-        "requiredData": [],
         "hints": ""
       },
       {
         "id": 2,
-        "type": "Preference function",
-        "label": "U-shape",
         "name": "Ushape",
         "functionName": "ushape",
         "extensions": ["crisp"],
-        "requiredData": [],
         "hints": ""
       },
       {
         "id": 3,
-        "type": "Preference function",
-        "label": "V-shape",
         "name": "Vshape",
         "functionName": "vshape",
         "extensions": ["crisp"],
-        "requiredData": [],
         "hints": ""
       },
       {
         "id": 4,
-        "type": "Preference function",
-        "label": "Level",
         "name": "Level",
         "functionName": "level",
         "extensions": ["crisp"],
-        "requiredData": [],
         "hints": ""
       },
       {
         "id": 4,
-        "type": "Preference function",
-        "label": "Vshape 2",
         "name": "Vshape 2",
         "functionName": "vshape_2",
         "extensions": ["crisp"],
-        "requiredData": [],
         "hints": ""
       }
     ]
@@ -912,18 +1227,24 @@
     "id": 8,
     "key": "Ranking",
     "label": "Ranking",
-    "type": "primary",
-    "inputConnections": ["method"],
-    "outputConnections": ["visualization"],
+    "function": "primary",
+    "type": "ranking",
     "data": [
       {
         "id": 1,
-        "type": "Ranking",
-        "label": "Rank",
+        "name": "Input",
+        "extensions": ["crisp"],
+        "inputConnections": [],
+        "outputConnections": ["visualization"],
+        "hints": "Positional ranking from user"
+      },
+      {
+        "id": 2,
         "name": "Rank",
         "extensions": ["crisp", "fuzzy"],
-        "requiredData": ["matrix"],
-        "hints": "Calculates the ranking based on the preferences values according to the method assumption"
+        "inputConnections": ["method"],
+        "outputConnections": ["visualization"],
+        "hints": "Calculates positional ranking from preferences"
       }
     ]
   },
@@ -931,63 +1252,82 @@
     "id": 9,
     "key": "Correlation",
     "label": "Correlation",
-    "type": "primary",
-    "inputConnections": ["ranking", "method"],
+    "function": "primary",
+    "type": "correlation",
+    "inputConnections": ["weights", "ranking", "method"],
     "outputConnections": ["visualization"],
     "data": [
       {
         "id": 1,
-        "type": "Correlation",
-        "label": "Goodman-Kruskall",
-        "name": "Goodman-Kruskall",
+        "name": "Drastic",
         "extensions": ["crisp"],
-        "requiredData": ["ranking"],
-        "hints": "Correlation of MCDA method rankings"
+        "inputConnections": ["ranking"],
+        "outputConnections": ["visualization"],
+        "hints": "Correlation of rankings from MCDA methods"
       },
       {
         "id": 2,
-        "type": "Correlation",
-        "label": "Kendall-Tau",
-        "name": "Kendall-Tau",
+        "name": "Goodman-Kruskall",
         "extensions": ["crisp"],
-        "requiredData": ["ranking"],
-        "hints": "Correlation of MCDA method rankings"
+        "inputConnections": ["ranking"],
+        "outputConnections": ["visualization"],
+        "hints": "Correlation of rankings from MCDA methods"
       },
       {
         "id": 3,
-        "type": "Correlation",
-        "label": "Pearson",
-        "name": "Pearson",
+        "name": "Kendall-Tau",
         "extensions": ["crisp"],
-        "requiredData": ["preferences"],
-        "hints": "Correlation of results of MCDA methods"
+        "inputConnections": ["ranking"],
+        "outputConnections": ["visualization"],
+        "hints": "Correlation of rankings from MCDA methods"
       },
       {
         "id": 4,
-        "type": "Correlation",
-        "label": "Spearman",
-        "name": "Spearman",
+        "name": "Pearson",
         "extensions": ["crisp"],
-        "requiredData": ["preferences"],
-        "hints": "Correlation of results of MCDA methods"
+        "inputConnections": ["weights", "method"],
+        "outputConnections": ["visualization"],
+        "hints": "Correlation values of two vectors"
       },
       {
         "id": 5,
-        "type": "Correlation",
-        "label": "Weighted Spearman",
-        "name": "Weighted Spearman",
+        "name": "Spearman",
         "extensions": ["crisp"],
-        "requiredData": ["ranking"],
-        "hints": "Correlation of MCDA method rankings"
+        "inputConnections": ["ranking"],
+        "outputConnections": ["visualization"],
+        "hints": "Correlation of values of MCDA results"
       },
       {
         "id": 6,
-        "type": "Correlation",
-        "label": "WS similarity",
-        "name": "WS rank similarity",
+        "name": "Weighted Spearman",
         "extensions": ["crisp"],
-        "requiredData": ["ranking"],
-        "hints": "Correlation of MCDA method rankings"
+        "inputConnections": ["ranking"],
+        "outputConnections": ["visualization"],
+        "hints": "Correlation of rankings from MCDA methods"
+      },
+      {
+        "id": 7,
+        "name": "WS rank",
+        "extensions": ["crisp"],
+        "inputConnections": ["ranking"],
+        "outputConnections": ["visualization"],
+        "hints": "Correlation of rankings from MCDA methods"
+      },
+      {
+        "id": 8,
+        "name": "Weights similarity",
+        "extensions": ["crisp"],
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization"],
+        "hints": "Correlation of criteria weight vectors"
+      },
+      {
+        "id": 9,
+        "name": "Weights similarity 2",
+        "extensions": ["crisp"],
+        "inputConnections": ["weights"],
+        "outputConnections": ["visualization"],
+        "hints": "Correlation of criteria weight vectors"
       }
     ]
   },
@@ -995,36 +1335,108 @@
     "id": 10,
     "key": "Visualization",
     "label": "Visualization",
-    "type": "primary",
-    "inputConnections": ["method", "ranking", "correlation"],
-    "outputConnections": [],
+    "function": "primary",
+    "type": "visualization",
     "data": [
       {
         "id": 1,
-        "type": "Visualization",
-        "label": "A",
-        "name": "A",
+        "name": "Weights distribution",
         "extensions": ["crisp"],
-        "requiredData": ["matrix"],
-        "hints": "Co wyświetli"
+        "inputConnections": ["weights"],
+        "outputConnections": [],
+        "hints": "Distribution of criteria weights values for given weighting methods"
       },
       {
         "id": 2,
-        "type": "Visualization",
-        "label": "B",
-        "name": "B",
+        "name": "Polar weights",
         "extensions": ["crisp"],
-        "requiredData": ["matrix"],
-        "hints": "Co wyświetli"
+        "inputConnections": ["weights"],
+        "outputConnections": [],
+        "hints": "Pie chart with distribution of weight values for the given weighting methods"
       },
       {
         "id": 3,
-        "type": "Visualization",
-        "label": "C",
-        "name": "C",
+        "name": "Ranking bar",
         "extensions": ["crisp"],
-        "requiredData": ["matrix"],
-        "hints": "Co wyświetli"
+        "inputConnections": ["ranking"],
+        "outputConnections": [],
+        "hints": "Bar chart with the positions of the decision options for the given MCDA methods"
+      },
+      {
+        "id": 4,
+        "name": "Ranking flow",
+        "extensions": ["crisp"],
+        "inputConnections": ["ranking"],
+        "outputConnections": [],
+        "hints": "Plot with positions of decision options for the given MCDA methods"
+      },
+      {
+        "id": 5,
+        "name": "Polar ranking",
+        "extensions": ["crisp"],
+        "inputConnections": ["ranking"],
+        "outputConnections": [],
+        "hints": "Pie chart with positions of decision options for the given MCDA methods"
+      },
+      {
+        "id": 6,
+        "name": "Scatter ranking",
+        "extensions": ["crisp"],
+        "inputConnections": ["ranking"],
+        "outputConnections": [],
+        "hints": "Scatter plot comparing the positions of the decision options for the two given MCDA methods"
+      },
+      {
+        "id": 7,
+        "name": "Correlation heatmap",
+        "extensions": ["crisp"],
+        "inputConnections": ["correlation"],
+        "outputConnections": [],
+        "hints": "Heatmap with correlation values for given methods"
+      },
+      {
+        "id": 8,
+        "name": "Correlation flow",
+        "extensions": ["crisp"],
+        "inputConnections": ["correlation"],
+        "outputConnections": [],
+        "hints": "Plot with correlation of rankings for the given methods"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "key": "Expert function",
+    "label": "Expert function",
+    "function": "additional",
+    "type": "expert_function",
+    "data": [
+      {
+        "id": 1,
+        "name": "Method expert",
+        "functionName": "method_expert",
+        "extensions": ["crisp"],
+        "inputConnections": [],
+        "outputConnections": [],
+        "hints": "The MCDA method, in its role as an expert, evaluates characteristic objects based on weights and types of criteria"
+      },
+      {
+        "id": 2,
+        "name": "ESP expert",
+        "functionName": "esp_expert",
+        "extensions": ["crisp"],
+        "inputConnections": [],
+        "outputConnections": [],
+        "hints": "The artificial expert evaluates the characteristic objects based on the indicated expected solutions"
+      },
+      {
+        "id": 3,
+        "name": "Compromise expert",
+        "functionName": "compromise_expert",
+        "extensions": ["crisp"],
+        "inputConnections": [],
+        "outputConnections": [],
+        "hints": "The expert function evaluates characteristic objects in order to obtain a compromise from different preferences"
       }
     ]
   }

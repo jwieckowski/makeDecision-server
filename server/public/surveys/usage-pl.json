@@ -1,0 +1,44 @@
+{
+  "title": "W jakim celu korzystasz z aplikacji?",
+  "options": [
+    {
+      "id": 1,
+      "label": "Prywatnie",
+      "name": "Private",
+      "type": "radio"
+    },
+    {
+      "id": 2,
+      "label": "Komercyjnie",
+      "name": "Commercial",
+      "type": "radio"
+    },
+    {
+      "id": 3,
+      "label": "Uczelnia",
+      "name": "Academic",
+      "type": "select",
+      "title": "Określ swoje stanowisko",
+      "options": [
+        {
+          "id": 31,
+          "label": "Naukowiec",
+          "name": "Researcher",
+          "type": "radio"
+        },
+        {
+          "id": 32,
+          "label": "Nauczyciel",
+          "name": "Teacher",
+          "type": "radio"
+        },
+        {
+          "id": 33,
+          "label": "Student",
+          "name": "Student",
+          "type": "radio"
+        }
+      ]
+    }
+  ]
+}

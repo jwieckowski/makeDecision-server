@@ -128,5 +128,11 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# deploy
+# personal deploy instruction
 deploy.txt
+
+# db config
+server/db/.env
+
+# zip files
+*.zip

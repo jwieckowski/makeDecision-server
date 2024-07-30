@@ -459,7 +459,7 @@
   },
   {
     "id": 0,
-    "key": "MCDA",
+    "key": "Metody MCDA",
     "data": [
       {
         "id": 0,
@@ -650,6 +650,90 @@
           {
             "id": 16,
             "text": "$$ k_{i}=\\left(k_{i a} k_{i b} k_{i c}\\right)^{\\frac{1}{3}}+\\frac{1}{3}\\left(k_{i a}+k_{i b}+k_{i c}\\right) $$"
+          },
+          {
+            "id": 9999,
+            "text": "**Dane rozmyte - Trójkątne Liczby Rozmyte**"
+          },
+          {
+            "id": 17,
+            "text": "**Krok 1.** Wyznaczenie trójkątnej rozmytej macierzy decyzyjnej $$ X $$, która zawiera $$ m $$ alternatyw i $$ n $$ kryteriów ($$ i = 1, 2, \\ldots, m $$ i $$ j = 1, 2, \\ldots, n $$), gdzie $$ x_{ij} $$ jest reprezentowana jako Trójkątna Liczba Rozmyta ($$ a, m, b $$)."
+          },
+          {
+            "id": 18,
+            "text": "**Krok 2.** Obliczenie rozmytej znormalizowanej macierzy decyzyjnej. Dla kryteriów zysku można zastosować następujący wzór:"
+          },
+          {
+            "id": 19,
+            "text": "$$ n_{ij} = \\frac{max(b_{j}) - a_{ij}}{max(b_{j}) - min(a_{j})}, \\frac{max(b_{j}) - m_{ij}}{max(b_{j}) - min(a_{j})}, \\frac{max(b_{j}) - b_{j}}{max(b_{j}) - min(a_{j})} $$"
+          },
+          {
+            "id": 20,
+            "text": "oraz dla kryteriów kosztowych jako:"
+          },
+          {
+            "id": 21,
+            "text": "$$ n_{ij} = \\frac{a_{ij} - min(a_{j})}{max(b_{j}) - min(a_{j})}, \\frac{m_{ij} - min(a_{j})}{max(b_{j}) - min(a_{j})}, \\frac{b_{j} - min(a_{j})}{max(b_{j}) - min(a_{j})} $$"
+          },
+          {
+            "id": 22,
+            "text": "**Krok 3.** Rozmyta suma ważonej porównywalności i waga mocy sekwencji porównywalności dla każdej alternatywy są obliczane w następujący sposób:"
+          },
+          {
+            "id": 23,
+            "text": "$$ S_i =  \\sum^{n}_{j=1} w^a_j n^a_ij, \\sum^{n}_{j=1} w^m_j n^m_ij, \\sum^{n}_{j=1} w^b_j n^b_ij $$"
+          },
+          {
+            "id": 24,
+            "text": "$$ P_i =  \\sum^{n}_{j=1} (n^a_ij)^{(w^b_j)} , \\sum^{n}_{j=1} (n^m_ij)^{(w^m_j)}, \\sum^{n}_{j=1} (n^b_ij)^{(w^a_j)} $$"
+          },
+          {
+            "id": 25,
+            "text": "**Krok 4.** Zastosowane są trzy strategie agregacji, aby uzyskać trzy rozmyte wyniki oceny:"
+          },
+          {
+            "id": 26,
+            "text": "1: $$ f_{ia} = \\frac{P_i^a + S_i^a}{\\sum^{m}_{i=1} P_i^b + S_i^b}, \\frac{P_i^m + S_i^m}{\\sum^{m}_{i=1} P_i^m + S_i^m}, \\frac{P_i^b + S_i^b}{\\sum^{m}_{i=1} P_i^a + S_i^a}  $$"
+          },
+          {
+            "id": 27,
+            "text": "2: $$ f_{im} = \\frac{S_i^a}{min(S_i^a)} + \\frac{P_i^a}{min(P_i^a)}, \\frac{S_i^m}{min(S_i^a)} + \\frac{P_i^m}{min(P_i^a)}, \\frac{S_i^b}{min(S_i^a)} + \\frac{P_i^b}{min(P_i^a)} $$"
+          },
+          {
+            "id": 28,
+            "text": "3: $$ f_{ib} = \\frac{\\lambda(S_i^a) + (1 - \\lambda)(P_i^a)}{\\lambda max(S_i^b) + (1 - \\lambda) max(P_i^b)}, \\frac{\\lambda(S_i^m) + (1 - \\lambda)(P_i^m)}{\\lambda max(S_i^b) + (1 - \\lambda) max(P_i^b)}, \\frac{\\lambda(S_i^b) + (1 - \\lambda)(P_i^b)}{\\lambda max(S_i^b) + (1 - \\lambda) max(P_i^b)}  $$"
+          },
+          {
+            "id": 29,
+            "text": "gdzie $$ \\lambda $$ jest zwykle przyjmowana jako 0,5 i wartość ta jest określana przez decydenta"
+          },
+          {
+            "id": 30,
+            "text": "**Krok 5.** Rozmyte wyniki oceny są konwertowane na ostre wartości w następujący sposób:"
+          },
+          {
+            "id": 31,
+            "text": "$$ f_{ia} = \\frac{f_{ia}^a + f_{ia}^m + f_{ia}^b}{3} $$"
+          },
+          {
+            "id": 32,
+            "text": "$$ f_{im} = \\frac{f_{im}^a + f_{im}^m + f_{im}^b}{3} $$"
+          },
+          {
+            "id": 33,
+            "text": "$$ f_{ib} = \\frac{f_{ib}^a + f_{ib}^m + f_{ib}^b}{3} $$"
+          },
+          {
+            "id": 34,
+            "text": "**Krok 6.** Uzyskane oceny są łączone w celu uzyskania ostatecznego wyniku dla każdej alternatywy:"
+          },
+          {
+            "id": 35,
+            "text": "$$ f_i = (f_{ia}f_{ib}f_{ic})^{\\frac{1}{3}} + (\\frac{1}{3}) (f_{ia} + f_{ib} + f_{ic}) $$"
+          },
+          {
+            "id": 36,
+            "text": "Alternatywa z najwyższym wynikiem jest najlepszą alternatywą"
           }
         ]
       },
@@ -1203,6 +1287,108 @@
       },
       {
         "id": 6,
+        "name": "ERVD",
+        "description": [
+          {
+            "id": 9999,
+            "text": "**Dane ostre**"
+          },
+          {
+            "id": 1,
+            "text": "**Krok 1.** Definicja macierzy decyzyjnej o wymiarze $$n $$ \\times $$m$$, gdzie $$n$$ to liczba alternatyw, a $$m$$ to liczba kryteriów."
+          },
+          {
+            "id": 2,
+            "text": "**Krok 2.** Definicja punktów odniesienia $$\\mu, j = 1, \\ldots, n $$ dla każdego kryterium."
+          },
+          {
+            "id": 3,
+            "text": "**Krok 3.** Normalizacja elementów z macierzy początkowej, gdzie poniższy wzór jest używany do normalizacji kolumn dla typu kryterium zysku"
+          },
+          {
+            "id": 4,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{-}_{i}}{x^{+}_{i} - x^{-}_{i}} $$"
+          },
+          {
+            "id": 5,
+            "text": "a normalizacja kolumn dla typu kosztu jest obliczana jako"
+          },
+          {
+            "id": 6,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{+}_{i}}{x^{-}_{i} - x^{+}_{i}} $$"
+          },
+          {
+            "id": 7,
+            "text": "gdzie $$ x_{ij} $$ jest elementem początkowej macierzy decyzyjnej, $$ x^{+}_{i} $$ jest maksymalną wartością obserwowanego kryterium według alternatyw, a $$ x^{-}_{i} $$ jest minimalną wartością obserwowanego kryterium według alternatyw."
+          },
+          {
+            "id": 8,
+            "text": "**Krok 4.** Przekształcenie punktów odniesienia w znormalizowaną skalę:"
+          },
+          {
+            "id": 9,
+            "text": "$$ \\varphi_j=\\frac{\\mu_j}{\\sum_{i=1}^m d_{i j}} $$"
+          },
+          {
+            "id": 10,
+            "text": "**Krok 5.** Obliczenie wartości alternatywy $$ A_i $$ według kryterium $$ C_j $$ za pomocą rosnącej funkcji wartości (dla kryteriów korzyści)"
+          },
+          {
+            "id": 11,
+            "text": "$$ v_{i j} = (r_{i j}-\\varphi_j)^\\alpha \\quad \\text { jeśli } r_{i j}>\\varphi_j $$"
+          },
+          {
+            "id": 12,
+            "text": "$$ -\\lambda (\\varphi_j-r_{i j})^\\alpha \\text { w innym przypadku } $$"
+          },
+          {
+            "id": 13,
+            "text": "i malejąca funkcja wartości (dla kryteriów kosztowych):"
+          },
+          {
+            "id": 14,
+            "text": "$$ (\\varphi_j-r_{i j})^\\alpha \\quad \\text { jeśli } r_{i j}<\\varphi_j $$"
+          },
+          {
+            "id": 15,
+            "text": "$$ -\\lambda(r_{i j}-\\varphi_j)^\\alpha \\text { w innym przypadku } $$"
+          },
+          {
+            "id": 16,
+            "text": "**Krok 6.** Wyznaczenie idealnego i ujemnego idealnego rozwiązania $$A^+$$ (PIS) i $$A^-$$ (NIS), odpowiednio:"
+          },
+          {
+            "id": 17,
+            "text": "$$ A^{+}={v_1^{+}, \\cdots v_n^{+}}, A^{-}={v_1^{-}, \\cdots v_n^{-}} $$"
+          },
+          {
+            "id": 18,
+            "text": "gdzie $$v_j^{+}=\\max _i v_{i j}$$ i $$v_j^{-}=\\min v_{i \\vec{j}}$$"
+          },
+          {
+            "id": 19,
+            "text": "**Krok 7.** Obliczanie miar separacji od PIS i NIS indywidualnie za pomocą metryki Minkowskiego:"
+          },
+          {
+            "id": 20,
+            "text": "$$ S_i^{+}=\\sum_{j=1}^n w_j \\cdot |v_{i j}-v_j^{+} |, \\text {dla alternatywy } i, i=1 \\ldots m $$"
+          },
+          {
+            "id": 21,
+            "text": "$$ S_i^{-}=\\sum_{j=1}^n w_j \\cdot |v_{i j}-v_j^{-} |, \\text {dla alternatywy } i, i=1 \\ldots m $$"
+          },
+          {
+            "id": 22,
+            "text": "**Krok 8.** Oblicz względną bliskość każdej alternatywy do idealnego rozwiązania:"
+          },
+          {
+            "id": 23,
+            "text": "$$ \\phi_i=\\frac{S_i^{-}}{S_i^{+}+S_i^{-}}, i=1, \\ldots, m $$"
+          }
+        ]
+      },
+      {
+        "id": 7,
         "name": "MABAC",
         "description": [
           {
@@ -1368,7 +1554,7 @@
         ]
       },
       {
-        "id": 7,
+        "id": 8,
         "name": "MAIRCA",
         "description": [
           {
@@ -1510,7 +1696,7 @@
         ]
       },
       {
-        "id": 8,
+        "id": 9,
         "name": "MARCOS",
         "description": [
           {
@@ -1596,7 +1782,7 @@
         ]
       },
       {
-        "id": 9,
+        "id": 10,
         "name": "MOORA",
         "description": [
           {
@@ -1718,7 +1904,7 @@
         ]
       },
       {
-        "id": 10,
+        "id": 11,
         "name": "OCRA",
         "description": [
           {
@@ -1852,7 +2038,145 @@
         ]
       },
       {
-        "id": 11,
+        "id": 12,
+        "name": "PROBID",
+        "description": [
+          {
+            "id": 999,
+            "text": "**Dane ostre**"
+          },
+          {
+            "id": 0,
+            "text": "**Krok 1.** Definicja macierzy decyzyjnej o wymiarze $$n \\times m$$, gdzie $$n$$ to liczba alternatyw, a $$ m $$ to liczba kryteriów"
+          },
+          {
+            "id": 2,
+            "text": "**Krok 2.** Normalizacja elementów z macierzy początkowej, gdzie poniższy wzór jest używany do normalizacji kolumn dla typu kryterium zysku"
+          },
+          {
+            "id": 3,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{-}_{i}}{x^{+}_{i} - x^{-}_{i}} $$"
+          },
+          {
+            "id": 4,
+            "text": "a normalizacja kolumn dla typu kosztu jest obliczana jako"
+          },
+          {
+            "id": 5,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{+}_{i}}{x^{-}_{i} - x^{+}_{i}} $$"
+          },
+          {
+            "id": 6,
+            "text": "gdzie $$ x_{ij} $$ jest elementem początkowej macierzy decyzyjnej, $$ x^{+}_{i} $$ jest maksymalną wartością zaobserwowanego kryterium zgodnie z alternatywami, a $$ x^{-}_{i} $$ jest minimalną wartością zaobserwowanego kryterium zgodnie z alternatywami."
+          },
+          {
+            "id": 7,
+            "text": "**Krok 3.**  Obliczanie elementów macierzy ważonej $$(V)$$. Elementy macierzy ważonej $$(V)$$ są obliczane na podstawie:"
+          },
+          {
+            "id": 8,
+            "text": "$$ v_{ij} = w_i \\cdot (n_{ij} + 1) $$"
+          },
+          {
+            "id": 9,
+            "text": "**Krok 4.** Posortowanie znormalizowanej ważonej macierzy decyzjnej według kryteriów, biorąc pod uwagę ich typ. W ten sposób zostanie utworzona macierz kolejno Pozytywnych Idealnych Rozwiązań (1., 2., ..., m-ty PIS). Można ją przedstawić za pomocą następującego wzoru:"
+          },
+          {
+            "id": 10,
+            "text": "$$ A_{(k)} ={(\\operatorname{Large}(v_j, k) \\mid j \\in J), (\\operatorname{Small}(v_j, k) \\mid j \\in J^{\\prime})} ={v_{(k) 1}, v_{(k) 2}, v_{(k) 3}, \\ldots, v_{(k) j}, \\ldots, v_{(k) n}} $$"
+          },
+          {
+            "id": 11,
+            "text": "gdzie $$ k \\in {1,2, \\ldots, m}, J $$ jest zbiorem kryteriów korzyści, a $$J^{\\prime}$$ jest zbiorem kryteriów kosztowych"
+          },
+          {
+            "id": 12,
+            "text": "Następnie należy znaleźć średnią wartość każdej kolumny celu w następujący sposób:"
+          },
+          {
+            "id": 13,
+            "text": "$$ \\bar{v}_j=\\frac{\\sum_{k=1}^m v_{(k) j}}{m} \\quad \\text { dla } j \\in{1,2, \\ldots, n} $$"
+          },
+          {
+            "id": 14,
+            "text": "Średnie rozwiązanie jest wtedy określone przez"
+          },
+          {
+            "id": 15,
+            "text": "$$ \\bar{A}={\\bar{v}_1, \\bar{v}_2, \\bar{v}_3, \\ldots, \\bar{v}_j, \\ldots, \\bar{v}_n} $$"
+          },
+          {
+            "id": 16,
+            "text": "**Krok 5.** Iteracyjne obliczanie odległości euklidesowej każdego rozwiązania do każdego z $$m$$ rozwiązań idealnych, a także do rozwiązania średniego. Odległość do rozwiązań idealnych jest obliczana jako"
+          },
+          {
+            "id": 17,
+            "text": "$$ S_{i(k)}=\\sqrt{\\sum_{j=1}^n(v_{i j}-v_{(k) j})^2}$$"
+          },
+          {
+            "id": 18,
+            "text": "**Krok 6.** Określenie całkowitej odległości dodatnio-idealnej i odległości ujemno-idealnej w następujący sposób dla $$ S_{i(\\text { pos-ideal })} $$:"
+          },
+          {
+            "id": 19,
+            "text": "$$\\sum_{k=1}^{(m+1) / 2} \\frac{1}{k} S_{i(k)} \\quad i \\in{1,2, \\ldots, m} $$ gdy $$ m $$ jest liczbą nieparzystą"
+          },
+          {
+            "id": 20,
+            "text": "$$\\sum_{k=1}^{m / 2} \\frac{1}{k} S_{i(k)} \\quad i \\in{1,2, \\ldots, m} $$ gdy $$ m $$ jest liczbą parzystą"
+          },
+          {
+            "id": 21,
+            "text": "i dla $$ S_{i(\\text { neg-ideal })} $$"
+          },
+          {
+            "id": 22,
+            "text": "$$ \\sum_{k=(m+1) / 2}^m \\frac{1}{m-k+1} S_{i(k)} i \\in{1,2, \\ldots, m} $$ gdy $$ m $$ jest liczbą nieparzystą"
+          },
+          {
+            "id": 23,
+            "text": "$$ \\sum_{k=m / 2+1}^m \\frac{1}{m-k+1} S_{i(k)} i \\in{1,2, \\ldots, m} $$ gdy $$ m $$ jest liczbą parzystą "
+          },
+          {
+            "id": 24,
+            "text": "Dodatnia-idealna odległość dla sPROBID:"
+          },
+          {
+            "id": 25,
+            "text": "$$ S_{i(\\text { pos-ideal })} = \\sum_{k=1}^{m \\backslash 4} \\frac{1}{k} S_{i(k)} \\quad i \\in{1,2, \\ldots, m} \\text { gdy } m \\geq 4 $$"
+          },
+          {
+            "id": 26,
+            "text": "$$ S_{i(1)} \\quad i \\in{1,2, \\ldots, m} \\text { gdy } 0 < m < 4 $$"
+          },
+          {
+            "id": 27,
+            "text": "i odległość ujemna-idealna:"
+          },
+          {
+            "id": 28,
+            "text": "$$ S_{i(\\text { neg-ideal })} = \\sum_{k=m+1-(m \\ 4)}^m \\frac{1}{m-k+1} S_{i(k)} \\quad i \\in{1,2, \\ldots, m} \\text { gdy } m \\geq 4 $$"
+          },
+          {
+            "id": 29,
+            "text": "$$ S_{i(m)} \\quad i \\in{1,2, \\ldots, m} \\text { gdy } 0<m<4 $$"
+          },
+          {
+            "id": 30,
+            "text": "**Krok 7.** Obliczenie współczynnika pozytywnego/negatywnego-idealnego ($$R_i$$) a następnie wyniku wydajności ($$P_i$$) każdego rozwiązania w następujący sposób:"
+          },
+          {
+            "id": 31,
+            "text": "$$ R_i=\\frac{S_{i(\\text { pos-ideal })}}{S_{i(\\text { neg-ideal })}} $$"
+          },
+          {
+            "id": 32,
+            "text": "$$ P_i=\\frac{1}{1+R_i^2}+S_{i(\\mathrm{avg})} $$"
+          }
+        ]
+      },
+      {
+        "id": 13,
         "name": "PROMETHEE",
         "description": [
           {
@@ -1922,7 +2246,105 @@
         ]
       },
       {
-        "id": 12,
+        "id": 14,
+        "name": "RIM",
+        "description": [
+          {
+            "id": 999,
+            "text": "**Dane ostre**"
+          },
+          {
+            "id": 0,
+            "text": "**Krok 1**. Zdefiniowanie następujących wartości, które określają kontekst problemu i sam problem."
+          },
+          {
+            "id": 1,
+            "text": "Wagi kryteriów: $$ w_j, j \\in {1, 2, \\ldots N}$$ a suma wag kryteriów powinna być równa jeden: $$\\sum^N_{j = 1} w_j = 1 $$"
+          },
+          {
+            "id": 2,
+            "text": "Macierz decyzyjna: $$ X = [ x_{ij} ]_{M \\times N} $$ który zawiera informacje o $$M$$ alternatywy oceniane w ramach $$N$$ kryteria."
+          },
+          {
+            "id": 3,
+            "text": "Zakres kryteriów: $$t_j = [t_{j}^{(min)}, t_{j}^{(max)}], j \\in {1, 2, \\ldots N}$$ która definiuje arbitralnie wybrane granice kryteriów."
+          },
+          {
+            "id": 4,
+            "text": "Idealny punkt odniesienia: $$ s_j = [s_{j}^{(min)}, s_{j}^{(max)}], j \\in {1, 2, \\ldots N}$$ i $$[s_{j}^{(min)}, s_{j}^{(max)}] \\subset [t_{j}^{(min)}, t_{j}^{(max)}] $$. Idealny punkt odniesienia definiuje najbardziej preferowany przedział wartości dla każdego kryterium. Może on pochodzić z zakresu kryteriów lub definiować oczekiwany wynik procesu decyzyjnego."
+          },
+          {
+            "id": 5,
+            "text": "**Krok 2.** Po zdefiniowaniu problemu należy znormalizować macierz decyzyjną $$X$$ przy użyciu funkcji normalizacji RIM $$f(x,[A, B],[C, D])$$ zdefiniowany jako: "
+          },
+          {
+            "id": 6,
+            "text": "$$ 1 \\text{ jeśli } x \\in [C, D] $$"
+          },
+          {
+            "id": 7,
+            "text": "$$ 1 - \\frac{d_{min} (x, [C, D])}{|A - C|} $$ jeśli $$ x \\in [A, C] \\bigwedge A \\neq C $$"
+          },
+          {
+            "id": 8,
+            "text": "$$ 1 - \\frac{d_{min} (x, [C, D])}{|D - B|} $$ jeśli $$ x \\in [D, B] \\bigwedge D \\neq B $$"
+          },
+          {
+            "id": 9,
+            "text": "Normalizacja ta wymaga zdefiniowania zakresu kryteriów [A. B] i ideał odniesienia [C, D]."
+          },
+          {
+            "id": 10,
+            "text": "gdzie $$[A, B]$$ to zakres kryteriów, $$[C, D]$$ jest ideałem odniesienia, a $$x \\in [A, B], [C, D] \\subset [A, B]$$. Funkcja $$d_{min}(x, [C, D])$$ jest zdefiniowana jako:"
+          },
+          {
+            "id": 11,
+            "text": "$$ d_{min}(x, [C, D]) = min(|x - C|, |x - D|) $$"
+          },
+          {
+            "id": 12,
+            "text": "Normalizacja ta pozwala na odwzorowanie wartości $$ x $$ na zakres $$[0, 1]$$ w domenie kryteriów w odniesieniu do idealnego przedziału odniesienia. Proces normalizacji jest zdefiniowany w następujący sposób"
+          },
+          {
+            "id": 13,
+            "text": "$$ Y = [y_{ij}]_{M \\times N} = [f(x_{ij}, t_j, s_j)]_{M \\times N} $$"
+          },
+          {
+            "id": 14,
+            "text": "**Krok 3.** Obliczenie ważonej znormalizowanej macierzy $$ Y' $$ używając:"
+          },
+          {
+            "id": 15,
+            "text": "$$ Y' = Y \\otimes W = [y_{ij} \\cdot w_j]_{M \\times N}$$"
+          },
+          {
+            "id": 16,
+            "text": "**Krok 4.** Obliczenie odchylenia od znormalizowanego ideału referencyjnego dla każdej alternatywy $$A_i$$ przy użyciu równań"
+          },
+          {
+            "id": 17,
+            "text": "$$ I_i^+ = \\sqrt{\\sum^{n}_{j=1} (y'_{ij} - w_j)^2} $$"
+          },
+          {
+            "id": 18,
+            "text": "$$ I_i^- = \\sqrt{\\sum^{n}_{j=1} (y')^2} $$"
+          },
+          {
+            "id": 19,
+            "text": "**Krok 5.** Obliczenie względnego indeksu każdej alternatywy $$A_i$$ przy użyciu równania"
+          },
+          {
+            "id": 20,
+            "text": "$$ R_i = \\frac{I_i^-}{I_i^+ + I_i^-}$$"
+          },
+          {
+            "id": 21,
+            "text": "Należy uporządkować alternatywy $$A_i$$ w kolejności malejącej w odniesieniu do $$R_i$$. Alternatywy o większej wartości $$R_i$$ są bardziej preferowane."
+          }
+        ]
+      },
+      {
+        "id": 15,
         "name": "SPOTIS",
         "description": [
           {
@@ -1972,11 +2394,64 @@
           {
             "id": 10,
             "text": "**Krok 5.** Uszeregowanie kryteriów według preferencji - wartości powinny być uszeregowane w kolejności rosnącej."
+          },
+          {
+            "id": 9999,
+            "text": "**Dane rozmyte - Trójkątne Liczby Rozmyte**"
+          },
+
+          {
+            "id": 11,
+            "text": "**Krok 1.** Wyznaczenie trójkątnej rozmytej macierzy decyzyjnej $$ X $$, która zawiera $$ m $$ alternatyw i $$ n $$ kryteriów ($$ i = 1, 2, \\ldots, m $$ i $$ j = 1, 2, \\ldots, n $$), gdzie $$ x_{ij} $$ jest reprezentowana jako trójkątna liczba rozmyta ($$ a, m, b $$)."
+          },
+          {
+            "id": 12,
+            "text": "**Krok 2.** Definicja granic problemu - granice min i max klasycznego problemu MCDM muszą być zdefiniowane, aby przekształcić problem MCDM z źle zdefiniowanego w dobrze zdefiniowany."
+          },
+          {
+            "id": 13,
+            "text": "$$\\left[S_{j}^{\\min }, S_{j}^{\\max }\\right] $$"
+          },
+          {
+            "id": 14,
+            "text": "**Krok 3.** Definicja idealnego punktu rozwiązania (ISP) jako:"
+          },
+          {
+            "id": 15,
+            "text": "$$ S^{*}_{j} = S_{j}^{max} $$ jeśli typ kryterium to profit"
+          },
+          {
+            "id": 16,
+            "text": "$$ S^{*}_{j} = S_{j}^{min} $$ jeśli typ kryterium to koszt"
+          },
+          {
+            "id": 17,
+            "text": "**Krok 4.** Odległość od dostawcy usług internetowych dla każdej alternatywy powinna zostać obliczona jako:"
+          },
+          {
+            "id": 18,
+            "text": "$$ d_{ij}(A_i, s^*_j) = \\frac{|x_{ij} - S^*_j|}{|S_{j}^{max} - S_{j}^{min} |}  $$"
+          },
+          {
+            "id": 19,
+            "text": "**Krok 5.** Wynik każdej alternatywy można obliczyć za pomocą sumy algebraicznej S-normy w następujący sposób:"
+          },
+          {
+            "id": 20,
+            "text": "$$ d(A_i, s^*) = \\bigcup^{N}_{j=1} w_j \\mu_{d_{ij}(A_i, s^*_j)}(x) $$"
+          },
+          {
+            "id": 21,
+            "text": "**Krok 6.** Ostatni krok obejmuje obliczenie ostrych wartości punktowych na podstawie defuzyfikacji środka ciężkości (cog):"
+          },
+          {
+            "id": 22,
+            "text": "$$ cog(A) = \\frac{\\mu_a + \\mu_m + \\mu_b}{3} $$"
           }
         ]
       },
       {
-        "id": 13,
+        "id": 16,
         "name": "TOPSIS",
         "description": [
           {
@@ -2126,7 +2601,7 @@
         ]
       },
       {
-        "id": 13,
+        "id": 17,
         "name": "VIKOR",
         "description": [
           {
@@ -2171,7 +2646,7 @@
           },
           {
             "id": 9,
-            "text": "$$R_{i} =max_{j} \\left[ w_{j} \\cdot \\frac{f_{j}^{*} - f_{ij}}{f_{j}^{*} - f_{i}^{-}} \\right] $$"
+            "text": "$$R_{i} = max_{j} \\left[ w_{j} \\cdot \\frac{f_{j}^{*} - f_{ij}}{f_{j}^{*} - f_{i}^{-}} \\right] $$"
           },
           {
             "id": 10,
@@ -2274,6 +2749,332 @@
             "text": "$$ \\tilde{N}_i=\\frac{(2 x_{j}^m+x_{j}^a+x_{j}^b)}{4} $$"
           }
         ]
+      },
+      {
+        "id": 18,
+        "name": "WASPAS",
+        "description": [
+          {
+            "id": 999,
+            "text": "**Dane ostre**"
+          },
+          {
+            "id": 0,
+            "text": "**Krok 1.** Definicja macierzy decyzyjnej o wymiarze $$n \\times m$$, gdzie $$ n $$ to liczba alternatyw, a $$ m $$ to liczba kryteriów"
+          },
+          {
+            "id": 2,
+            "text": "**Krok 2.** Normalizacja elementów z macierzy początkowej, gdzie poniższy wzór jest używany do normalizacji kolumn dla typu kryterium zysku"
+          },
+          {
+            "id": 3,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{-}_{i}}{x^{+}_{i} - x^{-}_{i}} $$"
+          },
+          {
+            "id": 4,
+            "text": "a normalizacja kolumn dla typu kosztu jest obliczana jako"
+          },
+          {
+            "id": 5,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{+}_{i}}{x^{-}_{i} - x^{+}_{i}} $$"
+          },
+          {
+            "id": 6,
+            "text": "gdzie $$ x_{ij} $$ jest elementem początkowej macierzy decyzyjnej, $$ x^{+}_{i} $$ jest maksymalną wartością obserwowanego kryterium według alternatyw, a $$ x^{-}_{i} $$ jest minimalną wartością obserwowanego kryterium według alternatyw."
+          },
+          {
+            "id": 7,
+            "text": "**Krok 3.** Obliczenie modelu sumy ważonej (WSM) i modelu produktu ważonego (WPM) w następujący sposób:"
+          },
+          {
+            "id": 8,
+            "text": "$$ W S M=\\sum_{j=1}^n \\bar{x}_{i j} w_j $$"
+          },
+          {
+            "id": 9,
+            "text": "$$ W P M=\\prod_{j=1}^n(\\bar{x}_{i j})^{w_j}$$"
+          },
+          {
+            "id": 10,
+            "text": "gdzie $$w_j$$ oznaczają wagi kryteriów, a $$x_{ij}$$ oznaczają wartości opcji decyzyjnych ze znormalizowanej macierzy decyzyjnej."
+          },
+          {
+            "id": 11,
+            "text": "**Krok 4.** Obliczenie całkowitego względnego znaczenia dla każdej alternatywy w następujący sposób:"
+          },
+          {
+            "id": 12,
+            "text": "$$ Q_i=\\lambda WSM+(1-\\lambda) WPM=\\lambda \\sum_{j=1}^n \\bar{x}_{i j} w_j+(1-\\lambda) \\prod_{j=1}^n(\\bar{x}_{i j})^{w_j} $$"
+          },
+          {
+            "id": 9999,
+            "text": "**Dane rozmyte - Trójkątne Liczby Rozmyte**"
+          },
+          {
+            "id": 13,
+            "text": "**Krok 1.** Wyznaczenie trójkątnej rozmytej macierzy decyzyjnej $$ X $$, która zawiera $$ m $$ alternatyw i $$ n $$ kryteriów ($$ i = 1, 2, \\ldots, m $$ i $$ j = 1, 2, \\ldots, n $$), gdzie $$ x_{ij} $$ jest reprezentowana jako trójkątna liczba rozmyta ($$ a, m, b $$)."
+          },
+          {
+            "id": 14,
+            "text": "**Krok 2.** Obliczenie znormalizowanej rozmytej macierzy decyzyjnej dla kryteriów zysku w następujący sposób:"
+          },
+          {
+            "id": 15,
+            "text": "$$ \\tilde{x}_{i j}=\\frac{x_{i j}}{max_i x_{ij}} $$"
+          },
+          {
+            "id": 16,
+            "text": "a dla kryteriów typu koszt jako:"
+          },
+          {
+            "id": 17,
+            "text": "$$ \\tilde{x}_{i j}=\\frac{min_i x_{ij}}{x_{ij}} $$"
+          },
+          {
+            "id": 18,
+            "text": "**Krok 3.** Obliczenie ważonej znormalizowanej rozmytej macierzy decyzyjnej dla modelu WSM, gdzie $$ \\widetilde{\\widehat{x}}_{i j}=\\tilde{x}_{i j} \\cdot \\widetilde{w}_j $$"
+          },
+          {
+            "id": 19,
+            "text": "**Krok 4.** Obliczenie ważonej znormalizowanej rozmytej macierzy decyzyjnej dla modelu WPM, gdzie $$ \\widetilde{\\widehat{x}}_{i j}=\\tilde{x}_{i j}^{\\widetilde{w}_j} $$"
+          },
+          {
+            "id": 20,
+            "text": "**Krok 5.** Obliczenie wartości funkcji optymalności dla modelu WSM dla każdej alternatywy jako:"
+          },
+          {
+            "id": 21,
+            "text": "$$ Q_i = \\sum_{j=1}^{n} \\widetilde{\\widehat{x}}_{i j} $$"
+          },
+          {
+            "id": 22,
+            "text": "i dla modelu WPM:"
+          },
+          {
+            "id": 23,
+            "text": "$$ P_i = \\prod_{j=1}^{n} \\widetilde{\\widehat{x}}_{i j}  $$"
+          },
+          {
+            "id": 24,
+            "text": "Wynikiem rozmytego pomiaru wydajności dla każdej alternatywy są liczby rozmyte $$ Q_i $$ i $$ P_i $$. Środek obszaru jest najbardziej praktyczny i prosty w zastosowaniu do defuzzyfikacji:"
+          },
+          {
+            "id": 25,
+            "text": "$$  Q_i = \\frac{1}{3} (Q_{ia} + Q_{im} + Q_{ib}) $$"
+          },
+          {
+            "id": 26,
+            "text": "$$ P_i = \\frac{1}{3} (P_{ia} + P_{im} + P_{ib}) $$"
+          },
+          {
+            "id": 27,
+            "text": "**Krok 6.** Wartość zintegrowanej funkcji użyteczności metody F-WASPAS dla alternatywy można określić w następujący sposób:"
+          },
+          {
+            "id": 28,
+            "text": "$$ K_i ==\\lambda \\sum_{j=1}^{m} Q_i + (1 - \\lambda) \\sum^{m}_{j=1} P_i \\quad \\lambda = 0, \\ldots, 1; 0 \\leq K_i \\leq 1 $$"
+          },
+          {
+            "id": 29,
+            "text": "$$ \\lambda $$ jest określana w oparciu o założenie, że suma wszystkich alternatywnych wyników WSM musi być równa sumie wyników WPM:"
+          },
+          {
+            "id": 30,
+            "text": "$$ \\lambda = \\frac{\\sum^{m}_{i=1} P_i}{\\sum^{m}_{i=1} Q_i + \\sum^{m}_{i=1} P_i} $$"
+          },
+          {
+            "id": 31,
+            "text": "**Krok 7.** Kolejność preferencji. Wybierz alternatywę z maksymalną wartością $$K_i$$"
+          }
+        ]
+      },
+      {
+        "id": 19,
+        "name": "WPM",
+        "description": [
+          {
+            "id": 999,
+            "text": "**Dane ostre**"
+          },
+          {
+            "id": 0,
+            "text": "**Krok 1.** Definicja macierzy decyzyjnej o wymiarze $$n \\times m$$, gdzie $$ n $$ to liczba alternatyw, a $$ m $$ to liczba kryteriów"
+          },
+          {
+            "id": 2,
+            "text": "**Krok 2.** Normalizacja elementów z macierzy początkowej, gdzie poniższy wzór jest używany do normalizacji kolumn dla typu kryterium zysku"
+          },
+          {
+            "id": 3,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{-}_{i}}{x^{+}_{i} - x^{-}_{i}} $$"
+          },
+          {
+            "id": 4,
+            "text": "a normalizacja kolumn dla typu kosztu jest obliczana jako"
+          },
+          {
+            "id": 5,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{+}_{i}}{x^{-}_{i} - x^{+}_{i}} $$"
+          },
+          {
+            "id": 6,
+            "text": "gdzie $$ x_{ij} $$ jest elementem początkowej macierzy decyzyjnej, $$ x^{+}_{i} $$ jest maksymalną wartością obserwowanego kryterium według alternatyw, a $$ x^{-}_{i} $$ jest minimalną wartością obserwowanego kryterium według alternatyw."
+          },
+          {
+            "id": 7,
+            "text": "**Krok 3.** Obliczenie modelu produktu ważonego (WPM) w następujący sposób:"
+          },
+          {
+            "id": 9,
+            "text": "$$ W P M=\\prod_{j=1}^n(\\bar{x}_{i j})^{w_j}$$"
+          },
+          {
+            "id": 10,
+            "text": "gdzie $$w_j$$ oznaczają wagi kryteriów, a $$x_{ij}$$ oznaczają wartości opcji decyzyjnych ze znormalizowanej macierzy decyzyjnej."
+          },
+          {
+            "id": 9999,
+            "text": "**Dane rozmyte - Trójkątne Liczby Rozmyte**"
+          },
+          {
+            "id": 13,
+            "text": "**Krok 1.** Wyznaczenie trójkątnej rozmytej macierzy decyzyjnej $$ X $$, która zawiera $$ m $$ alternatyw i $$ n $$ kryteriów ($$ i = 1, 2, \\ldots, m $$ i $$ j = 1, 2, \\ldots, n $$), gdzie $$ x_{ij} $$ jest reprezentowana jako trójkątna liczba rozmyta ($$ a, m, b $$)."
+          },
+          {
+            "id": 14,
+            "text": "**Krok 2.** Obliczenie znormalizowanej rozmytej macierzy decyzyjnej dla kryteriów zysku w następujący sposób:"
+          },
+          {
+            "id": 15,
+            "text": "$$ \\tilde{x}_{i j}=\\frac{x_{i j}}{max_i x_{ij}} $$"
+          },
+          {
+            "id": 16,
+            "text": "a dla kryteriów typu koszt jako:"
+          },
+          {
+            "id": 17,
+            "text": "$$ \\tilde{x}_{i j}=\\frac{min_i x_{ij}}{x_{ij}} $$"
+          },
+          {
+            "id": 19,
+            "text": "**Krok 3.** Obliczenie ważonej znormalizowanej rozmytej macierzy decyzyjnej dla modelu WPM, gdzie $$ \\widetilde{\\widehat{x}}_{i j}=\\tilde{x}_{i j}^{\\widetilde{w}_j} $$"
+          },
+          {
+            "id": 20,
+            "text": "**Krok 4.** Obliczenie wartości funkcji optymalności dla modelu WPM dla każdej alternatywy jako:"
+          },
+          {
+            "id": 21,
+            "text": "$$ P_i = \\prod_{j=1}^{n} \\widetilde{\\widehat{x}}_{i j}  $$"
+          },
+          {
+            "id": 22,
+            "text": "Wynikiem rozmytego pomiaru wydajności dla każdej alternatywy są liczby rozmyte $$ P_i $$. Środek obszaru jest najbardziej praktyczny i prosty w zastosowaniu do defuzzyfikacji:"
+          },
+          {
+            "id": 23,
+            "text": "$$ P_i = \\frac{1}{3} (P_{ia} + P_{im} + P_{ib}) $$"
+          },
+          {
+            "id": 24,
+            "text": "Uzyskane wyniki są następnie klasyfikowane w celu wskazania ostatecznych wyników alternatyw. Większe wartości oznaczają lepsze alternatywy."
+          }
+        ]
+      },
+      {
+        "id": 20,
+        "name": "WSM",
+        "description": [
+          {
+            "id": 999,
+            "text": "**Dane ostre**"
+          },
+          {
+            "id": 0,
+            "text": "**Krok 1.** Definicja macierzy decyzyjnej o wymiarze $$n \\times m$$, gdzie $$ n $$ to liczba alternatyw, a $$ m $$ to liczba kryteriów"
+          },
+          {
+            "id": 2,
+            "text": "**Krok 2.** Normalizacja elementów z macierzy początkowej, gdzie poniższy wzór jest używany do normalizacji kolumn dla typu kryterium zysku"
+          },
+          {
+            "id": 3,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{-}_{i}}{x^{+}_{i} - x^{-}_{i}} $$"
+          },
+          {
+            "id": 4,
+            "text": "a normalizacja kolumn dla typu kosztu jest obliczana jako"
+          },
+          {
+            "id": 5,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{+}_{i}}{x^{-}_{i} - x^{+}_{i}} $$"
+          },
+          {
+            "id": 6,
+            "text": "gdzie $$ x_{ij} $$ jest elementem początkowej macierzy decyzyjnej, $$ x^{+}_{i} $$ jest maksymalną wartością obserwowanego kryterium według alternatyw, a $$ x^{-}_{i} $$ jest minimalną wartością obserwowanego kryterium według alternatyw."
+          },
+          {
+            "id": 7,
+            "text": "**Krok 3.** Obliczenie modelu sumy ważonej (WSM) w następujący sposób:"
+          },
+          {
+            "id": 8,
+            "text": "$$ W S M=\\sum_{j=1}^n \\bar{x}_{i j} w_j $$"
+          },
+          {
+            "id": 10,
+            "text": "gdzie $$w_j$$ oznaczają wagi kryteriów, a $$x_{ij}$$ oznaczają wartości opcji decyzyjnych ze znormalizowanej macierzy decyzyjnej."
+          },
+          {
+            "id": 9999,
+            "text": "**Dane rozmyte - Trójkątne Liczby Rozmyte**"
+          },
+          {
+            "id": 11,
+            "text": "**Krok 1.** Wyznaczenie trójkątnej rozmytej macierzy decyzyjnej $$ X $$, która zawiera $$ m $$ alternatyw i $$ n $$ kryteriów ($$ i = 1, 2, \\ldots, m $$ i $$ j = 1, 2, \\ldots, n $$), gdzie $$ x_{ij} $$ jest reprezentowana jako trójkątna liczba rozmyta ($$ a, m, b $$)."
+          },
+          {
+            "id": 12,
+            "text": "**Krok 2.** Obliczenie znormalizowanej rozmytej macierzy decyzyjnej dla kryteriów zysku w następujący sposób:"
+          },
+          {
+            "id": 13,
+            "text": "$$ \\tilde{x}_{i j}=\\frac{x_{i j}}{max_i x_{ij}} $$"
+          },
+          {
+            "id": 14,
+            "text": "a dla kryteriów typu koszt jako:"
+          },
+          {
+            "id": 15,
+            "text": "$$ \\tilde{x}_{i j}=\\frac{min_i x_{ij}}{x_{ij}} $$"
+          },
+          {
+            "id": 16,
+            "text": "**Krok 3.** Obliczenie ważonej znormalizowanej rozmytej macierzy decyzyjnej dla modelu WSM, gdzie $$ \\widetilde{\\widehat{x}}_{i j}=\\tilde{x}_{i j} \\cdot \\widetilde{w}_j $$"
+          },
+          {
+            "id": 17,
+            "text": "**Krok 4.** Obliczenie wartości funkcji optymalności dla modelu WSM dla każdej alternatywy jako:"
+          },
+          {
+            "id": 18,
+            "text": "$$ Q_i = \\sum_{j=1}^{n} \\widetilde{\\widehat{x}}_{i j} $$"
+          },
+          {
+            "id": 19,
+            "text": "Wynikiem rozmytego pomiaru wydajności dla każdej alternatywy są liczby rozmyte $$ Q_i $$. Środek obszaru jest najbardziej praktyczny i prosty w zastosowaniu do defuzzyfikacji:"
+          },
+          {
+            "id": 20,
+            "text": "$$  Q_i = \\frac{1}{3} (Q_{ia} + Q_{im} + Q_{ib}) $$"
+          },
+          {
+            "id": 21,
+            "text": "Uzyskane wyniki są następnie klasyfikowane w celu wskazania ostatecznych wyników alternatyw. Większe wartości oznaczają lepsze alternatywy."
+          }
+        ]
       }
     ]
   },
@@ -2283,6 +3084,32 @@
     "data": [
       {
         "id": 0,
+        "name": "CoCoSo",
+        "description": [
+          {
+            "id": 0,
+            "text": "**Normalizacja na danych rozmytych - Trójkątne Liczby Rozmyte**"
+          },
+          {
+            "id": 1,
+            "text": "Dane dla kryterium zysku można znormalizować jako:"
+          },
+          {
+            "id": 2,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - min(a_j)}{max(c_j) - min(a_j)} $$"
+          },
+          {
+            "id": 3,
+            "text": "a dla kryterium kosztu jako:"
+          },
+          {
+            "id": 4,
+            "text": "$$ n_{ij} = \\frac{max(c_j) - x_{ij}}{max(c_j) - min(a_j)} $$"
+          }
+        ]
+      },
+      {
+        "id": 1,
         "name": "Enhanced accuracy",
         "description": [
           {
@@ -2308,7 +3135,7 @@
         ]
       },
       {
-        "id": 1,
+        "id": 2,
         "name": "Logarithmic",
         "description": [
           {
@@ -2334,7 +3161,7 @@
         ]
       },
       {
-        "id": 2,
+        "id": 3,
         "name": "Linear",
         "description": [
           {
@@ -2380,7 +3207,7 @@
         ]
       },
       {
-        "id": 3,
+        "id": 4,
         "name": "Max",
         "description": [
           {
@@ -2426,7 +3253,7 @@
         ]
       },
       {
-        "id": 4,
+        "id": 5,
         "name": "Min-max",
         "description": [
           {
@@ -2472,7 +3299,7 @@
         ]
       },
       {
-        "id": 5,
+        "id": 6,
         "name": "Nonlinear",
         "description": [
           {
@@ -2498,7 +3325,7 @@
         ]
       },
       {
-        "id": 6,
+        "id": 7,
         "name": "SAW",
         "description": [
           {
@@ -2520,7 +3347,7 @@
         ]
       },
       {
-        "id": 7,
+        "id": 8,
         "name": "Sum",
         "description": [
           {
@@ -2566,7 +3393,25 @@
         ]
       },
       {
-        "id": 8,
+        "id": 9,
+        "name": "Square root",
+        "description": [
+          {
+            "id": 0,
+            "text": "**Normalizacja na danych rozmytych - Trójkątne Liczby Rozmyte**"
+          },
+          {
+            "id": 1,
+            "text": "Macierz $$ X $$ reprezentowana jako trójkątne liczby rozmyte $$ x_{ij} (a, m, b) $$ może być znormalizowana jako:"
+          },
+          {
+            "id": 2,
+            "text": "$$ n_{ij} = \\frac{x_{ij}}{\\sqrt(\\frac{1}{3} \\cdot (a_{j}^2 + m_{j}^2 + b_{j}^2))} $$"
+          }
+        ]
+      },
+      {
+        "id": 10,
         "name": "Vector",
         "description": [
           {
@@ -2612,7 +3457,7 @@
         ]
       },
       {
-        "id": 9,
+        "id": 11,
         "name": "Zavadskas-Turskis",
         "description": [
           {
@@ -2636,6 +3481,32 @@
             "text": "$$ n_{ij} = 1 - | \\frac{\\text{max } x_j - x_{ij}}{\\text{max } x_j} | $$"
           }
         ]
+      },
+      {
+        "id": 12,
+        "name": "WASPAS",
+        "description": [
+          {
+            "id": 0,
+            "text": "**Normalizacja na danych rozmytych - Trójkątne Liczby Rozmyte**"
+          },
+          {
+            "id": 1,
+            "text": "Dane dla kryterium zysku można znormalizować jako:"
+          },
+          {
+            "id": 2,
+            "text": "$$ n_{ij} = \\frac{x_{ij}}{max(b_j)} $$"
+          },
+          {
+            "id": 3,
+            "text": "a dla kryterium kosztu jako:"
+          },
+          {
+            "id": 4,
+            "text": "$$ n_{ij} = \\frac{min(a_j)}{x_{ij}} $$"
+          }
+        ]
       }
     ]
   },
@@ -2645,6 +3516,34 @@
     "data": [
       {
         "id": 0,
+        "name": "Canberra",
+        "description": [
+          {
+            "id": 0,
+            "text": "Odległość między dwiema trójkątnymi liczbami rozmytymi $$ T_1 (a_1, m_1, b_1) $$ oraz $$ T_2 (a_2, m_2, b_2) $$ dla odległości Canberry jest obliczana jako:"
+          },
+          {
+            "id": 1,
+            "text": "$$ d = \\frac{| a_1 - a_2 |}{| a_1 | + | a_2 |} + \\frac{| m_1 - m_2 |}{| m_1 | + | m_2 |} + \\frac{| b_1 - b_2 |}{| b_1 | + | b_2 |} $$"
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "Chebyshev",
+        "description": [
+          {
+            "id": 0,
+            "text": "Odległość między dwiema trójkątnymi liczbami rozmytymi $$ T_1 (a_1, m_1, b_1) $$ oraz $$ T_2 (a_2, m_2, b_2) $$ dla odległości Chebysheva jest obliczana jako:"
+          },
+          {
+            "id": 1,
+            "text": "$$ d = max(|a_1 - a_2 |, |m_1 - m_2 |, |b_1 - b_2|) $$"
+          }
+        ]
+      },
+      {
+        "id": 2,
         "name": "Euclidean",
         "description": [
           {
@@ -2658,7 +3557,7 @@
         ]
       },
       {
-        "id": 1,
+        "id": 3,
         "name": "Hamming",
         "description": [
           {
@@ -2672,7 +3571,7 @@
         ]
       },
       {
-        "id": 2,
+        "id": 4,
         "name": "L-R",
         "description": [
           {
@@ -2686,7 +3585,7 @@
         ]
       },
       {
-        "id": 3,
+        "id": 5,
         "name": "Mahdavi",
         "description": [
           {
@@ -2700,7 +3599,7 @@
         ]
       },
       {
-        "id": 4,
+        "id": 6,
         "name": "Tran-Duckstein",
         "description": [
           {
@@ -2714,7 +3613,7 @@
         ]
       },
       {
-        "id": 5,
+        "id": 7,
         "name": "Vertex",
         "description": [
           {
@@ -2728,7 +3627,7 @@
         ]
       },
       {
-        "id": 6,
+        "id": 8,
         "name": "Weighted Euclidean",
         "description": [
           {
@@ -2742,7 +3641,7 @@
         ]
       },
       {
-        "id": 7,
+        "id": 9,
         "name": "Weighted Hamming",
         "description": [
           {
@@ -2763,6 +3662,20 @@
     "data": [
       {
         "id": 0,
+        "name": "Bisector",
+        "description": [
+          {
+            "id": 0,
+            "text": "Wartość ostra trójkątnej liczby rozmytej $$ TFN = (a, m, b) $$ jest zdefiniowana jako:"
+          },
+          {
+            "id": 1,
+            "text": "$$ k (TFN) = \\frac{a + b}{2} $$"
+          }
+        ]
+      },
+      {
+        "id": 1,
         "name": "Graded mean average",
         "description": [
           {
@@ -2776,7 +3689,35 @@
         ]
       },
       {
-        "id": 1,
+        "id": 2,
+        "name": "Height",
+        "description": [
+          {
+            "id": 0,
+            "text": "Wartość ostra trójkątnej liczby rozmytej $$ TFN = (a, m, b) $$ jest zdefiniowana jako:"
+          },
+          {
+            "id": 1,
+            "text": "$$ k (TFN) = m $$"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Largest of Maximum",
+        "description": [
+          {
+            "id": 0,
+            "text": "Wartość ostra trójkątnej liczby rozmytej $$ TFN = (a, m, b) $$ jest zdefiniowana jako:"
+          },
+          {
+            "id": 1,
+            "text": "$$ k (TFN) = b $$"
+          }
+        ]
+      },
+      {
+        "id": 4,
         "name": "Mean",
         "description": [
           {
@@ -2790,7 +3731,7 @@
         ]
       },
       {
-        "id": 2,
+        "id": 5,
         "name": "Mean area",
         "description": [
           {
@@ -2804,7 +3745,21 @@
         ]
       },
       {
-        "id": 3,
+        "id": 6,
+        "name": "Smallest of Minimum",
+        "description": [
+          {
+            "id": 0,
+            "text": "Wartość ostra trójkątnej liczby rozmytej $$ TFN = (a, m, b) $$ jest zdefiniowana jako:"
+          },
+          {
+            "id": 1,
+            "text": "$$ k (TFN) = a $$"
+          }
+        ]
+      },
+      {
+        "id": 7,
         "name": "Weighted mean",
         "description": [
           {
@@ -2829,6 +3784,36 @@
     "data": [
       {
         "id": 0,
+        "name": "Drastic",
+        "description": [
+          {
+            "id": 0,
+            "text": "Metryka, oznaczona jako $$ WS_{dra} (x, y) $$, jest zdefiniowana w następujący sposób:"
+          },
+          {
+            "id": 1,
+            "text": "$$ WS_{dra} (x, y) = \\frac{\\sum^{N}_{i=1} 2^{-i} f (x_i, y_i)}{1 - 2^{-N}} $$"
+          },
+          {
+            "id": 2,
+            "text": "Metryka ta operuje na dwóch rankingach, oznaczonych jako $$ x $$  i $$ y $$, przy czym każdy ranking składa się z $$ N $$ elementów. Kluczowym elementem tej metryki jest funkcja $$ f(x_i, y_i) $$, która porównuje elementy na odpowiednich pozycjach w dwóch rankingach. Funkcja $$ f(x_i, y_i) $$ jest zdefiniowana w następujący sposób:"
+          },
+          {
+            "id": 3,
+            "text": "$$f (x_i, y_i) = 0 $$, jeśli $$ x_i = y_i $$"
+          },
+          {
+            "id": 4,
+            "text": "$$ f (x_i, y_i) = 1 $$, jeśli $$ x_i \\neq y_i $$"
+          },
+          {
+            "id": 5,
+            "text": "Innymi słowy, jeśli elementy na pozycji $$ i $$ w rankingach $$ x $$ i $$ y $$ są takie same, $$ f(x_i, y_i) $$ przypisywana jest wartość $$ 0 $$. I odwrotnie, jeśli elementy są różne, $$ f(x_i, y_i) $$ przyjmuje wartość $$ 1 $$."
+          }
+        ]
+      },
+      {
+        "id": 1,
         "name": "Goodman-Kruskal",
         "description": [
           {
@@ -2886,7 +3871,7 @@
         ]
       },
       {
-        "id": 1,
+        "id": 2,
         "name": "Kendall-Tau",
         "description": [
           {
@@ -2920,7 +3905,7 @@
         ]
       },
       {
-        "id": 2,
+        "id": 3,
         "name": "Pearson",
         "description": [
           {
@@ -2938,7 +3923,7 @@
         ]
       },
       {
-        "id": 3,
+        "id": 4,
         "name": "Spearman",
         "description": [
           {
@@ -2956,7 +3941,7 @@
         ]
       },
       {
-        "id": 4,
+        "id": 5,
         "name": "Weighted Spearman",
         "description": [
           {
@@ -2974,7 +3959,7 @@
         ]
       },
       {
-        "id": 5,
+        "id": 6,
         "name": "WS rank similarity",
         "description": [
           {
@@ -2988,6 +3973,58 @@
           {
             "id": 2,
             "text": "gdzie $$ x_i $$ oznacza pozycję w rankingu referencyjnym, $$ y_i $$ to pozycja w drugim rankingu, a $$ N $$ to liczba elementów w rankingu. "
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "name": "Weights similarity",
+        "description": [
+          {
+            "id": 0,
+            "text": "Ten współczynnik podobieństwa wag zakłada, że mamy dwa zidentyfikowane wektory wag kryteriów, a mianowicie $$ w = {w_1, w_2, ..., w_N} $$ oraz $$ v = {v_1, v_2, ..., v_N} $$.  Następnie odległość Manhattan między nimi definiuje się następująco:"
+          },
+          {
+            "id": 1,
+            "text": "$$ d_1 (w, v) = || w - v ||_1 = \\sum^{N}_{i=1} | w_i - v_i | $$"
+          },
+          {
+            "id": 2,
+            "text": "Pozwala to obliczyć bezwzględną odległość między dwoma wektorami wag. Trudno jest jednak określić, jak podobne są te dwa wektory. Sposobem normalizacji odległości jest oparcie się na minimalnej wartości jednego z wektorów wagowych według poniższego wzoru:"
+          },
+          {
+            "id": 3,
+            "text": "$$ WSC = 1 - \\frac{d_1 (w, v)}{2 \\cdot (1 - min(w))} = 1 - \\frac{\\sum^{N}_{i=1} | w_i - v_i | }{2 \\cdot (1 - min_i w_i)} $$"
+          },
+          {
+            "id": 4,
+            "text": "Wartości WSC mieszczą się w zakresie [0, 1], gdzie 1 oznacza, że nie ma różnicy między wagami, a 0 oznacza dużą różnicę."
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "name": "Weights similarity 2",
+        "description": [
+          {
+            "id": 0,
+            "text": "Ten współczynnik podobieństwa wag zakłada, że mamy dwa zidentyfikowane wektory wag kryteriów, a mianowicie $$ w = {w_1, w_2, ..., w_N} $$ oraz $$ v = {v_1, v_2, ..., v_N} $$.  Następnie odległość Manhattan między nimi definiuje się następująco:"
+          },
+          {
+            "id": 1,
+            "text": "$$ d_1 (w, v) = || w - v ||_1 = \\sum^{N}_{i=1} | w_i - v_i | $$"
+          },
+          {
+            "id": 2,
+            "text": "Pozwala to obliczyć bezwzględną odległość między dwoma wektorami wag. Trudno jest jednak określić, jak podobne są te dwa wektory. Następnie można wykorzystać wiedzę, że suma wag powinna być równa jeden, zapewniając znormalizowaną wersję tego równania zgodnie z poniższym wzorem:"
+          },
+          {
+            "id": 3,
+            "text": "$$ WSC2 = 1 - \\frac{d_1 (w, v)}{2} = 1 - \\frac{\\sum^{N}_{i=1} | w_i - v_i | }{2} $$"
+          },
+          {
+            "id": 4,
+            "text": "Wartości WSC2 mieszczą się w zakresie [0, 1], gdzie 1 oznacza, że nie ma różnicy między wagami, a 0 oznacza dużą różnicę."
           }
         ]
       }

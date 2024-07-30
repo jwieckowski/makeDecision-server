@@ -459,7 +459,7 @@
   },
   {
     "id": 0,
-    "key": "Methods",
+    "key": "MCDA Methods",
     "data": [
       {
         "id": 0,
@@ -650,6 +650,90 @@
           {
             "id": 16,
             "text": "$$ k_{i}=\\left(k_{i a} k_{i b} k_{i c}\\right)^{\\frac{1}{3}}+\\frac{1}{3}\\left(k_{i a}+k_{i b}+k_{i c}\\right) $$"
+          },
+          {
+            "id": 9999,
+            "text": "**Triangular Fuzzy variant**"
+          },
+          {
+            "id": 17,
+            "text": "**Step 1.** Determination of the triangular fuzzy decision matrix $$ X $$, which contains $$ m $$ alternatives and $$ n $$ criteria ($$ i = 1, 2, \\ldots, m $$ and $$ j = 1, 2, \\ldots, n $$), where $$ x_{ij} $$ is represented as Triangular Fuzzy Number ($$ a, m, b $$)."
+          },
+          {
+            "id": 18,
+            "text": "**Step 2.** Calculate the fuzzy normalized decision matrix. Fot the profit criteria, the following formula can be used:"
+          },
+          {
+            "id": 19,
+            "text": "$$ n_{ij} = \\frac{max(b_{j}) - a_{ij}}{max(b_{j}) - min(a_{j})}, \\frac{max(b_{j}) - m_{ij}}{max(b_{j}) - min(a_{j})}, \\frac{max(b_{j}) - b_{j}}{max(b_{j}) - min(a_{j})} $$"
+          },
+          {
+            "id": 20,
+            "text": "and for the cost criteria as:"
+          },
+          {
+            "id": 21,
+            "text": "$$ n_{ij} = \\frac{a_{ij} - min(a_{j})}{max(b_{j}) - min(a_{j})}, \\frac{m_{ij} - min(a_{j})}{max(b_{j}) - min(a_{j})}, \\frac{b_{j} - min(a_{j})}{max(b_{j}) - min(a_{j})} $$"
+          },
+          {
+            "id": 22,
+            "text": "**Step 3.** The fuzzy sum of the weighted comparability and the power weight of the comparability sequences for each alternative are computed as follows:"
+          },
+          {
+            "id": 23,
+            "text": "$$ S_i =  \\sum^{n}_{j=1} w^a_j n^a_ij, \\sum^{n}_{j=1} w^m_j n^m_ij, \\sum^{n}_{j=1} w^b_j n^b_ij $$"
+          },
+          {
+            "id": 24,
+            "text": "$$ P_i =  \\sum^{n}_{j=1} (n^a_ij)^{(w^b_j)} , \\sum^{n}_{j=1} (n^m_ij)^{(w^m_j)}, \\sum^{n}_{j=1} (n^b_ij)^{(w^a_j)} $$"
+          },
+          {
+            "id": 25,
+            "text": "**Step 4.** Three aggregation strategies are applied to obtain three fuzzy appraisal scores:"
+          },
+          {
+            "id": 26,
+            "text": "1: $$ f_{ia} = \\frac{P_i^a + S_i^a}{\\sum^{m}_{i=1} P_i^b + S_i^b}, \\frac{P_i^m + S_i^m}{\\sum^{m}_{i=1} P_i^m + S_i^m}, \\frac{P_i^b + S_i^b}{\\sum^{m}_{i=1} P_i^a + S_i^a}  $$"
+          },
+          {
+            "id": 27,
+            "text": "2: $$ f_{im} = \\frac{S_i^a}{min(S_i^a)} + \\frac{P_i^a}{min(P_i^a)}, \\frac{S_i^m}{min(S_i^a)} + \\frac{P_i^m}{min(P_i^a)}, \\frac{S_i^b}{min(S_i^a)} + \\frac{P_i^b}{min(P_i^a)} $$"
+          },
+          {
+            "id": 28,
+            "text": "3: $$ f_{ib} = \\frac{\\lambda(S_i^a) + (1 - \\lambda)(P_i^a)}{\\lambda max(S_i^b) + (1 - \\lambda) max(P_i^b)}, \\frac{\\lambda(S_i^m) + (1 - \\lambda)(P_i^m)}{\\lambda max(S_i^b) + (1 - \\lambda) max(P_i^b)}, \\frac{\\lambda(S_i^b) + (1 - \\lambda)(P_i^b)}{\\lambda max(S_i^b) + (1 - \\lambda) max(P_i^b)}  $$"
+          },
+          {
+            "id": 29,
+            "text": "where $$ \\lambda $$ is usually taken as 0.5 and this value is determined by the decision-maker"
+          },
+          {
+            "id": 30,
+            "text": "**Step 5.** The fuzzy appraisal scores are converted into crisp appraisal scores as:"
+          },
+          {
+            "id": 31,
+            "text": "$$ f_{ia} = \\frac{f_{ia}^a + f_{ia}^m + f_{ia}^b}{3} $$"
+          },
+          {
+            "id": 32,
+            "text": "$$ f_{im} = \\frac{f_{im}^a + f_{im}^m + f_{im}^b}{3} $$"
+          },
+          {
+            "id": 33,
+            "text": "$$ f_{ib} = \\frac{f_{ib}^a + f_{ib}^m + f_{ib}^b}{3} $$"
+          },
+          {
+            "id": 34,
+            "text": "**Step 6.** The crisp appraisal scores are combined to obtain the final score for each alternative as:"
+          },
+          {
+            "id": 35,
+            "text": "$$ f_i = (f_{ia}f_{ib}f_{ic})^{\\frac{1}{3}} + (\\frac{1}{3}) (f_{ia} + f_{ib} + f_{ic}) $$"
+          },
+          {
+            "id": 36,
+            "text": "The alternative with the highest score is the best alternative"
           }
         ]
       },
@@ -1203,6 +1287,108 @@
       },
       {
         "id": 6,
+        "name": "ERVD",
+        "description": [
+          {
+            "id": 9999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 1,
+            "text": "**Step 1.** Definition of a decision matrix of dimension $$n \\times m$$, where $$n$$ is the number of alternatives, and $$m$$ is the number of criteria."
+          },
+          {
+            "id": 2,
+            "text": "**Step 2.** Definition of the reference points $$\\mu, j = 1, \\ldots, n $$ for each criterion."
+          },
+          {
+            "id": 3,
+            "text": "**Step 3.** Normalization of the elements from the initial matrix, where the following formula is used to normalize the columns for a profit criteria type"
+          },
+          {
+            "id": 4,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{-}_{i}}{x^{+}_{i} - x^{-}_{i}} $$"
+          },
+          {
+            "id": 5,
+            "text": "and the normalization of columns for cost type is calculated as"
+          },
+          {
+            "id": 6,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{+}_{i}}{x^{-}_{i} - x^{+}_{i}} $$"
+          },
+          {
+            "id": 7,
+            "text": "where $$ x_{ij} $$ is the element of initial decision matrix, $$ x^{+}_{i} $$ is the maximum value of the observed criterion according to the alternatives, and $$ x^{-}_{i} $$ is the minimum value of the observed criterion according to the alternatives."
+          },
+          {
+            "id": 8,
+            "text": "**Step 4.** Transformation of the reference points into the normalized scale:"
+          },
+          {
+            "id": 9,
+            "text": "$$ \\varphi_j=\\frac{\\mu_j}{\\sum_{i=1}^m d_{i j}} $$"
+          },
+          {
+            "id": 10,
+            "text": "**Step 5.** Calculation of the value of alternative $$ A_i $$ according to criterion $$ C_j $$ by increasing value function (for benefit criteria)"
+          },
+          {
+            "id": 11,
+            "text": "$$ v_{i j} = (r_{i j}-\\varphi_j)^\\alpha \\quad \\text { if } r_{i j}>\\varphi_j $$"
+          },
+          {
+            "id": 12,
+            "text": "$$ -\\lambda (\\varphi_j-r_{i j})^\\alpha \\text { otherwise } $$"
+          },
+          {
+            "id": 13,
+            "text": "and decreasing value function (for cost criteria):"
+          },
+          {
+            "id": 14,
+            "text": "$$ (\\varphi_j-r_{i j})^\\alpha \\quad \\text { if } r_{i j}<\\varphi_j $$"
+          },
+          {
+            "id": 15,
+            "text": "$$ -\\lambda(r_{i j}-\\varphi_j)^\\alpha \\text { otherwise } $$"
+          },
+          {
+            "id": 16,
+            "text": "**Step 6.** Determination of the ideal and negative ideal solutions $$A^+$$ (PIS) and $$A^-$$ (NIS), respectively:"
+          },
+          {
+            "id": 17,
+            "text": "$$ A^{+}={v_1^{+}, \\cdots v_n^{+}}, A^{-}={v_1^{-}, \\cdots v_n^{-}} $$"
+          },
+          {
+            "id": 18,
+            "text": "where $$v_j^{+}=\\max _i v_{i j}$$ and $$v_j^{-}=\\min v_{i \\vec{j}}$$"
+          },
+          {
+            "id": 19,
+            "text": "**Step 7.** Calculation of the separation measures from PIS and NIS individually with help Minkowski metric:"
+          },
+          {
+            "id": 20,
+            "text": "$$ S_i^{+}=\\sum_{j=1}^n w_j \\cdot |v_{i j}-v_j^{+} |, \\text {for alternative } i, i=1 \\ldots m $$"
+          },
+          {
+            "id": 21,
+            "text": "$$ S_i^{-}=\\sum_{j=1}^n w_j \\cdot |v_{i j}-v_j^{-} |, \\text {for alternative } i, i=1 \\ldots m $$"
+          },
+          {
+            "id": 22,
+            "text": "**Step 8.** Calculate the relative closeness of each alternative to the ideal solution:"
+          },
+          {
+            "id": 23,
+            "text": "$$ \\phi_i=\\frac{S_i^{-}}{S_i^{+}+S_i^{-}}, i=1, \\ldots, m $$"
+          }
+        ]
+      },
+      {
+        "id": 7,
         "name": "MABAC",
         "description": [
           {
@@ -1215,7 +1401,7 @@
           },
           {
             "id": 1,
-            "text": "**Step 1.** Formation of the initial decision matrix $$ X $$."
+            "text": "**Step 1.** Definition of a decision matrix of dimension $$n \\times m$$, where $$n$$ is the number of alternatives, and $$m$$ is the number of criteria."
           },
           {
             "id": 2,
@@ -1368,7 +1554,7 @@
         ]
       },
       {
-        "id": 7,
+        "id": 8,
         "name": "MAIRCA",
         "description": [
           {
@@ -1510,7 +1696,7 @@
         ]
       },
       {
-        "id": 8,
+        "id": 9,
         "name": "MARCOS",
         "description": [
           {
@@ -1596,7 +1782,7 @@
         ]
       },
       {
-        "id": 9,
+        "id": 10,
         "name": "MOORA",
         "description": [
           {
@@ -1718,7 +1904,7 @@
         ]
       },
       {
-        "id": 10,
+        "id": 11,
         "name": "OCRA",
         "description": [
           {
@@ -1852,7 +2038,145 @@
         ]
       },
       {
-        "id": 11,
+        "id": 12,
+        "name": "PROBID",
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "**Step 1.** Definition of a decision matrix of dimension $$n \\times m$$, where $n$ is the number of alternatives, and $$ m $$ is the number of criteria"
+          },
+          {
+            "id": 2,
+            "text": "**Step 2.** Normalization of the elements from the initial matrix, where the following formula is used to normalize the columns for a profit criteria type"
+          },
+          {
+            "id": 3,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{-}_{i}}{x^{+}_{i} - x^{-}_{i}} $$"
+          },
+          {
+            "id": 4,
+            "text": "and the normalization of columns for cost type is calculated as"
+          },
+          {
+            "id": 5,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{+}_{i}}{x^{-}_{i} - x^{+}_{i}} $$"
+          },
+          {
+            "id": 6,
+            "text": "where $$ x_{ij} $$ is the element of initial decision matrix, $$ x^{+}_{i} $$ is the maximum value of the observed criterion according to the alternatives, and $$ x^{-}_{i} $$ is the minimum value of the observed criterion according to the alternatives."
+          },
+          {
+            "id": 7,
+            "text": "**Step 3.**  Calculation of the elements from the weighted matrix $$(V)$$. The elements from the weighted matrix $$(V)$$ are calculated based on: "
+          },
+          {
+            "id": 8,
+            "text": "$$ v_{ij} = w_i \\cdot (n_{ij} + 1) $$"
+          },
+          {
+            "id": 9,
+            "text": "**Step 4.** Sort the normalized weighted decision matrix by criteria taking into account their type. This will a matrix of successively Positive Ideal Solutions (1st, 2nd, ..., mth PIS) will be formed. It can be presented by using the following formula:"
+          },
+          {
+            "id": 10,
+            "text": "$$ A_{(k)} ={(\\operatorname{Large}(v_j, k) \\mid j \\in J), (\\operatorname{Small}(v_j, k) \\mid j \\in J^{\\prime})} ={v_{(k) 1}, v_{(k) 2}, v_{(k) 3}, \\ldots, v_{(k) j}, \\ldots, v_{(k) n}} $$"
+          },
+          {
+            "id": 11,
+            "text": "where $$ k \\in {1,2, \\ldots, m}, J $$ is the set of benefit criteria and $$J^{\\prime}$$ is the set of cost criteria"
+          },
+          {
+            "id": 12,
+            "text": "Then, find the average value of each objective column as follow:"
+          },
+          {
+            "id": 13,
+            "text": "$$ \\bar{v}_j=\\frac{\\sum_{k=1}^m v_{(k) j}}{m} \\quad \\text { for } j \\in{1,2, \\ldots, n} $$"
+          },
+          {
+            "id": 14,
+            "text": "The average solution is then given by"
+          },
+          {
+            "id": 15,
+            "text": "$$ \\bar{A}={\\bar{v}_1, \\bar{v}_2, \\bar{v}_3, \\ldots, \\bar{v}_j, \\ldots, \\bar{v}_n} $$"
+          },
+          {
+            "id": 16,
+            "text": "**Step 5.** Iteratively calculate the Euclidean distance of each solution to each of the m ideal solutions as well as to the average solution. The distance to ideal solutions is found as:"
+          },
+          {
+            "id": 17,
+            "text": "$$ S_{i(k)}=\\sqrt{\\sum_{j=1}^n(v_{i j}-v_{(k) j})^2}$$"
+          },
+          {
+            "id": 18,
+            "text": "**Step 6.** Determine the overall positive-ideal distance and negative-ideal distance as follow for the $$ S_{i(\\text { pos-ideal })} $$:"
+          },
+          {
+            "id": 19,
+            "text": "$$\\sum_{k=1}^{(m+1) / 2} \\frac{1}{k} S_{i(k)} \\quad i \\in{1,2, \\ldots, m} $$ when $$ m $$ is an odd number"
+          },
+          {
+            "id": 20,
+            "text": "$$\\sum_{k=1}^{m / 2} \\frac{1}{k} S_{i(k)} \\quad i \\in{1,2, \\ldots, m} $$ when $$ m $$ is an even number"
+          },
+          {
+            "id": 21,
+            "text": "and for the $$ S_{i(\\text { neg-ideal })} $$"
+          },
+          {
+            "id": 22,
+            "text": "$$ \\sum_{k=(m+1) / 2}^m \\frac{1}{m-k+1} S_{i(k)} i \\in{1,2, \\ldots, m} $$ when $$ m $$ is an odd number"
+          },
+          {
+            "id": 23,
+            "text": "$$ \\sum_{k=m / 2+1}^m \\frac{1}{m-k+1} S_{i(k)} i \\in{1,2, \\ldots, m} $$ when $$ m $$ is an even number "
+          },
+          {
+            "id": 24,
+            "text": "Positive-ideal distance for sPROBID:"
+          },
+          {
+            "id": 25,
+            "text": "$$ S_{i(\\text { pos-ideal })} = \\sum_{k=1}^{m \\backslash 4} \\frac{1}{k} S_{i(k)} \\quad i \\in{1,2, \\ldots, m} \\text { when } m \\geq 4 $$"
+          },
+          {
+            "id": 26,
+            "text": "$$ S_{i(1)} \\quad i \\in{1,2, \\ldots, m} \\text { when } 0 < m < 4 $$"
+          },
+          {
+            "id": 27,
+            "text": "and negative-ideal distance:"
+          },
+          {
+            "id": 28,
+            "text": "$$ S_{i(\\text { neg-ideal })} = \\sum_{k=m+1-(m \\ 4)}^m \\frac{1}{m-k+1} S_{i(k)} \\quad i \\in{1,2, \\ldots, m} \\text { when } m \\geq 4 $$"
+          },
+          {
+            "id": 29,
+            "text": "$$ S_{i(m)} \\quad i \\in{1,2, \\ldots, m} \\text { when } 0<m<4 $$"
+          },
+          {
+            "id": 30,
+            "text": "**Step 7.** Calculate the pos-ideal/neg-ideal ratio ($$R_i$$) and then the performance score ($$P_i$$) of each solution as follows:"
+          },
+          {
+            "id": 31,
+            "text": "$$ R_i=\\frac{S_{i(\\text { pos-ideal })}}{S_{i(\\text { neg-ideal })}} $$"
+          },
+          {
+            "id": 32,
+            "text": "$$ P_i=\\frac{1}{1+R_i^2}+S_{i(\\mathrm{avg})} $$"
+          }
+        ]
+      },
+      {
+        "id": 13,
         "name": "PROMETHEE",
         "description": [
           {
@@ -1922,7 +2246,105 @@
         ]
       },
       {
-        "id": 12,
+        "id": 14,
+        "name": "RIM",
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "**Step 1**. Define the following values, which determine the problem's context and the problem itself."
+          },
+          {
+            "id": 1,
+            "text": "Criteria weights: $$ w_j, j \\in {1, 2, \\ldots N}$$ and the sum of the criteria weights should be equal to one: $$\\sum^N_{j = 1} w_j = 1 $$"
+          },
+          {
+            "id": 2,
+            "text": "Decision matrix: $$ X = [ x_{ij} ]_{M \\times N} $$ which contains information about $$M$$ alternatives evaluated under $$N$$ criteria."
+          },
+          {
+            "id": 3,
+            "text": "The Criteria Range: $$t_j = [t_{j}^{(min)}, t_{j}^{(max)}], j \\in {1, 2, \\ldots N}$$ which defines the arbitrary chosen bounds of the criteria."
+          },
+          {
+            "id": 4,
+            "text": "The Reference Ideal: $$ s_j = [s_{j}^{(min)}, s_{j}^{(max)}], j \\in {1, 2, \\ldots N}$$ and $$[s_{j}^{(min)}, s_{j}^{(max)}] \\subset [t_{j}^{(min)}, t_{j}^{(max)}] $$. Reference Ideal define most preferred interval of values for each criterion. It can be either derived from criteria range, or define expected outcome of decision process"
+          },
+          {
+            "id": 5,
+            "text": "**Step 2.** After defining the problem we should normalize the decision matrix $$X$$ using the RIM normalization function $$f(x,[A, B],[C, D])$$ defined as: "
+          },
+          {
+            "id": 6,
+            "text": "$$ 1 \\text{ if } x \\in [C, D] $$"
+          },
+          {
+            "id": 7,
+            "text": "$$ 1 - \\frac{d_{min} (x, [C, D])}{|A - C|} $$ if $$ x \\in [A, C] \\bigwedge A \\neq C $$"
+          },
+          {
+            "id": 8,
+            "text": "$$ 1 - \\frac{d_{min} (x, [C, D])}{|D - B|} $$ if $$ x \\in [D, B] \\bigwedge D \\neq B $$"
+          },
+          {
+            "id": 9,
+            "text": "This normalization requires a definition of the criteria range [A. B] and the reference ideal [C, D]."
+          },
+          {
+            "id": 10,
+            "text": "where $$[A, B]$$ is range of criteria, $$[C, D]$$ is the reference ideal, and $$x \\in [A, B], [C, D] \\subset [A, B]$$. Function $$d_{min}(x, [C, D])$$ is defined as:"
+          },
+          {
+            "id": 11,
+            "text": "$$ d_{min}(x, [C, D]) = min(|x - C|, |x - D|) $$"
+          },
+          {
+            "id": 12,
+            "text": "This normalization allows to map value $$ x $$ to range $$[0, 1]$$ in the criteria domain with regard to the ideal reference interval. The normalization process is defined as follows"
+          },
+          {
+            "id": 13,
+            "text": "$$ Y = [y_{ij}]_{M \\times N} = [f(x_{ij}, t_j, s_j)]_{M \\times N} $$"
+          },
+          {
+            "id": 14,
+            "text": "**Step 3.** Calculate the weighted normalized matrix $$ Y' $$ using:"
+          },
+          {
+            "id": 15,
+            "text": "$$ Y' = Y \\otimes W = [y_{ij} \\cdot w_j]_{M \\times N}$$"
+          },
+          {
+            "id": 16,
+            "text": "**Step 4.** Compute the variation to the normalized reference ideal for each alternative $$A_i$$ using Equations"
+          },
+          {
+            "id": 17,
+            "text": "$$ I_i^+ = \\sqrt{\\sum^{n}_{j=1} (y'_{ij} - w_j)^2} $$"
+          },
+          {
+            "id": 18,
+            "text": "$$ I_i^- = \\sqrt{\\sum^{n}_{j=1} (y')^2} $$"
+          },
+          {
+            "id": 19,
+            "text": "**Step 5.** Calculate the relative index of each alternative $$A_i$$ using the Equation"
+          },
+          {
+            "id": 20,
+            "text": "$$ R_i = \\frac{I_i^-}{I_i^+ + I_i^-}$$"
+          },
+          {
+            "id": 21,
+            "text": "Order the alternative $$A_i$$ in descending order with regard to $$R_i$$. The alternatives with the bigger value of $$R_i$$ are more preferred ones."
+          }
+        ]
+      },
+      {
+        "id": 15,
         "name": "SPOTIS",
         "description": [
           {
@@ -1972,11 +2394,63 @@
           {
             "id": 10,
             "text": "**Step 5.** Rank criteria by preference - values should be ranked in ascending order."
+          },
+          {
+            "id": 9999,
+            "text": "**Triangular Fuzzy variant**"
+          },
+          {
+            "id": 11,
+            "text": "**Step 1.** Determination of the triangular fuzzy decision matrix $$ X $$, which contains $$ m $$ alternatives and $$ n $$ criteria ($$ i = 1, 2, \\ldots, m $$ and $$ j = 1, 2, \\ldots, n $$), where $$ x_{ij} $$ is represented as Triangular Fuzzy Number ($$ a, m, b $$)."
+          },
+          {
+            "id": 12,
+            "text": "**Step 2.** Definition of the bounds of the problem - min and max bounds of classical MCDM problem must be defined to transform MCDM problem form ill-defined to well-defined."
+          },
+          {
+            "id": 13,
+            "text": "$$\\left[S_{j}^{\\min }, S_{j}^{\\max }\\right] $$"
+          },
+          {
+            "id": 14,
+            "text": "**Step 3.** Definition of the Ideal Solution Point (ISP) as:"
+          },
+          {
+            "id": 15,
+            "text": "$$ S^{*}_{j} = S_{j}^{max} $$ if the type of criteria is profit"
+          },
+          {
+            "id": 16,
+            "text": "$$ S^{*}_{j} = S_{j}^{min} $$ if the type of criteria is cost"
+          },
+          {
+            "id": 17,
+            "text": "**Step 4.** The distance from the ISP for each alternative should be calculated as:"
+          },
+          {
+            "id": 18,
+            "text": "$$ d_{ij}(A_i, s^*_j) = \\frac{|x_{ij} - S^*_j|}{|S_{j}^{max} - S_{j}^{min} |}  $$"
+          },
+          {
+            "id": 19,
+            "text": "**Step 5.** The score of each alternative can be calculated using the S-norm algebraic sum as:"
+          },
+          {
+            "id": 20,
+            "text": "$$ d(A_i, s^*) = \\bigcup^{N}_{j=1} w_j \\mu_{d_{ij}(A_i, s^*_j)}(x) $$"
+          },
+          {
+            "id": 21,
+            "text": "**Step 6.** The last step includes calculating the crisp score values from center of gravity (cog) defuzzification as:"
+          },
+          {
+            "id": 22,
+            "text": "$$ cog(A) = \\frac{\\mu_a + \\mu_m + \\mu_b}{3} $$"
           }
         ]
       },
       {
-        "id": 13,
+        "id": 16,
         "name": "TOPSIS",
         "description": [
           {
@@ -2126,7 +2600,7 @@
         ]
       },
       {
-        "id": 13,
+        "id": 17,
         "name": "VIKOR",
         "description": [
           {
@@ -2171,7 +2645,7 @@
           },
           {
             "id": 9,
-            "text": "$$R_{i} =max_{j} \\left[ w_{j} \\cdot \\frac{f_{j}^{*} - f_{ij}}{f_{j}^{*} - f_{i}^{-}} \\right] $$"
+            "text": "$$R_{i} = max_{j} \\left[ w_{j} \\cdot \\frac{f_{j}^{*} - f_{ij}}{f_{j}^{*} - f_{i}^{-}} \\right] $$"
           },
           {
             "id": 10,
@@ -2274,6 +2748,328 @@
             "text": "$$ \\tilde{N}_i=\\frac{(2 x_{j}^m+x_{j}^a+x_{j}^b)}{4} $$"
           }
         ]
+      },
+      {
+        "id": 18,
+        "name": "WASPAS",
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "**Step 1.** Definition of a decision matrix of dimension $$n \\times m$$, where $n$ is the number of alternatives, and $$ m $$ is the number of criteria"
+          },
+          {
+            "id": 2,
+            "text": "**Step 2.** Normalization of the elements from the initial matrix, where the following formula is used to normalize the columns for a profit criteria type"
+          },
+          {
+            "id": 3,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{-}_{i}}{x^{+}_{i} - x^{-}_{i}} $$"
+          },
+          {
+            "id": 4,
+            "text": "and the normalization of columns for cost type is calculated as"
+          },
+          {
+            "id": 5,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{+}_{i}}{x^{-}_{i} - x^{+}_{i}} $$"
+          },
+          {
+            "id": 6,
+            "text": "where $$ x_{ij} $$ is the element of initial decision matrix, $$ x^{+}_{i} $$ is the maximum value of the observed criterion according to the alternatives, and $$ x^{-}_{i} $$ is the minimum value of the observed criterion according to the alternatives."
+          },
+          {
+            "id": 7,
+            "text": "**Step 3.** Calculation of the Weighted Sum Model (WSM) and Weighted Product Model (WPM) as follows:"
+          },
+          {
+            "id": 8,
+            "text": "$$ W S M=\\sum_{j=1}^n \\bar{x}_{i j} w_j $$"
+          },
+          {
+            "id": 9,
+            "text": "$$ W P M=\\prod_{j=1}^n(\\bar{x}_{i j})^{w_j}$$"
+          },
+          {
+            "id": 10,
+            "text": "where $$w_j$$ denote the weights for the criteria, and $$x_{ij}$$ denote the values of the decision options from the normalized decision matrix."
+          },
+          {
+            "id": 11,
+            "text": "**Step 4.** Calculation of total relative importance for each alternative as follow:"
+          },
+          {
+            "id": 12,
+            "text": "$$ Q_i=\\lambda WSM+(1-\\lambda) WPM=\\lambda \\sum_{j=1}^n \\bar{x}_{i j} w_j+(1-\\lambda) \\prod_{j=1}^n(\\bar{x}_{i j})^{w_j} $$"
+          },
+          {
+            "id": 9999,
+            "text": "**Triangular Fuzzy variant**"
+          },
+          {
+            "id": 13,
+            "text": "**Step 1.** Determination of the triangular fuzzy decision matrix $$ X $$, which contains $$ m $$ alternatives and $$ n $$ criteria ($$ i = 1, 2, \\ldots, m $$ and $$ j = 1, 2, \\ldots, n $$), where $$ x_{ij} $$ is represented as Triangular Fuzzy Number ($$ a, m, b $$)."
+          },
+          {
+            "id": 14,
+            "text": "**Step 2.** Calculation of the normalized fuzzy decision matrix for the profit criteria as:"
+          },
+          {
+            "id": 15,
+            "text": "$$ \\tilde{x}_{i j}=\\frac{x_{i j}}{max_i x_{ij}} $$"
+          },
+          {
+            "id": 16,
+            "text": "and for the cost criteria as:"
+          },
+          {
+            "id": 17,
+            "text": "$$ \\tilde{x}_{i j}=\\frac{min_i x_{ij}}{x_{ij}} $$"
+          },
+          {
+            "id": 18,
+            "text": "**Step 3.** Calculation of the weighted normalized fuzzy decision matrix for the WSM model, where $$ \\widetilde{\\widehat{x}}_{i j}=\\tilde{x}_{i j} \\cdot \\widetilde{w}_j $$"
+          },
+          {
+            "id": 19,
+            "text": "**Step 4.** Calculation of the weighted normalized fuzzy decision matrix for the WPM model, where $$ \\widetilde{\\widehat{x}}_{i j}=\\tilde{x}_{i j}^{\\widetilde{w}_j} $$"
+          },
+          {
+            "id": 20,
+            "text": "**Step 5.** Calculation of the values of the optimality function for the WSM model for each alternative as:"
+          },
+          {
+            "id": 21,
+            "text": "$$ Q_i = \\sum_{j=1}^{n} \\widetilde{\\widehat{x}}_{i j} $$"
+          },
+          {
+            "id": 22,
+            "text": "and for the WPM model:"
+          },
+          {
+            "id": 23,
+            "text": "$$ P_i = \\prod_{j=1}^{n} \\widetilde{\\widehat{x}}_{i j}  $$"
+          },
+          {
+            "id": 24,
+            "text": "The result of fuzzy performance measurement for each alternative are fuzzy numbers $$ Q_i $$ and $$ P_i $$. The centre-of-area is the most practical and simple to apply for defuzzification:"
+          },
+          {
+            "id": 25,
+            "text": "$$  Q_i = \\frac{1}{3} (Q_{ia} + Q_{im} + Q_{ib}) $$"
+          },
+          {
+            "id": 26,
+            "text": "$$ P_i = \\frac{1}{3} (P_{ia} + P_{im} + P_{ib}) $$"
+          },
+          {
+            "id": 27,
+            "text": "**Step 6.** The integrated utility function value of the F-WASPAS method for an alternative could be determined as follows:"
+          },
+          {
+            "id": 28,
+            "text": "$$ K_i ==\\lambda \\sum_{j=1}^{m} Q_i + (1 - \\lambda) \\sum^{m}_{j=1} P_i \\quad \\lambda = 0, \\ldots, 1; 0 \\leq K_i \\leq 1 $$"
+          },
+          {
+            "id": 29,
+            "text": "$$ \\lambda $$ is determined based on the assumption that total of all alternatives WSM scores must be equal to the total of WPM scores:"
+          },
+          {
+            "id": 30,
+            "text": "$$ \\lambda = \\frac{\\sum^{m}_{i=1} P_i}{\\sum^{m}_{i=1} Q_i + \\sum^{m}_{i=1} P_i} $$"
+          },
+          {
+            "id": 31,
+            "text": "**Step 7.** Rank preference order. Choose an alternative with maximal $$K_i$$ value"
+          }
+        ]
+      },
+      {
+        "id": 19,
+        "name": "WPM",
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "**Step 1.** Definition of a decision matrix of dimension $$n \\times m$$, where $n$ is the number of alternatives, and $$ m $$ is the number of criteria"
+          },
+          {
+            "id": 2,
+            "text": "**Step 2.** Normalization of the elements from the initial matrix, where the following formula is used to normalize the columns for a profit criteria type"
+          },
+          {
+            "id": 3,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{-}_{i}}{x^{+}_{i} - x^{-}_{i}} $$"
+          },
+          {
+            "id": 4,
+            "text": "and the normalization of columns for cost type is calculated as"
+          },
+          {
+            "id": 5,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{+}_{i}}{x^{-}_{i} - x^{+}_{i}} $$"
+          },
+          {
+            "id": 6,
+            "text": "where $$ x_{ij} $$ is the element of initial decision matrix, $$ x^{+}_{i} $$ is the maximum value of the observed criterion according to the alternatives, and $$ x^{-}_{i} $$ is the minimum value of the observed criterion according to the alternatives."
+          },
+          {
+            "id": 7,
+            "text": "**Step 3.** Calculation of the Weighted Product Model (WPM) as follows:"
+          },
+          {
+            "id": 9,
+            "text": "$$ W P M=\\prod_{j=1}^n(\\bar{x}_{i j})^{w_j}$$"
+          },
+          {
+            "id": 10,
+            "text": "where $$w_j$$ denote the weights for the criteria, and $$x_{ij}$$ denote the values of the decision options from the normalized decision matrix."
+          },
+          {
+            "id": 9999,
+            "text": "**Triangular Fuzzy variant**"
+          },
+          {
+            "id": 13,
+            "text": "**Step 1.** Determination of the triangular fuzzy decision matrix $$ X $$, which contains $$ m $$ alternatives and $$ n $$ criteria ($$ i = 1, 2, \\ldots, m $$ and $$ j = 1, 2, \\ldots, n $$), where $$ x_{ij} $$ is represented as Triangular Fuzzy Number ($$ a, m, b $$)."
+          },
+          {
+            "id": 14,
+            "text": "**Step 2.** Calculation of the normalized fuzzy decision matrix for the profit criteria as:"
+          },
+          {
+            "id": 15,
+            "text": "$$ \\tilde{x}_{i j}=\\frac{x_{i j}}{max_i x_{ij}} $$"
+          },
+          {
+            "id": 16,
+            "text": "and for the cost criteria as:"
+          },
+          {
+            "id": 17,
+            "text": "$$ \\tilde{x}_{i j}=\\frac{min_i x_{ij}}{x_{ij}} $$"
+          },
+          {
+            "id": 19,
+            "text": "**Step 3.** Calculation of the weighted normalized fuzzy decision matrix for the WPM model, where $$ \\widetilde{\\widehat{x}}_{i j}=\\tilde{x}_{i j}^{\\widetilde{w}_j} $$"
+          },
+          {
+            "id": 20,
+            "text": "**Step 4.** Calculation of the values of the optimality function for the WPM model for each alternative as:"
+          },
+          {
+            "id": 21,
+            "text": "$$ P_i = \\prod_{j=1}^{n} \\widetilde{\\widehat{x}}_{i j}  $$"
+          },
+          {
+            "id": 22,
+            "text": "The result of fuzzy performance measurement for each alternative are fuzzy numbers $$ P_i $$. The centre-of-area is the most practical and simple to apply for defuzzification:"
+          },
+          {
+            "id": 23,
+            "text": "$$ P_i = \\frac{1}{3} (P_{ia} + P_{im} + P_{ib}) $$"
+          },
+          {
+            "id": 24,
+            "text": "The obtained scores are then ranked to indicate the final results of alternatives. Bigger values indicate better alternatives."
+          }
+        ]
+      },
+      {
+        "id": 20,
+        "name": "WSM",
+        "description": [
+          {
+            "id": 999,
+            "text": "**Crisp variant**"
+          },
+          {
+            "id": 0,
+            "text": "**Step 1.** Definition of a decision matrix of dimension $$n \\times m$$, where $n$ is the number of alternatives, and $$ m $$ is the number of criteria"
+          },
+          {
+            "id": 2,
+            "text": "**Step 2.** Normalization of the elements from the initial matrix, where the following formula is used to normalize the columns for a profit criteria type"
+          },
+          {
+            "id": 3,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{-}_{i}}{x^{+}_{i} - x^{-}_{i}} $$"
+          },
+          {
+            "id": 4,
+            "text": "and the normalization of columns for cost type is calculated as"
+          },
+          {
+            "id": 5,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - x^{+}_{i}}{x^{-}_{i} - x^{+}_{i}} $$"
+          },
+          {
+            "id": 6,
+            "text": "where $$ x_{ij} $$ is the element of initial decision matrix, $$ x^{+}_{i} $$ is the maximum value of the observed criterion according to the alternatives, and $$ x^{-}_{i} $$ is the minimum value of the observed criterion according to the alternatives."
+          },
+          {
+            "id": 7,
+            "text": "**Step 3.** Calculation of the Weighted Sum Model (WSM) as follows:"
+          },
+          {
+            "id": 8,
+            "text": "$$ W S M=\\sum_{j=1}^n \\bar{x}_{i j} w_j $$"
+          },
+          {
+            "id": 10,
+            "text": "where $$w_j$$ denote the weights for the criteria, and $$x_{ij}$$ denote the values of the decision options from the normalized decision matrix."
+          },
+          {
+            "id": 9999,
+            "text": "**Triangular Fuzzy variant**"
+          },
+          {
+            "id": 11,
+            "text": "**Step 1.** Determination of the triangular fuzzy decision matrix $$ X $$, which contains $$ m $$ alternatives and $$ n $$ criteria ($$ i = 1, 2, \\ldots, m $$ and $$ j = 1, 2, \\ldots, n $$), where $$ x_{ij} $$ is represented as Triangular Fuzzy Number ($$ a, m, b $$)."
+          },
+          {
+            "id": 12,
+            "text": "**Step 2.** Calculation of the normalized fuzzy decision matrix for the profit criteria as:"
+          },
+          {
+            "id": 13,
+            "text": "$$ \\tilde{x}_{i j}=\\frac{x_{i j}}{max_i x_{ij}} $$"
+          },
+          {
+            "id": 14,
+            "text": "and for the cost criteria as:"
+          },
+          {
+            "id": 15,
+            "text": "$$ \\tilde{x}_{i j}=\\frac{min_i x_{ij}}{x_{ij}} $$"
+          },
+          {
+            "id": 16,
+            "text": "**Step 3.** Calculation of the weighted normalized fuzzy decision matrix for the WSM model, where $$ \\widetilde{\\widehat{x}}_{i j}=\\tilde{x}_{i j} \\cdot \\widetilde{w}_j $$"
+          },
+          {
+            "id": 17,
+            "text": "**Step 4.** Calculation of the values of the optimality function for the WSM model for each alternative as:"
+          },
+          {
+            "id": 18,
+            "text": "$$ Q_i = \\sum_{j=1}^{n} \\widetilde{\\widehat{x}}_{i j} $$"
+          },
+          {
+            "id": 19,
+            "text": "The result of fuzzy performance measurement for each alternative are fuzzy numbers $$ Q_i $$. The centre-of-area is the most practical and simple to apply for defuzzification:"
+          },
+          {
+            "id": 20,
+            "text": "$$  Q_i = \\frac{1}{3} (Q_{ia} + Q_{im} + Q_{ib}) $$"
+          }
+        ]
       }
     ]
   },
@@ -2283,6 +3079,32 @@
     "data": [
       {
         "id": 0,
+        "name": "CoCoSo",
+        "description": [
+          {
+            "id": 0,
+            "text": "**Triangular Fuzzy Numbers normalization**"
+          },
+          {
+            "id": 1,
+            "text": "The data for the profit criterion can be normalized as:"
+          },
+          {
+            "id": 2,
+            "text": "$$ n_{ij} = \\frac{x_{ij} - min(a_j)}{max(c_j) - min(a_j)} $$"
+          },
+          {
+            "id": 3,
+            "text": "and for the cost criteria as:"
+          },
+          {
+            "id": 4,
+            "text": "$$ n_{ij} = \\frac{max(c_j) - x_{ij}}{max(c_j) - min(a_j)} $$"
+          }
+        ]
+      },
+      {
+        "id": 1,
         "name": "Enhanced accuracy",
         "description": [
           {
@@ -2308,7 +3130,7 @@
         ]
       },
       {
-        "id": 1,
+        "id": 2,
         "name": "Logarithmic",
         "description": [
           {
@@ -2334,7 +3156,7 @@
         ]
       },
       {
-        "id": 2,
+        "id": 3,
         "name": "Linear",
         "description": [
           {
@@ -2380,7 +3202,7 @@
         ]
       },
       {
-        "id": 3,
+        "id": 4,
         "name": "Max",
         "description": [
           {
@@ -2426,7 +3248,7 @@
         ]
       },
       {
-        "id": 4,
+        "id": 5,
         "name": "Min-max",
         "description": [
           {
@@ -2472,7 +3294,7 @@
         ]
       },
       {
-        "id": 5,
+        "id": 6,
         "name": "Nonlinear",
         "description": [
           {
@@ -2498,7 +3320,7 @@
         ]
       },
       {
-        "id": 6,
+        "id": 7,
         "name": "SAW",
         "description": [
           {
@@ -2520,7 +3342,7 @@
         ]
       },
       {
-        "id": 7,
+        "id": 8,
         "name": "Sum",
         "description": [
           {
@@ -2566,7 +3388,25 @@
         ]
       },
       {
-        "id": 8,
+        "id": 9,
+        "name": "Square root",
+        "description": [
+          {
+            "id": 0,
+            "text": "**Triangular Fuzzy Numbers normalization**"
+          },
+          {
+            "id": 1,
+            "text": "The matrix $$ X $$ represented as Triangular Fuzzy Numbers $$ x_{ij} (a, m, b) $$ can be normalized as:"
+          },
+          {
+            "id": 2,
+            "text": "$$ n_{ij} = \\frac{x_{ij}}{\\sqrt(\\frac{1}{3} \\cdot (a_{j}^2 + m_{j}^2 + b_{j}^2))} $$"
+          }
+        ]
+      },
+      {
+        "id": 10,
         "name": "Vector",
         "description": [
           {
@@ -2612,7 +3452,7 @@
         ]
       },
       {
-        "id": 9,
+        "id": 11,
         "name": "Zavadskas-Turskis",
         "description": [
           {
@@ -2636,6 +3476,32 @@
             "text": "$$ n_{ij} = 1 - | \\frac{\\text{max } x_j - x_{ij}}{\\text{max } x_j} | $$"
           }
         ]
+      },
+      {
+        "id": 12,
+        "name": "WASPAS",
+        "description": [
+          {
+            "id": 0,
+            "text": "**Triangular Fuzzy Numbers normalization**"
+          },
+          {
+            "id": 1,
+            "text": "The data for the profit criterion can be normalized as:"
+          },
+          {
+            "id": 2,
+            "text": "$$ n_{ij} = \\frac{x_{ij}}{max(b_j)} $$"
+          },
+          {
+            "id": 3,
+            "text": "and for the cost criterion as:"
+          },
+          {
+            "id": 4,
+            "text": "$$ n_{ij} = \\frac{min(a_j)}{x_{ij}} $$"
+          }
+        ]
       }
     ]
   },
@@ -2645,6 +3511,34 @@
     "data": [
       {
         "id": 0,
+        "name": "Canberra",
+        "description": [
+          {
+            "id": 0,
+            "text": "The distance between two Triangular Fuzzy Numbers $$ T_1 (a_1, m_1, b_1) $$ and $$ T_2 (a_2, m_2, b_2) $$ with Canberra distance is calculated as:"
+          },
+          {
+            "id": 1,
+            "text": "$$ d = \\frac{| a_1 - a_2 |}{| a_1 | + | a_2 |} + \\frac{| m_1 - m_2 |}{| m_1 | + | m_2 |} + \\frac{| b_1 - b_2 |}{| b_1 | + | b_2 |} $$"
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "Chebyshev",
+        "description": [
+          {
+            "id": 0,
+            "text": "The distance between two Triangular Fuzzy Numbers $$ T_1 (a_1, m_1, b_1) $$ and $$ T_2 (a_2, m_2, b_2) $$ with Chebyshev distance is calculated as:"
+          },
+          {
+            "id": 1,
+            "text": "$$  d = max(| a_1 - a_2 |, | m_1 - m_2 |, | b_1 - b_2|) $$"
+          }
+        ]
+      },
+      {
+        "id": 2,
         "name": "Euclidean",
         "description": [
           {
@@ -2658,7 +3552,7 @@
         ]
       },
       {
-        "id": 1,
+        "id": 3,
         "name": "Hamming",
         "description": [
           {
@@ -2672,7 +3566,7 @@
         ]
       },
       {
-        "id": 2,
+        "id": 4,
         "name": "L-R",
         "description": [
           {
@@ -2686,7 +3580,7 @@
         ]
       },
       {
-        "id": 3,
+        "id": 5,
         "name": "Mahdavi",
         "description": [
           {
@@ -2700,7 +3594,7 @@
         ]
       },
       {
-        "id": 4,
+        "id": 6,
         "name": "Tran-Duckstein",
         "description": [
           {
@@ -2714,7 +3608,7 @@
         ]
       },
       {
-        "id": 5,
+        "id": 7,
         "name": "Vertex",
         "description": [
           {
@@ -2728,7 +3622,7 @@
         ]
       },
       {
-        "id": 6,
+        "id": 8,
         "name": "Weighted Euclidean",
         "description": [
           {
@@ -2742,7 +3636,7 @@
         ]
       },
       {
-        "id": 7,
+        "id": 9,
         "name": "Weighted Hamming",
         "description": [
           {
@@ -2763,6 +3657,20 @@
     "data": [
       {
         "id": 0,
+        "name": "Bisector",
+        "description": [
+          {
+            "id": 0,
+            "text": "The crisp value of a triangular fuzzy number $$ TFN = (a, m, b) $$ is defined as:"
+          },
+          {
+            "id": 1,
+            "text": "$$ k (TFN) = \\frac{a + b}{2} $$"
+          }
+        ]
+      },
+      {
+        "id": 1,
         "name": "Graded mean average",
         "description": [
           {
@@ -2776,7 +3684,35 @@
         ]
       },
       {
-        "id": 1,
+        "id": 2,
+        "name": "Height",
+        "description": [
+          {
+            "id": 0,
+            "text": "The crisp value of a triangular fuzzy number $$ TFN = (a, m, b) $$ is defined as:"
+          },
+          {
+            "id": 1,
+            "text": "$$ k (TFN) = m $$"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Largest of Maximum",
+        "description": [
+          {
+            "id": 0,
+            "text": "The crisp value of a triangular fuzzy number $$ TFN = (a, m, b) $$ is defined as:"
+          },
+          {
+            "id": 1,
+            "text": "$$ k (TFN) = b $$"
+          }
+        ]
+      },
+      {
+        "id": 4,
         "name": "Mean",
         "description": [
           {
@@ -2790,7 +3726,7 @@
         ]
       },
       {
-        "id": 2,
+        "id": 5,
         "name": "Mean area",
         "description": [
           {
@@ -2804,7 +3740,21 @@
         ]
       },
       {
-        "id": 3,
+        "id": 6,
+        "name": "Smallest of Minimum",
+        "description": [
+          {
+            "id": 0,
+            "text": "The crisp value of a triangular fuzzy number $$ TFN = (a, m, b) $$ is defined as:"
+          },
+          {
+            "id": 1,
+            "text": "$$ k (TFN) = a $$"
+          }
+        ]
+      },
+      {
+        "id": 7,
         "name": "Weighted mean",
         "description": [
           {
@@ -2829,6 +3779,36 @@
     "data": [
       {
         "id": 0,
+        "name": "Drastic",
+        "description": [
+          {
+            "id": 0,
+            "text": "The metric, denoted as $$ WS_{dra} (x, y) $$, is defined as follows:"
+          },
+          {
+            "id": 1,
+            "text": "$$ WS_{dra} (x, y) = \\frac{\\sum^{N}_{i=1} 2^{-i} f (x_i, y_i)}{1 - 2^{-N}} $$"
+          },
+          {
+            "id": 2,
+            "text": "The metric operates on two rankings, denoted as $$ x $$ and $$ y $$, with each ranking consisting of $$ N $$ elements. The key element of this metric is the function $$ f(x_i, y_i) $$, which compares the elements at corresponding positions in the two rankings. The function $$ f(x_i, y_i) $$ is defined as follows:"
+          },
+          {
+            "id": 3,
+            "text": "$$f (x_i, y_i) = 0 $$, if $$ x_i = y_i $$"
+          },
+          {
+            "id": 4,
+            "text": "$$ f (x_i, y_i) = 1 $$, if $$ x_i \\neq y_i $$"
+          },
+          {
+            "id": 5,
+            "text": "In other words, if the elements at position $$ i $$ in the rankings $$ x $$ and $$ y $$ are the same, $$ f(x_i, y_i) $$ is assigned a value of $$ 0 $$. Conversely, if the elements are different, $$ f(x_i, y_i) $$ takes the value of $$ 1 $$."
+          }
+        ]
+      },
+      {
+        "id": 1,
         "name": "Goodman-Kruskal",
         "description": [
           {
@@ -2886,7 +3866,7 @@
         ]
       },
       {
-        "id": 1,
+        "id": 2,
         "name": "Kendall-Tau",
         "description": [
           {
@@ -2920,7 +3900,7 @@
         ]
       },
       {
-        "id": 2,
+        "id": 3,
         "name": "Pearson",
         "description": [
           {
@@ -2938,7 +3918,7 @@
         ]
       },
       {
-        "id": 3,
+        "id": 4,
         "name": "Spearman",
         "description": [
           {
@@ -2956,7 +3936,7 @@
         ]
       },
       {
-        "id": 4,
+        "id": 5,
         "name": "Weighted Spearman",
         "description": [
           {
@@ -2974,7 +3954,7 @@
         ]
       },
       {
-        "id": 5,
+        "id": 6,
         "name": "WS rank similarity",
         "description": [
           {
@@ -2988,6 +3968,58 @@
           {
             "id": 2,
             "text": "where $$ x_i $$ means position in the reference ranking, $$ y_i $$ is the position in the second ranking and $$ N $$ is a number of ranked elements. "
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "name": "Weights similarity",
+        "description": [
+          {
+            "id": 0,
+            "text": "This weight similarity coefficient assumes that we have two identified vectors of criteria weights, namely $$ w = {w_1, w_2, ..., w_N} $$ and $$ v = {v_1, v_2, ..., v_N} $$. The Manhattan distance between them is then defined as follows:"
+          },
+          {
+            "id": 1,
+            "text": "$$ d_1 (w, v) = || w - v ||_1 = \\sum^{N}_{i=1} | w_i - v_i | $$"
+          },
+          {
+            "id": 2,
+            "text": "This allows us to calculate the absolute distance between two vectors of weights. However, it is difficult to determine how similar the two vectors are. A way to normalize the distance is to rely on the minimum value of one of the weight vectors according to the following formula:"
+          },
+          {
+            "id": 3,
+            "text": "$$ WSC = 1 - \\frac{d_1 (w, v)}{2 \\cdot (1 - min(w))} = 1 - \\frac{\\sum^{N}_{i=1} | w_i - v_i | }{2 \\cdot (1 - min_i w_i)} $$"
+          },
+          {
+            "id": 4,
+            "text": "WSC values are in the range [0, 1], where 1 means that there is no difference between the weights and 0 means a large difference."
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "name": "Weights similarity 2",
+        "description": [
+          {
+            "id": 0,
+            "text": "This weight similarity coefficient assumes that we have two identified vectors of criteria weights, namely $$ w = {w_1, w_2, ..., w_N} $$ and $$ v = {v_1, v_2, ..., v_N} $$. The Manhattan distance between them is then defined as follows:"
+          },
+          {
+            "id": 1,
+            "text": "$$ d_1 (w, v) = || w - v ||_1 = \\sum^{N}_{i=1} | w_i - v_i | $$"
+          },
+          {
+            "id": 2,
+            "text": "This allows us to calculate the absolute distance between two vectors of weights. However, it is difficult to determine how similar the two vectors are. The knowledge that the sum of the weights should be equal to one can then be used, providing a normalized version of this equation according to the following formula:"
+          },
+          {
+            "id": 3,
+            "text": "$$ WSC2 = 1 - \\frac{d_1 (w, v)}{2} = 1 - \\frac{\\sum^{N}_{i=1} | w_i - v_i | }{2} $$"
+          },
+          {
+            "id": 4,
+            "text": "WSC2 values are in the range [0, 1], where 1 means that there is no difference between the weights and 0 means a large difference."
           }
         ]
       }

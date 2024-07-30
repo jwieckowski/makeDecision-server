@@ -1,7 +1,9 @@
 {
+  "assessment-error": "Something went wrong in multi-criteria assessment",
+  "graph-error": "Something went wrong in graph generation",
+
   "extract-data-error": "Something went wrong while retrieving decision matrix",
   "no-assessment-method-error": "Multi-Criteria Assessment method was not given",
-  "assessment-error": "Assessment error: ",
 
   "matrix-criteria-extensions-shapes-mismatch": "The number of matrices, vectors of criteria types and data extensions are different",
   "criteria-types-number-error": "Number of criteria should equals number of criteria types: ",
@@ -53,6 +55,41 @@
   "crisp-method-not-found": "crisp method not found",
   "additional-function-error": "Wrong metric was used: ",
 
+  "matrix-generation-bounds-error": "Lower bound of the matrix values should not be greater than upper bound",
+  "criteria-types-generation-error": "Number of criteria should be greater than 0",
+
   "locale-error": "locale is not handled",
-  "key-error": "Error message key was not handled"
+  "key-error": "Error message key was not handled",
+  "timeout-error": "It took too long to generate a response",
+
+  "block-type-error": "Block type not allowed. Check the block with ID ",
+  "matrix-no-connections": "No blocks were connected to matrix with ID ",
+  "weights-not-found": "Not found weights block with ID ",
+  "method-not-found": "Not found MCDA method block with ID ",
+  "ranking-not-found": "Not found ranking block with ID ",
+  "ranking-calculation-size": "Data for ranking calculation should have the same size",
+  "db-connection": "Cannot connect to database",
+  "db-collection-name": "Database has no collection named ",
+  "db-add-error": "Error while adding new item do database",
+  "crisp-params-not-found": "Crisp parameters for MCDA methods not found",
+  "fuzzy-params-not-found": "Fuzzy parameters for MCDA methods not found",
+  "call-kwargs-error": "Method call parameters error",
+  "matrix-data-error": "Error in matrix. Check the data format of node with ID ",
+  "method-name-not-found": "Method name not found",
+  "weights-error-calculation": "Error in weights calculation ",
+  "mcda-method-object-error": "Wrong parameters for multi-criteria method object creation",
+  "not-numeric-results": "Not numeric values in results",
+  "method-calculation-error": "Multi-criteria method calculation error",
+  "ranking-calculation-error": "Error in ranking calculation",
+  "correlation-generating-error": "Error in generating correlation results",
+  "visualization-data-error": "Error in retrieving visualization data ",
+  "visualization-calculation-error": "Error in preparing visualization data ",
+  "scatter-ranking-limit": "Only two rankings can be visualized with scatter plot",
+  "graphs-same-type": "Graphs should be generated for nodes with the same type",
+  "graph-generation-error": "Error in generating graph ",
+  "extension-not-found": "data extension not found",
+  "missing-esp-comet": "Missing key 'esp' for the COMET method for the ESP Expert variant",
+  "matrix-weights-size-error": "method produced wrong weights. Please try use other method for weights calculation",
+  "connection-structure-error": "Connection structure is wrong. Check the connection between nodes",
+  "correlation-same-size-error": "Data for correlation calculation should have the same size"
 }

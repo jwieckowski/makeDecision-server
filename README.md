@@ -76,6 +76,14 @@ cd makeDecision-server
 pip install -r requirements.txt
 ```
 
+- Build a Wheel distribution
+
+`python setup.py bdist_wheel`
+
+- Install package locally
+
+`pip install dist/mdserver-{package-version}-py3-none-any.whl`
+
 - Run the server
 
 ```

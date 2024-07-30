@@ -1,0 +1,44 @@
+{
+  "title": "For what purpose you are using the app?",
+  "options": [
+    {
+      "id": 1,
+      "label": "Private",
+      "name": "Private",
+      "type": "radio"
+    },
+    {
+      "id": 2,
+      "label": "Commercial",
+      "name": "Commercial",
+      "type": "radio"
+    },
+    {
+      "id": 3,
+      "label": "Academic",
+      "name": "Academic",
+      "type": "select",
+      "title": "Define your position",
+      "options": [
+        {
+          "id": 31,
+          "label": "Researcher",
+          "name": "Researcher",
+          "type": "radio"
+        },
+        {
+          "id": 32,
+          "label": "Teacher",
+          "name": "Teacher",
+          "type": "radio"
+        },
+        {
+          "id": 33,
+          "label": "Student",
+          "name": "Student",
+          "type": "radio"
+        }
+      ]
+    }
+  ]
+}
