@@ -8,11 +8,13 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-# System dependencies required by PostgreSQL client, scientific libs, etc.
+# System dependencies required by PostgreSQL client, Redis CLI, scientific libs, etc.
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     libpq-dev \
     curl \
+    postgresql-client \
+    redis-tools \
     && rm -rf /var/lib/apt/lists/*
 
 # ===== Dependencies stage =====
@@ -35,9 +37,14 @@ COPY --from=dependencies /usr/local/bin /usr/local/bin
 # Copy project
 COPY --chown=app:app . .
 
+# Make entrypoint executable
+RUN chmod +x /app/entrypoint.sh
+
 USER app
 
 EXPOSE 8000
 
-# Default command (overridden in docker-compose for worker/beat)
+ENTRYPOINT ["/app/entrypoint.sh"]
+
+# Default command (overridden in docker-compose)
 CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3", "--timeout", "120"]
